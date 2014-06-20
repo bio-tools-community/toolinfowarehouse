@@ -7,5 +7,6 @@ This project aims at importing and consolidating bioinformatics tool description
 - galaxy
 - seqwiki
 - debian-med
+
 and sooner or later also the global generic tools registry developed with the support from BioMedBridges and ELIXIR.
 
