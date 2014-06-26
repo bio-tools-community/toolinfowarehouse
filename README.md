@@ -1,6 +1,6 @@
 toolinfowarehouse
 =================
-This project aims at importing and consolidating bioinformatics tool descriptions from a number of tools metadata resources, so that they can be synchronised with tools registries, catalogues, or integrated frameworks (primarily the global generic BMB/ELIXIR tools registry). The resources in focus of this pilot attempt may include:
+This project aims at importing and consolidating bioinformatics tool descriptions from a number of tools metadata resources, so that they can be synchronised with tools registries, catalogues, or integrated frameworks (primarily the global generic BMB/ELIXIR tools registry [bioregistry.cbs.dtu.dk]). The resources in focus of this pilot attempt may include:
 - mobyle
 - gensoft
 - emboss
