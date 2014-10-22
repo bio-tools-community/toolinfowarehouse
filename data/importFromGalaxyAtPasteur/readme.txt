@@ -16,6 +16,10 @@ What is included in this directory:
 	  installed from toolshed (it's the first version, it will be improved)
 	  --> requirments: bioblend api available on github (https://github.com/afgane/bioblend.git)
 
+	-REMARKS: 
+	  1/xml version may not correspond to the tool version 
+	  2/
+
 What's next: 
 
    2/ Json enrichment with EDAM ontologies and other 
