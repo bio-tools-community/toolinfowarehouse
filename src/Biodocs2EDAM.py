@@ -5,7 +5,14 @@ import argparse
 import json
 import os
 import os.path
+
+# tweak modulecmd in order to use 3.3.a updated (not yet released)
+os.environ['PY_MODULECMD'] = '/local/gensoft2/adm/Modules/3.3.a/bin/modulecmd'
 import module_env as m
+
+
+#print ">>>>>> using: modulecmd %s\n" % (m.getmoduleversion())
+
 
 #---------- HUGLY SCRIPT TO EXTRACT INFOS FROM MODULE HELP  ----------
 #---------- AND GENSOFT BIODOCS                             ----------
@@ -31,6 +38,14 @@ def log(*msg):
         print >> LOGFH, "%s" %(' '.join(map(str, msg)))
 
 
+def get_edam(modname):
+    res=[]
+    whatis_str = m.modulewhatis(modname).split('\n')
+    for item in whatis_str:
+        if 'Categorie' in item:
+            res.append(item.split()[-1])
+    return res
+
 def get_info(modname):
     
     res = {}
@@ -41,7 +56,6 @@ def get_info(modname):
     name, version = fields[5][1:-1].split('/')
     res["name"] = name 
     res["version"] = version
-   # print help_str
     #get commands list
     try:
         idx = help_str.index('package provides following commands:')
@@ -84,6 +98,13 @@ def get_info(modname):
         res['description'] = ' '.join(help_str[:warn_idx])
     else:
         res['description'] = ' '.join(help_str)
+        
+    # get internal categories from module display 
+    edamcat = get_edam(modname)
+    if edamcat:
+        res['categories'] = edamcat
+    else:
+        print >> sys.stderr, "%s: no EDAM categories\n" %(modname)
 
     # grab author and publications from BIODOCS
     author, publications = get_refs(name)
@@ -168,11 +189,13 @@ def json_generator(pack, tools):
     # remove dependencies, as they may be non relevant ones.
     if 'uses' in pack:
         del pack['uses']
-    # remove authors and references as they are already documented in package xml.
+    # remove categories, authors and references as they are already documented in package xml.
     if 'authors' in pack:
         del pack['authors']
     if 'publications' in pack:
         del pack['publications']
+    if 'categories' in pack:
+        del pack['categories']
 
     for tool in tools:
         if not tool:
@@ -195,6 +218,7 @@ if __name__ == '__main__':
     
 
     for module in modules:
+        print "<<<<<<<<<", module
         if not '/' in module:
             continue
         if module.startswith('test/') or module.startswith('alacon'):
