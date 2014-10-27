@@ -1,17 +1,18 @@
-'''
+"""
 Created on Oct. 23, 2014
 
 @author: Olivia Doppelt-Azeroual
 @contact: olivia.doppelt@pasteur.fr
 @project: toolinfowarehouse
 @organization: edamontology
-'''
+"""
 
 import sys
 import os
 import pprint
 import string
 import argparse
+import json
 
 from bioblend.galaxy.client import ConnectionError
 from bioblend.galaxy import GalaxyInstance
@@ -103,8 +104,8 @@ if __name__ == "__main__":
 
     for tool in tools_meta_data:
         tool_name = build_tool_name(tool[u'id'])
-        tool_file = open(os.path.join(os.getcwd(), args.tool_dir, tool_name + json_ext), 'w')
-        general_dict = build_metadata_one(tool)
-        general_dict[u'fonction'] = build_fonction_dict(tool)
-        pprint.pprint(general_dict, tool_file)
-        tool_file.close()
+        with open(os.path.join(os.getcwd(), args.tool_dir, tool_name + json_ext), 'w') as tool_file:
+            general_dict = build_metadata_one(tool)
+            general_dict[u'fonction'] = build_fonction_dict(tool)
+            json.dump(general_dict, tool_file, indent=4)
+            tool_file.close()
