@@ -16,6 +16,13 @@ What is included in this directory:
 	  installed from toolshed (it's the first version, it will be improved)
 	  --> requirments: bioblend api available on github (https://github.com/afgane/bioblend.git)
 
+	
+	-TIPS:
+	 How to use the script:
+	 #python galaxy_biotool_parser.py --galaxy_url $GALAXYURL --api_key $APIKEY --tool_dir ../biotools_from_galaxy_at_pasteur
+	 Remark: the directory of tool metadata, needs to be created before running the script.
+
+	
 	-REMARKS: 
 	  1/xml version may not correspond to the tool version 
 	  2/
