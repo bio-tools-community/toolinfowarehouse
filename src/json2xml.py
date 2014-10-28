@@ -12,6 +12,7 @@ def generate_xmls(json_filenames):
     xml_template = pystache.parse(xml_template_str)
     for tool_path in json_filenames:
         desc = json.load(open(tool_path))
+        desc['collectionName'] = desc['collectionName'].capitalize()
         print pystache.render(xml_template, desc)
 
 if __name__ == '__main__':
