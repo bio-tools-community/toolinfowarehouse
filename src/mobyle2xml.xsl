@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://biotoolsregistry.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <xsl:variable name="operations" select="document('mobyle_operations.xml')"/>
+    <xsl:variable name="topics" select="document('mobyle_topics.xml')"/>
+
     <xsl:template match="/program">
         <tools xsi:schemaLocation="http://biotoolsregistry.org/biotools-beta04.xsd" >
         <tool>
@@ -31,19 +35,21 @@
                 <publications>
                     <xsl:apply-templates select="head/doc/reference/@doi" />
                 </publications>
+                <function>
+                    <xsl:for-each select="$operations//tool[@name=current()/head/name/text()]/operation">
+                        <functionName uri="{text()}">??</functionName>
+                    </xsl:for-each>
+                </function>
+                <xsl:for-each select="$topics//tool[@name=current()/head/name/text()]/topic">
+                    <topic uri="{text()}">??</topic>
+                </xsl:for-each>
         </tool>
         </tools>
     </xsl:template>
 
     <xsl:template match="authors">
         <credits>
-                  <contributor><xsl:value-of select="text()" /></contributor>
-        </credits>
-    </xsl:template>
-
-    <xsl:template match="authors">
-        <credits>
-                  <contributor><xsl:value-of select="text()" /></contributor>
+                <contributor><xsl:value-of select="text()" /></contributor>
         </credits>
     </xsl:template>
 
