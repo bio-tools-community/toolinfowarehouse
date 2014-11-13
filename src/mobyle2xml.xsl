@@ -2,6 +2,8 @@
 <xsl:stylesheet version="1.0"
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://biotoolsregistry.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+    <xsl:param name="target" select="mobyle_root"/>
+
     <xsl:variable name="operations" select="document('mobyle_operations.xml')"/>
     <xsl:variable name="topics" select="document('mobyle_topics.xml')"/>
 
@@ -22,6 +24,7 @@
                         <xsl:value-of select="head/version/text()" />
                     </xsl:if>
                 </name>
+                <homepage><xsl:value-of select="$mobyle-root" />#forms::<xsl:value-of select="head/name/text()" /></homepage>
                 <version><xsl:value-of select="head/version/text()" /></version>
                 <collectionName>Mobyle</collectionName>
                 <xsl:if test="head/package">
