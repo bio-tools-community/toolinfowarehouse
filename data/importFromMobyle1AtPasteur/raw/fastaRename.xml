@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Herve Menager                                                  -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 Licence. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>fastaRename</name>
+    <version>1.0</version>
+    <doc>
+      <title>fasta header shortener</title>
+      <description>
+        <text lang="en">helps out with the 10-character limit of the PHYLIP-PHYML formats</text>
+      </description>
+      <authors>Bertrand Néron</authors>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            Due to an incompatibility between the PHYLIP format and phyml and morePhyml named rules, 
+            the using of long identifier in phyml or morePhyml failed. We proposed the following workaround:
+            <ol>
+            <li>use fastaRename to generate an alignment with short ID and a file of ID mapping</li>
+            <li>perform your analysis with the alignment with short id</li>
+            <li>replace the short IDs in your tree (in NEWICK format) with nw_rename and the file of IDs mapping generated at the step 1.</li>
+          </ol>
+        </div>
+      </comment>
+    </doc>
+    <command>fastaRename</command>
+    <category>sequence:formatter</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input sequence file<a href="#idm140117723907552::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+          <a href="#idm140117723907552::comment" class="blindLink commentToggle" title="click to expand/collapse contextual help">?</a>
+        </legend>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117723907552::example" data-forparameter="input" style="display:none">
+          <pre>&amp;gt;VERY_VERY_LONG_ID1
+---AAAAGAAAATAGTNNTTCTGGTTGATCCTGCCAGAGGCCATTGCTATCAGGGTNTGACTAAGCCATGCGAGTCGAGAGGTGT-------AAGACCTCGGC
+ATACTGCTCAGTAACAC
+&amp;gt;&amp;gt;VERY_VERY_LONG_ID2
+--------------------------AACGAACGCTGGCGGCGTGCTTAACACATGCAAGTCGAACGCGAAAGGGG--GCTTCGGCGGGGGGAGTAGAGTGGC
+GCACGGGTGAGTAACGC
+&amp;gt;&amp;gt;VERY_VERY_LONG_ID3
+TTATGGAGAGTTTGATCCTGGCTCAGAGTGAACGCTGGCGGCGTGCCTAATACATGCAAGTCGAACGATGAAGCTTTTAGCTTGCTAGAAGTGGATTAGTGGC
+GCACGGGTGAGTAATGC
+</pre>
+        </div>
+        <div id="idm140117723907552::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117723907552::example" data-forparameter="input">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>&amp;gt;VERY_VERY_LONG_ID1
+---AAAAGAAAATAGTNNTTCTGGTTGATCCTGCCAGAGGCCATTGCTATCAGGGTNTGACTAAGCCATGCGAGTCGAGAGGTGT-------AAGACCTCGGC
+ATACTGCTCAGTAACAC
+&amp;gt;&amp;gt;VERY_VERY_LONG_ID2
+--------------------------AACGAACGCTGGCGGCGTGCTTAACACATGCAAGTCGAACGCGAAAGGGG--GCTTCGGCGGGGGGAGTAGAGTGGC
+GCACGGGTGAGTAACGC
+&amp;gt;&amp;gt;VERY_VERY_LONG_ID3
+TTATGGAGAGTTTGATCCTGGCTCAGAGTGAACGCTGGCGGCGTGCCTAATACATGCAAGTCGAACGATGAAGCTTTTAGCTTGCTAGAAGTGGATTAGTGGC
+GCACGGGTGAGTAATGC
+</pre>
+          </div>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="input" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="input" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_fasta" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724009184::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724009184::comment" class="commentText" style="display:none" mode="ajaxTarget">type any kind of text</xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_map" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ID_Mapping" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ID_Mapping)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>input</name>
+      <prompt lang="en">Input sequence file</prompt>
+      <example>&gt;VERY_VERY_LONG_ID1
+---AAAAGAAAATAGTNNTTCTGGTTGATCCTGCCAGAGGCCATTGCTATCAGGGTNTGACTAAGCCATGCGAGTCGAGAGGTGT-------AAGACCTCGGC
+ATACTGCTCAGTAACAC
+&gt;&gt;VERY_VERY_LONG_ID2
+--------------------------AACGAACGCTGGCGGCGTGCTTAACACATGCAAGTCGAACGCGAAAGGGG--GCTTCGGCGGGGGGAGTAGAGTGGC
+GCACGGGTGAGTAACGC
+&gt;&gt;VERY_VERY_LONG_ID3
+TTATGGAGAGTTTGATCCTGGCTCAGAGTGAACGCTGGCGGCGTGCCTAATACATGCAAGTCGAACGATGAAGCTTTTAGCTTGCTAGAAGTGGATTAGTGGC
+GCACGGGTGAGTAATGC
+</example>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str(value)</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Input sequence file</xhtml:legend>
+          <xhtml:textarea name="input" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="input">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>output_fasta</name>
+      <prompt lang="en">Output file with renamed headers</prompt>
+      <comment>type any kind of text</comment>
+      <example>example text</example>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.rename.fasta"</code>
+        <code proglang="python">"*.rename.fasta"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="output_fasta">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724009184::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724009184::comment" class="commentText" style="display:none" mode="ajaxTarget">type any kind of text</xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>output_map</name>
+      <prompt lang="en">Output file header map</prompt>
+      <type>
+        <datatype>
+          <class>ID_Mapping</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.map"</code>
+        <code proglang="python">"*.map"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ID_Mapping" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="output_map">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ID_Mapping)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"fastaRename.out"</code>
+        <code proglang="python">"fastaRename.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"fastaRename.err"</code>
+        <code proglang="python">"fastaRename.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

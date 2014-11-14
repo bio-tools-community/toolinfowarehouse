@@ -1,0 +1,1359 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>mspcrunch</name>
+    <version>2.5</version>
+    <doc>
+      <title>MSPcrunch</title>
+      <description>
+        <text lang="en">A BLAST post-processing filter</text>
+      </description>
+      <authors>Sonnhammer, Durbin</authors>
+      <doclink>http://bioweb2.pasteur.fr/docs/mspcrunch/MSPcrunch2.pdf</doclink>
+      <homepagelink>http://sonnhammer.sbc.su.se/MSPcrunch.html</homepagelink>
+      <sourcelink>http://sonnhammer.sbc.su.se/download/software/MSPcrunch+Blixem/</sourcelink>
+    </doc>
+    <category>database:search:display</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="blast_output">
+            <legend>BLAST output File</legend>
+            <xhtml:textarea name="blast_output" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="force_blastp">Force Blastp mode (default Blastx) (-p)<xhtml:select name="force_blastp">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="force_blastn">Force Blastn mode (default Blastx) (-n)<xhtml:select name="force_blastn">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="analyse_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapped">Make gapped alignment of ungapped-MSP contigs (-G)<xhtml:select name="gapped">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cov_limit">Set coverage limit (-l)<xhtml:a href="#idm140117721082752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="cov_limit" type="text" value="10"/>
+            <xhtml:div id="idm140117721082752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>0 = No coverage rejection</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="old_cutoff">Use old step cutoffs for adjacency instead of the new continuous system. (-O)<xhtml:select name="old_cutoff">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dont_reject">Don't reject any MSPs (-w)<xhtml:select name="dont_reject">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="report_rejected">Report only rejected MSPs (-r)<xhtml:select name="report_rejected">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="threshold_id">Reject all matches with less than this % identity (-I)<xhtml:input name="threshold_id" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="threshold_length">Reject all matches with length less than this value (-L)<xhtml:input name="threshold_length" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="expect">Reject all matches with E-value higher than this value (-e)<xhtml:input name="expect" type="text" value=""/>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="query">
+            <legend>Read in query seq (for rereading .seqbl files) (-Q)</legend>
+            <xhtml:textarea name="query" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="whole_contig">Coverage limitation requires whole contig to be covered (always for Blastp) (-a)<xhtml:select name="whole_contig">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hits_to_self">Accept hits to self (-s)<xhtml:select name="hits_to_self">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="no_hits_to_earlier">Ignore hits to earlier seqnames (for All-vs-All) (-A)<xhtml:select name="no_hits_to_earlier">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stats_without_X">Recalculate percentage identity, ignoring X residues. (-j)<xhtml:select name="stats_without_X">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stats_without_end">Recalculate percentage identity, ignoring mismatches at ends. (-J)<xhtml:select name="stats_without_end">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="silent_mutations">Do Statistics of Silent mutations (only cDNA!) (-S)<xhtml:select name="silent_mutations">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix_stats">Print statistics on used matrices (-E)<xhtml:select name="matrix_stats">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="all_expected">Print all Expected scores (default only when positive) (-X)<xhtml:select name="all_expected">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="line_length">Line length of Wrapped alignment (-W)<xhtml:input name="line_length" type="text" value=""/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="big_pict">Big Picture output (-P)<xhtml:select name="big_pict">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matches_one_line">For Big Picture output, force all matches to the same subject on one line (-F)<xhtml:select name="matches_one_line">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sfs">Produce SFS output (-H)<xhtml:select name="sfs">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqbl">Produce seqbl  output for Blixem (-q)<xhtml:select name="seqbl">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wublast_numbered">Indicate query insertions with numbers (For seqbl output from Wublast) (-N)<xhtml:select name="wublast_numbered">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ace">Produce .ace output (for ACEDB 4) (-4)<xhtml:select name="ace">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dont_mirror">Don't mirror (i.e. print the subject object) in ACE4 format (-M)<xhtml:select name="dont_mirror">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="exblx">Produce exblx output (for easy parsing) (-x)<xhtml:select name="exblx">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="exbldb">Produce exbldb output (as exblx with query names) (-d)<xhtml:select name="exbldb">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fasta">Produce fasta output (unaligned, for mult.alignm.) (-2)<xhtml:select name="fasta">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="three_frame">Print 3 frame translation (blastn only) (-3)<xhtml:select name="three_frame">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="footer">Print footer with parameters and stats (-f)<xhtml:select name="footer">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="percentage_id">Print percentage identity (seqbl output only) (-i)<xhtml:select name="percentage_id">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stats">Output coverage stats?<xhtml:select name="stats">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="domainer">Produce output for Domainer (trim overlaps) (-D)<xhtml:select name="domainer">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mspcrunch" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input_options">
+        <xhtml:legend>Input Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="blast_output" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(BlastTextReport)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="force_blastp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="force_blastn" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="analyse_options">
+        <xhtml:legend>Control options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gapped" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cov_limit" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117721082752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117721082752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>0 = No coverage rejection</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="old_cutoff" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dont_reject" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="report_rejected" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="threshold_id" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="threshold_length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="expect" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="query" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="whole_contig" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hits_to_self" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="no_hits_to_earlier" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stats_without_X" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stats_without_end" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="silent_mutations" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="matrix_stats" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="all_expected" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="line_length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="big_pict" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="matches_one_line" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sfs" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqbl" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="wublast_numbered" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ace" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dont_mirror" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="exblx" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="exbldb" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fasta" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="three_frame" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="footer" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="percentage_id" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stats" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="domainer" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stats_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter iscommand="1" ishidden="1">
+      <name>mspcrunch</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"MSPcrunch"</code>
+        <code proglang="python">"MSPcrunch"</code>
+      </format>
+      <argpos>0</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mspcrunch"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>input_options</name>
+      <prompt lang="en">Input Options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter ismandatory="1" issimple="1">
+          <name>blast_output</name>
+          <prompt lang="en">BLAST output File</prompt>
+          <type>
+            <datatype>
+              <class>BlastTextReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">" $value"</code>
+            <code proglang="python">" "+str(value)</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>BLAST output File</xhtml:legend>
+              <xhtml:textarea name="blast_output" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="blast_output">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BlastTextReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>force_blastp</name>
+          <prompt lang="en">Force Blastp mode (default Blastx) (-p)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -p" : "" </code>
+            <code proglang="python">( ""  , " -p" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Force Blastp mode (default Blastx) (-p)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="force_blastp">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="force_blastp"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>force_blastn</name>
+          <prompt lang="en">Force Blastn mode (default Blastx) (-n)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -n" : "" </code>
+            <code proglang="python">( ""  , " -n" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Force Blastn mode (default Blastx) (-n)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="force_blastn">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="force_blastn"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>analyse_options</name>
+      <prompt lang="en">Control options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>gapped</name>
+          <prompt lang="en">Make gapped alignment of ungapped-MSP contigs (-G)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -G" : "" </code>
+            <code proglang="python">( ""  , " -G" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Make gapped alignment of ungapped-MSP contigs (-G)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gapped">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapped"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>cov_limit</name>
+          <prompt lang="en">Set coverage limit (-l)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -l $value" : "" </code>
+            <code proglang="python">( ""  , " -l "+str(value) )[ value is not None  and value !=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">0 = No coverage rejection</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set coverage limit (-l)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721082752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cov_limit" type="text" value="10"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721082752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>0 = No coverage rejection</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cov_limit">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721082752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721082752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>0 = No coverage rejection</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>old_cutoff</name>
+          <prompt lang="en">Use old step cutoffs for adjacency instead of the new continuous system. (-O)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -O" : "" </code>
+            <code proglang="python">( ""  , " -O" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use old step cutoffs for adjacency instead of the new continuous system. (-O)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="old_cutoff">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="old_cutoff"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dont_reject</name>
+          <prompt lang="en">Don't reject any MSPs (-w)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -w" : "" </code>
+            <code proglang="python">( ""  , " -w" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Don't reject any MSPs (-w)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dont_reject">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dont_reject"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>report_rejected</name>
+          <prompt lang="en">Report only rejected MSPs (-r)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -r" : "" </code>
+            <code proglang="python">( ""  , " -r" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Report only rejected MSPs (-r)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="report_rejected">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="report_rejected"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>threshold_id</name>
+          <prompt lang="en">Reject all matches with less than this % identity (-I)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -I $value" : "" </code>
+            <code proglang="python">( ""  , " -I " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Reject all matches with less than this % identity (-I)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="threshold_id" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="threshold_id"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>threshold_length</name>
+          <prompt lang="en">Reject all matches with length less than this value (-L)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -L $value" : "" </code>
+            <code proglang="python">( ""  , " -L " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Reject all matches with length less than this value (-L)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="threshold_length" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="threshold_length"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>expect</name>
+          <prompt lang="en">Reject all matches with E-value higher than this value (-e)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -e $value" : ""</code>
+            <code proglang="python">( "" , " -e " + str(value))[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Reject all matches with E-value higher than this value (-e)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="expect" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="expect"/>
+          </interface>
+        </parameter>
+        <!-- core dumped
+
+	<parameter>
+	  <name>matrix</name>
+	  <prompt lang="en">Scoring matrix (PAM or BLOSUM) (-m)</prompt>
+	  <type>
+	    <datatype>
+	      <class>ScoringMatrix</class>
+	      <superclass>AbstractText</superclass>
+	    </datatype>
+	  </type>
+	  <format>
+	    <code proglang="perl"> ($value) ? " -m $value" : ""</code>
+	    <code proglang="python">( "" , " -m " + str(value) )[ value is not None ]</code>
+	  </format>
+	</parameter>
+-->
+        <parameter>
+          <name>query</name>
+          <prompt lang="en">Read in query seq (for rereading .seqbl files) (-Q)</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -Q $query" : "" </code>
+            <code proglang="python">( ""  , " -Q " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Read in query seq (for rereading .seqbl files) (-Q)</xhtml:legend>
+              <xhtml:textarea name="query" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="query">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>whole_contig</name>
+          <prompt lang="en">Coverage limitation requires whole contig to be covered (always for Blastp) (-a)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -a" : "" </code>
+            <code proglang="python">( ""  , " -a" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Coverage limitation requires whole contig to be covered (always for Blastp) (-a)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="whole_contig">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="whole_contig"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>hits_to_self</name>
+          <prompt lang="en">Accept hits to self (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -s" : "" </code>
+            <code proglang="python">( ""  , " -s" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Accept hits to self (-s)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="hits_to_self">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hits_to_self"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>no_hits_to_earlier</name>
+          <prompt lang="en">Ignore hits to earlier seqnames (for All-vs-All) (-A)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -A" : "" </code>
+            <code proglang="python">( ""  , " -A" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ignore hits to earlier seqnames (for All-vs-All) (-A)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="no_hits_to_earlier">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="no_hits_to_earlier"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>stats_without_X</name>
+          <prompt lang="en">Recalculate percentage identity, ignoring X residues. (-j)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -j" : "" </code>
+            <code proglang="python">( ""  , " -j" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Recalculate percentage identity, ignoring X residues. (-j)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="stats_without_X">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stats_without_X"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>stats_without_end</name>
+          <prompt lang="en">Recalculate percentage identity, ignoring mismatches at ends. (-J)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -J" : "" </code>
+            <code proglang="python">( ""  , " -J" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Recalculate percentage identity, ignoring mismatches at ends. (-J)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="stats_without_end">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stats_without_end"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>silent_mutations</name>
+          <prompt lang="en">Do Statistics of Silent mutations (only cDNA!) (-S)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -S" : "" </code>
+            <code proglang="python">( ""  , " -S" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do Statistics of Silent mutations (only cDNA!) (-S)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="silent_mutations">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="silent_mutations"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>matrix_stats</name>
+          <prompt lang="en">Print statistics on used matrices (-E)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -E" : "" </code>
+            <code proglang="python">( ""  , " -E" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print statistics on used matrices (-E)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="matrix_stats">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix_stats"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>all_expected</name>
+          <prompt lang="en">Print all Expected scores (default only when positive) (-X)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -X" : "" </code>
+            <code proglang="python">( ""  , " -X" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print all Expected scores (default only when positive) (-X)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="all_expected">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="all_expected"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>line_length</name>
+          <prompt lang="en">Line length of Wrapped alignment (-W)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -W $value" : "" </code>
+            <code proglang="python">( ""  , " -W " +str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Line length of Wrapped alignment (-W)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="line_length" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="line_length"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_options</name>
+      <prompt lang="en">Output Options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter isstdout="1">
+          <name>outfile</name>
+          <prompt lang="en">Result file</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"mspcrunch.out" </code>
+            <code proglang="python">"mspcrunch.out" </code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>big_pict</name>
+          <prompt lang="en">Big Picture output (-P)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -P" : "" </code>
+            <code proglang="python">( ""  , " -P" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Big Picture output (-P)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="big_pict">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="big_pict"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>matches_one_line</name>
+          <prompt lang="en">For Big Picture output, force all matches to the same subject on one line (-F)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$big_pict</code>
+            <code proglang="python">big_pict</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -F" : "" </code>
+            <code proglang="python">( ""  , " -F" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">For Big Picture output, force all matches to the same subject on one line (-F)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="matches_one_line">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matches_one_line"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>sfs</name>
+          <prompt lang="en">Produce SFS output (-H)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -H" : ""</code>
+            <code proglang="python">( "" , " -H" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce SFS output (-H)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sfs">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sfs"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>seqbl</name>
+          <prompt lang="en">Produce seqbl  output for Blixem (-q)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -q" : "" </code>
+            <code proglang="python">( ""  , " -q" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce seqbl  output for Blixem (-q)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqbl">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqbl"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>wublast_numbered</name>
+          <prompt lang="en">Indicate query insertions with numbers (For seqbl output from Wublast) (-N)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$seqbl</code>
+            <code proglang="python">seqbl</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -N" : "" </code>
+            <code proglang="python">( ""  , " -N" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Indicate query insertions with numbers (For seqbl output from Wublast) (-N)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="wublast_numbered">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wublast_numbered"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ace</name>
+          <prompt lang="en">Produce .ace output (for ACEDB 4) (-4)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -4" : "" </code>
+            <code proglang="python">( ""  , " -4" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce .ace output (for ACEDB 4) (-4)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ace">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ace"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dont_mirror</name>
+          <prompt lang="en">Don't mirror (i.e. print the subject object) in ACE4 format (-M)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$ace</code>
+            <code proglang="python">ace</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -M" : "" </code>
+            <code proglang="python">( ""  , " -M" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Don't mirror (i.e. print the subject object) in ACE4 format (-M)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dont_mirror">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dont_mirror"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>exblx</name>
+          <prompt lang="en">Produce exblx output (for easy parsing) (-x)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -x" : "" </code>
+            <code proglang="python">( ""  , " -x" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce exblx output (for easy parsing) (-x)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="exblx">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="exblx"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>exbldb</name>
+          <prompt lang="en">Produce exbldb output (as exblx with query names) (-d)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -d" : "" </code>
+            <code proglang="python">( ""  , " -d" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce exbldb output (as exblx with query names) (-d)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="exbldb">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="exbldb"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>fasta</name>
+          <prompt lang="en">Produce fasta output (unaligned, for mult.alignm.) (-2)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -2" : "" </code>
+            <code proglang="python">( ""  , " -2" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce fasta output (unaligned, for mult.alignm.) (-2)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="fasta">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fasta"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>three_frame</name>
+          <prompt lang="en">Print 3 frame translation (blastn only) (-3)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -3" : "" </code>
+            <code proglang="python">( ""  , " -3" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print 3 frame translation (blastn only) (-3)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="three_frame">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="three_frame"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>footer</name>
+          <prompt lang="en">Print footer with parameters and stats (-f)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -f" : "" </code>
+            <code proglang="python">( ""  , " -f" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print footer with parameters and stats (-f)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="footer">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="footer"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>percentage_id</name>
+          <prompt lang="en">Print percentage identity (seqbl output only) (-i)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$seqbl</code>
+            <code proglang="python">seqbl</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -i" : "" </code>
+            <code proglang="python">( ""  , " -i" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print percentage identity (seqbl output only) (-i)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="percentage_id">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="percentage_id"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>stats</name>
+          <prompt lang="en">Output coverage stats?</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">""</code>
+            <code proglang="python">""</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output coverage stats?<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="stats">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stats"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>stats_file</name>
+          <prompt lang="en">Coverage stats outputfile</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$stats</code>
+            <code proglang="python">stats</code>
+          </precond>
+          <format>
+            <code proglang="perl">($value) ? " -o mspcrunch.stats" : "" </code>
+            <code proglang="python">( ""  , " -o mspcrunch.stats" )[ value is not None ]</code>
+          </format>
+          <filenames>
+            <code proglang="perl">"mspcrunch.stats"</code>
+            <code proglang="python">"mspcrunch.stats"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stats_file">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>domainer</name>
+          <prompt lang="en">Produce output for Domainer (trim overlaps) (-D)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -D" : "" </code>
+            <code proglang="python">( ""  , " -D" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce output for Domainer (trim overlaps) (-D)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="domainer">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="domainer"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"mspcrunch.err"</code>
+        <code proglang="python">"mspcrunch.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

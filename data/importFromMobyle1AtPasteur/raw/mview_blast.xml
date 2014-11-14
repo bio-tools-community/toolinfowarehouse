@@ -1,0 +1,2124 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>mview_blast</name>
+    <package xml:base="Entities/mview_package.xml">
+      <name>mview</name>
+      <version>1.49</version>
+      <doc>
+        <title>Pretty viewer</title>
+        <description>
+          <text lang="en">Pretty viewer</text>
+        </description>
+      </doc>
+    </package>
+    <doc>
+      <title>MVIEW</title>
+      <description>
+        <text lang="en">Reformats the results of a sequence database search BLAST</text>
+      </description>
+      <authors>N. P. Brown</authors>
+      <reference>Brown, N.P., Leroy C., Sander C. (1998). MView: A Web compatible database search or multiple alignment viewer. Bioinformatics. 14(4):380-381.</reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/mview/index.html</doclink>
+      <homepagelink>http://bio-mview.sourceforge.net/</homepagelink>
+    </doc>
+    <command>mview</command>
+    <category>database:search:display</category>
+    <category>display:database:search</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="blast">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Blast text Report</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="blast" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="html" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outformat">Output format (-out)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outformat">
+          <xhtml:option value="html" selected="selected">HTML</xhtml:option>
+          <xhtml:option value="msf">GCG/MSF</xhtml:option>
+          <xhtml:option value="pearson">Pearson/FASTA</xhtml:option>
+          <xhtml:option value="pir">PIR/CODATA</xhtml:option>
+          <xhtml:option value="rdb">RDB table for storage/manipulation in relational database form</xhtml:option>
+        </xhtml:select>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="main_formatting_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Main formatting options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ruler">Attach a ruler (-ruler)<xhtml:select name="ruler">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alignment">Show alignment (-alignment)<xhtml:select name="alignment">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consensus">Show consensus (-consensus)<xhtml:select name="consensus">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dna">Use DNA/RNA colormaps and/or consensus groups (-dna)<xhtml:select name="dna">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="alignment_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Alignment options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="coloring">Colour scheme (-coloring)<xhtml:a href="#idm140117701250176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="coloring">
+              <xhtml:option value="none" selected="selected">No colouring</xhtml:option>
+              <xhtml:option value="any">Colour all the residues</xhtml:option>
+              <xhtml:option value="identity">Colouring by identity to the first sequence</xhtml:option>
+              <xhtml:option value="consensus">Colour only when above a given percent similarity</xhtml:option>
+              <xhtml:option value="group">Colours residues by the colour of the class to which they belong</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117701250176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <div>
+                <ul>
+                  <li>
+                    <em>Colour all the residues</em>, will colour every residue according to the currently selected palette.</li>
+                  <li>
+                    <em>Colouring by identity to the first sequence</em>, will colour only those residues that are identical to some reference sequence (usually the query or first row).</li>
+                  <li>
+                    <em>Colour only when above a given percent similarity</em>, will colour only those residues that belong to a specified physicochemical class that is conserved in at least a specified percentage of all rows for a given column. This defaults to 70% and and may be set to another threshold, eg., -coloring consensus -threshold 80 would specify 80%. Note that the physicochemical classes in question can be confined to individual residues.</li>
+                  <li>
+                    <em>Colours residues by the colour of the class to which they belong</em>, is like -coloring consensus, but colours residues by the colour of the class to which they belong.</li>
+                </ul>
+                <p>By default, the consensus computation counts gap characters, so that sections of the alignment may be uncolored where the presence of gaps prevents the non-gap count from reaching the threshold. Setting -con_gaps off prevents this, allowing sequence-only based consensus thresholding.</p>
+              </div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="70.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="threshold">Threshold percentage for consensus coloring (-threshold)<xhtml:input name="threshold" type="text" value="70.0"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ignore">Ignore singleton or class group (-ignore)<xhtml:a href="#idm140117702028752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="ignore">
+              <xhtml:option value="class">Class</xhtml:option>
+              <xhtml:option value="none" selected="selected">None</xhtml:option>
+              <xhtml:option value="singleton">Singleton</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117702028752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tip: If you want to see only the conserved residues above the threshold (ie., only one type of conserved residue per column), add the option -ignore class. </xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="consensus_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Consensus options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="con_coloring">Basic style of coloring (-con_coloring)<xhtml:a href="#idm140117701230288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="con_coloring">
+              <xhtml:option value="any">Colour all the residues (any)</xhtml:option>
+              <xhtml:option value="identity">Colouring by identity to the first sequence (identity)</xhtml:option>
+              <xhtml:option value="none" selected="selected">No colouring (none)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117701230288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <div>
+                <p>Colouring of an alignment by consensus determines which residues to colour and the colours to use based on</p>
+                <ol>
+                  <li>the consensus threshold chosen for the colouring operation,</li>
+                  <li>a consideration of the common physicochemical properties of the residues in that column,</li>
+                  <li>the chosen colour scheme.</li>
+                </ol>
+              </div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100,90,80,70" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="con_threshold">Consensus line thresholds (in range 50..100) (separated by commas) (-con_threshold)<xhtml:input name="con_threshold" type="text" value="100,90,80,70"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="con_ignore">Ignore singleton or class group (-con_ignore)<xhtml:select name="con_ignore">
+              <xhtml:option value="class">Class</xhtml:option>
+              <xhtml:option value="none" selected="selected">None</xhtml:option>
+              <xhtml:option value="singleton">Singleton</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="hybrid_alignment_consensus_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Hybrid alignment and consensus options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="con_gaps">Count gaps during consensus computations (-con_gaps)<xhtml:select name="con_gaps">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="general_row_column_filters">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">General row/column filters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="top">Report top N hits (-top)<xhtml:input name="top" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="range">Display column range M:N (-range)<xhtml:a href="#idm140117701219104::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="range" type="text" value=""/>
+            <xhtml:div id="idm140117701219104::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxident">Only report sequences with percent identity &lt;= N (-maxident)<xhtml:input name="maxident" type="text" value="100"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ref">Use row N or row identifier as percent identity reference (-ref)<xhtml:input name="ref" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="keep_only">Keep only the rows from start to end (separated by comma) (-keep)<xhtml:a href="#idm140117700485856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="keep_only" type="text" value=""/>
+            <xhtml:div id="idm140117700485856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="disc">Discard rows from start to end (separated by comma) (-disc)<xhtml:a href="#idm140117700359296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="disc" type="text" value=""/>
+            <xhtml:div id="idm140117700359296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nops">Display rows unprocessed (separated by comma ) (-nops)<xhtml:a href="#idm140117700033152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="nops" type="text" value=""/>
+            <xhtml:div id="idm140117700033152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="general_formatting_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">General formatting options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="width">Paginate in N columns of alignment (-width)<xhtml:input name="width" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap">Use this character as the gap (-gap)<xhtml:input name="gap" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label0">Switch off label: row number (-label0)<xhtml:select name="label0">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label1">Switch off label: identifier (-label1)<xhtml:select name="label1">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label2">Switch off label: description (-label2)<xhtml:select name="label2">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label3">Switch off label: scores (-label3)<xhtml:select name="label3">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label4">Switch off label: percent identity (-label4)<xhtml:select name="label4">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="register">Output multi-pass alignments with columns in register (-register)<xhtml:select name="register">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="blast_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">BLAST options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="ranked" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hsp">HSP tiling method (-hsp)<xhtml:select name="hsp">
+              <xhtml:option value="all">All</xhtml:option>
+              <xhtml:option value="discrete">Discrete</xhtml:option>
+              <xhtml:option value="ranked" selected="selected">Ranked</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="all" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="strand">Report only these query strand orientations (-strand)<xhtml:select name="strand">
+              <xhtml:option value="p">Plus (p)</xhtml:option>
+              <xhtml:option value="m">Minus (m)</xhtml:option>
+              <xhtml:option value="all" selected="selected">Both</xhtml:option>
+            </xhtml:select>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="blast1_options">
+            <legend>BLAST series 1 options</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxpval">Ignore hits with p-value more than N (-maxpval)<xhtml:input name="maxpval" type="text" value=""/>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minscore">Ignore hits with score less than N (-minscore)<xhtml:input name="minscore" type="text" value=""/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="blast2_options">
+            <legend>BLAST series 2 options</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxeval">Ignore hits with p-value more than N -- Blast2 only (-maxeval)<xhtml:input name="maxeval" type="text" value=""/>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minbits">Ignore hits with bits less than N (-minbits)<xhtml:input name="minbits" type="text" value=""/>
+              </label>
+              <fieldset class="minimizable" data-paragraphname="psi_options">
+                <legend>PSI-BLAST options</legend>
+                <xhtml:div>
+                  <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cycle">Process the Nth cycle of a multipass search (-cycle)<xhtml:input name="cycle" type="text" value=""/>
+                  </label>
+                </xhtml:div>
+              </fieldset>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="html_markup_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">HTML markup options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="full" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="html_output">Amount of HTML markup (-html)<xhtml:select name="html_output">
+              <xhtml:option value="full" selected="selected">Full</xhtml:option>
+              <xhtml:option value="head">Head</xhtml:option>
+              <xhtml:option value="body">Body</xhtml:option>
+              <xhtml:option value="data">Data</xhtml:option>
+              <xhtml:option value="css">CSS</xhtml:option>
+              <xhtml:option value="off">OFF</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Title">Page title string<xhtml:input name="Title" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="white" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pagecolor">Page background color (-pagecolor)<xhtml:input name="pagecolor" type="text" value="white"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="black" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="textcolor">Page text color (-textcolor)<xhtml:input name="textcolor" type="text" value="black"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="blue" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="linkcolor">Link color (-linkcolor)<xhtml:input name="linkcolor" type="text" value="blue"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="red" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alinkcolor">Active link color (-alinkcolor)<xhtml:input name="alinkcolor" type="text" value="red"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="purple" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="vlinkcolor">Visited link color (-vlinkcolor)<xhtml:input name="vlinkcolor" type="text" value="purple"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="white" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alncolor">Alignment background color (-alncolor)<xhtml:input name="alncolor" type="text" value="white"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="black" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="labcolor">Alignment label color (-labcolor)<xhtml:input name="labcolor" type="text" value="black"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="symcolor">Alignment default text color (-symcolor)<xhtml:input name="symcolor" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapcolor">Alignment gap color (-gapcolor)<xhtml:input name="gapcolor" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bold">Use bold emphasis for coloured residues (-bold)<xhtml:select name="bold">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="off" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="css">Use Cascading Style Sheets (-css)<xhtml:select name="css">
+              <xhtml:option value="off" selected="selected">OFF</xhtml:option>
+              <xhtml:option value="on">ON</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="blast" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BlastTextReport)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outformat" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="html" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="main_formatting_options">
+        <xhtml:legend>Main formatting options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ruler" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alignment" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="consensus" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dna" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="alignment_options">
+        <xhtml:legend>Alignment options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="coloring" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117701250176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117701250176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <div>
+                <ul>
+                  <li>
+                    <em>Colour all the residues</em>, will colour every residue according to the currently selected palette.</li>
+                  <li>
+                    <em>Colouring by identity to the first sequence</em>, will colour only those residues that are identical to some reference sequence (usually the query or first row).</li>
+                  <li>
+                    <em>Colour only when above a given percent similarity</em>, will colour only those residues that belong to a specified physicochemical class that is conserved in at least a specified percentage of all rows for a given column. This defaults to 70% and and may be set to another threshold, eg., -coloring consensus -threshold 80 would specify 80%. Note that the physicochemical classes in question can be confined to individual residues.</li>
+                  <li>
+                    <em>Colours residues by the colour of the class to which they belong</em>, is like -coloring consensus, but colours residues by the colour of the class to which they belong.</li>
+                </ul>
+                <p>By default, the consensus computation counts gap characters, so that sections of the alignment may be uncolored where the presence of gaps prevents the non-gap count from reaching the threshold. Setting -con_gaps off prevents this, allowing sequence-only based consensus thresholding.</p>
+              </div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="threshold" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="70.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ignore" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702028752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702028752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tip: If you want to see only the conserved residues above the threshold (ie., only one type of conserved residue per column), add the option -ignore class. </xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="consensus_options">
+        <xhtml:legend>Consensus options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="con_coloring" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117701230288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117701230288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <div>
+                <p>Colouring of an alignment by consensus determines which residues to colour and the colours to use based on</p>
+                <ol>
+                  <li>the consensus threshold chosen for the colouring operation,</li>
+                  <li>a consideration of the common physicochemical properties of the residues in that column,</li>
+                  <li>the chosen colour scheme.</li>
+                </ol>
+              </div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="con_threshold" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100,90,80,70" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="con_ignore" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="hybrid_alignment_consensus_options">
+        <xhtml:legend>Hybrid alignment and consensus options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="con_gaps" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="general_row_column_filters">
+        <xhtml:legend>General row/column filters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="top" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="range" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117701219104::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117701219104::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="maxident" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ref" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="keep_only" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700485856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700485856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="disc" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700359296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700359296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nops" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700033152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700033152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="general_formatting_options">
+        <xhtml:legend>General formatting options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="width" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="label0" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="label1" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="label2" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="label3" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="label4" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="register" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="blast_options">
+        <xhtml:legend>BLAST options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hsp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="ranked" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="strand" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="all" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <xhtml:fieldset class="minimizable" data-paragraphname="blast1_options">
+            <xhtml:legend>BLAST series 1 options</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="maxpval" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="minscore" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="blast2_options">
+            <xhtml:legend>BLAST series 2 options</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="maxeval" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="minbits" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <xhtml:fieldset class="minimizable" data-paragraphname="psi_options">
+                <xhtml:legend>PSI-BLAST options</xhtml:legend>
+                <xhtml:div>
+                  <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cycle" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                </xhtml:div>
+              </xhtml:fieldset>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="html_markup_options">
+        <xhtml:legend>HTML markup options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="html_output" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="full" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Title" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pagecolor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="white" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="textcolor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="black" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="linkcolor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="blue" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alinkcolor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="red" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="vlinkcolor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="purple" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alncolor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="white" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="labcolor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="black" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="symcolor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gapcolor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bold" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="css" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="off" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alig_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;           ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="html_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="HTML ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="rdb_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="RDB ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>blast</name>
+      <prompt lang="en">Blast text Report</prompt>
+      <type>
+        <datatype>
+          <class>BlastTextReport</class>
+          <superclass>Report</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" -in blast $value"</code>
+        <code proglang="python">" -in blast "+str(value)</code>
+      </format>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Blast text Report</xhtml:legend>
+          <xhtml:textarea name="blast" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="blast">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BlastTextReport)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>outformat</name>
+      <prompt lang="en">Output format (-out)</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>html</value>
+      </vdef>
+      <vlist>
+        <velem>
+          <value>html</value>
+          <label>HTML</label>
+        </velem>
+        <velem>
+          <value>msf</value>
+          <label>GCG/MSF</label>
+        </velem>
+        <velem>
+          <value>pearson</value>
+          <label>Pearson/FASTA</label>
+        </velem>
+        <velem>
+          <value>pir</value>
+          <label>PIR/CODATA</label>
+        </velem>
+        <velem>
+          <value>rdb</value>
+          <label>RDB table for storage/manipulation in relational database form</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">(defined $value and $value ne $vdef) ? "-out $value" : ""</code>
+        <code proglang="python">( "", " -out " + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output format (-out)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outformat">
+            <xhtml:option value="html" selected="selected">HTML</xhtml:option>
+            <xhtml:option value="msf">GCG/MSF</xhtml:option>
+            <xhtml:option value="pearson">Pearson/FASTA</xhtml:option>
+            <xhtml:option value="pir">PIR/CODATA</xhtml:option>
+            <xhtml:option value="rdb">RDB table for storage/manipulation in relational database form</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="html" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outformat"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>main_formatting_options</name>
+      <prompt lang="en">Main formatting options</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>ruler</name>
+          <prompt lang="en">Attach a ruler (-ruler)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -ruler on" : ""</code>
+            <code proglang="python">( "" , " -ruler on" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Attach a ruler (-ruler)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ruler">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ruler"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>alignment</name>
+          <prompt lang="en">Show alignment (-alignment)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" : " -alignment off"</code>
+            <code proglang="python">( " -alignment off" , "" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show alignment (-alignment)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alignment">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alignment"/>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>consensus</name>
+          <prompt lang="en">Show consensus (-consensus)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -consensus on" : ""</code>
+            <code proglang="python">( "" , " -consensus on" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show consensus (-consensus)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="consensus">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consensus"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dna</name>
+          <prompt lang="en">Use DNA/RNA colormaps and/or consensus groups (-dna)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -dna" : ""</code>
+            <code proglang="python">( "" , " -dna" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use DNA/RNA colormaps and/or consensus groups (-dna)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dna">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dna"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>alignment_options</name>
+      <prompt lang="en">Alignment options</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter issimple="1">
+          <name>coloring</name>
+          <prompt lang="en">Colour scheme (-coloring)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>none</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>none</value>
+              <label>No colouring</label>
+            </velem>
+            <velem>
+              <value>any</value>
+              <label>Colour all the residues</label>
+            </velem>
+            <velem>
+              <value>identity</value>
+              <label>Colouring by identity to the first sequence</label>
+            </velem>
+            <velem>
+              <value>consensus</value>
+              <label>Colour only when above a given percent similarity</label>
+            </velem>
+            <velem>
+              <value>group</value>
+              <label>Colours residues by the colour of the class to which they belong</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value and $value ne $vdef) ? " -coloring $value" : ""</code>
+            <code proglang="python">( "" , " -coloring " + str(value) )[ value !=vdef ]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <ul>
+                <li>
+                  <em>Colour all the residues</em>, will colour every residue according to the currently selected palette.</li>
+                <li>
+                  <em>Colouring by identity to the first sequence</em>, will colour only those residues that are identical to some reference sequence (usually the query or first row).</li>
+                <li>
+                  <em>Colour only when above a given percent similarity</em>, will colour only those residues that belong to a specified physicochemical class that is conserved in at least a specified percentage of all rows for a given column. This defaults to 70% and and may be set to another threshold, eg., -coloring consensus -threshold 80 would specify 80%. Note that the physicochemical classes in question can be confined to individual residues.</li>
+                <li>
+                  <em>Colours residues by the colour of the class to which they belong</em>, is like -coloring consensus, but colours residues by the colour of the class to which they belong.</li>
+              </ul>
+              <p>By default, the consensus computation counts gap characters, so that sections of the alignment may be uncolored where the presence of gaps prevents the non-gap count from reaching the threshold. Setting -con_gaps off prevents this, allowing sequence-only based consensus thresholding.</p>
+            </div>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Colour scheme (-coloring)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117701250176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="coloring">
+                <xhtml:option value="none" selected="selected">No colouring</xhtml:option>
+                <xhtml:option value="any">Colour all the residues</xhtml:option>
+                <xhtml:option value="identity">Colouring by identity to the first sequence</xhtml:option>
+                <xhtml:option value="consensus">Colour only when above a given percent similarity</xhtml:option>
+                <xhtml:option value="group">Colours residues by the colour of the class to which they belong</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117701250176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                  <ul>
+                    <li>
+                      <em>Colour all the residues</em>, will colour every residue according to the currently selected palette.</li>
+                    <li>
+                      <em>Colouring by identity to the first sequence</em>, will colour only those residues that are identical to some reference sequence (usually the query or first row).</li>
+                    <li>
+                      <em>Colour only when above a given percent similarity</em>, will colour only those residues that belong to a specified physicochemical class that is conserved in at least a specified percentage of all rows for a given column. This defaults to 70% and and may be set to another threshold, eg., -coloring consensus -threshold 80 would specify 80%. Note that the physicochemical classes in question can be confined to individual residues.</li>
+                    <li>
+                      <em>Colours residues by the colour of the class to which they belong</em>, is like -coloring consensus, but colours residues by the colour of the class to which they belong.</li>
+                  </ul>
+                  <p>By default, the consensus computation counts gap characters, so that sections of the alignment may be uncolored where the presence of gaps prevents the non-gap count from reaching the threshold. Setting -con_gaps off prevents this, allowing sequence-only based consensus thresholding.</p>
+                </div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="coloring">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117701250176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117701250176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                  <ul>
+                    <li>
+                      <em>Colour all the residues</em>, will colour every residue according to the currently selected palette.</li>
+                    <li>
+                      <em>Colouring by identity to the first sequence</em>, will colour only those residues that are identical to some reference sequence (usually the query or first row).</li>
+                    <li>
+                      <em>Colour only when above a given percent similarity</em>, will colour only those residues that belong to a specified physicochemical class that is conserved in at least a specified percentage of all rows for a given column. This defaults to 70% and and may be set to another threshold, eg., -coloring consensus -threshold 80 would specify 80%. Note that the physicochemical classes in question can be confined to individual residues.</li>
+                    <li>
+                      <em>Colours residues by the colour of the class to which they belong</em>, is like -coloring consensus, but colours residues by the colour of the class to which they belong.</li>
+                  </ul>
+                  <p>By default, the consensus computation counts gap characters, so that sections of the alignment may be uncolored where the presence of gaps prevents the non-gap count from reaching the threshold. Setting -con_gaps off prevents this, allowing sequence-only based consensus thresholding.</p>
+                </div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>threshold</name>
+          <prompt lang="en">Threshold percentage for consensus coloring (-threshold)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>70.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -threshold $value" : ""</code>
+            <code proglang="python">( "" , " -threshold " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Threshold percentage for consensus coloring (-threshold)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="threshold" type="text" value="70.0"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="70.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="threshold"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ignore</name>
+          <prompt lang="en">Ignore singleton or class group (-ignore)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>none</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>class</value>
+              <label>Class</label>
+            </velem>
+            <velem>
+              <value>none</value>
+              <label>None</label>
+            </velem>
+            <velem>
+              <value>singleton</value>
+              <label>Singleton</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -ignore $value" : ""</code>
+            <code proglang="python">( "" , " -ignore " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">Tip: If you want to see only the conserved residues above the threshold (ie., only one type of conserved residue per column), add the option -ignore class. </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ignore singleton or class group (-ignore)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702028752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ignore">
+                <xhtml:option value="class">Class</xhtml:option>
+                <xhtml:option value="none" selected="selected">None</xhtml:option>
+                <xhtml:option value="singleton">Singleton</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702028752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tip: If you want to see only the conserved residues above the threshold (ie., only one type of conserved residue per column), add the option -ignore class. </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ignore">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702028752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702028752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tip: If you want to see only the conserved residues above the threshold (ie., only one type of conserved residue per column), add the option -ignore class. </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>consensus_options</name>
+      <prompt lang="en">Consensus options</prompt>
+      <precond>
+        <code proglang="perl">$consensus </code>
+        <code proglang="python">consensus </code>
+      </precond>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter issimple="1">
+          <name>con_coloring</name>
+          <prompt lang="en">Basic style of coloring (-con_coloring)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>none</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>any</value>
+              <label>Colour all the residues (any)</label>
+            </velem>
+            <velem>
+              <value>identity</value>
+              <label>Colouring by identity to the first sequence (identity)</label>
+            </velem>
+            <velem>
+              <value>none</value>
+              <label>No colouring (none)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value) ? " -con_coloring $value" : ""</code>
+            <code proglang="python">( "" , " -con_coloring " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <p>Colouring of an alignment by consensus determines which residues to colour and the colours to use based on</p>
+              <ol>
+                <li>the consensus threshold chosen for the colouring operation,</li>
+                <li>a consideration of the common physicochemical properties of the residues in that column,</li>
+                <li>the chosen colour scheme.</li>
+              </ol>
+            </div>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Basic style of coloring (-con_coloring)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117701230288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="con_coloring">
+                <xhtml:option value="any">Colour all the residues (any)</xhtml:option>
+                <xhtml:option value="identity">Colouring by identity to the first sequence (identity)</xhtml:option>
+                <xhtml:option value="none" selected="selected">No colouring (none)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117701230288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                  <p>Colouring of an alignment by consensus determines which residues to colour and the colours to use based on</p>
+                  <ol>
+                    <li>the consensus threshold chosen for the colouring operation,</li>
+                    <li>a consideration of the common physicochemical properties of the residues in that column,</li>
+                    <li>the chosen colour scheme.</li>
+                  </ol>
+                </div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="con_coloring">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117701230288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117701230288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                  <p>Colouring of an alignment by consensus determines which residues to colour and the colours to use based on</p>
+                  <ol>
+                    <li>the consensus threshold chosen for the colouring operation,</li>
+                    <li>a consideration of the common physicochemical properties of the residues in that column,</li>
+                    <li>the chosen colour scheme.</li>
+                  </ol>
+                </div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>con_threshold</name>
+          <prompt lang="en">Consensus line thresholds (in range 50..100) (separated by commas) (-con_threshold)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>100,90,80,70</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -con_threshold $value" : ""</code>
+            <code proglang="python">( "" , " -con_threshold " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Consensus line thresholds (in range 50..100) (separated by commas) (-con_threshold)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="con_threshold" type="text" value="100,90,80,70"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100,90,80,70" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="con_threshold"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>con_ignore</name>
+          <prompt lang="en">Ignore singleton or class group (-con_ignore)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>none</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>class</value>
+              <label>Class</label>
+            </velem>
+            <velem>
+              <value>none</value>
+              <label>None</label>
+            </velem>
+            <velem>
+              <value>singleton</value>
+              <label>Singleton</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -con_ignore $value" : ""</code>
+            <code proglang="python">( "" , " -con_ignore " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ignore singleton or class group (-con_ignore)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="con_ignore">
+                <xhtml:option value="class">Class</xhtml:option>
+                <xhtml:option value="none" selected="selected">None</xhtml:option>
+                <xhtml:option value="singleton">Singleton</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="none" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="con_ignore"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>hybrid_alignment_consensus_options</name>
+      <prompt lang="en">Hybrid alignment and consensus options</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>con_gaps</name>
+          <prompt lang="en">Count gaps during consensus computations (-con_gaps)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" : " -con_gaps off"</code>
+            <code proglang="python">( " -con_gaps off" , "" )[ value ]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Count gaps during consensus computations (-con_gaps)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="con_gaps">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="con_gaps"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>general_row_column_filters</name>
+      <prompt lang="en">General row/column filters</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>top</name>
+          <prompt lang="en">Report top N hits (-top)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -top $value" : ""</code>
+            <code proglang="python">( "" , " -top " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Report top N hits (-top)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="top" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="top"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>range</name>
+          <prompt lang="en">Display column range M:N (-range)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value and $value =~ s/,/:/g) ? " -range $value" : ""</code>
+            <code proglang="python">( "" , " -range " + str(value).replace(',',':') )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">You must enter a string composed of two numbers separated by comma </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Display column range M:N (-range)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117701219104::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="range" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117701219104::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="range">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117701219104::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117701219104::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>maxident</name>
+          <prompt lang="en">Only report sequences with percent identity &lt;= N (-maxident)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>100</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -maxident $value" : ""</code>
+            <code proglang="python">( "" , " -maxident " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Only report sequences with percent identity &lt;= N (-maxident)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="maxident" type="text" value="100"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxident"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ref</name>
+          <prompt lang="en">Use row N or row identifier as percent identity reference (-ref)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -ref $value" : ""</code>
+            <code proglang="python">( "" , " -ref " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use row N or row identifier as percent identity reference (-ref)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ref" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ref"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>keep_only</name>
+          <prompt lang="en">Keep only the rows from start to end (separated by comma) (-keep)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value ) ? " -keep $value" : "" </code>
+            <code proglang="python">( ""  , " -keep " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">You must enter a string composed of two numbers separated by comma </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Keep only the rows from start to end (separated by comma) (-keep)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700485856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="keep_only" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700485856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="keep_only">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700485856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700485856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>disc</name>
+          <prompt lang="en">Discard rows from start to end (separated by comma) (-disc)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value and $value =~ s/,/../ ) ? " -disc $value" : "" </code>
+            <code proglang="python">( ""  , " -disc " + str(value).replace(',','..') )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">You must enter a string composed of two numbers separated by comma </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Discard rows from start to end (separated by comma) (-disc)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700359296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="disc" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700359296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="disc">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700359296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700359296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nops</name>
+          <prompt lang="en">Display rows unprocessed (separated by comma ) (-nops)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value and $value =~ s/,/../) ? " -nops $value" : "" </code>
+            <code proglang="python">( ""  , " -nops " + str(value).replace(',','..' ))[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">You must enter a string composed of two numbers separated by comma </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Display rows unprocessed (separated by comma ) (-nops)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700033152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nops" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700033152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nops">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700033152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700033152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must enter a string composed of two numbers separated by comma </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>general_formatting_options</name>
+      <prompt lang="en">General formatting options</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>width</name>
+          <prompt lang="en">Paginate in N columns of alignment (-width)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -width $value" : ""</code>
+            <code proglang="python">( "" , " -width " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Paginate in N columns of alignment (-width)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="width" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="width"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gap</name>
+          <prompt lang="en">Use this character as the gap (-gap)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -gap $value" : " " </code>
+            <code proglang="python">( " " ,  " -gap " + str(value) )[ value is not None]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use this character as the gap (-gap)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gap" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>label0</name>
+          <prompt lang="en">Switch off label: row number (-label0)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -label0" : ""</code>
+            <code proglang="python">( "" , " -label0" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Switch off label: row number (-label0)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="label0">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label0"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>label1</name>
+          <prompt lang="en">Switch off label: identifier (-label1)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -label1" : ""</code>
+            <code proglang="python">( "" , " -label1" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Switch off label: identifier (-label1)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="label1">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label1"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>label2</name>
+          <prompt lang="en">Switch off label: description (-label2)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -label2" : ""</code>
+            <code proglang="python">( "" , " -label2" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Switch off label: description (-label2)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="label2">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label2"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>label3</name>
+          <prompt lang="en">Switch off label: scores (-label3)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -label3" : ""</code>
+            <code proglang="python">( "" , " -label3" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Switch off label: scores (-label3)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="label3">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label3"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>label4</name>
+          <prompt lang="en">Switch off label: percent identity (-label4)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -label4" : ""</code>
+            <code proglang="python">( "" , " -label4" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Switch off label: percent identity (-label4)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="label4">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="label4"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>register</name>
+          <prompt lang="en">Output multi-pass alignments with columns in register (-register)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" : " -register off"</code>
+            <code proglang="python">( " -register off" , "" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output multi-pass alignments with columns in register (-register)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="register">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="register"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>blast_options</name>
+      <prompt lang="en">BLAST options</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>hsp</name>
+          <prompt lang="en">HSP tiling method (-hsp)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>ranked</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>all</value>
+              <label>All</label>
+            </velem>
+            <velem>
+              <value>discrete</value>
+              <label>Discrete</label>
+            </velem>
+            <velem>
+              <value>ranked</value>
+              <label>Ranked</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value ne  $vdef) ?  " -hsp $value":""</code>
+            <code proglang="python">(""," -hsp " + str(value))[value !=vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">HSP tiling method (-hsp)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="hsp">
+                <xhtml:option value="all">All</xhtml:option>
+                <xhtml:option value="discrete">Discrete</xhtml:option>
+                <xhtml:option value="ranked" selected="selected">Ranked</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="ranked" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hsp"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>strand</name>
+          <prompt lang="en">Report only these query strand orientations (-strand)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>all</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>p</value>
+              <label>Plus (p)</label>
+            </velem>
+            <velem>
+              <value>m</value>
+              <label>Minus (m)</label>
+            </velem>
+            <velem undef="1">
+              <value>all</value>
+              <label>Both</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value ne $vdef) ? " -strand $value":""</code>
+            <code proglang="python"> ("", " -strand " +str(value))[value !=vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Report only these query strand orientations (-strand)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="strand">
+                <xhtml:option value="p">Plus (p)</xhtml:option>
+                <xhtml:option value="m">Minus (m)</xhtml:option>
+                <xhtml:option value="all" selected="selected">Both</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="all" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="strand"/>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>blast1_options</name>
+          <prompt lang="en">BLAST series 1 options</prompt>
+          <parameters>
+            <parameter>
+              <name>maxpval</name>
+              <prompt lang="en">Ignore hits with p-value more than N (-maxpval)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <format>
+                <code proglang="perl">(defined $value) ? " -maxpval $value":""</code>
+                <code proglang="python">("", " -maxpval "+str(value))[value is not None]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ignore hits with p-value more than N (-maxpval)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="maxpval" type="text" value=""/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxpval"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>minscore</name>
+              <prompt lang="en">Ignore hits with score less than N (-minscore)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <format>
+                <code proglang="perl">(defined $value) ? " -minscore $value":""</code>
+                <code proglang="python">("", " -minscore "+str(value))[value is not None]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ignore hits with score less than N (-minscore)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="minscore" type="text" value=""/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minscore"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+        <paragraph>
+          <name>blast2_options</name>
+          <prompt lang="en">BLAST series 2 options</prompt>
+          <parameters>
+            <parameter>
+              <name>maxeval</name>
+              <prompt lang="en">Ignore hits with p-value more than N -- Blast2 only (-maxeval)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <format>
+                <code proglang="perl">(defined $value) ? " -maxeval $value":""</code>
+                <code proglang="python">("", " -maxeval "+str(value))[value is not None]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ignore hits with p-value more than N -- Blast2 only (-maxeval)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="maxeval" type="text" value=""/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxeval"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>minbits</name>
+              <prompt lang="en">Ignore hits with bits less than N (-minbits)</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <format>
+                <code proglang="perl">(defined $value) ? " -minbits $value":""</code>
+                <code proglang="python">("", " -minbits "+str(value))[value is not None]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ignore hits with bits less than N (-minbits)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="minbits" type="text" value=""/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minbits"/>
+              </interface>
+            </parameter>
+            <paragraph>
+              <name>psi_options</name>
+              <prompt lang="en">PSI-BLAST options</prompt>
+              <parameters>
+                <parameter>
+                  <name>cycle</name>
+                  <prompt lang="en">Process the Nth cycle of a multipass search (-cycle)</prompt>
+                  <type>
+                    <datatype>
+                      <class>String</class>
+                    </datatype>
+                  </type>
+                  <format>
+                    <code proglang="perl">(defined $value) ? " -cycle $value" : ""</code>
+                    <code proglang="python">("", " -cycle "+str(value))[value is not None]</code>
+                  </format>
+                  <interface type="form" generated="true">
+                    <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Process the Nth cycle of a multipass search (-cycle)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cycle" type="text" value=""/>
+                    </label>
+                  </interface>
+                  <interface generated="true" type="job_input">
+                    <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cycle"/>
+                  </interface>
+                </parameter>
+              </parameters>
+            </paragraph>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>html_markup_options</name>
+      <prompt lang="en">HTML markup options</prompt>
+      <precond>
+        <code proglang="perl">$outformat eq "html"</code>
+        <code proglang="python">outformat == "html"</code>
+      </precond>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter ismandatory="1">
+          <name>html_output</name>
+          <prompt lang="en">Amount of HTML markup (-html)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>full</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>full</value>
+              <label>Full</label>
+            </velem>
+            <velem>
+              <value>head</value>
+              <label>Head</label>
+            </velem>
+            <velem>
+              <value>body</value>
+              <label>Body</label>
+            </velem>
+            <velem>
+              <value>data</value>
+              <label>Data</label>
+            </velem>
+            <velem>
+              <value>css</value>
+              <label>CSS</label>
+            </velem>
+            <velem>
+              <value>off</value>
+              <label>OFF</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value]) ? "-html $value":""</code>
+            <code proglang="python">("", " -html " + str(value))[value is not None]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Amount of HTML markup (-html)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="html_output">
+                <xhtml:option value="full" selected="selected">Full</xhtml:option>
+                <xhtml:option value="head">Head</xhtml:option>
+                <xhtml:option value="body">Body</xhtml:option>
+                <xhtml:option value="data">Data</xhtml:option>
+                <xhtml:option value="css">CSS</xhtml:option>
+                <xhtml:option value="off">OFF</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="full" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="html_output"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Title</name>
+          <prompt lang="en">Page title string</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -title $value" : ""</code>
+            <code proglang="python">( "" , " -title " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Page title string<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Title" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Title"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>pagecolor</name>
+          <prompt lang="en">Page background color (-pagecolor)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>white</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -pagecolor $value" : ""</code>
+            <code proglang="python">( "" , " -pagecolor " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Page background color (-pagecolor)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pagecolor" type="text" value="white"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="white" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pagecolor"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>textcolor</name>
+          <prompt lang="en">Page text color (-textcolor)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>black</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -textcolor $value" : ""</code>
+            <code proglang="python">( "" , " -textcolor " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Page text color (-textcolor)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="textcolor" type="text" value="black"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="black" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="textcolor"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>linkcolor</name>
+          <prompt lang="en">Link color (-linkcolor)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>blue</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -linkcolor $value" : ""</code>
+            <code proglang="python">( "" , " -linkcolor " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Link color (-linkcolor)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="linkcolor" type="text" value="blue"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="blue" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="linkcolor"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>alinkcolor</name>
+          <prompt lang="en">Active link color (-alinkcolor)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>red</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -alinkcolor $value" : ""</code>
+            <code proglang="python">( "" , " -alinkcolor " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Active link color (-alinkcolor)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alinkcolor" type="text" value="red"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="red" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alinkcolor"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>vlinkcolor</name>
+          <prompt lang="en">Visited link color (-vlinkcolor)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>purple</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -vlinkcolor $value" : ""</code>
+            <code proglang="python">( "" , " -vlinkcolor " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Visited link color (-vlinkcolor)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="vlinkcolor" type="text" value="purple"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="purple" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="vlinkcolor"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>alncolor</name>
+          <prompt lang="en">Alignment background color (-alncolor)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>white</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -alncolor $value" : ""</code>
+            <code proglang="python">( "" , " -alncolor " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alignment background color (-alncolor)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alncolor" type="text" value="white"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="white" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alncolor"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>labcolor</name>
+          <prompt lang="en">Alignment label color (-labcolor)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>black</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -labcolor $value" : ""</code>
+            <code proglang="python">( "" , " -labcolor " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alignment label color (-labcolor)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="labcolor" type="text" value="black"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="black" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="labcolor"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>symcolor</name>
+          <prompt lang="en">Alignment default text color (-symcolor)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -symcolor $value" : " "</code>
+            <code proglang="python">( " " , " -symcolor " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alignment default text color (-symcolor)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="symcolor" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="symcolor"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gapcolor</name>
+          <prompt lang="en">Alignment gap color (-gapcolor)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -gapcolor $value" : ""</code>
+            <code proglang="python">( "" , " -gapcolor " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alignment gap color (-gapcolor)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gapcolor" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapcolor"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>bold</name>
+          <prompt lang="en">Use bold emphasis for coloured residues (-bold)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -bold" : ""</code>
+            <code proglang="python">( "" , " -bold" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use bold emphasis for coloured residues (-bold)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bold">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bold"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>css</name>
+          <prompt lang="en">Use Cascading Style Sheets (-css)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>off</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>off</value>
+              <label>OFF</label>
+            </velem>
+            <velem>
+              <value>on</value>
+              <label>ON</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value eq $vdef) ? " -css on" : ""</code>
+            <code proglang="python">( "" , " -css on" )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use Cascading Style Sheets (-css)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="css">
+                <xhtml:option value="off" selected="selected">OFF</xhtml:option>
+                <xhtml:option value="on">ON</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="off" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="css"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="1">
+      <name>alig_file</name>
+      <prompt lang="en">Alignment output file</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>
+          <test param="outformat" eq="pearson">FASTA</test>
+          <test param="outformat" eq="msf">MSF</test>
+          <test param="outformat" eq="pir">CODATA</test>
+        </dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$outformat eq "msf" or $outformat eq "pearson" or $outformat eq "pir"</code>
+        <code proglang="python">outformat in [ "msf", "pearson" , "pir"]</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"mview_blast.out"</code>
+        <code proglang="python">"mview_blast.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;           " data-parametername="alig_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="1">
+      <name>html_file</name>
+      <prompt lang="en">Alignment output file</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+        <dataFormat>HTML</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$outformat eq "html"</code>
+        <code proglang="python">outformat == "html"</code>
+      </precond>
+      <format>
+        <code proglang="perl">" &amp;&amp; ln -s mview_blast.out mview_blast.html"</code>
+        <code proglang="python">" &amp;&amp; ln -s mview_blast.out mview_blast.html"</code>
+      </format>
+      <filenames>
+        <code proglang="perl">"mview_blast.html"</code>
+        <code proglang="python">"mview_blast.html"</code>
+      </filenames>
+      <argpos>10000</argpos>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="HTML " data-parametername="html_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="1">
+      <name>rdb_file</name>
+      <prompt lang="en">Alignment output in RDB format</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+        <dataFormat>RDB</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$outformat eq "rdb"</code>
+        <code proglang="python">outformat == "rdb"</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"mview_blast.out"</code>
+        <code proglang="python">"mview_blast.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="RDB " data-parametername="rdb_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"mview_blast.err"</code>
+        <code proglang="python">"mview_blast.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

@@ -1,0 +1,690 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>forest2consense</name>
+    <doc>
+      <title>forest2consense</title>
+      <description>
+        <text lang="en">Consensus tree "list processor"</text>
+      </description>
+      <comment>
+        <text lang="en">forest2consense processes two files containing lists of trees,
+         and for each of the possible combinations between the a tree of file 1 and a tree of file 2,
+          a consensus tree using PHYLIP's consense package. 
+          tree leaves IDs renaming is processed using nw_rename</text>
+      </comment>
+      <authors>Eric Deveaud</authors>
+    </doc>
+    <command>forest2consense.py</command>
+    <category>phylogeny:tree_analyser</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="infile1">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">First series of trees in file (intree)<xhtml:a href="#idm140117721083520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117721083520::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721083520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Input is a tree file which contains a series of trees in the Newick standard form</xhtml:div>
+          <div class="example" id="idm140117721083520::example" data-forparameter="infile1">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>(A,(B,(H,(D,(J,(((G,E),(F,I)),C))))));
+(A,(B,(D,((J,H),(((G,E),(F,I)),C)))));
+(A,(B,(D,(H,(J,(((G,E),(F,I)),C))))));
+(A,(B,(E,(G,((F,I),((J,(H,D)),C))))));
+(A,(B,(E,(G,((F,I),(((J,H),D),C))))));
+(A,(B,(E,((F,I),(G,((J,(H,D)),C))))));
+(A,(B,(E,((F,I),(G,(((J,H),D),C))))));
+(A,(B,(E,((G,(F,I)),((J,(H,D)),C)))));
+(A,(B,(E,((G,(F,I)),(((J,H),D),C)))));</pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117721083520::example" data-forparameter="infile1" style="display:none">
+          <pre>(A,(B,(H,(D,(J,(((G,E),(F,I)),C))))));
+(A,(B,(D,((J,H),(((G,E),(F,I)),C)))));
+(A,(B,(D,(H,(J,(((G,E),(F,I)),C))))));
+(A,(B,(E,(G,((F,I),((J,(H,D)),C))))));
+(A,(B,(E,(G,((F,I),(((J,H),D),C))))));
+(A,(B,(E,((F,I),(G,((J,(H,D)),C))))));
+(A,(B,(E,((F,I),(G,(((J,H),D),C))))));
+(A,(B,(E,((G,(F,I)),((J,(H,D)),C)))));
+(A,(B,(E,((G,(F,I)),(((J,H),D),C)))));</pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="infile1" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="infile2">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Second series of trees in file (intree)<xhtml:a href="#idm140117721124304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117721124304::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721124304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Input is a tree file which contains a series of trees in the Newick standard form</xhtml:div>
+          <div class="example" id="idm140117721124304::example" data-forparameter="infile2">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>(A,(B,(H,(D,(J,(((G,E),(F,I)),C))))));
+(A,(B,(D,((J,H),(((G,E),(F,I)),C)))));
+(A,(B,(D,(H,(J,(((G,E),(F,I)),C))))));
+(A,(B,(E,(G,((F,I),((J,(H,D)),C))))));
+(A,(B,(E,(G,((F,I),(((J,H),D),C))))));
+(A,(B,(E,((F,I),(G,((J,(H,D)),C))))));
+(A,(B,(E,((F,I),(G,(((J,H),D),C))))));
+(A,(B,(E,((G,(F,I)),((J,(H,D)),C)))));
+(A,(B,(E,((G,(F,I)),(((J,H),D),C)))));</pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117721124304::example" data-forparameter="infile2" style="display:none">
+          <pre>(A,(B,(H,(D,(J,(((G,E),(F,I)),C))))));
+(A,(B,(D,((J,H),(((G,E),(F,I)),C)))));
+(A,(B,(D,(H,(J,(((G,E),(F,I)),C))))));
+(A,(B,(E,(G,((F,I),((J,(H,D)),C))))));
+(A,(B,(E,(G,((F,I),(((J,H),D),C))))));
+(A,(B,(E,((F,I),(G,((J,(H,D)),C))))));
+(A,(B,(E,((F,I),(G,(((J,H),D),C))))));
+(A,(B,(E,((G,(F,I)),((J,(H,D)),C)))));
+(A,(B,(E,((G,(F,I)),(((J,H),D),C)))));</pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="infile2" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ID_Mapping" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="map_file">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Map file<xhtml:a href="#idm140117721025584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721025584::comment" class="commentText" style="display:none" mode="ajaxTarget">the map file contains the mapping between short IDs that may have been used for tree generation and the real entry names</xhtml:div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="map_file" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="MRE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="type">Consensus type<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="type">
+          <xhtml:option value="MRE" selected="selected">Majority rule (extended)</xhtml:option>
+          <xhtml:option value="S">Strict</xhtml:option>
+          <xhtml:option value="MR">Majority rule</xhtml:option>
+          <xhtml:option value="ML">Ml (M-sub-L)</xhtml:option>
+        </xhtml:select>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_tree">Print out tree (3)<xhtml:a href="#idm140117721376240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="print_tree">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117721376240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tells the program to print a semi-graphical picture of the tree in the outfile.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_treefile">Write out trees onto tree file (4)<xhtml:a href="#idm140117720009968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="print_treefile">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117720009968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="printdata">Print out the data at start of run (1)<xhtml:select name="printdata">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="other_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Other options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outgroup">Outgroup species (O)<xhtml:input name="outgroup" type="text" value="1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rooted">Trees to be treated as rooted (R)<xhtml:select name="rooted">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="infile1" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721083520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721083520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Input is a tree file which contains a series of trees in the Newick standard form</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="infile2" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721124304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721124304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Input is a tree file which contains a series of trees in the Newick standard form</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="map_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ID_Mapping" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ID_Mapping)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721025584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721025584::comment" class="commentText" style="display:none" mode="ajaxTarget">the map file contains the mapping between short IDs that may have been used for tree generation and the real entry names</xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="type" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="MRE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="print_tree" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117721376240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117721376240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tells the program to print a semi-graphical picture of the tree in the outfile.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="print_treefile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117720009968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117720009968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="printdata" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="other_options">
+        <xhtml:legend>Other options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outgroup" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="rooted" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="confirm" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="terminal_type" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="treefile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1" ismaininput="1">
+      <name>infile1</name>
+      <prompt lang="en">First series of trees in file (intree)</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value "</code>
+        <code proglang="python">" %s " % value</code>
+      </format>
+      <argpos>2</argpos>
+      <comment>
+        <text lang="en">Input is a tree file which contains a series of trees in the Newick standard form</text>
+      </comment>
+      <example>(A,(B,(H,(D,(J,(((G,E),(F,I)),C))))));
+(A,(B,(D,((J,H),(((G,E),(F,I)),C)))));
+(A,(B,(D,(H,(J,(((G,E),(F,I)),C))))));
+(A,(B,(E,(G,((F,I),((J,(H,D)),C))))));
+(A,(B,(E,(G,((F,I),(((J,H),D),C))))));
+(A,(B,(E,((F,I),(G,((J,(H,D)),C))))));
+(A,(B,(E,((F,I),(G,(((J,H),D),C))))));
+(A,(B,(E,((G,(F,I)),((J,(H,D)),C)))));
+(A,(B,(E,((G,(F,I)),(((J,H),D),C)))));</example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>First series of trees in file (intree)</xhtml:legend>
+          <xhtml:textarea name="infile1" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="infile1">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721083520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721083520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Input is a tree file which contains a series of trees in the Newick standard form</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1" ismaininput="1">
+      <name>infile2</name>
+      <prompt lang="en">Second series of trees in file (intree)</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value "</code>
+        <code proglang="python">" %s " % value</code>
+      </format>
+      <argpos>3</argpos>
+      <comment>
+        <text lang="en">Input is a tree file which contains a series of trees in the Newick standard form</text>
+      </comment>
+      <example>(A,(B,(H,(D,(J,(((G,E),(F,I)),C))))));
+(A,(B,(D,((J,H),(((G,E),(F,I)),C)))));
+(A,(B,(D,(H,(J,(((G,E),(F,I)),C))))));
+(A,(B,(E,(G,((F,I),((J,(H,D)),C))))));
+(A,(B,(E,(G,((F,I),(((J,H),D),C))))));
+(A,(B,(E,((F,I),(G,((J,(H,D)),C))))));
+(A,(B,(E,((F,I),(G,(((J,H),D),C))))));
+(A,(B,(E,((G,(F,I)),((J,(H,D)),C)))));
+(A,(B,(E,((G,(F,I)),(((J,H),D),C)))));</example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Second series of trees in file (intree)</xhtml:legend>
+          <xhtml:textarea name="infile2" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="infile2">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721124304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721124304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Input is a tree file which contains a series of trees in the Newick standard form</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>map_file</name>
+      <prompt lang="en">Map file</prompt>
+      <comment>the map file contains the mapping between short IDs that may have been used for tree generation and the real entry names</comment>
+      <type>
+        <datatype>
+          <class>ID_Mapping</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" -m $value"</code>
+        <code proglang="python">" -m " + str(value)</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Map file</xhtml:legend>
+          <xhtml:textarea name="map_file" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ID_Mapping" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="map_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ID_Mapping)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721025584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721025584::comment" class="commentText" style="display:none" mode="ajaxTarget">the map file contains the mapping between short IDs that may have been used for tree generation and the real entry names</xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>type</name>
+      <prompt lang="en">Consensus type</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>MRE</value>
+      </vdef>
+      <flist>
+        <felem>
+          <value>MRE</value>
+          <label>Majority rule (extended)</label>
+          <code proglang="perl">""</code>
+          <code proglang="python">""</code>
+        </felem>
+        <felem>
+          <value>S</value>
+          <label>Strict</label>
+          <code proglang="perl">"C\\n"</code>
+          <code proglang="python">"C\n"</code>
+        </felem>
+        <felem>
+          <value>MR</value>
+          <label>Majority rule</label>
+          <code proglang="perl">"C\\nC\\n"</code>
+          <code proglang="python">"C\nC\n"</code>
+        </felem>
+        <felem>
+          <value>ML</value>
+          <label>Ml (M-sub-L)</label>
+          <code proglang="perl">"C\\nC\\nC\\n"</code>
+          <code proglang="python">"C\nC\nC\n"</code>
+        </felem>
+      </flist>
+      <paramfile>params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Consensus type<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="type">
+            <xhtml:option value="MRE" selected="selected">Majority rule (extended)</xhtml:option>
+            <xhtml:option value="S">Strict</xhtml:option>
+            <xhtml:option value="MR">Majority rule</xhtml:option>
+            <xhtml:option value="ML">Ml (M-sub-L)</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="MRE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="type"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output options</prompt>
+      <parameters>
+        <parameter>
+          <name>print_tree</name>
+          <prompt lang="en">Print out tree (3)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" : "3\\n"</code>
+            <code proglang="python">( "3\n" , "" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Tells the program to print a semi-graphical picture of the tree in the outfile.</text>
+          </comment>
+          <paramfile>params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print out tree (3)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721376240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="print_tree">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721376240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tells the program to print a semi-graphical picture of the tree in the outfile.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_tree">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721376240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721376240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tells the program to print a semi-graphical picture of the tree in the outfile.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>print_treefile</name>
+          <prompt lang="en">Write out trees onto tree file (4)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" : "4\\n"</code>
+            <code proglang="python">( "4\n" , "" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</text>
+          </comment>
+          <paramfile>params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Write out trees onto tree file (4)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720009968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="print_treefile">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720009968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_treefile">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720009968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720009968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>printdata</name>
+          <prompt lang="en">Print out the data at start of run (1)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "1\\n" : ""</code>
+            <code proglang="python">( "" , "1\n" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <paramfile>params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print out the data at start of run (1)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="printdata">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="printdata"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>other_options</name>
+      <prompt lang="en">Other options</prompt>
+      <parameters>
+        <parameter>
+          <name>outgroup</name>
+          <prompt lang="en">Outgroup species (O)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? "O\\n$value\\n" : ""</code>
+            <code proglang="python">( "" , "O\n"+ str( value ) +"\n" )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Please enter a value greater than 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <argpos>1</argpos>
+          <paramfile>params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Outgroup species (O)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outgroup" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outgroup"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>rooted</name>
+          <prompt lang="en">Trees to be treated as rooted (R)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "R\\n" : ""</code>
+            <code proglang="python">( "" , "R\n" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <paramfile>params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Trees to be treated as rooted (R)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="rooted">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rooted"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>treefile</name>
+      <prompt>Consense tree files</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+        <dataFormat>NEWICK</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$print_treefile</code>
+        <code proglang="python">print_treefile</code>
+      </precond>
+      <argpos>50</argpos>
+      <filenames>
+        <code proglang="perl">"$infile1-$infile2-*.outtree"</code>
+        <code proglang="python">"%s-%s-*.outtree" % (infile1,infile2)</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="treefile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>confirm</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"Y\\n"</code>
+        <code proglang="python">"Y\n"</code>
+      </format>
+      <argpos>1000</argpos>
+      <paramfile>params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="confirm"/>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>outfile</name>
+      <prompt>Consense output files</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <argpos>40</argpos>
+      <filenames>
+        <code proglang="perl">"$infile1-$infile2-*.outfile"</code>
+        <code proglang="python">"%s-%s-*.outfile" % (infile1,infile2)</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>terminal_type</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"T\\n"</code>
+        <code proglang="python">"T\n"</code>
+      </format>
+      <argpos>-1</argpos>
+      <paramfile>params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="terminal_type"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"forest2consense.out"</code>
+        <code proglang="python">"forest2consense.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"forest2consense.err"</code>
+        <code proglang="python">"forest2consense.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

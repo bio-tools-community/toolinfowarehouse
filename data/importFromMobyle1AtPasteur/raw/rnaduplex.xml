@@ -1,0 +1,424 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>rnaduplex</name>
+    <package xml:base="Entities/ViennaRNA_package.xml">
+      <name>ViennaRNA</name>
+      <version>1.8.4</version>
+      <doc>
+        <title>ViennaRNA</title>
+        <description>
+          <text lang="en">RNA Secondary Structure Prediction and Comparison.</text>
+        </description>
+        <authors>Ivo L Hofacker</authors>
+        <homepagelink>http://www.tbi.univie.ac.at/RNA/</homepagelink>
+        <sourcelink>http://www.tbi.univie.ac.at/RNA/</sourcelink>
+        <doclink>http://www.tbi.univie.ac.at/RNA/</doclink>
+        <doclink>http://bioweb2.pasteur.fr/gensoft/sequence/nucleic/2D_structure.html#ViennaRNa</doclink>
+      </doc>
+    </package>
+    <doc>
+      <title>RNAduplex</title>
+      <description>
+        <text lang="en">Compute the structure upon hybridization of two RNA strands</text>
+      </description>
+      <authors>Ivo Hofacker</authors>
+      <comment>
+        <text lang="en">RNAduplex reads  two RNA  sequences from  file and
+       computes optimal and suboptimal secondary structures for their hybridization. The calculation is simplified  by  allowing  only inter-molecular base pairs.</text>
+      </comment>
+    </doc>
+    <command>RNAduplex</command>
+    <category>sequence:nucleic:2D_structure</category>
+    <category>structure:2D_structure</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA " data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">RNA Sequence File</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="suboptimal">Suboptimal structures (-e)<xhtml:a href="#idm140117714893824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="suboptimal" type="text" value="0"/>
+            <xhtml:div id="idm140117714893824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Compute suboptimal structures with energy with range kcal/mol of the optimum. Default is calculation of mfe structure only.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="37" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="temperature">Rescale energy parameters to a temperature of temp C. (-T)<xhtml:input name="temperature" type="text" value="37"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tetraloops">Do not include special stabilizing energies for certain tetraloops (-4)<xhtml:select name="tetraloops">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noGU">Do not allow GU pairs (-noGU)<xhtml:select name="noGU">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noCloseGU">Do not allow GU pairs at the end of helices (-noCloseGU)<xhtml:select name="noCloseGU">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EnergyParameterFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="parameter">
+            <legend>Energy parameter file (-P)<xhtml:a href="#idm140117713626144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117713626144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="parameter" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <xhtml:legend>Control options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="suboptimal" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117714893824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117714893824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Compute suboptimal structures with energy with range kcal/mol of the optimum. Default is calculation of mfe structure only.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="temperature" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="37" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tetraloops" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <xhtml:legend>Input parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="noGU" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="noCloseGU" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="parameter" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EnergyParameterFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(EnergyParameterFile)
+			</xhtml:i>
+            <xhtml:a href="#idm140117713626144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117713626144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="readseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="psfiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">RNA Sequence File</prompt>
+      <type>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" &lt; $value" </code>
+        <code proglang="python">" &lt; "+ str(value) </code>
+      </format>
+      <argpos>1000</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>RNA Sequence File</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA " data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>control</name>
+      <prompt lang="en">Control options</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>suboptimal</name>
+          <prompt lang="en">Suboptimal structures (-e)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef)? " -e $value" : ""</code>
+            <code proglang="python">( "" , " -e " + str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Compute suboptimal structures with energy with range kcal/mol of the optimum. Default is calculation of mfe structure only.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Suboptimal structures (-e)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714893824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="suboptimal" type="text" value="0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714893824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Compute suboptimal structures with energy with range kcal/mol of the optimum. Default is calculation of mfe structure only.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="suboptimal">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714893824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714893824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Compute suboptimal structures with energy with range kcal/mol of the optimum. Default is calculation of mfe structure only.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>temperature</name>
+          <prompt lang="en">Rescale energy parameters to a temperature of temp C. (-T)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>37</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -T $value" : ""</code>
+            <code proglang="python">( "" , " -T " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Rescale energy parameters to a temperature of temp C. (-T)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="temperature" type="text" value="37"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="37" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="temperature"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tetraloops</name>
+          <prompt lang="en">Do not include special stabilizing energies for certain tetraloops (-4)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -4" : ""</code>
+            <code proglang="python">( "" , " -4" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not include special stabilizing energies for certain tetraloops (-4)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tetraloops">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tetraloops"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>input</name>
+      <prompt lang="en">Input parameters</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>noGU</name>
+          <prompt lang="en">Do not allow GU pairs (-noGU)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -noGU" : ""</code>
+            <code proglang="python">( "" , " -noGU" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not allow GU pairs (-noGU)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="noGU">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noGU"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>noCloseGU</name>
+          <prompt lang="en">Do not allow GU pairs at the end of helices (-noCloseGU)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -noCloseGU" : ""</code>
+            <code proglang="python">( "" , " -noCloseGU" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not allow GU pairs at the end of helices (-noCloseGU)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="noCloseGU">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noCloseGU"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>parameter</name>
+          <prompt lang="en">Energy parameter file (-P)</prompt>
+          <type>
+            <datatype>
+              <class>EnergyParameterFile</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -P $value" : ""</code>
+            <code proglang="python">( "" , " -P " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Energy parameter file (-P)</xhtml:legend>
+              <xhtml:textarea name="parameter" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EnergyParameterFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="parameter">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(EnergyParameterFile)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713626144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713626144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>readseq</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"/local/gensoft/libexec/ViennaRNA/readseq  -f=19 -a $seq &gt; $seq.tmp &amp;&amp; (cp $seq $seq.orig &amp;&amp; mv $seq.tmp $seq) ; "</code>
+        <code proglang="python">"/local/gensoft/libexec/ViennaRNA/readseq  -f=19 -a "+ str(seq) + " &gt; "+ str(seq) +".tmp &amp;&amp; (cp "+ str(seq) +" "+ str(seq) +".orig &amp;&amp; mv "+ str(seq) +".tmp "+ str(seq) +") ; "</code>
+      </format>
+      <argpos>-10</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="readseq"/>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>psfiles</name>
+      <prompt>Postscript file</prompt>
+      <type>
+        <datatype>
+          <class>PostScript</class>
+          <superclass>Binary</superclass>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.ps"</code>
+        <code proglang="python">"*.ps"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="psfiles"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"rnaduplex.out"</code>
+        <code proglang="python">"rnaduplex.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"rnaduplex.err"</code>
+        <code proglang="python">"rnaduplex.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

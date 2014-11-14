@@ -1,0 +1,618 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>msa</name>
+    <version>2.1</version>
+    <doc>
+      <title>MSA</title>
+      <description>
+        <text lang="en">Multiple sequence alignment</text>
+      </description>
+      <authors>S. F. Altschul</authors>
+      <homepagelink>http://www.ncbi.nlm.nih.gov/CBBresearch/Schaffer/msa.html</homepagelink>
+      <sourcelink>ftp://fastlink.nih.gov/pub/msa/msa.tar.Z</sourcelink>
+    </doc>
+    <command>msa</command>
+    <category>alignment:multiple</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seqs">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequences File<xhtml:a href="#idm140117710963296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710963296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>This  is  a  file  containing  the  sequences to be aligned.</xhtml:div>
+        </xhtml:div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqs" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="optimal">Turns off the optimal multiple alignment (-m)<xhtml:a href="#idm140117710452176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="optimal">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117710452176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turns  off  the optimal multiple alignment segment of the program.This allows the user to see the heuristic alignment and other data produced by the program before the it attempts to produce an optimal multiple alignment.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ForceAlignmentPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="forcedres">
+            <legend>User file to force the alignment of certain  residues (-f)<xhtml:a href="#idm140117709869248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a href="#idm140117709869248::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            </legend>
+            <xhtml:div id="idm140117709869248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allows the user to force the alignment of certain  residues. The file referred to must have one or more lines of the following format:</xhtml:div>
+              <xhtml:div>seqs.| "S" precedes block start | "L" precedes block length</xhtml:div>
+              <xhtml:div>The example would force positions 22 to 31 of sequence 2 to  be  aligned  with positions  21  to  30  of  sequence  3  and  positions 25 to 34 of sequence 5; it would else force position 35 of sequence  2  to  be aligned with position 36 of sequence 3 and position 41 of sequence 5.  Needless to say, all positions forced into alignment  must  be mutually consistent.
+	  </xhtml:div>
+              <div class="example" id="idm140117709869248::example" data-forparameter="forcedres">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>2 3 5     S 22 21 25     L 10      S 35 36 41     L 1</pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117709869248::example" data-forparameter="forcedres" style="display:none">
+              <pre>2 3 5     S 22 21 25     L 10      S 35 36 41     L 1</pre>
+            </div>
+            <xhtml:textarea name="forcedres" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Cost">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Cost parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="endgap">Charges terminal gaps the same as internal gaps (-g)<xhtml:a href="#idm140117710823376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="endgap">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117710823376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>As a default, no charge is made for the existence of a terminal gap.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="unweight">Cost of a multiple alignment (-b)<xhtml:a href="#idm140117709574016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="unweight">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117709574016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The cost of a multiple alignment is taken to be the unweighted sum of all the pairwise alignments.  In the absence of this flag, the program estimates an evolutionary tree and uses it to  assign weights  to  each  pairwise  alignment using either rationale-1 or rational-2 as described in Altschul et al., J.  Molec.  Biol.  208 (1989).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxscore">Maximum score of an optimal multiple alignment (-d)<xhtml:a href="#idm140117709351040::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="maxscore" type="text" value=""/>
+            <xhtml:div id="idm140117709351040::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Specifies  the  maximum  score  of  an optimal multiple alignment. Default is calculated from the  scores  of  the  optimal  pairwise alignments, the weights, and the epsilons.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EpsilonFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="epsilons">
+            <legend>User  specified  epsilons  for  each  pairwise  alignment (-e)<xhtml:a href="#idm140117709497328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117709497328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>As  a default, the program calculates an  heuristic  multiple  alignment and  uses  it  to  set epsilons for each pairwise alignment.  Frequently the "optimal multiple alignment" will  be  found  to  have observed  epsilons  exceeding  those supplied or calculated.  When this is the case, it is advisable to rerun the program using suitably augmented epsilons.  The file named here should have integers separated by spaces or newlines or both, with one integer for each pair  of  sequences  in  the order 1-2, 1-3, ... , 1-N, 2-3, ... , (N-1)-N.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="epsilons" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Costs" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="costs">
+            <legend>User costs file (-c)<xhtml:a href="#idm140117710843456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a href="#idm140117710843456::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            </legend>
+            <xhtml:div id="idm140117710843456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allows the user to specify the cost for a gap, as well as the cost for  aligning  any  pair  of  letters or a letter with a null. The default is PAM-250 costs for protein sequences, using the one-letter  code.  The format of this file is an integer, followed by all possible pairs of aligned symbols followed by  their  cost.   For example, the file might begin as follows:</xhtml:div>
+              <xhtml:div> This  would  specify  a  cost of 0 for aligning a null symbol with another null symbol, a cost of 1 for aligning an  A  with  a  null symbol,  etc.,  and an additional cost of 3 for the existence of a gap.  The program assumes the costs are symmetric, so  that  there is  no  need to have a line for C A as well as for A C.  All costs must be non-negative integers.</xhtml:div>
+              <div class="example" id="idm140117710843456::example" data-forparameter="costs">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+3
+- - 0
+- A 1
+A C 2
+	  </pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117710843456::example" data-forparameter="costs" style="display:none">
+              <pre>
+3
+- - 0
+- A 1
+A C 2
+	  </pre>
+            </div>
+            <xhtml:textarea name="costs" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="quiet">Suppress verbose output (-o)<xhtml:select name="quiet">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqs" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710963296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710963296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>This  is  a  file  containing  the  sequences to be aligned.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <xhtml:legend>Control parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="optimal" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117710452176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710452176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turns  off  the optimal multiple alignment segment of the program.This allows the user to see the heuristic alignment and other data produced by the program before the it attempts to produce an optimal multiple alignment.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="forcedres" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ForceAlignmentPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(ForceAlignmentPattern)
+			</xhtml:i>
+            <xhtml:a href="#idm140117709869248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117709869248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allows the user to force the alignment of certain  residues. The file referred to must have one or more lines of the following format:</xhtml:div>
+              <xhtml:div>seqs.| "S" precedes block start | "L" precedes block length</xhtml:div>
+              <xhtml:div>The example would force positions 22 to 31 of sequence 2 to  be  aligned  with positions  21  to  30  of  sequence  3  and  positions 25 to 34 of sequence 5; it would else force position 35 of sequence  2  to  be aligned with position 36 of sequence 3 and position 41 of sequence 5.  Needless to say, all positions forced into alignment  must  be mutually consistent.
+	  </xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Cost">
+        <xhtml:legend>Cost parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="endgap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117710823376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710823376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>As a default, no charge is made for the existence of a terminal gap.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="unweight" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117709574016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117709574016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The cost of a multiple alignment is taken to be the unweighted sum of all the pairwise alignments.  In the absence of this flag, the program estimates an evolutionary tree and uses it to  assign weights  to  each  pairwise  alignment using either rationale-1 or rational-2 as described in Altschul et al., J.  Molec.  Biol.  208 (1989).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="maxscore" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117709351040::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117709351040::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Specifies  the  maximum  score  of  an optimal multiple alignment. Default is calculated from the  scores  of  the  optimal  pairwise alignments, the weights, and the epsilons.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="epsilons" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EpsilonFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(EpsilonFile)
+			</xhtml:i>
+            <xhtml:a href="#idm140117709497328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117709497328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>As  a default, the program calculates an  heuristic  multiple  alignment and  uses  it  to  set epsilons for each pairwise alignment.  Frequently the "optimal multiple alignment" will  be  found  to  have observed  epsilons  exceeding  those supplied or calculated.  When this is the case, it is advisable to rerun the program using suitably augmented epsilons.  The file named here should have integers separated by spaces or newlines or both, with one integer for each pair  of  sequences  in  the order 1-2, 1-3, ... , 1-N, 2-3, ... , (N-1)-N.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="costs" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Costs" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Costs)
+			</xhtml:i>
+            <xhtml:a href="#idm140117710843456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710843456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allows the user to specify the cost for a gap, as well as the cost for  aligning  any  pair  of  letters or a letter with a null. The default is PAM-250 costs for protein sequences, using the one-letter  code.  The format of this file is an integer, followed by all possible pairs of aligned symbols followed by  their  cost.   For example, the file might begin as follows:</xhtml:div>
+              <xhtml:div> This  would  specify  a  cost of 0 for aligning a null symbol with another null symbol, a cost of 1 for aligning an  A  with  a  null symbol,  etc.,  and an additional cost of 3 for the existence of a gap.  The program assumes the costs are symmetric, so  that  there is  no  need to have a line for C A as well as for A C.  All costs must be non-negative integers.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="quiet" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seqs</name>
+      <prompt lang="en">Sequences File</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <argpos>2</argpos>
+      <comment>
+        <text lang="en">This  is  a  file  containing  the  sequences to be aligned.</text>
+      </comment>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequences File</xhtml:legend>
+          <xhtml:textarea name="seqs" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seqs">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710963296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710963296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>This  is  a  file  containing  the  sequences to be aligned.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>control</name>
+      <prompt lang="en">Control parameters</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>optimal</name>
+          <prompt lang="en">Turns off the optimal multiple alignment (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -m":""</code>
+            <code proglang="python">("" , " -m")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Turns  off  the optimal multiple alignment segment of the program.This allows the user to see the heuristic alignment and other data produced by the program before the it attempts to produce an optimal multiple alignment.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Turns off the optimal multiple alignment (-m)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710452176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="optimal">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710452176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turns  off  the optimal multiple alignment segment of the program.This allows the user to see the heuristic alignment and other data produced by the program before the it attempts to produce an optimal multiple alignment.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="optimal">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710452176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710452176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turns  off  the optimal multiple alignment segment of the program.This allows the user to see the heuristic alignment and other data produced by the program before the it attempts to produce an optimal multiple alignment.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>forcedres</name>
+          <prompt lang="en">User file to force the alignment of certain  residues (-f)</prompt>
+          <type>
+            <datatype>
+              <class>ForceAlignmentPattern</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -f $value" : "" </code>
+            <code proglang="python">( ""  , " -f " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Allows the user to force the alignment of certain  residues. The file referred to must have one or more lines of the following format:</text>
+            <text lang="en">seqs.| "S" precedes block start | "L" precedes block length</text>
+            <text lang="en">The example would force positions 22 to 31 of sequence 2 to  be  aligned  with positions  21  to  30  of  sequence  3  and  positions 25 to 34 of sequence 5; it would else force position 35 of sequence  2  to  be aligned with position 36 of sequence 3 and position 41 of sequence 5.  Needless to say, all positions forced into alignment  must  be mutually consistent.
+	  </text>
+          </comment>
+          <example>2 3 5     S 22 21 25     L 10      S 35 36 41     L 1</example>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>User file to force the alignment of certain  residues (-f)</xhtml:legend>
+              <xhtml:textarea name="forcedres" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ForceAlignmentPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="forcedres">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ForceAlignmentPattern)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709869248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709869248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Allows the user to force the alignment of certain  residues. The file referred to must have one or more lines of the following format:</xhtml:div>
+                <xhtml:div>seqs.| "S" precedes block start | "L" precedes block length</xhtml:div>
+                <xhtml:div>The example would force positions 22 to 31 of sequence 2 to  be  aligned  with positions  21  to  30  of  sequence  3  and  positions 25 to 34 of sequence 5; it would else force position 35 of sequence  2  to  be aligned with position 36 of sequence 3 and position 41 of sequence 5.  Needless to say, all positions forced into alignment  must  be mutually consistent.
+	  </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>Cost</name>
+      <prompt lang="en">Cost parameters</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>endgap</name>
+          <prompt lang="en">Charges terminal gaps the same as internal gaps (-g)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl"> ($value)? " -g":""</code>
+            <code proglang="python">("" , " -g")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">As a default, no charge is made for the existence of a terminal gap.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Charges terminal gaps the same as internal gaps (-g)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710823376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="endgap">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710823376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>As a default, no charge is made for the existence of a terminal gap.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="endgap">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710823376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710823376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>As a default, no charge is made for the existence of a terminal gap.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>unweight</name>
+          <prompt lang="en">Cost of a multiple alignment (-b)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl"> ($value)? " -b":""</code>
+            <code proglang="python">("" , " -b")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">The cost of a multiple alignment is taken to be the unweighted sum of all the pairwise alignments.  In the absence of this flag, the program estimates an evolutionary tree and uses it to  assign weights  to  each  pairwise  alignment using either rationale-1 or rational-2 as described in Altschul et al., J.  Molec.  Biol.  208 (1989).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cost of a multiple alignment (-b)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709574016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="unweight">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709574016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The cost of a multiple alignment is taken to be the unweighted sum of all the pairwise alignments.  In the absence of this flag, the program estimates an evolutionary tree and uses it to  assign weights  to  each  pairwise  alignment using either rationale-1 or rational-2 as described in Altschul et al., J.  Molec.  Biol.  208 (1989).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="unweight">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709574016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709574016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The cost of a multiple alignment is taken to be the unweighted sum of all the pairwise alignments.  In the absence of this flag, the program estimates an evolutionary tree and uses it to  assign weights  to  each  pairwise  alignment using either rationale-1 or rational-2 as described in Altschul et al., J.  Molec.  Biol.  208 (1989).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>maxscore</name>
+          <prompt lang="en">Maximum score of an optimal multiple alignment (-d)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl"> (defined $value)? " -d$value" : ""</code>
+            <code proglang="python">( "" , " -d" + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Specifies  the  maximum  score  of  an optimal multiple alignment. Default is calculated from the  scores  of  the  optimal  pairwise alignments, the weights, and the epsilons.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum score of an optimal multiple alignment (-d)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709351040::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="maxscore" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709351040::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Specifies  the  maximum  score  of  an optimal multiple alignment. Default is calculated from the  scores  of  the  optimal  pairwise alignments, the weights, and the epsilons.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxscore">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709351040::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709351040::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Specifies  the  maximum  score  of  an optimal multiple alignment. Default is calculated from the  scores  of  the  optimal  pairwise alignments, the weights, and the epsilons.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>epsilons</name>
+          <prompt lang="en">User  specified  epsilons  for  each  pairwise  alignment (-e)</prompt>
+          <type>
+            <datatype>
+              <class>EpsilonFile</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -e $value" : "" </code>
+            <code proglang="python">( ""  , " -e " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">As  a default, the program calculates an  heuristic  multiple  alignment and  uses  it  to  set epsilons for each pairwise alignment.  Frequently the "optimal multiple alignment" will  be  found  to  have observed  epsilons  exceeding  those supplied or calculated.  When this is the case, it is advisable to rerun the program using suitably augmented epsilons.  The file named here should have integers separated by spaces or newlines or both, with one integer for each pair  of  sequences  in  the order 1-2, 1-3, ... , 1-N, 2-3, ... , (N-1)-N.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>User  specified  epsilons  for  each  pairwise  alignment (-e)</xhtml:legend>
+              <xhtml:textarea name="epsilons" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EpsilonFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="epsilons">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(EpsilonFile)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709497328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709497328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>As  a default, the program calculates an  heuristic  multiple  alignment and  uses  it  to  set epsilons for each pairwise alignment.  Frequently the "optimal multiple alignment" will  be  found  to  have observed  epsilons  exceeding  those supplied or calculated.  When this is the case, it is advisable to rerun the program using suitably augmented epsilons.  The file named here should have integers separated by spaces or newlines or both, with one integer for each pair  of  sequences  in  the order 1-2, 1-3, ... , 1-N, 2-3, ... , (N-1)-N.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>costs</name>
+          <prompt lang="en">User costs file (-c)</prompt>
+          <type>
+            <datatype>
+              <class>Costs</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -c $value" : "" </code>
+            <code proglang="python">( ""  , " -c " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Allows the user to specify the cost for a gap, as well as the cost for  aligning  any  pair  of  letters or a letter with a null. The default is PAM-250 costs for protein sequences, using the one-letter  code.  The format of this file is an integer, followed by all possible pairs of aligned symbols followed by  their  cost.   For example, the file might begin as follows:</text>
+            <text lang="en"> This  would  specify  a  cost of 0 for aligning a null symbol with another null symbol, a cost of 1 for aligning an  A  with  a  null symbol,  etc.,  and an additional cost of 3 for the existence of a gap.  The program assumes the costs are symmetric, so  that  there is  no  need to have a line for C A as well as for A C.  All costs must be non-negative integers.</text>
+          </comment>
+          <example>
+3
+- - 0
+- A 1
+A C 2
+	  </example>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>User costs file (-c)</xhtml:legend>
+              <xhtml:textarea name="costs" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Costs" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="costs">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Costs)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710843456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710843456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Allows the user to specify the cost for a gap, as well as the cost for  aligning  any  pair  of  letters or a letter with a null. The default is PAM-250 costs for protein sequences, using the one-letter  code.  The format of this file is an integer, followed by all possible pairs of aligned symbols followed by  their  cost.   For example, the file might begin as follows:</xhtml:div>
+                <xhtml:div> This  would  specify  a  cost of 0 for aligning a null symbol with another null symbol, a cost of 1 for aligning an  A  with  a  null symbol,  etc.,  and an additional cost of 3 for the existence of a gap.  The program assumes the costs are symmetric, so  that  there is  no  need to have a line for C A as well as for A C.  All costs must be non-negative integers.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output parameters</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>quiet</name>
+          <prompt lang="en">Suppress verbose output (-o)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -o":""</code>
+            <code proglang="python">("" , " -o")[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Suppress verbose output (-o)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="quiet">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="quiet"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"msa.out"</code>
+        <code proglang="python">"msa.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"msa.err"</code>
+        <code proglang="python">"msa.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

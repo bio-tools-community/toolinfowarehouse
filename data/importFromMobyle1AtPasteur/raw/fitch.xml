@@ -1,0 +1,1371 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>fitch</name>
+    <package xml:base="Entities/phylip_package.xml">
+      <name>phylip</name>
+      <version>3.67</version>
+      <doc>
+        <title>phylip</title>
+        <description>
+          <text lang="en">PHYLIP is a package of programs for inferring phylogenies.</text>
+        </description>
+        <homepagelink>http://evolution.gs.washington.edu/phylip.html</homepagelink>
+        <sourcelink>http://evolution.gs.washington.edu/phylip/getme.html</sourcelink>
+        <authors>Felsenstein Joe</authors>
+        <reference>Felsenstein, J. 1993. PHYLIP (Phylogeny Inference Package) version 3.5c. Distributed by the author. Department of Genetics, University of Washington, Seattle.</reference>
+        <reference>Felsenstein, J. 1989. PHYLIP -- Phylogeny Inference Package (Version 3.2). Cladistics 5: 164-166.</reference>
+        <doclink>http://bioweb2.pasteur.fr/docs/phylip/phylip.html</doclink>
+      </doc>
+    </package>
+    <doc>
+      <title>fitch</title>
+      <description>
+        <text lang="en">Fitch-Margoliash and Least-Squares Distance Methods</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/phylip/doc/fitch.html</doclink>
+      <comment>
+        <text lang="en">This program carries out Fitch-Margoliash,
+	  Least Squares, and a number of similar methods</text>
+      </comment>
+    </doc>
+    <category>phylogeny:distance</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="PhylipDistanceMatrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="infile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Distances matrix File<xhtml:a href="#idm140117725115584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117725115584::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725115584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Give a file containing a distance matrix
+	  obtained by distance matrix programs like protdist or
+	  dnadist</xhtml:div>
+          <div class="example" id="idm140117725115584::example" data-forparameter="infile">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+    5
+Alpha       0.000000  0.330447  0.625670  1.032032  1.354086
+Beta        0.330447  0.000000  0.375578  1.096290  0.677616
+Gamma       0.625670  0.375578  0.000000  0.975798  0.861634
+Delta       1.032032  1.096290  0.975798  0.000000  0.226703
+Epsilon     1.354086  0.677616  0.861634  0.226703  0.000000
+      </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117725115584::example" data-forparameter="infile" style="display:none">
+          <pre>
+    5
+Alpha       0.000000  0.330447  0.625670  1.032032  1.354086
+Beta        0.330447  0.000000  0.375578  1.096290  0.677616
+Gamma       0.625670  0.375578  0.000000  0.975798  0.861634
+Delta       1.032032  1.096290  0.975798  0.000000  0.226703
+Epsilon     1.354086  0.677616  0.861634  0.226703  0.000000
+      </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="infile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FM" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Method">Method (D)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Method">
+          <xhtml:option value="FM" selected="selected">Fitch-Margoliash</xhtml:option>
+          <xhtml:option value="ME">Minimum Evolution</xhtml:option>
+        </xhtml:select>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="fitch_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Fitch options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="negative_branch">Negative branch lengths allowed (-)<xhtml:select name="negative_branch">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="power">Power (P)<xhtml:a href="#idm140117723948688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="power" type="text" value="2.0"/>
+            <xhtml:div id="idm140117723948688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For the Fitch-Margoliash method, which is the default method with this program, P is 2.0. For the Cavalli-Sforza and Edwards least squares method it should be set to 0 (so that the denominator is always 1). An intermediate method is also available in which P is 1.0, and any other value of P, such as 4.0 or -2.3, can also be used. This generates a whole family of methods.</xhtml:div>
+              <xhtml:div>Please read the documentation (man distance).</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="jumble_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Randomize options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="jumble">Randomize (jumble) input order (J)<xhtml:select name="jumble">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="jumble_seed">Random number seed (must be odd)<xhtml:input name="jumble_seed" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="jumble_number">Number of times to jumble<xhtml:input name="jumble_number" type="text" value="1"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="bootstrap">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Bootstrap options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="multiple">Analyze multiple data sets (M)<xhtml:select name="multiple">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="multiple_number">How many data sets<xhtml:input name="multiple_number" type="text" value=""/>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="multiple_seed">Random number seed (must be odd)<xhtml:input name="multiple_seed" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consense">Compute a consensus tree<xhtml:select name="consense">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="user_tree_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">User tree options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="user_tree">Use User tree (default: no, search for best tree) (U)<xhtml:a href="#idm140117723297840::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="user_tree">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723297840::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To give your tree to the program, you must normally put it in the alignment file, after the sequences, preceded by a line indicating how many trees you give.</xhtml:div>
+              <xhtml:div>Here, this will be automatically appended: just give a treefile and the number of trees in it.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="tree_file">
+            <legend>User Tree file</legend>
+            <xhtml:textarea name="tree_file" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="use_lengths">Use lengths from user trees (N)<xhtml:select name="use_lengths">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_tree">Print out tree (3)<xhtml:a href="#idm140117723315696::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="print_tree">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723315696::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tells the program to print a semi-graphical picture of the tree in the outfile.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_treefile">Write out trees onto tree file (4)<xhtml:a href="#idm140117723304032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="print_treefile">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723304032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="printdata">Print out the data at start of run (1)<xhtml:select name="printdata">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="other_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Other options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outgroup">Outgroup species root (O)<xhtml:input name="outgroup" type="text" value="1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="square" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="triangular">Matrix format<xhtml:select name="triangular">
+              <xhtml:option value="square" selected="selected">Square</xhtml:option>
+              <xhtml:option value="lower">Lower-triangular</xhtml:option>
+              <xhtml:option value="upper">Upper-triangular</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="subreplicates">Subreplicates (S)<xhtml:a href="#idm140117723376192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="subreplicates">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723376192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If the S (subreplication) option is in effect, the above degrees of freedom must be modified by noting that N is not n(n-1)/2 but is the sum of the numbers of replicates of all cells in the distance matrix read in, which may be either square or triangular. A further explanation of the statistical test of the clock is given in a paper of mine (Felsenstein, 1986).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="global">Global rearrangements (G)<xhtml:a href="#idm140117723364144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="global">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723364144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>is the Global search option. This causes, after the last species is added to the tree, each possible group to be removed and re-added. This improves the result, since the position of every species is reconsidered. It approximately triples the run-time of the program. It is not an option in KITSCH because it is the default and is always in force there.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fitch" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="infile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="PhylipDistanceMatrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(PhylipDistanceMatrix)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725115584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725115584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Give a file containing a distance matrix
+	  obtained by distance matrix programs like protdist or
+	  dnadist</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Method" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FM" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="fitch_options">
+        <xhtml:legend>Fitch options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="negative_branch" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="power" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723948688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723948688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For the Fitch-Margoliash method, which is the default method with this program, P is 2.0. For the Cavalli-Sforza and Edwards least squares method it should be set to 0 (so that the denominator is always 1). An intermediate method is also available in which P is 1.0, and any other value of P, such as 4.0 or -2.3, can also be used. This generates a whole family of methods.</xhtml:div>
+              <xhtml:div>Please read the documentation (man distance).</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="jumble_options">
+        <xhtml:legend>Randomize options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="jumble" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="jumble_seed" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="jumble_number" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="bootstrap">
+        <xhtml:legend>Bootstrap options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="multiple" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="multiple_number" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="multiple_seed" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="consense" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="consense_confirm" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="consense_terminal_type" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="user_tree_opt">
+        <xhtml:legend>User tree options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="user_tree" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723297840::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723297840::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To give your tree to the program, you must normally put it in the alignment file, after the sequences, preceded by a line indicating how many trees you give.</xhtml:div>
+              <xhtml:div>Here, this will be automatically appended: just give a treefile and the number of trees in it.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tree_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+            <xhtml:i>
+				(Tree)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="use_lengths" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="print_tree" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723315696::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723315696::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tells the program to print a semi-graphical picture of the tree in the outfile.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="print_treefile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723304032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723304032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="printdata" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="other_options">
+        <xhtml:legend>Other options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outgroup" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="triangular" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="square" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="subreplicates" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723376192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723376192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If the S (subreplication) option is in effect, the above degrees of freedom must be modified by noting that N is not n(n-1)/2 but is the sum of the numbers of replicates of all cells in the distance matrix read in, which may be either square or triangular. A further explanation of the statistical test of the clock is given in a paper of mine (Felsenstein, 1986).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="global" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723364144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723364144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>is the Global search option. This causes, after the last species is added to the tree, each possible group to be removed and re-added. This improves the result, since the position of every species is reconsidered. It approximately triples the run-time of the program. It is not an option in KITSCH because it is the default and is always in force there.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="confirm" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="terminal_type" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="consense_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="consense_treefile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="treefile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter iscommand="1" ishidden="1">
+      <name>fitch</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"fitch &lt;fitch.params"</code>
+        <code proglang="python">"fitch &lt;fitch.params"</code>
+      </format>
+      <argpos>0</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fitch"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1" ismaininput="1">
+      <name>infile</name>
+      <prompt lang="en">Distances matrix File</prompt>
+      <type>
+        <datatype>
+          <class>PhylipDistanceMatrix</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$infile ne "infile"</code>
+        <code proglang="python">infile != "infile"</code>
+      </precond>
+      <format>
+        <code proglang="perl">"ln -s $infile infile &amp;&amp; "</code>
+        <code proglang="python">"ln -s " + str( value ) + " infile &amp;&amp; "</code>
+      </format>
+      <argpos>-5</argpos>
+      <comment>
+        <text lang="en">Give a file containing a distance matrix
+	  obtained by distance matrix programs like protdist or
+	  dnadist</text>
+      </comment>
+      <example>
+    5
+Alpha       0.000000  0.330447  0.625670  1.032032  1.354086
+Beta        0.330447  0.000000  0.375578  1.096290  0.677616
+Gamma       0.625670  0.375578  0.000000  0.975798  0.861634
+Delta       1.032032  1.096290  0.975798  0.000000  0.226703
+Epsilon     1.354086  0.677616  0.861634  0.226703  0.000000
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Distances matrix File</xhtml:legend>
+          <xhtml:textarea name="infile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="PhylipDistanceMatrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="infile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(PhylipDistanceMatrix)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725115584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725115584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Give a file containing a distance matrix
+	  obtained by distance matrix programs like protdist or
+	  dnadist</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>Method</name>
+      <prompt lang="en">Method (D)</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>FM</value>
+      </vdef>
+      <flist>
+        <felem>
+          <value>FM</value>
+          <label>Fitch-Margoliash</label>
+          <code proglang="perl">""</code>
+          <code proglang="python">""</code>
+        </felem>
+        <felem>
+          <value>ME</value>
+          <label>Minimum Evolution</label>
+          <code proglang="perl">"D\\n"</code>
+          <code proglang="python">"D\n"</code>
+        </felem>
+      </flist>
+      <paramfile>fitch.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Method (D)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Method">
+            <xhtml:option value="FM" selected="selected">Fitch-Margoliash</xhtml:option>
+            <xhtml:option value="ME">Minimum Evolution</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FM" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Method"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>fitch_options</name>
+      <prompt lang="en">Fitch options</prompt>
+      <parameters>
+        <parameter>
+          <name>negative_branch</name>
+          <prompt lang="en">Negative branch lengths allowed (-)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "-\\n" : ""</code>
+            <code proglang="python">( "" , "-\n" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Negative branch lengths allowed (-)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="negative_branch">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="negative_branch"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>power</name>
+          <prompt lang="en">Power (P)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? "P\\n$value\\n" : ""</code>
+            <code proglang="python">( "" , "P\n" + str(value ) + "\n" )[ value is not None and value != vdef ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">For the Fitch-Margoliash method, which is the default method with this program, P is 2.0. For the Cavalli-Sforza and Edwards least squares method it should be set to 0 (so that the denominator is always 1). An intermediate method is also available in which P is 1.0, and any other value of P, such as 4.0 or -2.3, can also be used. This generates a whole family of methods.</text>
+            <text lang="en">Please read the documentation (man distance).</text>
+          </comment>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Power (P)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723948688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="power" type="text" value="2.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723948688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For the Fitch-Margoliash method, which is the default method with this program, P is 2.0. For the Cavalli-Sforza and Edwards least squares method it should be set to 0 (so that the denominator is always 1). An intermediate method is also available in which P is 1.0, and any other value of P, such as 4.0 or -2.3, can also be used. This generates a whole family of methods.</xhtml:div>
+                <xhtml:div>Please read the documentation (man distance).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="power">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723948688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723948688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For the Fitch-Margoliash method, which is the default method with this program, P is 2.0. For the Cavalli-Sforza and Edwards least squares method it should be set to 0 (so that the denominator is always 1). An intermediate method is also available in which P is 1.0, and any other value of P, such as 4.0 or -2.3, can also be used. This generates a whole family of methods.</xhtml:div>
+                <xhtml:div>Please read the documentation (man distance).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>jumble_options</name>
+      <prompt lang="en">Randomize options</prompt>
+      <parameters>
+        <parameter>
+          <name>jumble</name>
+          <prompt lang="en">Randomize (jumble) input order (J)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not $user_tree</code>
+            <code proglang="python">not user_tree</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "J\\n$jumble_seed\\n$jumble_number\\n" : ""</code>
+            <code proglang="python">( "" , "J\n"+str( jumble_seed ) +"\n" + str( jumble_number ) +"\n" )[ value ]</code>
+          </format>
+          <argpos>20</argpos>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Randomize (jumble) input order (J)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="jumble">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="jumble"/>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>jumble_seed</name>
+          <prompt lang="en">Random number seed (must be odd)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$jumble</code>
+            <code proglang="python">jumble</code>
+          </precond>
+          <format>
+            <code proglang="perl">""</code>
+            <code proglang="python">""</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Random number seed must be odd</text>
+            </message>
+            <code proglang="perl">$value &gt; 0 and ($value % 2) != 0</code>
+            <code proglang="python">value &gt; 0 and (value % 2) != 0</code>
+          </ctrl>
+          <argpos>19</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Random number seed (must be odd)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="jumble_seed" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="jumble_seed"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>jumble_number</name>
+          <prompt lang="en">Number of times to jumble</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$jumble</code>
+            <code proglang="python">jumble</code>
+          </precond>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">""</code>
+            <code proglang="python">""</code>
+          </format>
+          <argpos>19</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of times to jumble<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="jumble_number" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="jumble_number"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>bootstrap</name>
+      <prompt lang="en">Bootstrap options</prompt>
+      <parameters>
+        <parameter>
+          <name>multiple</name>
+          <prompt lang="en">Analyze multiple data sets (M)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "M\\n$multiple_number\\n$multiple_seed\\n" : ""</code>
+            <code proglang="python">( "", "M\n"+str(multiple_number)+"\n"+str(multiple_seed)+"\n")[value]</code>
+          </format>
+          <argpos>10</argpos>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Analyze multiple data sets (M)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="multiple">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="multiple"/>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>multiple_number</name>
+          <prompt lang="en">How many data sets</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$multiple</code>
+            <code proglang="python">multiple</code>
+          </precond>
+          <format>
+            <code proglang="perl">""</code>
+            <code proglang="python">""</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">There must be no more than 1000 datasets for this server</text>
+            </message>
+            <code proglang="perl">$value &lt;= 1000</code>
+            <code proglang="python">value &lt;= 1000</code>
+          </ctrl>
+          <argpos>9</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">How many data sets<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="multiple_number" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="multiple_number"/>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>multiple_seed</name>
+          <prompt lang="en">Random number seed (must be odd)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$multiple</code>
+            <code proglang="python">multiple</code>
+          </precond>
+          <format>
+            <code proglang="perl">""</code>
+            <code proglang="python">""</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Random number seed must be odd</text>
+            </message>
+            <code proglang="perl">$value &gt; 0 and ($value % 2) != 0</code>
+            <code proglang="python">value &gt; 0 and (value % 2) != 0</code>
+          </ctrl>
+          <argpos>19</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Random number seed (must be odd)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="multiple_seed" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="multiple_seed"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>consense</name>
+          <prompt lang="en">Compute a consensus tree</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$multiple and $print_treefile</code>
+            <code proglang="python">multiple and print_treefile</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " &amp;&amp; cp infile fitch.infile &amp;&amp;  cp fitch.outtree intree &amp;&amp; consense &lt;consense.params &amp;&amp; mv outtree consense.outtree &amp;&amp; mv outfile consense.outfile" : ""</code>
+            <code proglang="python">( "" , " &amp;&amp; cp infile fitch.infile &amp;&amp;  cp fitch.outtree intree &amp;&amp; consense &lt;consense.params &amp;&amp; mv outtree consense.outtree &amp;&amp; mv outfile consense.outfile" )[ value ]</code>
+          </format>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Compute a consensus tree<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="consense">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consense"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>consense_confirm</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$consense</code>
+        <code proglang="python">consense</code>
+      </precond>
+      <format>
+        <code proglang="perl">"Y\\n"</code>
+        <code proglang="python">"Y\n"</code>
+      </format>
+      <argpos>1000</argpos>
+      <paramfile>consense.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consense_confirm"/>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>consense_terminal_type</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$consense</code>
+        <code proglang="python">consense</code>
+      </precond>
+      <format>
+        <code proglang="perl">"T\\n"</code>
+        <code proglang="python">"T\n"</code>
+      </format>
+      <argpos>-2</argpos>
+      <paramfile>consense.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consense_terminal_type"/>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>consense_outfile</name>
+      <prompt>Consense output file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$consense</code>
+        <code proglang="python">consense</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"consense.outfile"</code>
+        <code proglang="python">"consense.outfile"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consense_outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>consense_treefile</name>
+      <prompt>Consense tree file</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+        <dataFormat>NEWICK</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$consense</code>
+        <code proglang="python">consense</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"consense.outtree"</code>
+        <code proglang="python">"consense.outtree"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="consense_treefile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>user_tree_opt</name>
+      <prompt lang="en">User tree options</prompt>
+      <parameters>
+        <parameter ismandatory="1">
+          <name>user_tree</name>
+          <prompt lang="en">Use User tree (default: no, search for best tree) (U)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $tree_file</code>
+            <code proglang="python">tree_file is not None</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "U\\n" : ""</code>
+            <code proglang="python">( "" , "U\n")[ value ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">You cannot randomize (jumble) your dataset and give a user tree at the same time</text>
+            </message>
+            <code proglang="perl">not ( $user_tree and $jumble )</code>
+            <code proglang="python">not ( user_tree and jumble )</code>
+          </ctrl>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">To give your tree to the program, you must normally put it in the alignment file, after the sequences, preceded by a line indicating how many trees you give.</text>
+            <text lang="en">Here, this will be automatically appended: just give a treefile and the number of trees in it.</text>
+          </comment>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use User tree (default: no, search for best tree) (U)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723297840::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="user_tree">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723297840::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To give your tree to the program, you must normally put it in the alignment file, after the sequences, preceded by a line indicating how many trees you give.</xhtml:div>
+                <xhtml:div>Here, this will be automatically appended: just give a treefile and the number of trees in it.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="user_tree">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723297840::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723297840::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To give your tree to the program, you must normally put it in the alignment file, after the sequences, preceded by a line indicating how many trees you give.</xhtml:div>
+                <xhtml:div>Here, this will be automatically appended: just give a treefile and the number of trees in it.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tree_file</name>
+          <prompt lang="en">User Tree file</prompt>
+          <type>
+            <datatype>
+              <class>Tree</class>
+            </datatype>
+            <dataFormat>NEWICK</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$user_tree</code>
+            <code proglang="python">user_tree</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? "cat $tree_file &gt;&gt; intree; " : ""</code>
+            <code proglang="python">("" , "cat "+str( tree_file ) + " &gt;&gt; intree; " )[ value is not None ]</code>
+          </format>
+          <argpos>-1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>User Tree file</xhtml:legend>
+              <xhtml:textarea name="tree_file" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="tree_file">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>use_lengths</name>
+          <prompt lang="en">Use lengths from user trees (N)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$user_tree</code>
+            <code proglang="python">user_tree</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "N\\n" : ""</code>
+            <code proglang="python">( "" , "N\n" )[ value ]</code>
+          </format>
+          <argpos>2</argpos>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use lengths from user trees (N)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="use_lengths">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="use_lengths"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output options</prompt>
+      <parameters>
+        <parameter>
+          <name>print_tree</name>
+          <prompt lang="en">Print out tree (3)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" : "3\\n"</code>
+            <code proglang="python">( "3\n" , "" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Tells the program to print a semi-graphical picture of the tree in the outfile.</text>
+          </comment>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print out tree (3)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723315696::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="print_tree">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723315696::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tells the program to print a semi-graphical picture of the tree in the outfile.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_tree">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723315696::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723315696::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tells the program to print a semi-graphical picture of the tree in the outfile.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>print_treefile</name>
+          <prompt lang="en">Write out trees onto tree file (4)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" : "4\\n"</code>
+            <code proglang="python">( "4\n" , "" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</text>
+          </comment>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Write out trees onto tree file (4)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723304032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="print_treefile">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723304032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_treefile">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723304032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723304032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tells the program to save the tree in a treefile (a standard representation of trees where the tree is specified by a nested pairs of parentheses, enclosing names and separated by commas).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>printdata</name>
+          <prompt lang="en">Print out the data at start of run (1)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "1\\n" : ""</code>
+            <code proglang="python">( "" , "1\n" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print out the data at start of run (1)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="printdata">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="printdata"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>other_options</name>
+      <prompt lang="en">Other options</prompt>
+      <parameters>
+        <parameter>
+          <name>outgroup</name>
+          <prompt lang="en">Outgroup species root (O)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? "O\\n$value\\n" : ""</code>
+            <code proglang="python">( "" , "O\n" +str( value )+ "\n" )[ value is not None and value != vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Please enter a value greater than 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <argpos>1</argpos>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Outgroup species root (O)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outgroup" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outgroup"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>triangular</name>
+          <prompt lang="en">Matrix format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>square</value>
+          </vdef>
+          <flist>
+            <felem>
+              <value>square</value>
+              <label>Square</label>
+              <code proglang="perl">""</code>
+              <code proglang="python">""</code>
+            </felem>
+            <felem>
+              <value>lower</value>
+              <label>Lower-triangular</label>
+              <code proglang="perl">"L\\n"</code>
+              <code proglang="python">"L\n"</code>
+            </felem>
+            <felem>
+              <value>upper</value>
+              <label>Upper-triangular</label>
+              <code proglang="perl">"R\\n"</code>
+              <code proglang="python">"R\n"</code>
+            </felem>
+          </flist>
+          <argpos>1</argpos>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Matrix format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="triangular">
+                <xhtml:option value="square" selected="selected">Square</xhtml:option>
+                <xhtml:option value="lower">Lower-triangular</xhtml:option>
+                <xhtml:option value="upper">Upper-triangular</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="square" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="triangular"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>subreplicates</name>
+          <prompt lang="en">Subreplicates (S)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "S\\n" : ""</code>
+            <code proglang="python">( "" , "S\n" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">If the S (subreplication) option is in effect, the above degrees of freedom must be modified by noting that N is not n(n-1)/2 but is the sum of the numbers of replicates of all cells in the distance matrix read in, which may be either square or triangular. A further explanation of the statistical test of the clock is given in a paper of mine (Felsenstein, 1986).</text>
+          </comment>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Subreplicates (S)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723376192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="subreplicates">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723376192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If the S (subreplication) option is in effect, the above degrees of freedom must be modified by noting that N is not n(n-1)/2 but is the sum of the numbers of replicates of all cells in the distance matrix read in, which may be either square or triangular. A further explanation of the statistical test of the clock is given in a paper of mine (Felsenstein, 1986).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="subreplicates">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723376192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723376192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If the S (subreplication) option is in effect, the above degrees of freedom must be modified by noting that N is not n(n-1)/2 but is the sum of the numbers of replicates of all cells in the distance matrix read in, which may be either square or triangular. A further explanation of the statistical test of the clock is given in a paper of mine (Felsenstein, 1986).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>global</name>
+          <prompt lang="en">Global rearrangements (G)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "G\\n" : ""</code>
+            <code proglang="python">( "", "G\n")[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">is the Global search option. This causes, after the last species is added to the tree, each possible group to be removed and re-added. This improves the result, since the position of every species is reconsidered. It approximately triples the run-time of the program. It is not an option in KITSCH because it is the default and is always in force there.</text>
+          </comment>
+          <paramfile>fitch.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Global rearrangements (G)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723364144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="global">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723364144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>is the Global search option. This causes, after the last species is added to the tree, each possible group to be removed and re-added. This improves the result, since the position of every species is reconsidered. It approximately triples the run-time of the program. It is not an option in KITSCH because it is the default and is always in force there.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="global">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723364144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723364144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>is the Global search option. This causes, after the last species is added to the tree, each possible group to be removed and re-added. This improves the result, since the position of every species is reconsidered. It approximately triples the run-time of the program. It is not an option in KITSCH because it is the default and is always in force there.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>outfile</name>
+      <prompt>Fitch output file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" &amp;&amp; mv outfile fitch.outfile"</code>
+        <code proglang="python">" &amp;&amp; mv outfile fitch.outfile"</code>
+      </format>
+      <filenames>
+        <code proglang="perl">"fitch.outfile"</code>
+        <code proglang="python">"fitch.outfile"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>treefile</name>
+      <prompt>Fitch tree file</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+        <dataFormat>NEWICK</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$print_treefile</code>
+        <code proglang="python">print_treefile</code>
+      </precond>
+      <format>
+        <code proglang="perl">" &amp;&amp; mv outtree fitch.outtree"</code>
+        <code proglang="python">" &amp;&amp; mv outtree fitch.outtree"</code>
+      </format>
+      <filenames>
+        <code proglang="perl">"fitch.outtree"</code>
+        <code proglang="python">"fitch.outtree"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="treefile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>confirm</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"Y\\n"</code>
+        <code proglang="python">"Y\n"</code>
+      </format>
+      <argpos>1000</argpos>
+      <paramfile>fitch.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="confirm"/>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>terminal_type</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"0\\n"</code>
+        <code proglang="python">"0\n"</code>
+      </format>
+      <argpos>-1</argpos>
+      <paramfile>fitch.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="terminal_type"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"fitch.out"</code>
+        <code proglang="python">"fitch.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"fitch.err"</code>
+        <code proglang="python">"fitch.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Herve Menager                                                  -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 Licence. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>nw_rename</name>
+    <package xml:base="Entities/newick_utils_package.xml">
+      <name>newick-utils</name>
+      <version>1.6</version>
+      <doc>
+        <title>The Newick Utilities suite</title>
+        <description>
+          <text lang="en">The Newick Utilities are a suite of Unix shell tools for processing phylogenetic trees.</text>
+        </description>
+      </doc>
+    </package>
+    <doc>
+      <title>newick ID mapper</title>
+      <description>
+        <text lang="en">helps out with the 10-character limit of the PHYLIP-PHYML formats</text>
+      </description>
+      <authors>GNU</authors>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            Due to an incompatibility between the PHYLIP format and phyml and morePhyml named rules, 
+            the using of long identifier in phyml or morePhyml failed. We proposed the following workaround:
+            <ol>
+            <li>your alignment must be in FASTA format, if it is in other format use squizz_convert to reformat it</li>
+            <li>use fastaRename to generate an alignment with short ID and a file of ID mapping</li>
+            <li>perform your analysis with the alignment with short id</li>
+            <li>replace the short IDs in your tree (in NEWICK format) with nw_rename and the file of IDs mapping generated at the step 1.</li>
+          </ol>
+        </div>
+      </comment>
+    </doc>
+    <command>nw_rename</command>
+    <category>phylogeny:others</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="input_newick">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Tree file (in NEWICK format)<xhtml:a href="#idm140117721892240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721892240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Put here youre treefile with the short ID in NEWICK format </xhtml:div>
+        </xhtml:div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="input_newick" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="ID_Mapping" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="input_map">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Labels map<xhtml:a href="#idm140117720722016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720722016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The file of mapping between long ID and short ID. This file can be generated with fastaRename service.</xhtml:div>
+        </xhtml:div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="input_map" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="input_newick" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721892240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721892240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Put here youre treefile with the short ID in NEWICK format </xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="input_map" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="ID_Mapping" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ID_Mapping)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720722016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720722016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The file of mapping between long ID and short ID. This file can be generated with fastaRename service.</xhtml:div>
+        </xhtml:div>
+      </div>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_tree" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>input_newick</name>
+      <prompt lang="en">Tree file (in NEWICK format)</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+        <dataFormat>NEWICK</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str( value )</code>
+      </format>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">Put here youre treefile with the short ID in NEWICK format </text>
+      </comment>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Tree file (in NEWICK format)</xhtml:legend>
+          <xhtml:textarea name="input_newick" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="input_newick">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721892240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721892240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Put here youre treefile with the short ID in NEWICK format </xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>input_map</name>
+      <prompt lang="en">Labels map</prompt>
+      <type>
+        <datatype>
+          <class>ID_Mapping</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str( value )</code>
+      </format>
+      <argpos>2</argpos>
+      <comment>
+        <text lang="en">The file of mapping between long ID and short ID. This file can be generated with fastaRename service.</text>
+      </comment>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Labels map</xhtml:legend>
+          <xhtml:textarea name="input_map" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="ID_Mapping" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="input_map">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ID_Mapping)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720722016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720722016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The file of mapping between long ID and short ID. This file can be generated with fastaRename service.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="1">
+      <name>output_tree</name>
+      <prompt lang="en">Newick tree</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+        <dataFormat>NEWICK</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"nw_rename.out"</code>
+        <code proglang="python">"nw_rename.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="output_tree">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"nw_rename.err"</code>
+        <code proglang="python">"nw_rename.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

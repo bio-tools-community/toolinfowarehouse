@@ -1,0 +1,658 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>checktrans</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>checktrans</title>
+      <description>
+        <text lang="en">Reports STOP codons and ORF statistics of a protein</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/checktrans.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>checktrans</command>
+    <category>sequence:protein:composition</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+            <legend>sequence option</legend>
+            <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_required">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Required section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_orfml">Minimum orf length to report (value greater than or equal to 1)<xhtml:input name="e_orfml" type="text" value="100"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_additional">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Additional section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_addlast">Force the sequence to end with an asterisk<xhtml:a href="#idm140117726441728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_addlast">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117726441728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>An asterisk in the protein sequence indicates the position of a STOP codon. Checktrans assumes that all ORFs end in a STOP  codon. Forcing the sequence to end with an asterisk, if there is  not one there already, makes checktrans treat the end as a  potential ORF. If an asterisk is added, it is not included in the  reported count of STOPs.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="checktrans.e_outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile">Name of the output file (e_outfile)<xhtml:input name="e_outfile" type="text" value="checktrans.e_outfile"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="checktrans.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outseq">Name of the output sequence file (e_outseq)<xhtml:a href="#idm140117728632784::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_outseq" type="text" value="checktrans.e_outseq"/>
+            <xhtml:div id="idm140117728632784::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sequence file to hold output ORF sequences</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_osformat_outseq">Choose the sequence output format<xhtml:select name="e_osformat_outseq">
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+              <xhtml:option value="GCG">Gcg</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="NBRF">Nbrf</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="RAW">Raw</xhtml:option>
+              <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="checktrans.e_outfeat" data-datatype="Filename" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_outfeat">Name of the output feature file (e_outfeat)<xhtml:a href="#idm140117725314864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_outfeat" type="text" value="checktrans.e_outfeat"/>
+            <xhtml:div id="idm140117725314864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>File for output features</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="GFF" data-datatype="Choice" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_offormat_outfeat">Choose the feature output format<xhtml:select name="e_offormat_outfeat">
+              <xhtml:option value="GFF" selected="selected">Gff</xhtml:option>
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+              <xhtml:option value="NBRF">Nbrf</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(Protein Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_required">
+        <xhtml:legend>Required section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_orfml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_additional">
+        <xhtml:legend>Additional section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_addlast" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117726441728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117726441728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>An asterisk in the protein sequence indicates the position of a STOP codon. Checktrans assumes that all ORFs end in a STOP  codon. Forcing the sequence to end with an asterisk, if there is  not one there already, makes checktrans treat the end as a  potential ORF. If an asterisk is added, it is not included in the  reported count of STOPs.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="checktrans.e_outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="checktrans.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117728632784::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117728632784::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sequence file to hold output ORF sequences</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_osformat_outseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfeat" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="checktrans.e_outfeat" data-datatype="Filename" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="">
+            <xhtml:a href="#idm140117725314864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117725314864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>File for output features</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_offormat_outfeat" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="GFF" data-datatype="Choice" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ChecktransReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(ChecktransReport)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outseq_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfeat_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Feature" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Protein Feature)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_sequence</name>
+          <prompt lang="en">sequence option</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -sequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>sequence option</xhtml:legend>
+              <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_required</name>
+      <prompt lang="en">Required section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_orfml</name>
+          <prompt lang="en">Minimum orf length to report (value greater than or equal to 1)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>100</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -orfml=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 1 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 1</code>
+          </ctrl>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum orf length to report (value greater than or equal to 1)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_orfml" type="text" value="100"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_orfml"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_additional</name>
+      <prompt lang="en">Additional section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_addlast</name>
+          <prompt lang="en">Force the sequence to end with an asterisk</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -noaddlast", "")[ bool(value) ]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">An asterisk in the protein sequence indicates the position of a STOP codon. Checktrans assumes that all ORFs end in a STOP  codon. Forcing the sequence to end with an asterisk, if there is  not one there already, makes checktrans treat the end as a  potential ORF. If an asterisk is added, it is not included in the  reported count of STOPs.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Force the sequence to end with an asterisk<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117726441728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_addlast">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726441728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>An asterisk in the protein sequence indicates the position of a STOP codon. Checktrans assumes that all ORFs end in a STOP  codon. Forcing the sequence to end with an asterisk, if there is  not one there already, makes checktrans treat the end as a  potential ORF. If an asterisk is added, it is not included in the  reported count of STOPs.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_addlast">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117726441728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726441728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>An asterisk in the protein sequence indicates the position of a STOP codon. Checktrans assumes that all ORFs end in a STOP  codon. Forcing the sequence to end with an asterisk, if there is  not one there already, makes checktrans treat the end as a  potential ORF. If an asterisk is added, it is not included in the  reported count of STOPs.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_outfile</name>
+          <prompt lang="en">Name of the output file (e_outfile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>checktrans.e_outfile</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outfile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>4</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output file (e_outfile)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outfile" type="text" value="checktrans.e_outfile"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="checktrans.e_outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outfile_out</name>
+          <prompt lang="en">outfile_out option</prompt>
+          <type>
+            <datatype>
+              <class>ChecktransReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="python">e_outfile</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ChecktransReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ChecktransReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_outseq</name>
+          <prompt lang="en">Name of the output sequence file (e_outseq)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>checktrans.e_outseq</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outseq=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>5</argpos>
+          <comment>
+            <text lang="en">Sequence file to hold output ORF sequences</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output sequence file (e_outseq)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117728632784::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outseq" type="text" value="checktrans.e_outseq"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728632784::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sequence file to hold output ORF sequences</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="checktrans.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outseq">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117728632784::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728632784::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sequence file to hold output ORF sequences</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_osformat_outseq</name>
+          <prompt lang="en">Choose the sequence output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>FASTA</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>FASTA</value>
+              <label>Fasta</label>
+            </velem>
+            <velem>
+              <value>GCG</value>
+              <label>Gcg</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>NBRF</value>
+              <label>Nbrf</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>RAW</value>
+              <label>Raw</label>
+            </velem>
+            <velem>
+              <value>SWISSPROT</value>
+              <label>Swissprot</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -osformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>6</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the sequence output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_osformat_outseq">
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+                <xhtml:option value="GCG">Gcg</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="NBRF">Nbrf</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="RAW">Raw</xhtml:option>
+                <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_osformat_outseq"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outseq_out</name>
+          <prompt lang="en">outseq_out option</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_osformat_outseq">
+              </ref>
+            </dataFormat>
+          </type>
+          <filenames>
+            <code proglang="python">e_outseq</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="e_outseq_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_outfeat</name>
+          <prompt lang="en">Name of the output feature file (e_outfeat)</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>checktrans.e_outfeat</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outfeat=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>7</argpos>
+          <comment>
+            <text lang="en">File for output features</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output feature file (e_outfeat)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725314864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outfeat" type="text" value="checktrans.e_outfeat"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725314864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>File for output features</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="checktrans.e_outfeat" data-datatype="Filename" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_outfeat">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725314864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725314864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>File for output features</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_offormat_outfeat</name>
+          <prompt lang="en">Choose the feature output format</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>GFF</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>SWISSPROT</value>
+              <label>Swissprot</label>
+            </velem>
+            <velem>
+              <value>NBRF</value>
+              <label>Nbrf</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -offormat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>8</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the feature output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_offormat_outfeat">
+                <xhtml:option value="GFF" selected="selected">Gff</xhtml:option>
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+                <xhtml:option value="NBRF">Nbrf</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="GFF" data-datatype="Choice" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_offormat_outfeat"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outfeat_out</name>
+          <prompt lang="en">outfeat_out option</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Feature</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+            <dataFormat>
+              <ref param="e_offormat_outfeat">
+              </ref>
+            </dataFormat>
+          </type>
+          <filenames>
+            <code proglang="python">e_outfeat</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Feature" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="&#10;               " data-parametername="e_outfeat_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Feature)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>9</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"checktrans.out"</code>
+        <code proglang="python">"checktrans.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"checktrans.err"</code>
+        <code proglang="python">"checktrans.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

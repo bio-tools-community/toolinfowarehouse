@@ -1,0 +1,953 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>est2genome</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>est2genome</title>
+      <description>
+        <text lang="en">Align EST sequences to genomic DNA sequence</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/est2genome.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>est2genome</command>
+    <category>alignment:pairwise:global</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_estsequence">
+            <legend>Spliced est nucleotide sequence(s)</legend>
+            <xhtml:textarea name="e_estsequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,1" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_genomesequence">
+            <legend>Additional section</legend>
+            <xhtml:textarea name="e_genomesequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_match">Score for matching two bases<xhtml:input name="e_match" type="text" value="1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_mismatch">Cost for mismatching two bases<xhtml:input name="e_mismatch" type="text" value="1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_gappenalty">Gap penalty<xhtml:a href="#idm140117718753248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_gappenalty" type="text" value="2"/>
+            <xhtml:div id="idm140117718753248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Cost for deleting a single base in either sequence, excluding introns</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="40" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_intronpenalty">Intron penalty<xhtml:a href="#idm140117718071984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_intronpenalty" type="text" value="40"/>
+            <xhtml:div id="idm140117718071984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Cost for an intron, independent of length.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_splicepenalty">Splice site penalty<xhtml:a href="#idm140117720726448::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_splicepenalty" type="text" value="20"/>
+            <xhtml:div id="idm140117720726448::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Cost for an intron, independent of length and starting/ending on donor-acceptor sites</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_minscore">Minimum accepted score<xhtml:a href="#idm140117718318048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_minscore" type="text" value="30"/>
+            <xhtml:div id="idm140117718318048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Exclude alignments with scores below this threshold score.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Advanced section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_reverse">Reverse orientation<xhtml:a href="#idm140117717978112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_reverse">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117717978112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Reverse the orientation of the EST sequence</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_usesplice">Use donor and acceptor splice sites<xhtml:a href="#idm140117718196320::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_usesplice">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718196320::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use donor and acceptor splice sites. If you want to ignore donor-acceptor sites then set this to be false.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="both" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_mode">Comparison mode<xhtml:a href="#idm140117717968384::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_mode">
+              <xhtml:option value="both" selected="selected">Both strands</xhtml:option>
+              <xhtml:option value="forward">Forward strand only</xhtml:option>
+              <xhtml:option value="reverse">Reverse strand only</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117717968384::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This determines the comparison mode. The default value is 'both', in which case both strands of the est are compared  assuming a forward gene direction (ie GT/AG splice sites), and the  best comparison redone assuming a reversed (CT/AC) gene splicing  direction. The other allowed modes are 'forward', when just the  forward strand is searched, and 'reverse', ditto for the reverse  strand.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_best">Print out only best alignment<xhtml:a href="#idm140117718181920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_best">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718181920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You can print out all comparisons instead of just the best one by setting this to be false.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_space">Space threshold (in megabytes)<xhtml:a href="#idm140117718051456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_space" type="text" value="10.0"/>
+            <xhtml:div id="idm140117718051456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For linear-space recursion. If product of sequence lengths divided by 4 exceeds this then a divide-and-conquer strategy is  used to control the memory requirements. In this way very long  sequences can be aligned. 
+  If you have a machine with plenty of memory you can raise this  parameter (but do not exceed the machine's physical RAM)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_shuffle">Shuffle<xhtml:input name="e_shuffle" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20825" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_seed">Random number seed<xhtml:input name="e_seed" type="text" value="20825"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="est2genome.e_outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile">Name of the output file (e_outfile)<xhtml:input name="e_outfile" type="text" value="est2genome.e_outfile"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_align">Show the alignment<xhtml:a href="#idm140117718009280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_align">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718009280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Show the alignment. The alignment includes the first and last 5 bases of each intron, together with the intron width. The  direction of splicing is indicated by angle brackets (forward or  reverse) or ???? (unknown).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_width">Alignment width<xhtml:input name="e_width" type="text" value="50"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_estsequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_genomesequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,1" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_match" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_mismatch" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_gappenalty" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718753248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718753248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Cost for deleting a single base in either sequence, excluding introns</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_intronpenalty" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="40" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718071984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718071984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Cost for an intron, independent of length.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_splicepenalty" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117720726448::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117720726448::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Cost for an intron, independent of length and starting/ending on donor-acceptor sites</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_minscore" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718318048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718318048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Exclude alignments with scores below this threshold score.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <xhtml:legend>Advanced section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_reverse" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117717978112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117717978112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Reverse the orientation of the EST sequence</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_usesplice" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718196320::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718196320::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use donor and acceptor splice sites. If you want to ignore donor-acceptor sites then set this to be false.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_mode" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="both" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117717968384::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117717968384::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This determines the comparison mode. The default value is 'both', in which case both strands of the est are compared  assuming a forward gene direction (ie GT/AG splice sites), and the  best comparison redone assuming a reversed (CT/AC) gene splicing  direction. The other allowed modes are 'forward', when just the  forward strand is searched, and 'reverse', ditto for the reverse  strand.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_best" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718181920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718181920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You can print out all comparisons instead of just the best one by setting this to be false.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_space" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718051456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718051456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For linear-space recursion. If product of sequence lengths divided by 4 exceeds this then a divide-and-conquer strategy is  used to control the memory requirements. In this way very long  sequences can be aligned. 
+  If you have a machine with plenty of memory you can raise this  parameter (but do not exceed the machine's physical RAM)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_shuffle" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_seed" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20825" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="est2genome.e_outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_align" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718009280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718009280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Show the alignment. The alignment includes the first and last 5 bases of each intron, together with the intron width. The  direction of splicing is indicated by angle brackets (forward or  reverse) or ???? (unknown).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_width" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Est2genomeReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Est2genomeReport)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_estsequence</name>
+          <prompt lang="en">Spliced est nucleotide sequence(s)</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -estsequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Spliced est nucleotide sequence(s)</xhtml:legend>
+              <xhtml:textarea name="e_estsequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_estsequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_genomesequence</name>
+          <prompt lang="en">Additional section</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,1</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -genomesequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Additional section</xhtml:legend>
+              <xhtml:textarea name="e_genomesequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,1" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_genomesequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_match</name>
+          <prompt lang="en">Score for matching two bases</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -match=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Score for matching two bases<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_match" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_match"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_mismatch</name>
+          <prompt lang="en">Cost for mismatching two bases</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -mismatch=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>4</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cost for mismatching two bases<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_mismatch" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_mismatch"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_gappenalty</name>
+          <prompt lang="en">Gap penalty</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -gappenalty=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>5</argpos>
+          <comment>
+            <text lang="en">Cost for deleting a single base in either sequence, excluding introns</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap penalty<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718753248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_gappenalty" type="text" value="2"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718753248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Cost for deleting a single base in either sequence, excluding introns</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_gappenalty">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718753248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718753248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Cost for deleting a single base in either sequence, excluding introns</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_intronpenalty</name>
+          <prompt lang="en">Intron penalty</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>40</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -intronpenalty=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>6</argpos>
+          <comment>
+            <text lang="en">Cost for an intron, independent of length.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Intron penalty<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718071984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_intronpenalty" type="text" value="40"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718071984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Cost for an intron, independent of length.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="40" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_intronpenalty">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718071984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718071984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Cost for an intron, independent of length.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_splicepenalty</name>
+          <prompt lang="en">Splice site penalty</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>20</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -splicepenalty=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>7</argpos>
+          <comment>
+            <text lang="en">Cost for an intron, independent of length and starting/ending on donor-acceptor sites</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Splice site penalty<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720726448::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_splicepenalty" type="text" value="20"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720726448::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Cost for an intron, independent of length and starting/ending on donor-acceptor sites</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_splicepenalty">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720726448::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720726448::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Cost for an intron, independent of length and starting/ending on donor-acceptor sites</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_minscore</name>
+          <prompt lang="en">Minimum accepted score</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>30</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -minscore=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>8</argpos>
+          <comment>
+            <text lang="en">Exclude alignments with scores below this threshold score.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum accepted score<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718318048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_minscore" type="text" value="30"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718318048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Exclude alignments with scores below this threshold score.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_minscore">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718318048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718318048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Exclude alignments with scores below this threshold score.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_advanced</name>
+      <prompt lang="en">Advanced section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_reverse</name>
+          <prompt lang="en">Reverse orientation</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -reverse")[ bool(value) ]</code>
+          </format>
+          <argpos>9</argpos>
+          <comment>
+            <text lang="en">Reverse the orientation of the EST sequence</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Reverse orientation<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117717978112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_reverse">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117717978112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Reverse the orientation of the EST sequence</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_reverse">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117717978112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117717978112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Reverse the orientation of the EST sequence</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_usesplice</name>
+          <prompt lang="en">Use donor and acceptor splice sites</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -nousesplice", "")[ bool(value) ]</code>
+          </format>
+          <argpos>10</argpos>
+          <comment>
+            <text lang="en">Use donor and acceptor splice sites. If you want to ignore donor-acceptor sites then set this to be false.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use donor and acceptor splice sites<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718196320::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_usesplice">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718196320::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use donor and acceptor splice sites. If you want to ignore donor-acceptor sites then set this to be false.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_usesplice">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718196320::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718196320::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use donor and acceptor splice sites. If you want to ignore donor-acceptor sites then set this to be false.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_mode</name>
+          <prompt lang="en">Comparison mode</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>both</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>both</value>
+              <label>Both strands</label>
+            </velem>
+            <velem>
+              <value>forward</value>
+              <label>Forward strand only</label>
+            </velem>
+            <velem>
+              <value>reverse</value>
+              <label>Reverse strand only</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -mode=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>11</argpos>
+          <comment>
+            <text lang="en">This determines the comparison mode. The default value is 'both', in which case both strands of the est are compared  assuming a forward gene direction (ie GT/AG splice sites), and the  best comparison redone assuming a reversed (CT/AC) gene splicing  direction. The other allowed modes are 'forward', when just the  forward strand is searched, and 'reverse', ditto for the reverse  strand.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Comparison mode<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117717968384::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_mode">
+                <xhtml:option value="both" selected="selected">Both strands</xhtml:option>
+                <xhtml:option value="forward">Forward strand only</xhtml:option>
+                <xhtml:option value="reverse">Reverse strand only</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117717968384::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This determines the comparison mode. The default value is 'both', in which case both strands of the est are compared  assuming a forward gene direction (ie GT/AG splice sites), and the  best comparison redone assuming a reversed (CT/AC) gene splicing  direction. The other allowed modes are 'forward', when just the  forward strand is searched, and 'reverse', ditto for the reverse  strand.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="both" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_mode">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117717968384::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117717968384::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This determines the comparison mode. The default value is 'both', in which case both strands of the est are compared  assuming a forward gene direction (ie GT/AG splice sites), and the  best comparison redone assuming a reversed (CT/AC) gene splicing  direction. The other allowed modes are 'forward', when just the  forward strand is searched, and 'reverse', ditto for the reverse  strand.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_best</name>
+          <prompt lang="en">Print out only best alignment</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -nobest", "")[ bool(value) ]</code>
+          </format>
+          <argpos>12</argpos>
+          <comment>
+            <text lang="en">You can print out all comparisons instead of just the best one by setting this to be false.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print out only best alignment<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718181920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_best">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718181920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You can print out all comparisons instead of just the best one by setting this to be false.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_best">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718181920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718181920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You can print out all comparisons instead of just the best one by setting this to be false.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_space</name>
+          <prompt lang="en">Space threshold (in megabytes)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10.0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -space=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>13</argpos>
+          <comment>
+            <text lang="en">For linear-space recursion. If product of sequence lengths divided by 4 exceeds this then a divide-and-conquer strategy is  used to control the memory requirements. In this way very long  sequences can be aligned. 
+  If you have a machine with plenty of memory you can raise this  parameter (but do not exceed the machine's physical RAM)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Space threshold (in megabytes)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718051456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_space" type="text" value="10.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718051456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For linear-space recursion. If product of sequence lengths divided by 4 exceeds this then a divide-and-conquer strategy is  used to control the memory requirements. In this way very long  sequences can be aligned. 
+  If you have a machine with plenty of memory you can raise this  parameter (but do not exceed the machine's physical RAM)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_space">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718051456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718051456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For linear-space recursion. If product of sequence lengths divided by 4 exceeds this then a divide-and-conquer strategy is  used to control the memory requirements. In this way very long  sequences can be aligned. 
+  If you have a machine with plenty of memory you can raise this  parameter (but do not exceed the machine's physical RAM)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_shuffle</name>
+          <prompt lang="en">Shuffle</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -shuffle=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>14</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Shuffle<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_shuffle" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_shuffle"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_seed</name>
+          <prompt lang="en">Random number seed</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>20825</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -seed=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>15</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Random number seed<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_seed" type="text" value="20825"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20825" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_seed"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_outfile</name>
+          <prompt lang="en">Name of the output file (e_outfile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>est2genome.e_outfile</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outfile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>16</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output file (e_outfile)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outfile" type="text" value="est2genome.e_outfile"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="est2genome.e_outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outfile_out</name>
+          <prompt lang="en">outfile_out option</prompt>
+          <type>
+            <datatype>
+              <class>Est2genomeReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="python">e_outfile</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Est2genomeReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Est2genomeReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_align</name>
+          <prompt lang="en">Show the alignment</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -align")[ bool(value) ]</code>
+          </format>
+          <argpos>17</argpos>
+          <comment>
+            <text lang="en">Show the alignment. The alignment includes the first and last 5 bases of each intron, together with the intron width. The  direction of splicing is indicated by angle brackets (forward or  reverse) or ???? (unknown).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show the alignment<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718009280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_align">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718009280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Show the alignment. The alignment includes the first and last 5 bases of each intron, together with the intron width. The  direction of splicing is indicated by angle brackets (forward or  reverse) or ???? (unknown).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_align">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718009280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718009280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Show the alignment. The alignment includes the first and last 5 bases of each intron, together with the intron width. The  direction of splicing is indicated by angle brackets (forward or  reverse) or ???? (unknown).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_width</name>
+          <prompt lang="en">Alignment width</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>50</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -width=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>18</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alignment width<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_width" type="text" value="50"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_width"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>19</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"est2genome.out"</code>
+        <code proglang="python">"est2genome.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"est2genome.err"</code>
+        <code proglang="python">"est2genome.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

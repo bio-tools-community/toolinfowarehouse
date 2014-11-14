@@ -1,0 +1,861 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>targetp</name>
+    <version>1.1</version>
+    <package xml:base="Entities/cbs_package.xml">
+      <name>CBS</name>
+      <doc>
+        <title>CBS tools</title>
+        <description>
+          <text lang="en">CBS prediction tools.</text>
+        </description>
+        <homepagelink>http://www.cbs.dtu.dk/services/</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>targetp</title>
+      <description>
+        <text lang="en">predicts the subcellular location of eukaryotic proteins.</text>
+      </description>
+      <sourcelink>http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?targetp</sourcelink>
+      <authors>Olof Emanuelsson, olof@sbc.su.se</authors>
+      <reference> Predicting subcellular localization of proteins based on their N-terminal amino acid sequence.
+        Olof Emanuelsson, Henrik Nielsen, Søren Brunak and Gunnar von Heijne.
+        J. Mol. Biol., 300: 1005-1016, 2000. 
+      </reference>
+      <reference>
+         Identification of prokaryotic and eukaryotic signal peptides and prediction of their cleavage sites.
+         Henrik Nielsen, Jacob Engelbrecht, Søren Brunak and Gunnar von Heijne.
+         Protein Engineering, 10:1-6, 1997. 
+      </reference>
+      <doclink>http://www.cbs.dtu.dk/services/TargetP/</doclink>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <p>targetp  predicts  the subcellular location of eukaryotic protein sequences. The assignment is based on the
+       predicted presence of any of the N-terminal presequences: chloroplast transit peptide (cTP),  mitochondrial
+       targeting  peptide (mTP) or secretory pathway signal peptide (SP).</p>
+          <p>targetp comes in two versions, one for plant proteins (-P) and one for non-plant proteins (-N). In the lat‐
+       ter  case cTP is a forbidden prediction. For the sequences predicted to contain an N-terminal presequence a
+       prediction of its length can be provided (-c).</p>
+          <p>
+            <strong>CAVEATS : </strong>
+            <br/>
+       Submit if possible 130 N-terminal residues. The suggested length is  due  to  the  fact  that  targetp  was
+       trained  taking into account the 130 N-terminal residues, and the fact that using longer sequences does not
+       influence the prediction in any way (apart from making it slower). The cTP and mTP  cleavage  site  predic‐
+       tions  are restricted to search for a potential cleavage site within the 100 or 120 N-terminal amino acids,
+       respectively.</p>
+        </div>
+      </comment>
+    </doc>
+    <category>sequence:protein:localization</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="sequence">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input Sequence<a href="#idm140117719309904::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+          <a href="#idm140117719309904::comment" class="blindLink commentToggle" title="click to expand/collapse contextual help">?</a>
+        </legend>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117719309904::example" data-forparameter="sequence" style="display:none">
+          <pre>
+&amp;gt;P48786;       PATHOGENESIS-RELATED HOMEODOMAIN PROTEIN (PRHP).
+MEEISDPKPNALEQVLPTVPNGKCTAPVQMESLAVDVQKVSGEAKVRICSCWCEIVRSPEDLTKLVPCNDFAEDIKLFDS
+DPMQQEAESSIGIPLIPKQVTMSHNHDHESGSEMVSNEVMQENHVIATENTYQKSDFDRINMGQKETMPEEVIHKSFLES
+STSSIDILLNNHNSYQSGLPPENAVTDCKQVQLGHRSDDAIKNSGLVELVIGQKNVAKSPSQLVETGKRGRGRPRKVQTG
+LEQLVIGQKTAAKSSSQLGDTGKRSRGRPRKVQNSPTSFLENINMEQKETIPEQVTQNSILESLTIPTDNQSRTYNSDQS
+ELPPENAAKNCNHAQFGHQSDDTTKISGFKELVIGQETVAKSPSQLVDAGKRGRGRPRKVQTGLEQLVPVQETAAKSSSQ
+LGDTGKRSRGRPRKVQDSPTSLGGNVKVVPEKGKDSQELSVNSSRSLRSRSQEKSIEPDVNNIVADEGADREKPRKKRKK
+RMEENRVDEFCRIRTHLRYLLHRIKYEKNFLDAYSGEGWKGQSLDKIKPEKELKRAKAEIFGRKLKIRDLFQRLDLARSE
+GRLPEILFDSRGEIDSEDIFCAKCGSKDVTLSNDIILCDGACDRGFHQFCLDPPLLKEYIPPDDEGWLCPGCECKIDCIK
+LLNDSQETNILLGDSWEKVFAEEAAAAASGKNLDDNSGLPSDDSEDDDYDPGGPDLDEKVQGDDSSTDESDYQSESDDMQ
+VIRQKNSRGLPSDDSEDDEYDPSGLVTDQMYKDSSCSDFTSDSEDFTGVFDDYKDTGKAQGPLASTPDHVRNNEEGCGHP
+EQGDTAPLYPRRQVESLDYKKLNDIEFSKMCDILDILSSQLDVIICTGNQEEYGNTSSDSSDEDYMVTSSPDKNNSDKEA
+TAMERGRESGDLELDQKARESTHNRRYIKKFAVEGTDSFLSRSCEDSAAPVAGSKSTSKTLHGEHATQRLLQSFKENQYP
+QRAVKESLAAELALSVRQVSNWFNNRRWSFRHSSRIGSDVAKFDSNDTPRQKSIDMSGPSLKSVLDSATYSEIEKKEQDT
+ASLGLTEGCDRYMTLNMVADEGNVHTPCIAETREEKTEVGIKPQQNPL      
+      </pre>
+        </div>
+        <div id="idm140117719309904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117719309904::example" data-forparameter="sequence">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+&amp;gt;P48786;       PATHOGENESIS-RELATED HOMEODOMAIN PROTEIN (PRHP).
+MEEISDPKPNALEQVLPTVPNGKCTAPVQMESLAVDVQKVSGEAKVRICSCWCEIVRSPEDLTKLVPCNDFAEDIKLFDS
+DPMQQEAESSIGIPLIPKQVTMSHNHDHESGSEMVSNEVMQENHVIATENTYQKSDFDRINMGQKETMPEEVIHKSFLES
+STSSIDILLNNHNSYQSGLPPENAVTDCKQVQLGHRSDDAIKNSGLVELVIGQKNVAKSPSQLVETGKRGRGRPRKVQTG
+LEQLVIGQKTAAKSSSQLGDTGKRSRGRPRKVQNSPTSFLENINMEQKETIPEQVTQNSILESLTIPTDNQSRTYNSDQS
+ELPPENAAKNCNHAQFGHQSDDTTKISGFKELVIGQETVAKSPSQLVDAGKRGRGRPRKVQTGLEQLVPVQETAAKSSSQ
+LGDTGKRSRGRPRKVQDSPTSLGGNVKVVPEKGKDSQELSVNSSRSLRSRSQEKSIEPDVNNIVADEGADREKPRKKRKK
+RMEENRVDEFCRIRTHLRYLLHRIKYEKNFLDAYSGEGWKGQSLDKIKPEKELKRAKAEIFGRKLKIRDLFQRLDLARSE
+GRLPEILFDSRGEIDSEDIFCAKCGSKDVTLSNDIILCDGACDRGFHQFCLDPPLLKEYIPPDDEGWLCPGCECKIDCIK
+LLNDSQETNILLGDSWEKVFAEEAAAAASGKNLDDNSGLPSDDSEDDDYDPGGPDLDEKVQGDDSSTDESDYQSESDDMQ
+VIRQKNSRGLPSDDSEDDEYDPSGLVTDQMYKDSSCSDFTSDSEDFTGVFDDYKDTGKAQGPLASTPDHVRNNEEGCGHP
+EQGDTAPLYPRRQVESLDYKKLNDIEFSKMCDILDILSSQLDVIICTGNQEEYGNTSSDSSDEDYMVTSSPDKNNSDKEA
+TAMERGRESGDLELDQKARESTHNRRYIKKFAVEGTDSFLSRSCEDSAAPVAGSKSTSKTLHGEHATQRLLQSFKENQYP
+QRAVKESLAAELALSVRQVSNWFNNRRWSFRHSSRIGSDVAKFDSNDTPRQKSIDMSGPSLKSVLDSATYSEIEKKEQDT
+ASLGLTEGCDRYMTLNMVADEGNVHTPCIAETREEKTEVGIKPQQNPL      
+      </pre>
+          </div>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sequence" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="type"> Use the plant or non-plant version.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="type">
+          <xhtml:option value="null" selected="selected">Choose a type of organism</xhtml:option>
+          <xhtml:option value="p">plant</xhtml:option>
+          <xhtml:option value="np">non-plant</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cleavege">Include cleavage site prediction (-c).<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cleavege">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="cutoffs">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Cutoffs<xhtml:a href="#idm140117719891312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719891312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>predefined set of cutoffs that yielded this specificity on the TargetP test sets.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="predefined_cutoff">
+            <xhtml:select name="predefined_cutoff">
+              <xhtml:option value="null" selected="selected">no cutoffs; winner-takes-all (default)</xhtml:option>
+              <xhtml:option value="cutoff_95">specificity &gt;0.95</xhtml:option>
+              <xhtml:option value="cutoff_90">specificity &gt;0.90</xhtml:option>
+            </xhtml:select>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="user_cutoffs">
+            <legend>define your own Cutoffs<xhtml:a href="#idm140117719299264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117719299264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The user cutoffs will be ignored if a predefine set of cutoffs is specified</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cTP">cTP<xhtml:a href="#idm140117719866736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="cTP" type="text" value="0.0"/>
+                <xhtml:div id="idm140117719866736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>In  order to increase the specificity of cTP prediction, use Pcut as a cutoff for predicting cTP: if
+              the winning score is the chloroplast (cTP) score, specifying Pcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                  <xhtml:div>The value of Pcut must be between 0.0 and 1.0.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mTP">mTP<xhtml:a href="#idm140117720815360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="mTP" type="text" value="0.0"/>
+                <xhtml:div id="idm140117720815360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>In  order to increase the specificity of mTP prediction, use Tcut as a cutoff for predicting mTP: if
+              the winning score is the mithochondrial (mTP) score, specifying Tcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                  <xhtml:div>The value of Tcut must be between 0.0 and 1.0.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="SP">SP<xhtml:a href="#idm140117718492576::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="SP" type="text" value="0.0"/>
+                <xhtml:div id="idm140117718492576::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>In  order to increase the specificity of SP prediction, use Scut as a cutoff for predicting SP: if
+              the winning score is the Secretory pathway (SP) score, specifying Scut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                  <xhtml:div>The value of Scut must be between 0.0 and 1.0.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="other">other<xhtml:a href="#idm140117718561776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="other" type="text" value="0.0"/>
+                <xhtml:div id="idm140117718561776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>In  order to increase the specificity of any other location prediction, use Ocut as 
+              a cutoff for predicting any other location : if
+              the winning score is the other location score, specifying Ocut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                  <xhtml:div>The value of Ocut must be between 0.0 and 1.0.</xhtml:div>
+                </xhtml:div>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="targetp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="type" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cleavege" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="cutoffs">
+        <xhtml:legend>Cutoffs</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="predefined_cutoff" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <xhtml:fieldset class="minimizable" data-paragraphname="user_cutoffs">
+            <xhtml:legend>define your own Cutoffs</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cTP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117719866736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117719866736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>In  order to increase the specificity of cTP prediction, use Pcut as a cutoff for predicting cTP: if
+              the winning score is the chloroplast (cTP) score, specifying Pcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                  <xhtml:div>The value of Pcut must be between 0.0 and 1.0.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mTP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117720815360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117720815360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>In  order to increase the specificity of mTP prediction, use Tcut as a cutoff for predicting mTP: if
+              the winning score is the mithochondrial (mTP) score, specifying Tcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                  <xhtml:div>The value of Tcut must be between 0.0 and 1.0.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="SP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117718492576::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117718492576::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>In  order to increase the specificity of SP prediction, use Scut as a cutoff for predicting SP: if
+              the winning score is the Secretory pathway (SP) score, specifying Scut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                  <xhtml:div>The value of Scut must be between 0.0 and 1.0.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="other" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117718561776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117718561776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>In  order to increase the specificity of any other location prediction, use Ocut as 
+              a cutoff for predicting any other location : if
+              the winning score is the other location score, specifying Ocut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                  <xhtml:div>The value of Ocut must be between 0.0 and 1.0.</xhtml:div>
+                </xhtml:div>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="results" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="targetp" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(targetp)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719006112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719006112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+            <p>The output is in plain text; it will go to stdout. For each input sequence the following is printed (on one line):</p>
+            <ul>
+              <li>
+                <strong>Name : </strong>Sequence name truncated to 20 characters.</li>
+              <li>
+                <strong>Len : </strong>Sequence length.</li>
+              <li>
+                <strong>cTP, mTP, SP, other : </strong>Final NN scores on which the final prediction is based (Loc, see below). Note that  the  scores  are
+              not  really  probabilities,  and  they do not necessarily add to one. However, the location with the
+              highest score is the most likely according to targetp, and the relationship between the scores  (the
+              reliability class, see below) may be an indication of how certain the prediction is.</li>
+              <li>
+                <strong>Loc : </strong>Prediction of localization, based on the scores above; the codes are:
+                <ul>
+                  <li>
+                    <strong>C : </strong>Chloroplast, i.e. the sequence contains cTP, a chloroplast transit peptide;</li>
+                  <li>
+                    <strong>M : </strong>Mitochondrion, i.e. the sequence contains mTP, a mitochondrial targeting peptide;</li>
+                  <li>
+                    <strong>S : </strong>Secretory pathway, i.e. the sequence contains SP, a signal peptide;</li>
+                  <li>
+                    <strong>_ : </strong>any other location;</li>
+                  <li>
+                    <strong>* : </strong>"don't know". This character appears if cutoff
+                  restrictions were demanded (-p, -t, -s, -o, see
+                  below) and the winning network output score was below the requested cutoff for that category.</li>
+                </ul>
+              </li>
+              <li>
+                <strong>RC : </strong>Reliability  class,  from 1 to 5, where 1 indicates the strongest prediction. RC is a measure of the
+              size of the difference ('diff') between the highest (winning) and the second highest output  scores.
+              There are 5 reliability classes, defined as follows:
+              <ol>
+                  <li>diff &gt; 0.8</li>
+                  <li>0.800 &gt; diff &gt; 0.600</li>
+                  <li>0.600 &gt; diff &gt; 0.400</li>
+                  <li>0.400 &gt; diff &gt; 0.200</li>
+                  <li>0.200 &gt; diff</li>
+                </ol>
+               Thus, the lower the value of RC the safer the prediction.
+              </li>
+              <li>
+                <strong>TPlen : </strong>predicted presequence length (only when the -c option is given).</li>
+            </ul>
+          </div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ishidden="1" iscommand="1">
+      <name>targetp</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"targetp "</code>
+        <code proglang="python">"targetp "</code>
+      </format>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="targetp"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1" ismaininput="1">
+      <name>sequence</name>
+      <prompt lang="en">Input Sequence</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str( value )</code>
+      </format>
+      <argpos>50</argpos>
+      <example>
+&gt;P48786;       PATHOGENESIS-RELATED HOMEODOMAIN PROTEIN (PRHP).
+MEEISDPKPNALEQVLPTVPNGKCTAPVQMESLAVDVQKVSGEAKVRICSCWCEIVRSPEDLTKLVPCNDFAEDIKLFDS
+DPMQQEAESSIGIPLIPKQVTMSHNHDHESGSEMVSNEVMQENHVIATENTYQKSDFDRINMGQKETMPEEVIHKSFLES
+STSSIDILLNNHNSYQSGLPPENAVTDCKQVQLGHRSDDAIKNSGLVELVIGQKNVAKSPSQLVETGKRGRGRPRKVQTG
+LEQLVIGQKTAAKSSSQLGDTGKRSRGRPRKVQNSPTSFLENINMEQKETIPEQVTQNSILESLTIPTDNQSRTYNSDQS
+ELPPENAAKNCNHAQFGHQSDDTTKISGFKELVIGQETVAKSPSQLVDAGKRGRGRPRKVQTGLEQLVPVQETAAKSSSQ
+LGDTGKRSRGRPRKVQDSPTSLGGNVKVVPEKGKDSQELSVNSSRSLRSRSQEKSIEPDVNNIVADEGADREKPRKKRKK
+RMEENRVDEFCRIRTHLRYLLHRIKYEKNFLDAYSGEGWKGQSLDKIKPEKELKRAKAEIFGRKLKIRDLFQRLDLARSE
+GRLPEILFDSRGEIDSEDIFCAKCGSKDVTLSNDIILCDGACDRGFHQFCLDPPLLKEYIPPDDEGWLCPGCECKIDCIK
+LLNDSQETNILLGDSWEKVFAEEAAAAASGKNLDDNSGLPSDDSEDDDYDPGGPDLDEKVQGDDSSTDESDYQSESDDMQ
+VIRQKNSRGLPSDDSEDDEYDPSGLVTDQMYKDSSCSDFTSDSEDFTGVFDDYKDTGKAQGPLASTPDHVRNNEEGCGHP
+EQGDTAPLYPRRQVESLDYKKLNDIEFSKMCDILDILSSQLDVIICTGNQEEYGNTSSDSSDEDYMVTSSPDKNNSDKEA
+TAMERGRESGDLELDQKARESTHNRRYIKKFAVEGTDSFLSRSCEDSAAPVAGSKSTSKTLHGEHATQRLLQSFKENQYP
+QRAVKESLAAELALSVRQVSNWFNNRRWSFRHSSRIGSDVAKFDSNDTPRQKSIDMSGPSLKSVLDSATYSEIEKKEQDT
+ASLGLTEGCDRYMTLNMVADEGNVHTPCIAETREEKTEVGIKPQQNPL      
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Input Sequence</xhtml:legend>
+          <xhtml:textarea name="sequence" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="sequence">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>type</name>
+      <prompt lang="en"> Use the plant or non-plant version.</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>null</value>
+          <label>Choose a type of organism</label>
+        </velem>
+        <velem>
+          <value>p</value>
+          <label>plant</label>
+        </velem>
+        <velem>
+          <value>np</value>
+          <label>non-plant</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">( $value eq 'p')? " -P ": " -N "</code>
+        <code proglang="python">( " -N ", " -P ")[ value == 'p' ]</code>
+      </format>
+      <argpos>10</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""> Use the plant or non-plant version.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="type">
+            <xhtml:option value="null" selected="selected">Choose a type of organism</xhtml:option>
+            <xhtml:option value="p">plant</xhtml:option>
+            <xhtml:option value="np">non-plant</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="type"/>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>cleavege</name>
+      <prompt lang="en">Include cleavage site prediction (-c).</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value ne $vdef)? " -c " : ""</code>
+        <code proglang="python">( "" , " -c ")[ value is not None and value != vdef ]</code>
+      </format>
+      <argpos>20</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Include cleavage site prediction (-c).<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cleavege">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cleavege"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>cutoffs</name>
+      <prompt lang="en">Cutoffs</prompt>
+      <comment>
+        <text lang="en">predefined set of cutoffs that yielded this specificity on the TargetP test sets.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>predefined_cutoff</name>
+          <prompt lang="en"/>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <flist>
+            <felem undef="1">
+              <value>null</value>
+              <label>no cutoffs; winner-takes-all (default)</label>
+              <code proglang="perl">''</code>
+              <code proglang="python">''</code>
+            </felem>
+            <felem>
+              <value>cutoff_95</value>
+              <label>specificity &gt;0.95</label>
+              <code proglang="perl">( $type eq 'p')? " -p 0.73 -t 0.86 -s 0.43 -o 0.84 " : " -t 0.78 -s 0.00 -o 0.73 "</code>
+              <code proglang="python">( " -t 0.78 -s 0.00 -o 0.73 " , " -p 0.73 -t 0.86 -s 0.43 -o 0.84 " )[ type == 'p' ]</code>
+            </felem>
+            <felem>
+              <value>cutoff_90</value>
+              <label>specificity &gt;0.90</label>
+              <code proglang="perl">( $type eq 'p')? " -p 0.62 -t 0.76 -s 0.00 -o 0.53 " : " -t 0.65 -s 0.00 -o 0.52 "</code>
+              <code proglang="python">( " -t 0.65 -s 0.00 -o 0.52 " , " -p 0.62 -t 0.76 -s 0.00 -o 0.53 " )[ type == 'p' ]</code>
+            </felem>
+          </flist>
+          <argpos>30</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="predefined_cutoff">
+                <xhtml:option value="null" selected="selected">no cutoffs; winner-takes-all (default)</xhtml:option>
+                <xhtml:option value="cutoff_95">specificity &gt;0.95</xhtml:option>
+                <xhtml:option value="cutoff_90">specificity &gt;0.90</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="predefined_cutoff"/>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>user_cutoffs</name>
+          <prompt lang="en">define your own Cutoffs</prompt>
+          <precond>
+            <code proglang="python">not predefined_cutoff</code>
+          </precond>
+          <comment>
+            <text lang="en">The user cutoffs will be ignored if a predefine set of cutoffs is specified</text>
+          </comment>
+          <argpos>40</argpos>
+          <parameters>
+            <parameter>
+              <name>cTP</name>
+              <prompt lang="en">cTP</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0.0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef)? " -p $value " : ""</code>
+                <code proglang="python">( "" , " -p " + str( value ) )[ value is not None and value != vdef ]</code>
+              </format>
+              <ctrl>
+                <message>
+                  <text lang="en">The value must be between 0.0 and 1.0</text>
+                </message>
+                <code proglang="perl">$value &gt;= 0.0 or $value &lt;= 1.0</code>
+                <code proglang="python">value &gt;= 0.0 or value &lt;= 1.0</code>
+              </ctrl>
+              <comment>
+                <text lang="en">In  order to increase the specificity of cTP prediction, use Pcut as a cutoff for predicting cTP: if
+              the winning score is the chloroplast (cTP) score, specifying Pcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</text>
+                <text lang="en">The value of Pcut must be between 0.0 and 1.0.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">cTP<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719866736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cTP" type="text" value="0.0"/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719866736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>In  order to increase the specificity of cTP prediction, use Pcut as a cutoff for predicting cTP: if
+              the winning score is the chloroplast (cTP) score, specifying Pcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                    <xhtml:div>The value of Pcut must be between 0.0 and 1.0.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cTP">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719866736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719866736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>In  order to increase the specificity of cTP prediction, use Pcut as a cutoff for predicting cTP: if
+              the winning score is the chloroplast (cTP) score, specifying Pcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                    <xhtml:div>The value of Pcut must be between 0.0 and 1.0.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>mTP</name>
+              <prompt lang="en">mTP</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0.0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">( defined $value and $value ne $vdef)? " -t $value" : ""</code>
+                <code proglang="python">( "" , " -t " + str( value ) )[ value is not None and value != vdef ]</code>
+              </format>
+              <ctrl>
+                <message>
+                  <text lang="en">The value must be between 0.0 and 1.0</text>
+                </message>
+                <code proglang="perl">$value &gt;= 0.0 or $value &lt;= 1.0</code>
+                <code proglang="python">value &gt;= 0.0 or value &lt;= 1.0</code>
+              </ctrl>
+              <comment>
+                <text lang="en">In  order to increase the specificity of mTP prediction, use Tcut as a cutoff for predicting mTP: if
+              the winning score is the mithochondrial (mTP) score, specifying Tcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</text>
+                <text lang="en">The value of Tcut must be between 0.0 and 1.0.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">mTP<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720815360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="mTP" type="text" value="0.0"/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720815360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>In  order to increase the specificity of mTP prediction, use Tcut as a cutoff for predicting mTP: if
+              the winning score is the mithochondrial (mTP) score, specifying Tcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                    <xhtml:div>The value of Tcut must be between 0.0 and 1.0.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mTP">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720815360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720815360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>In  order to increase the specificity of mTP prediction, use Tcut as a cutoff for predicting mTP: if
+              the winning score is the mithochondrial (mTP) score, specifying Tcut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                    <xhtml:div>The value of Tcut must be between 0.0 and 1.0.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>SP</name>
+              <prompt lang="en">SP</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0.0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">( defined $value and $value ne $vdef)? " -s $value" : ""</code>
+                <code proglang="python">( "" , " -s " + str( value ) )[ value is not None and value != vdef ]</code>
+              </format>
+              <ctrl>
+                <message>
+                  <text lang="en">The value must be between 0.0 and 1.0</text>
+                </message>
+                <code proglang="perl">$value &gt;= 0.0 or $value &lt;= 1.0</code>
+                <code proglang="python">value &gt;= 0.0 or value &lt;= 1.0</code>
+              </ctrl>
+              <comment>
+                <text lang="en">In  order to increase the specificity of SP prediction, use Scut as a cutoff for predicting SP: if
+              the winning score is the Secretory pathway (SP) score, specifying Scut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</text>
+                <text lang="en">The value of Scut must be between 0.0 and 1.0.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">SP<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718492576::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="SP" type="text" value="0.0"/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718492576::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>In  order to increase the specificity of SP prediction, use Scut as a cutoff for predicting SP: if
+              the winning score is the Secretory pathway (SP) score, specifying Scut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                    <xhtml:div>The value of Scut must be between 0.0 and 1.0.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="SP">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718492576::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718492576::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>In  order to increase the specificity of SP prediction, use Scut as a cutoff for predicting SP: if
+              the winning score is the Secretory pathway (SP) score, specifying Scut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                    <xhtml:div>The value of Scut must be between 0.0 and 1.0.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>other</name>
+              <prompt lang="en">other</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0.0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">( defined $value and $value ne $vdef)? " -o $value" : ""</code>
+                <code proglang="python">( "" , " -o " + str( value ) )[ value is not None and value != vdef ]</code>
+              </format>
+              <ctrl>
+                <message>
+                  <text lang="en">The value must be between 0.0 and 1.0</text>
+                </message>
+                <code proglang="perl">$value &gt;= 0.0 or $value &lt;= 1.0</code>
+                <code proglang="python">value &gt;= 0.0 or value &lt;= 1.0</code>
+              </ctrl>
+              <comment>
+                <text lang="en">In  order to increase the specificity of any other location prediction, use Ocut as 
+              a cutoff for predicting any other location : if
+              the winning score is the other location score, specifying Ocut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</text>
+                <text lang="en">The value of Ocut must be between 0.0 and 1.0.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">other<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718561776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="other" type="text" value="0.0"/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718561776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>In  order to increase the specificity of any other location prediction, use Ocut as 
+              a cutoff for predicting any other location : if
+              the winning score is the other location score, specifying Ocut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                    <xhtml:div>The value of Ocut must be between 0.0 and 1.0.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="other">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718561776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718561776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>In  order to increase the specificity of any other location prediction, use Ocut as 
+              a cutoff for predicting any other location : if
+              the winning score is the other location score, specifying Ocut means that the score also  has  to
+              be above that value; if not, the sequence will be left unpredicted, and an asterisk (*) will be out‐
+              put in the Loc column.</xhtml:div>
+                    <xhtml:div>The value of Ocut must be between 0.0 and 1.0.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="1">
+      <name>results</name>
+      <prompt lang="en">targetp report</prompt>
+      <type>
+        <datatype>
+          <superclass>Report</superclass>
+          <class>targetp</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"targetp.out"</code>
+        <code proglang="python">"targetp.out"</code>
+      </filenames>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <p>The output is in plain text; it will go to stdout. For each input sequence the following is printed (on one line):</p>
+          <ul>
+            <li>
+              <strong>Name : </strong>Sequence name truncated to 20 characters.</li>
+            <li>
+              <strong>Len : </strong>Sequence length.</li>
+            <li>
+              <strong>cTP, mTP, SP, other : </strong>Final NN scores on which the final prediction is based (Loc, see below). Note that  the  scores  are
+              not  really  probabilities,  and  they do not necessarily add to one. However, the location with the
+              highest score is the most likely according to targetp, and the relationship between the scores  (the
+              reliability class, see below) may be an indication of how certain the prediction is.</li>
+            <li>
+              <strong>Loc : </strong>Prediction of localization, based on the scores above; the codes are:
+                <ul>
+                <li>
+                  <strong>C : </strong>Chloroplast, i.e. the sequence contains cTP, a chloroplast transit peptide;</li>
+                <li>
+                  <strong>M : </strong>Mitochondrion, i.e. the sequence contains mTP, a mitochondrial targeting peptide;</li>
+                <li>
+                  <strong>S : </strong>Secretory pathway, i.e. the sequence contains SP, a signal peptide;</li>
+                <li>
+                  <strong>_ : </strong>any other location;</li>
+                <li>
+                  <strong>* : </strong>"don't know". This character appears if cutoff
+                  restrictions were demanded (-p, -t, -s, -o, see
+                  below) and the winning network output score was below the requested cutoff for that category.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>RC : </strong>Reliability  class,  from 1 to 5, where 1 indicates the strongest prediction. RC is a measure of the
+              size of the difference ('diff') between the highest (winning) and the second highest output  scores.
+              There are 5 reliability classes, defined as follows:
+              <ol>
+                <li>diff &gt; 0.8</li>
+                <li>0.800 &gt; diff &gt; 0.600</li>
+                <li>0.600 &gt; diff &gt; 0.400</li>
+                <li>0.400 &gt; diff &gt; 0.200</li>
+                <li>0.200 &gt; diff</li>
+              </ol>
+               Thus, the lower the value of RC the safer the prediction.
+              </li>
+            <li>
+              <strong>TPlen : </strong>predicted presequence length (only when the -c option is given).</li>
+          </ul>
+        </div>
+      </comment>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="targetp" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="results">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(targetp)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719006112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719006112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+              <p>The output is in plain text; it will go to stdout. For each input sequence the following is printed (on one line):</p>
+              <ul>
+                <li>
+                  <strong>Name : </strong>Sequence name truncated to 20 characters.</li>
+                <li>
+                  <strong>Len : </strong>Sequence length.</li>
+                <li>
+                  <strong>cTP, mTP, SP, other : </strong>Final NN scores on which the final prediction is based (Loc, see below). Note that  the  scores  are
+              not  really  probabilities,  and  they do not necessarily add to one. However, the location with the
+              highest score is the most likely according to targetp, and the relationship between the scores  (the
+              reliability class, see below) may be an indication of how certain the prediction is.</li>
+                <li>
+                  <strong>Loc : </strong>Prediction of localization, based on the scores above; the codes are:
+                <ul>
+                    <li>
+                      <strong>C : </strong>Chloroplast, i.e. the sequence contains cTP, a chloroplast transit peptide;</li>
+                    <li>
+                      <strong>M : </strong>Mitochondrion, i.e. the sequence contains mTP, a mitochondrial targeting peptide;</li>
+                    <li>
+                      <strong>S : </strong>Secretory pathway, i.e. the sequence contains SP, a signal peptide;</li>
+                    <li>
+                      <strong>_ : </strong>any other location;</li>
+                    <li>
+                      <strong>* : </strong>"don't know". This character appears if cutoff
+                  restrictions were demanded (-p, -t, -s, -o, see
+                  below) and the winning network output score was below the requested cutoff for that category.</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>RC : </strong>Reliability  class,  from 1 to 5, where 1 indicates the strongest prediction. RC is a measure of the
+              size of the difference ('diff') between the highest (winning) and the second highest output  scores.
+              There are 5 reliability classes, defined as follows:
+              <ol>
+                    <li>diff &gt; 0.8</li>
+                    <li>0.800 &gt; diff &gt; 0.600</li>
+                    <li>0.600 &gt; diff &gt; 0.400</li>
+                    <li>0.400 &gt; diff &gt; 0.200</li>
+                    <li>0.200 &gt; diff</li>
+                  </ol>
+               Thus, the lower the value of RC the safer the prediction.
+              </li>
+                <li>
+                  <strong>TPlen : </strong>predicted presequence length (only when the -c option is given).</li>
+              </ul>
+            </div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"targetp.err"</code>
+        <code proglang="python">"targetp.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

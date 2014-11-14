@@ -1,0 +1,2692 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>clustalw-multialign</name>
+    <package xml:base="Entities/ClustalW_package.xml">
+      <name>ClustalW</name>
+      <version>2.0.12</version>
+      <doc>
+        <title>ClustalW</title>
+        <description>
+          <text lang="en"> ClustalW is a general purpose multiple alignment program for DNA or proteins.</text>
+        </description>
+        <authors>Des Higgins</authors>
+        <reference>Thompson, J.D., Higgins, D.G. and Gibson, T.J. (1994) CLUSTAL W: improving the sensitivity of progressive multiple sequence alignment through sequence weighting, positions-specific gap penalties and weight matrix choice. Nucleic Acids Research, 22:4673-4680.</reference>
+        <homepagelink>http://www.clustal.org/</homepagelink>
+        <sourcelink>http://www.clustal.org/download/current/</sourcelink>
+      </doc>
+    </package>
+    <doc>
+      <title>Clustalw: Multiple alignment</title>
+      <description>
+        <text lang="en">Do full multiple alignment</text>
+      </description>
+    </doc>
+    <command>clustalw -align </command>
+    <category>alignment:multiple</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Data Input</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="2,n" data-formats="FASTA NBRF EMBL GCG GDE SWISSPROT " data-parametername="sequences_input">
+            <legend>Sequences File ( a file containing several sequences ) (-infile)</legend>
+            <xhtml:textarea name="sequences_input" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein DNA " data-card="1" data-formats="CLUSTAL FASTA " data-parametername="alignment_input">
+            <legend>Aligned sequences<xhtml:a href="#idm140117704026896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117704026896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> When the sequences are aligned (all sequences
+              have the same length and at least one sequence has at least one
+              gap)</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="alignment_input" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="general">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">General settings</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="slow" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="quicktree">Toggle Slow/Fast pairwise alignments (-quicktree)<xhtml:a href="#idm140117704163152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="quicktree">
+              <xhtml:option value="slow" selected="selected">Slow</xhtml:option>
+              <xhtml:option value="fast">Fast</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704163152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>slow: by dynamic programming (slow but accurate)</xhtml:div>
+              <xhtml:div>fast: method of Wilbur and Lipman (extremely fast but approximate)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="auto" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="typeseq">Protein or DNA (-type)<xhtml:select name="typeseq">
+              <xhtml:option value="auto" selected="selected">Automatic</xhtml:option>
+              <xhtml:option value="protein">Protein</xhtml:option>
+              <xhtml:option value="dna">DNA</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="multalign">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Multiple Alignments parameters<xhtml:a href="#idm140117703319680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703319680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Multiple alignments are carried out in 3 stages :</xhtml:div>
+          <xhtml:div>1) all sequences are compared to each other (pairwise alignments);</xhtml:div>
+          <xhtml:div>2) a dendrogram (like a phylogenetic tree) is constructed, describing the approximate groupings of the sequences by similarity (stored in a file).</xhtml:div>
+          <xhtml:div>3) the final multiple alignment is carried out, using the dendrogram as a guide.</xhtml:div>
+          <xhtml:div>Pairwise alignment parameters control the speed/sensitivity of the initial alignments.</xhtml:div>
+          <xhtml:div>Multiple alignment parameters control the gaps in the final multiple alignments.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapopen">Gap opening penalty (-gapopen)<xhtml:input name="gapopen" type="text" value="10.00"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.20" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapext">Gap extension penalty (-gapext)<xhtml:input name="gapext" type="text" value="0.20"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="endgaps">No end gap separation penalty (-endgaps)<xhtml:a href="#idm140117703242864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="endgaps">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117703242864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>End gap separation treats end gaps just
+		like internal gaps for the purposes of avoiding gaps that
+		are too close (set by GAP SEPARATION DISTANCE above). If
+		you turn this off, end gaps will be ignored for this
+		purpose. This is useful when you wish to align fragments
+		where the end gaps are not biologically meaningful.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="8" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapdist">Gap separation penalty range (-gapdist)<xhtml:a href="#idm140117702339024::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="gapdist" type="text" value="8"/>
+            <xhtml:div id="idm140117702339024::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Gap separation distance tries to decrease
+		the chances of gaps being too close to each other. Gaps
+		that are less than this distance apart are penalised more
+		than other gaps. This does not prevent close gaps; it makes
+		them less frequent, promoting a block-like appearance of
+		the alignment.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxdiv">Delay divergent sequences : % ident. for delay (-maxdiv)<xhtml:a href="#idm140117703269312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="maxdiv" type="text" value="30"/>
+            <xhtml:div id="idm140117703269312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Delays the alignment of the most distantly
+		related sequences until after the most closely related
+		sequences have been aligned. The setting shows the percent
+		identity level required to delay the addition of a
+		sequence; sequences that are less identical than this level
+		to any other sequences will be aligned later.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="newtree">File for new guide tree (-newtree)<xhtml:input name="newtree" type="text" value=""/>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="usetree">
+            <legend>File for old guide tree (-usetree)<xhtml:a href="#idm140117703316768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117703316768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You can give a previously computed tree (.dnd file) - on the same data</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="usetree" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="multalign_prot">
+            <legend>Protein parameters</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="gonnet" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix">Protein weight matrix (-matrix)<xhtml:a href="#idm140117703382016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="matrix">
+                  <xhtml:option value="gonnet" selected="selected">Gonnet series</xhtml:option>
+                  <xhtml:option value="blosum">BLOSUM series</xhtml:option>
+                  <xhtml:option value="pam">PAM series</xhtml:option>
+                  <xhtml:option value="id">Identity matrix</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117703382016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>There are three 'in-built' series of weight
+		matrices offered. Each consists of several matrices which
+		work differently at different evolutionary distances. To
+		see the exact details, read the documentation. Crudely, we
+		store several matrices in memory, spanning the full range
+		of amino acid distance (from almost identical sequences to
+		highly divergent ones). For very similar sequences, it is
+		best to use a strict weight matrix which only gives a high
+		score to identities and the most favoured conservative
+		substitutions. For more divergent sequences, it is
+		appropriate to use 'softer' matrices which give a high
+		score to many other frequent substitutions.</xhtml:div>
+                  <xhtml:div>BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</xhtml:div>
+                  <xhtml:div>The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</xhtml:div>
+                  <xhtml:div>PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="negative">Negative values in matrix ? (-negative)<xhtml:select name="negative">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pgap">Residue specific gaps off (-nopgap)<xhtml:a href="#idm140117702563968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="pgap">
+                  <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                  <xhtml:option value="0">No</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117702563968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Residue specific penalties are amino acid
+		specific gap penalties that reduce or increase the gap
+		opening penalties at each position in the alignment or
+		sequence. As an example, positions that are rich in glycine
+		are more likely to have an adjacent gap than positions that
+		are rich in valine.</xhtml:div>
+                  <xhtml:div>Table of residue specific gap modification
+		factors:</xhtml:div>
+                  <xhtml:div>A 1.13 M 1.29</xhtml:div>
+                  <xhtml:div>C 1.13 N 0.63</xhtml:div>
+                  <xhtml:div>D 0.96 P 0.74</xhtml:div>
+                  <xhtml:div>E 1.31 Q 1.07</xhtml:div>
+                  <xhtml:div>F 1.20 R 0.72</xhtml:div>
+                  <xhtml:div>G 0.61 S 0.76</xhtml:div>
+                  <xhtml:div>H 1.00 T 0.89</xhtml:div>
+                  <xhtml:div>I 1.32 V 1.25</xhtml:div>
+                  <xhtml:div>K 0.96 Y 1.00</xhtml:div>
+                  <xhtml:div>L 1.21 W 1.23</xhtml:div>
+                  <xhtml:div>The values are normalised around a mean value of 1.0 for H. The lower the value, the greater the chance of having an adjacent gap. These are derived from the original table of relative frequencies of gaps adjacent to each residue (12) by subtraction from 2.0.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hgap">Hydrophilic gaps off (-nohgap)<xhtml:a href="#idm140117703359248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="hgap">
+                  <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                  <xhtml:option value="0">No</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117703359248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Hydrophilic gap penalties are used to
+		increase the chances of a gap within a run (5 or more
+		residues) of hydrophilic amino acids; these are likely to
+		be loop or random coil regions where gaps are more
+		common. The residues that are 'considered' to be
+		hydrophilic are set by menu item 3.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="true" data-default-value="R" data-datatype="MultipleChoice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hgapresidues">Hydrophilic residues list (-hgapresidues)<xhtml:select multiple="multiple" name="hgapresidues">
+                  <xhtml:option value="A">A</xhtml:option>
+                  <xhtml:option value="R" selected="selected">R</xhtml:option>
+                  <xhtml:option value="N" selected="selected">N</xhtml:option>
+                  <xhtml:option value="D" selected="selected">D</xhtml:option>
+                  <xhtml:option value="C">C</xhtml:option>
+                  <xhtml:option value="Q" selected="selected">Q</xhtml:option>
+                  <xhtml:option value="E" selected="selected">E</xhtml:option>
+                  <xhtml:option value="G" selected="selected">G</xhtml:option>
+                  <xhtml:option value="H">H</xhtml:option>
+                  <xhtml:option value="I">I</xhtml:option>
+                  <xhtml:option value="L">L</xhtml:option>
+                  <xhtml:option value="K" selected="selected">K</xhtml:option>
+                  <xhtml:option value="M">M</xhtml:option>
+                  <xhtml:option value="F">F</xhtml:option>
+                  <xhtml:option value="P" selected="selected">P</xhtml:option>
+                  <xhtml:option value="S" selected="selected">S</xhtml:option>
+                  <xhtml:option value="T">T</xhtml:option>
+                  <xhtml:option value="W">W</xhtml:option>
+                  <xhtml:option value="Y">Y</xhtml:option>
+                  <xhtml:option value="V">V</xhtml:option>
+                </xhtml:select>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="multalign_dna">
+            <legend>DNA parameters</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="iub" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dnamatrix">DNA weight matrix (-dnamatrix)<xhtml:a href="#idm140117703249760::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="dnamatrix">
+                  <xhtml:option value="iub" selected="selected">IUB</xhtml:option>
+                  <xhtml:option value="clustalw">CLUSTALW</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117703249760::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</xhtml:div>
+                  <xhtml:div>2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="transweight">Transitions weight (between 0 and 1) (-transweight)<xhtml:a href="#idm140117703734944::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="transweight" type="text" value="0.5"/>
+                <xhtml:div id="idm140117703734944::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>A weight of
+		zero means that the transitions are scored as mismatches; a
+		weight of 1 gives transitions the full match score. For
+		distantly related DNA sequences, the weight should be near
+		to zero; for closely related sequences it can be useful to
+		assign a higher score.</xhtml:div>
+                </xhtml:div>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="fastpw">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Fast Pairwise Alignments parameters<xhtml:a href="#idm140117703423968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703423968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>These similarity scores are calculated from fast,
+	  approximate, global alignments, which are controlled by 4
+	  parameters. 2 techniques are used to make these alignments very
+	  fast: 1) only exactly matching fragments (k-tuples) are
+	  considered; 2) only the 'best' diagonals (the ones with most
+	  k-tuple matches) are used.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ktuple">Word size (-ktuple)<xhtml:a href="#idm140117702179840::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="ktuple" type="text" value="1"/>
+            <xhtml:div id="idm140117702179840::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>K-TUPLE SIZE: This is the size of exactly matching fragment that is used. INCREASE for speed (max= 2 for proteins; 4 for DNA), DECREASE for sensitivity. For longer sequences (e.g. &gt;1000 residues) you may need to increase the default.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="topdiags">Number of best diagonals (-topdiags)<xhtml:a href="#idm140117702169088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="topdiags" type="text" value="5"/>
+            <xhtml:div id="idm140117702169088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The number of k-tuple matches on each
+		diagonal (in an imaginary dot-matrix plot) is
+		calculated. Only the best ones (with most matches) are used
+		in the alignment. This parameter specifies how
+		many. Decrease for speed; increase for sensitivity.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="window">Window around best diags (-window)<xhtml:a href="#idm140117702158864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="window" type="text" value="5"/>
+            <xhtml:div id="idm140117702158864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>WINDOW SIZE: This is the number of
+		diagonals around each of the 'best' diagonals that will be
+		used. Decrease for speed; increase for sensitivity</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pairgap">Gap penalty (-pairgap)<xhtml:a href="#idm140117702451584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="pairgap" type="text" value="3"/>
+            <xhtml:div id="idm140117702451584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is a penalty for each gap in the fast
+		alignments. It has little affect on the speed or
+		sensitivity except for extreme values.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="percent" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="score">Percent or absolute score ? (-score)<xhtml:select name="score">
+              <xhtml:option value="percent" selected="selected">Percent</xhtml:option>
+              <xhtml:option value="absolute">Absolute</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="slowpw">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Slow Pairwise Alignments parameters<xhtml:a href="#idm140117702319376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702319376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>These parameters do not have any affect on the
+	  speed of the alignments. They are used to give initial alignments
+	  which are then rescored to give percent identity scores. These %
+	  scores are the ones which are displayed on the screen. The scores
+	  are converted to distances for the trees.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pwgapopen">Gap opening penalty (-pwgapopen)<xhtml:input name="pwgapopen" type="text" value="10.00"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.10" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pwgapext">Gap extension penalty (-pwgapext)<xhtml:input name="pwgapext" type="text" value="0.10"/>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="slowpw_prot">
+            <legend>Protein parameters</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="gonnet" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pwmatrix">Protein weight matrix (-pwmatrix)<xhtml:a href="#idm140117702292288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="pwmatrix">
+                  <xhtml:option value="blosum">BLOSUM30 (Henikoff)</xhtml:option>
+                  <xhtml:option value="gonnet" selected="selected">Gonnet 250</xhtml:option>
+                  <xhtml:option value="pam">PAM350 (Dayhoff)</xhtml:option>
+                  <xhtml:option value="id">Identity matrix</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117702292288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>The scoring table which describes the
+		similarity of each amino acid to each other. For DNA, an
+		identity matrix is used.</xhtml:div>
+                  <xhtml:div>BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</xhtml:div>
+                  <xhtml:div>The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</xhtml:div>
+                  <xhtml:div>PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</xhtml:div>
+                </xhtml:div>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="slowpw_dna">
+            <legend>DNA parameters</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="iub" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pwdnamatrix">DNA weight matrix (-pwdnamatrix)<xhtml:a href="#idm140117702267568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="pwdnamatrix">
+                  <xhtml:option value="iub" selected="selected">IUB</xhtml:option>
+                  <xhtml:option value="clustalw">CLUSTALW</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117702267568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>For DNA, a single matrix (not a series) is
+		used. Two hard-coded matrices are available:</xhtml:div>
+                  <xhtml:div>1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</xhtml:div>
+                  <xhtml:div>2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</xhtml:div>
+                </xhtml:div>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="outputparam">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outputformat">Output format (-output)<xhtml:select name="outputformat">
+              <xhtml:option value="null" selected="selected">CLUSTAL</xhtml:option>
+              <xhtml:option value="FASTA">FASTA</xhtml:option>
+              <xhtml:option value="GCG">GCG</xhtml:option>
+              <xhtml:option value="GDE">GDE</xhtml:option>
+              <xhtml:option value="PHYLIPI">PHYLIP</xhtml:option>
+              <xhtml:option value="PIR">PIR/NBRF</xhtml:option>
+              <xhtml:option value="NEXUS">NEXUS</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqnos">Output sequence numbers in the output file (for clustalw output only) (-seqnos)<xhtml:select name="seqnos">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="aligned" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outorder">Result order (-outorder)<xhtml:select name="outorder">
+              <xhtml:option value="input">Input</xhtml:option>
+              <xhtml:option value="aligned" selected="selected">Aligned</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile">Sequence alignment file name (-outfile)<xhtml:input name="outfile" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gde_lower">Upper case (for GDE output only) (-case)<xhtml:select name="gde_lower">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <xhtml:legend>Data Input</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sequences_input" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="2,n" data-formats="FASTA NBRF EMBL GCG GDE SWISSPROT ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alignment_input" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein DNA " data-card="1" data-formats="CLUSTAL FASTA ">
+            <xhtml:i>
+				(Protein or DNA Alignment)
+			</xhtml:i>
+            <xhtml:a href="#idm140117704026896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704026896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> When the sequences are aligned (all sequences
+              have the same length and at least one sequence has at least one
+              gap)</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="general">
+        <xhtml:legend>General settings</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="quicktree" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="slow" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704163152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704163152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>slow: by dynamic programming (slow but accurate)</xhtml:div>
+              <xhtml:div>fast: method of Wilbur and Lipman (extremely fast but approximate)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="typeseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="auto" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="multalign">
+        <xhtml:legend>Multiple Alignments parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gapopen" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gapext" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.20" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="endgaps" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117703242864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117703242864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>End gap separation treats end gaps just
+		like internal gaps for the purposes of avoiding gaps that
+		are too close (set by GAP SEPARATION DISTANCE above). If
+		you turn this off, end gaps will be ignored for this
+		purpose. This is useful when you wish to align fragments
+		where the end gaps are not biologically meaningful.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gapdist" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="8" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702339024::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702339024::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Gap separation distance tries to decrease
+		the chances of gaps being too close to each other. Gaps
+		that are less than this distance apart are penalised more
+		than other gaps. This does not prevent close gaps; it makes
+		them less frequent, promoting a block-like appearance of
+		the alignment.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="maxdiv" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117703269312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117703269312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Delays the alignment of the most distantly
+		related sequences until after the most closely related
+		sequences have been aligned. The setting shows the percent
+		identity level required to delay the addition of a
+		sequence; sequences that are less identical than this level
+		to any other sequences will be aligned later.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="newtree" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="usetree" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+            <xhtml:i>
+				(Tree)
+			</xhtml:i>
+            <xhtml:a href="#idm140117703316768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117703316768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You can give a previously computed tree (.dnd file) - on the same data</xhtml:div>
+            </xhtml:div>
+          </div>
+          <xhtml:fieldset class="minimizable" data-paragraphname="multalign_prot">
+            <xhtml:legend>Protein parameters</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="matrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="gonnet" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117703382016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117703382016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>There are three 'in-built' series of weight
+		matrices offered. Each consists of several matrices which
+		work differently at different evolutionary distances. To
+		see the exact details, read the documentation. Crudely, we
+		store several matrices in memory, spanning the full range
+		of amino acid distance (from almost identical sequences to
+		highly divergent ones). For very similar sequences, it is
+		best to use a strict weight matrix which only gives a high
+		score to identities and the most favoured conservative
+		substitutions. For more divergent sequences, it is
+		appropriate to use 'softer' matrices which give a high
+		score to many other frequent substitutions.</xhtml:div>
+                  <xhtml:div>BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</xhtml:div>
+                  <xhtml:div>The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</xhtml:div>
+                  <xhtml:div>PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="negative" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pgap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117702563968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117702563968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Residue specific penalties are amino acid
+		specific gap penalties that reduce or increase the gap
+		opening penalties at each position in the alignment or
+		sequence. As an example, positions that are rich in glycine
+		are more likely to have an adjacent gap than positions that
+		are rich in valine.</xhtml:div>
+                  <xhtml:div>Table of residue specific gap modification
+		factors:</xhtml:div>
+                  <xhtml:div>A 1.13 M 1.29</xhtml:div>
+                  <xhtml:div>C 1.13 N 0.63</xhtml:div>
+                  <xhtml:div>D 0.96 P 0.74</xhtml:div>
+                  <xhtml:div>E 1.31 Q 1.07</xhtml:div>
+                  <xhtml:div>F 1.20 R 0.72</xhtml:div>
+                  <xhtml:div>G 0.61 S 0.76</xhtml:div>
+                  <xhtml:div>H 1.00 T 0.89</xhtml:div>
+                  <xhtml:div>I 1.32 V 1.25</xhtml:div>
+                  <xhtml:div>K 0.96 Y 1.00</xhtml:div>
+                  <xhtml:div>L 1.21 W 1.23</xhtml:div>
+                  <xhtml:div>The values are normalised around a mean value of 1.0 for H. The lower the value, the greater the chance of having an adjacent gap. These are derived from the original table of relative frequencies of gaps adjacent to each residue (12) by subtraction from 2.0.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hgap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117703359248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117703359248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Hydrophilic gap penalties are used to
+		increase the chances of a gap within a run (5 or more
+		residues) of hydrophilic amino acids; these are likely to
+		be loop or random coil regions where gaps are more
+		common. The residues that are 'considered' to be
+		hydrophilic are set by menu item 3.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hgapresidues" class="parameter " title="" data-issimple="false" data-ismultiple="true" data-default-value="R" data-datatype="MultipleChoice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="multalign_dna">
+            <xhtml:legend>DNA parameters</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dnamatrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="iub" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117703249760::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117703249760::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</xhtml:div>
+                  <xhtml:div>2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="transweight" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117703734944::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117703734944::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>A weight of
+		zero means that the transitions are scored as mismatches; a
+		weight of 1 gives transitions the full match score. For
+		distantly related DNA sequences, the weight should be near
+		to zero; for closely related sequences it can be useful to
+		assign a higher score.</xhtml:div>
+                </xhtml:div>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="fastpw">
+        <xhtml:legend>Fast Pairwise Alignments parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ktuple" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702179840::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702179840::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>K-TUPLE SIZE: This is the size of exactly matching fragment that is used. INCREASE for speed (max= 2 for proteins; 4 for DNA), DECREASE for sensitivity. For longer sequences (e.g. &gt;1000 residues) you may need to increase the default.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="topdiags" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702169088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702169088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The number of k-tuple matches on each
+		diagonal (in an imaginary dot-matrix plot) is
+		calculated. Only the best ones (with most matches) are used
+		in the alignment. This parameter specifies how
+		many. Decrease for speed; increase for sensitivity.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="window" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702158864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702158864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>WINDOW SIZE: This is the number of
+		diagonals around each of the 'best' diagonals that will be
+		used. Decrease for speed; increase for sensitivity</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pairgap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702451584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702451584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is a penalty for each gap in the fast
+		alignments. It has little affect on the speed or
+		sensitivity except for extreme values.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="score" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="percent" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="slowpw">
+        <xhtml:legend>Slow Pairwise Alignments parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pwgapopen" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pwgapext" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.10" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <xhtml:fieldset class="minimizable" data-paragraphname="slowpw_prot">
+            <xhtml:legend>Protein parameters</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pwmatrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="gonnet" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117702292288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117702292288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>The scoring table which describes the
+		similarity of each amino acid to each other. For DNA, an
+		identity matrix is used.</xhtml:div>
+                  <xhtml:div>BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</xhtml:div>
+                  <xhtml:div>The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</xhtml:div>
+                  <xhtml:div>PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</xhtml:div>
+                </xhtml:div>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="slowpw_dna">
+            <xhtml:legend>DNA parameters</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pwdnamatrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="iub" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117702267568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117702267568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>For DNA, a single matrix (not a series) is
+		used. Two hard-coded matrices are available:</xhtml:div>
+                  <xhtml:div>1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</xhtml:div>
+                  <xhtml:div>2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</xhtml:div>
+                </xhtml:div>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="outputparam">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outputformat" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqnos" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outorder" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="aligned" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gde_lower" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="multalign">
+        <xhtml:legend>Multiple Alignments parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="newtreefile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+            <xhtml:i>
+				(Tree)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="outputparam">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="clustalaligfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="CLUSTAL ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+            <xhtml:a href="#idm140117702050288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702050288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In the conservation line output in the clustal format alignment file, three characters are used:</xhtml:div>
+              <xhtml:div>'*' indicates positions which have a single, fully conserved residue.</xhtml:div>
+              <xhtml:div>':' indicates that one of the following 'strong' groups is fully conserved (STA,NEQK,NHQK,NDEQ,QHRK,MILV,MILF,HY,FYW).</xhtml:div>
+              <xhtml:div>'.' indicates that one of the following 'weaker' groups is fully conserved (CSA,ATV,SAG,STNK,STPA,SGND,SNDEQK,NDEQHK,NEQHRK,FVLIM,HFY).</xhtml:div>
+              <xhtml:div>These are all the positively scoring groups that occur in the Gonnet Pam250
+matrix. The strong and weak groups are defined as strong score &gt;0.5 and weak
+score =&lt;0.5 respectively.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="aligfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;            &#9; ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dndfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+            <xhtml:i>
+				(Tree)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>input</name>
+      <prompt lang="en">Data Input</prompt>
+      <parameters>
+        <parameter ismandatory="1" issimple="1" ismaininput="1">
+          <name>sequences_input</name>
+          <prompt lang="en">Sequences File ( a file containing several sequences ) (-infile)</prompt>
+          <precond>
+            <code proglang="perl">not $alignment_input or ($sequences_input and $alignment_input)</code>
+            <code proglang="python">not alignment_input or (sequences_input and alignment_input)</code>
+          </precond>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GDE</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <card>2,n</card>
+          </type>
+          <format>
+            <code proglang="perl">" -infile=$value"</code>
+            <code proglang="python">" -infile=" + str( value )</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Can not handle both Sequence and Alignment at the same time</text>
+            </message>
+            <code proglang="perl">not $alignment_input</code>
+            <code proglang="python">not alignment_input</code>
+          </ctrl>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Sequences File ( a file containing several sequences ) (-infile)</xhtml:legend>
+              <xhtml:textarea name="sequences_input" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="2,n" data-formats="FASTA NBRF EMBL GCG GDE SWISSPROT " data-parametername="sequences_input">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1" issimple="1" ismaininput="1">
+          <name>alignment_input</name>
+          <prompt lang="en">Aligned sequences</prompt>
+          <precond>
+            <code proglang="perl">not $sequences_input or ($sequences_input and $alignment_input)</code>
+            <code proglang="python">not sequences_input or (sequences_input and alignment_input)</code>
+          </precond>
+          <type>
+            <biotype>Protein</biotype>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>CLUSTAL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <card>1</card>
+          </type>
+          <format>
+            <code proglang="perl">" -infile=$value"</code>
+            <code proglang="python">" -infile=" + str( value )</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Can not handle both Sequence and Alignment at the same time</text>
+            </message>
+            <code proglang="perl">not $sequences_input</code>
+            <code proglang="python">not sequences_input</code>
+          </ctrl>
+          <comment>
+            <text lang="en"> When the sequences are aligned (all sequences
+              have the same length and at least one sequence has at least one
+              gap)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Aligned sequences</xhtml:legend>
+              <xhtml:textarea name="alignment_input" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein DNA " data-card="1" data-formats="CLUSTAL FASTA " data-parametername="alignment_input">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein or DNA Alignment)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704026896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704026896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> When the sequences are aligned (all sequences
+              have the same length and at least one sequence has at least one
+              gap)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>general</name>
+      <prompt lang="en">General settings</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter ismandatory="1" issimple="1">
+          <name>quicktree</name>
+          <prompt lang="en">Toggle Slow/Fast pairwise alignments (-quicktree)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>slow</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>slow</value>
+              <label>Slow</label>
+            </velem>
+            <velem>
+              <value>fast</value>
+              <label>Fast</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value eq "fast") ? " -quicktree" : ""</code>
+            <code proglang="python">( "" , " -quicktree")[ value == "fast"]</code>
+          </format>
+          <comment>
+            <text lang="en">slow: by dynamic programming (slow but accurate)</text>
+            <text lang="en">fast: method of Wilbur and Lipman (extremely fast but approximate)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Toggle Slow/Fast pairwise alignments (-quicktree)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704163152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="quicktree">
+                <xhtml:option value="slow" selected="selected">Slow</xhtml:option>
+                <xhtml:option value="fast">Fast</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704163152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>slow: by dynamic programming (slow but accurate)</xhtml:div>
+                <xhtml:div>fast: method of Wilbur and Lipman (extremely fast but approximate)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="slow" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="quicktree">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704163152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704163152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>slow: by dynamic programming (slow but accurate)</xhtml:div>
+                <xhtml:div>fast: method of Wilbur and Lipman (extremely fast but approximate)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>typeseq</name>
+          <prompt lang="en">Protein or DNA (-type)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>auto</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>auto</value>
+              <label>Automatic</label>
+            </velem>
+            <velem>
+              <value>protein</value>
+              <label>Protein</label>
+            </velem>
+            <velem>
+              <value>dna</value>
+              <label>DNA</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value) ? " -type=$value" : ""</code>
+            <code proglang="python">("", " -type="+str(value))[value is not None]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Protein or DNA (-type)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="typeseq">
+                <xhtml:option value="auto" selected="selected">Automatic</xhtml:option>
+                <xhtml:option value="protein">Protein</xhtml:option>
+                <xhtml:option value="dna">DNA</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="auto" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="typeseq"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>multalign</name>
+      <prompt lang="en">Multiple Alignments parameters</prompt>
+      <argpos>3</argpos>
+      <comment>
+        <text lang="en">Multiple alignments are carried out in 3 stages :</text>
+        <text lang="en">1) all sequences are compared to each other (pairwise alignments);</text>
+        <text lang="en">2) a dendrogram (like a phylogenetic tree) is constructed, describing the approximate groupings of the sequences by similarity (stored in a file).</text>
+        <text lang="en">3) the final multiple alignment is carried out, using the dendrogram as a guide.</text>
+        <text lang="en">Pairwise alignment parameters control the speed/sensitivity of the initial alignments.</text>
+        <text lang="en">Multiple alignment parameters control the gaps in the final multiple alignments.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>gapopen</name>
+          <prompt lang="en">Gap opening penalty (-gapopen)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10.00</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -gapopen=$value" : ""</code>
+            <code proglang="python">( "" , " -gapopen=" + str( value ))[ value is not None and value != vdef ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap opening penalty (-gapopen)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gapopen" type="text" value="10.00"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapopen"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gapext</name>
+          <prompt lang="en">Gap extension penalty (-gapext)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.20</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -gapext=$value" : ""</code>
+            <code proglang="python">( "" , " -gapext=" + str( value ))[ value is not None and value != vdef ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap extension penalty (-gapext)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gapext" type="text" value="0.20"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.20" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapext"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>endgaps</name>
+          <prompt lang="en">No end gap separation penalty (-endgaps)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -endgaps" : ""</code>
+            <code proglang="python">( "" ," -endgaps" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">End gap separation treats end gaps just
+		like internal gaps for the purposes of avoiding gaps that
+		are too close (set by GAP SEPARATION DISTANCE above). If
+		you turn this off, end gaps will be ignored for this
+		purpose. This is useful when you wish to align fragments
+		where the end gaps are not biologically meaningful.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">No end gap separation penalty (-endgaps)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703242864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="endgaps">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703242864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>End gap separation treats end gaps just
+		like internal gaps for the purposes of avoiding gaps that
+		are too close (set by GAP SEPARATION DISTANCE above). If
+		you turn this off, end gaps will be ignored for this
+		purpose. This is useful when you wish to align fragments
+		where the end gaps are not biologically meaningful.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="endgaps">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703242864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703242864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>End gap separation treats end gaps just
+		like internal gaps for the purposes of avoiding gaps that
+		are too close (set by GAP SEPARATION DISTANCE above). If
+		you turn this off, end gaps will be ignored for this
+		purpose. This is useful when you wish to align fragments
+		where the end gaps are not biologically meaningful.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gapdist</name>
+          <prompt lang="en">Gap separation penalty range (-gapdist)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>8</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -gapdist=$value" : ""</code>
+            <code proglang="python">( "" , " -gapdist=" + str( value ))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Gap separation distance tries to decrease
+		the chances of gaps being too close to each other. Gaps
+		that are less than this distance apart are penalised more
+		than other gaps. This does not prevent close gaps; it makes
+		them less frequent, promoting a block-like appearance of
+		the alignment.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap separation penalty range (-gapdist)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702339024::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gapdist" type="text" value="8"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702339024::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Gap separation distance tries to decrease
+		the chances of gaps being too close to each other. Gaps
+		that are less than this distance apart are penalised more
+		than other gaps. This does not prevent close gaps; it makes
+		them less frequent, promoting a block-like appearance of
+		the alignment.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="8" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapdist">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702339024::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702339024::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Gap separation distance tries to decrease
+		the chances of gaps being too close to each other. Gaps
+		that are less than this distance apart are penalised more
+		than other gaps. This does not prevent close gaps; it makes
+		them less frequent, promoting a block-like appearance of
+		the alignment.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>maxdiv</name>
+          <prompt lang="en">Delay divergent sequences : % ident. for delay (-maxdiv)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>30</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -maxdiv=$value" : ""</code>
+            <code proglang="python">( "" , " -maxdiv=" + str( value ))[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Delays the alignment of the most distantly
+		related sequences until after the most closely related
+		sequences have been aligned. The setting shows the percent
+		identity level required to delay the addition of a
+		sequence; sequences that are less identical than this level
+		to any other sequences will be aligned later.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Delay divergent sequences : % ident. for delay (-maxdiv)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703269312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="maxdiv" type="text" value="30"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703269312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Delays the alignment of the most distantly
+		related sequences until after the most closely related
+		sequences have been aligned. The setting shows the percent
+		identity level required to delay the addition of a
+		sequence; sequences that are less identical than this level
+		to any other sequences will be aligned later.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxdiv">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703269312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703269312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Delays the alignment of the most distantly
+		related sequences until after the most closely related
+		sequences have been aligned. The setting shows the percent
+		identity level required to delay the addition of a
+		sequence; sequences that are less identical than this level
+		to any other sequences will be aligned later.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>newtree</name>
+          <prompt lang="en">File for new guide tree (-newtree)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -newtree=$value" : ""</code>
+            <code proglang="python">( "" , " -newtree=" + str( value ))[value is not None]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">File for new guide tree (-newtree)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="newtree" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="newtree"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>newtreefile</name>
+          <prompt>Output tree</prompt>
+          <type>
+            <datatype>
+              <class>Tree</class>
+            </datatype>
+            <dataFormat>NEWICK</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">defined $newtree</code>
+            <code proglang="python">newtree is not None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">$newtree</code>
+            <code proglang="python">newtree</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="newtreefile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>usetree</name>
+          <prompt lang="en">File for old guide tree (-usetree)</prompt>
+          <type>
+            <datatype>
+              <class>Tree</class>
+            </datatype>
+            <dataFormat>NEWICK</dataFormat>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -usetree=$value" : ""</code>
+            <code proglang="python">( "" ," -usetree=" + str( value ))[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">You can give a previously computed tree (.dnd file) - on the same data</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>File for old guide tree (-usetree)</xhtml:legend>
+              <xhtml:textarea name="usetree" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="usetree">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703316768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703316768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You can give a previously computed tree (.dnd file) - on the same data</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>multalign_prot</name>
+          <prompt lang="en">Protein parameters</prompt>
+          <precond>
+            <code proglang="perl">$typeseq eq "protein"</code>
+            <code proglang="python">typeseq == "protein"</code>
+          </precond>
+          <parameters>
+            <parameter>
+              <name>matrix</name>
+              <prompt lang="en">Protein weight matrix (-matrix)</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>gonnet</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>gonnet</value>
+                  <label>Gonnet series</label>
+                </velem>
+                <velem>
+                  <value>blosum</value>
+                  <label>BLOSUM series</label>
+                </velem>
+                <velem>
+                  <value>pam</value>
+                  <label>PAM series</label>
+                </velem>
+                <velem>
+                  <value>id</value>
+                  <label>Identity matrix</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -matrix=$value" : ""</code>
+                <code proglang="python">("", " -matrix="+str(value))[value is not None and value!=vdef]</code>
+              </format>
+              <comment>
+                <text lang="en">There are three 'in-built' series of weight
+		matrices offered. Each consists of several matrices which
+		work differently at different evolutionary distances. To
+		see the exact details, read the documentation. Crudely, we
+		store several matrices in memory, spanning the full range
+		of amino acid distance (from almost identical sequences to
+		highly divergent ones). For very similar sequences, it is
+		best to use a strict weight matrix which only gives a high
+		score to identities and the most favoured conservative
+		substitutions. For more divergent sequences, it is
+		appropriate to use 'softer' matrices which give a high
+		score to many other frequent substitutions.</text>
+                <text lang="en">BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</text>
+                <text lang="en">The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</text>
+                <text lang="en">PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Protein weight matrix (-matrix)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703382016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="matrix">
+                    <xhtml:option value="gonnet" selected="selected">Gonnet series</xhtml:option>
+                    <xhtml:option value="blosum">BLOSUM series</xhtml:option>
+                    <xhtml:option value="pam">PAM series</xhtml:option>
+                    <xhtml:option value="id">Identity matrix</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703382016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>There are three 'in-built' series of weight
+		matrices offered. Each consists of several matrices which
+		work differently at different evolutionary distances. To
+		see the exact details, read the documentation. Crudely, we
+		store several matrices in memory, spanning the full range
+		of amino acid distance (from almost identical sequences to
+		highly divergent ones). For very similar sequences, it is
+		best to use a strict weight matrix which only gives a high
+		score to identities and the most favoured conservative
+		substitutions. For more divergent sequences, it is
+		appropriate to use 'softer' matrices which give a high
+		score to many other frequent substitutions.</xhtml:div>
+                    <xhtml:div>BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</xhtml:div>
+                    <xhtml:div>The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</xhtml:div>
+                    <xhtml:div>PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="gonnet" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703382016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703382016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>There are three 'in-built' series of weight
+		matrices offered. Each consists of several matrices which
+		work differently at different evolutionary distances. To
+		see the exact details, read the documentation. Crudely, we
+		store several matrices in memory, spanning the full range
+		of amino acid distance (from almost identical sequences to
+		highly divergent ones). For very similar sequences, it is
+		best to use a strict weight matrix which only gives a high
+		score to identities and the most favoured conservative
+		substitutions. For more divergent sequences, it is
+		appropriate to use 'softer' matrices which give a high
+		score to many other frequent substitutions.</xhtml:div>
+                    <xhtml:div>BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</xhtml:div>
+                    <xhtml:div>The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</xhtml:div>
+                    <xhtml:div>PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>negative</name>
+              <prompt lang="en">Negative values in matrix ? (-negative)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -negative" : ""</code>
+                <code proglang="python">( "" , " -negative" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Negative values in matrix ? (-negative)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="negative">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="negative"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>pgap</name>
+              <prompt lang="en">Residue specific gaps off (-nopgap)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -nopgap" : ""</code>
+                <code proglang="python">( "" , " -nopgap" )[ value ]</code>
+              </format>
+              <comment>
+                <text lang="en">Residue specific penalties are amino acid
+		specific gap penalties that reduce or increase the gap
+		opening penalties at each position in the alignment or
+		sequence. As an example, positions that are rich in glycine
+		are more likely to have an adjacent gap than positions that
+		are rich in valine.</text>
+                <text lang="en">Table of residue specific gap modification
+		factors:</text>
+                <text lang="en">A 1.13 M 1.29</text>
+                <text lang="en">C 1.13 N 0.63</text>
+                <text lang="en">D 0.96 P 0.74</text>
+                <text lang="en">E 1.31 Q 1.07</text>
+                <text lang="en">F 1.20 R 0.72</text>
+                <text lang="en">G 0.61 S 0.76</text>
+                <text lang="en">H 1.00 T 0.89</text>
+                <text lang="en">I 1.32 V 1.25</text>
+                <text lang="en">K 0.96 Y 1.00</text>
+                <text lang="en">L 1.21 W 1.23</text>
+                <text lang="en">The values are normalised around a mean value of 1.0 for H. The lower the value, the greater the chance of having an adjacent gap. These are derived from the original table of relative frequencies of gaps adjacent to each residue (12) by subtraction from 2.0.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Residue specific gaps off (-nopgap)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702563968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pgap">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702563968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Residue specific penalties are amino acid
+		specific gap penalties that reduce or increase the gap
+		opening penalties at each position in the alignment or
+		sequence. As an example, positions that are rich in glycine
+		are more likely to have an adjacent gap than positions that
+		are rich in valine.</xhtml:div>
+                    <xhtml:div>Table of residue specific gap modification
+		factors:</xhtml:div>
+                    <xhtml:div>A 1.13 M 1.29</xhtml:div>
+                    <xhtml:div>C 1.13 N 0.63</xhtml:div>
+                    <xhtml:div>D 0.96 P 0.74</xhtml:div>
+                    <xhtml:div>E 1.31 Q 1.07</xhtml:div>
+                    <xhtml:div>F 1.20 R 0.72</xhtml:div>
+                    <xhtml:div>G 0.61 S 0.76</xhtml:div>
+                    <xhtml:div>H 1.00 T 0.89</xhtml:div>
+                    <xhtml:div>I 1.32 V 1.25</xhtml:div>
+                    <xhtml:div>K 0.96 Y 1.00</xhtml:div>
+                    <xhtml:div>L 1.21 W 1.23</xhtml:div>
+                    <xhtml:div>The values are normalised around a mean value of 1.0 for H. The lower the value, the greater the chance of having an adjacent gap. These are derived from the original table of relative frequencies of gaps adjacent to each residue (12) by subtraction from 2.0.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pgap">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702563968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702563968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Residue specific penalties are amino acid
+		specific gap penalties that reduce or increase the gap
+		opening penalties at each position in the alignment or
+		sequence. As an example, positions that are rich in glycine
+		are more likely to have an adjacent gap than positions that
+		are rich in valine.</xhtml:div>
+                    <xhtml:div>Table of residue specific gap modification
+		factors:</xhtml:div>
+                    <xhtml:div>A 1.13 M 1.29</xhtml:div>
+                    <xhtml:div>C 1.13 N 0.63</xhtml:div>
+                    <xhtml:div>D 0.96 P 0.74</xhtml:div>
+                    <xhtml:div>E 1.31 Q 1.07</xhtml:div>
+                    <xhtml:div>F 1.20 R 0.72</xhtml:div>
+                    <xhtml:div>G 0.61 S 0.76</xhtml:div>
+                    <xhtml:div>H 1.00 T 0.89</xhtml:div>
+                    <xhtml:div>I 1.32 V 1.25</xhtml:div>
+                    <xhtml:div>K 0.96 Y 1.00</xhtml:div>
+                    <xhtml:div>L 1.21 W 1.23</xhtml:div>
+                    <xhtml:div>The values are normalised around a mean value of 1.0 for H. The lower the value, the greater the chance of having an adjacent gap. These are derived from the original table of relative frequencies of gaps adjacent to each residue (12) by subtraction from 2.0.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>hgap</name>
+              <prompt lang="en">Hydrophilic gaps off (-nohgap)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -nohgap" : ""</code>
+                <code proglang="python">( "" , " -nohgap" )[ value ]</code>
+              </format>
+              <comment>
+                <text lang="en">Hydrophilic gap penalties are used to
+		increase the chances of a gap within a run (5 or more
+		residues) of hydrophilic amino acids; these are likely to
+		be loop or random coil regions where gaps are more
+		common. The residues that are 'considered' to be
+		hydrophilic are set by menu item 3.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Hydrophilic gaps off (-nohgap)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703359248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="hgap">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703359248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Hydrophilic gap penalties are used to
+		increase the chances of a gap within a run (5 or more
+		residues) of hydrophilic amino acids; these are likely to
+		be loop or random coil regions where gaps are more
+		common. The residues that are 'considered' to be
+		hydrophilic are set by menu item 3.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hgap">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703359248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703359248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Hydrophilic gap penalties are used to
+		increase the chances of a gap within a run (5 or more
+		residues) of hydrophilic amino acids; these are likely to
+		be loop or random coil regions where gaps are more
+		common. The residues that are 'considered' to be
+		hydrophilic are set by menu item 3.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>hgapresidues</name>
+              <prompt lang="en">Hydrophilic residues list (-hgapresidues)</prompt>
+              <type>
+                <datatype>
+                  <class>MultipleChoice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>R</value>
+                <value>N</value>
+                <value>D</value>
+                <value>Q</value>
+                <value>E</value>
+                <value>G</value>
+                <value>K</value>
+                <value>P</value>
+                <value>S</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>A</value>
+                  <label>A</label>
+                </velem>
+                <velem>
+                  <value>R</value>
+                  <label>R</label>
+                </velem>
+                <velem>
+                  <value>N</value>
+                  <label>N</label>
+                </velem>
+                <velem>
+                  <value>D</value>
+                  <label>D</label>
+                </velem>
+                <velem>
+                  <value>C</value>
+                  <label>C</label>
+                </velem>
+                <velem>
+                  <value>Q</value>
+                  <label>Q</label>
+                </velem>
+                <velem>
+                  <value>E</value>
+                  <label>E</label>
+                </velem>
+                <velem>
+                  <value>G</value>
+                  <label>G</label>
+                </velem>
+                <velem>
+                  <value>H</value>
+                  <label>H</label>
+                </velem>
+                <velem>
+                  <value>I</value>
+                  <label>I</label>
+                </velem>
+                <velem>
+                  <value>L</value>
+                  <label>L</label>
+                </velem>
+                <velem>
+                  <value>K</value>
+                  <label>K</label>
+                </velem>
+                <velem>
+                  <value>M</value>
+                  <label>M</label>
+                </velem>
+                <velem>
+                  <value>F</value>
+                  <label>F</label>
+                </velem>
+                <velem>
+                  <value>P</value>
+                  <label>P</label>
+                </velem>
+                <velem>
+                  <value>S</value>
+                  <label>S</label>
+                </velem>
+                <velem>
+                  <value>T</value>
+                  <label>T</label>
+                </velem>
+                <velem>
+                  <value>W</value>
+                  <label>W</label>
+                </velem>
+                <velem>
+                  <value>Y</value>
+                  <label>Y</label>
+                </velem>
+                <velem>
+                  <value>V</value>
+                  <label>V</label>
+                </velem>
+              </vlist>
+              <separator/>
+              <format>
+                <code proglang="perl">($value and $value ne $vdef) ? " -hgapresidues=\\"$value\\"" : ""</code>
+                <code proglang="python">( '' , ' -hgapresidues="%s"' % str(value) )[ value and value != vdef ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Hydrophilic residues list (-hgapresidues)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" multiple="multiple" name="hgapresidues">
+                    <xhtml:option value="A">A</xhtml:option>
+                    <xhtml:option value="R" selected="selected">R</xhtml:option>
+                    <xhtml:option value="N" selected="selected">N</xhtml:option>
+                    <xhtml:option value="D" selected="selected">D</xhtml:option>
+                    <xhtml:option value="C">C</xhtml:option>
+                    <xhtml:option value="Q" selected="selected">Q</xhtml:option>
+                    <xhtml:option value="E" selected="selected">E</xhtml:option>
+                    <xhtml:option value="G" selected="selected">G</xhtml:option>
+                    <xhtml:option value="H">H</xhtml:option>
+                    <xhtml:option value="I">I</xhtml:option>
+                    <xhtml:option value="L">L</xhtml:option>
+                    <xhtml:option value="K" selected="selected">K</xhtml:option>
+                    <xhtml:option value="M">M</xhtml:option>
+                    <xhtml:option value="F">F</xhtml:option>
+                    <xhtml:option value="P" selected="selected">P</xhtml:option>
+                    <xhtml:option value="S" selected="selected">S</xhtml:option>
+                    <xhtml:option value="T">T</xhtml:option>
+                    <xhtml:option value="W">W</xhtml:option>
+                    <xhtml:option value="Y">Y</xhtml:option>
+                    <xhtml:option value="V">V</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="true" data-default-value="R" data-datatype="MultipleChoice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hgapresidues"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+        <paragraph>
+          <name>multalign_dna</name>
+          <prompt lang="en">DNA parameters</prompt>
+          <precond>
+            <code proglang="perl">$typeseq eq "dna"</code>
+            <code proglang="python">typeseq == "dna"</code>
+          </precond>
+          <parameters>
+            <parameter>
+              <name>dnamatrix</name>
+              <prompt lang="en">DNA weight matrix (-dnamatrix)</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>iub</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>iub</value>
+                  <label>IUB</label>
+                </velem>
+                <velem>
+                  <value>clustalw</value>
+                  <label>CLUSTALW</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -dnamatrix=$value" : ""</code>
+                <code proglang="python">("", " -dnamatrix=" + str(value))[value is not None and value!=vdef]</code>
+              </format>
+              <comment>
+                <text lang="en">1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</text>
+                <text lang="en">2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">DNA weight matrix (-dnamatrix)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703249760::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dnamatrix">
+                    <xhtml:option value="iub" selected="selected">IUB</xhtml:option>
+                    <xhtml:option value="clustalw">CLUSTALW</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703249760::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</xhtml:div>
+                    <xhtml:div>2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="iub" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dnamatrix">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703249760::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703249760::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</xhtml:div>
+                    <xhtml:div>2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>transweight</name>
+              <prompt lang="en">Transitions weight (between 0 and 1) (-transweight)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0.5</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef) ? " -transweight=$value" : ""</code>
+                <code proglang="python">( "" , " -transweight=" + str( value ) )[ value is not None and value != vdef ]</code>
+              </format>
+              <comment>
+                <text lang="en">A weight of
+		zero means that the transitions are scored as mismatches; a
+		weight of 1 gives transitions the full match score. For
+		distantly related DNA sequences, the weight should be near
+		to zero; for closely related sequences it can be useful to
+		assign a higher score.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Transitions weight (between 0 and 1) (-transweight)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703734944::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="transweight" type="text" value="0.5"/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703734944::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>A weight of
+		zero means that the transitions are scored as mismatches; a
+		weight of 1 gives transitions the full match score. For
+		distantly related DNA sequences, the weight should be near
+		to zero; for closely related sequences it can be useful to
+		assign a higher score.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="transweight">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703734944::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703734944::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>A weight of
+		zero means that the transitions are scored as mismatches; a
+		weight of 1 gives transitions the full match score. For
+		distantly related DNA sequences, the weight should be near
+		to zero; for closely related sequences it can be useful to
+		assign a higher score.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>fastpw</name>
+      <prompt lang="en">Fast Pairwise Alignments parameters</prompt>
+      <precond>
+        <code proglang="perl">$quicktree eq "fast"</code>
+        <code proglang="python">quicktree == "fast"</code>
+      </precond>
+      <argpos>4</argpos>
+      <comment>
+        <text lang="en">These similarity scores are calculated from fast,
+	  approximate, global alignments, which are controlled by 4
+	  parameters. 2 techniques are used to make these alignments very
+	  fast: 1) only exactly matching fragments (k-tuples) are
+	  considered; 2) only the 'best' diagonals (the ones with most
+	  k-tuple matches) are used.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>ktuple</name>
+          <prompt lang="en">Word size (-ktuple)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -ktuple=$value" : ""</code>
+            <code proglang="python">( "" , " -ktuple=" + str( value ) )[value is not None and value != vdef ]</code>
+          </format>
+          <argpos>2</argpos>
+          <comment>
+            <text lang="en">K-TUPLE SIZE: This is the size of exactly matching fragment that is used. INCREASE for speed (max= 2 for proteins; 4 for DNA), DECREASE for sensitivity. For longer sequences (e.g. &gt;1000 residues) you may need to increase the default.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Word size (-ktuple)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702179840::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ktuple" type="text" value="1"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702179840::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>K-TUPLE SIZE: This is the size of exactly matching fragment that is used. INCREASE for speed (max= 2 for proteins; 4 for DNA), DECREASE for sensitivity. For longer sequences (e.g. &gt;1000 residues) you may need to increase the default.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ktuple">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702179840::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702179840::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>K-TUPLE SIZE: This is the size of exactly matching fragment that is used. INCREASE for speed (max= 2 for proteins; 4 for DNA), DECREASE for sensitivity. For longer sequences (e.g. &gt;1000 residues) you may need to increase the default.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>topdiags</name>
+          <prompt lang="en">Number of best diagonals (-topdiags)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -topdiags=$value" : ""</code>
+            <code proglang="python">( "" , " -topdiags=" + str( value ))[value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">The number of k-tuple matches on each
+		diagonal (in an imaginary dot-matrix plot) is
+		calculated. Only the best ones (with most matches) are used
+		in the alignment. This parameter specifies how
+		many. Decrease for speed; increase for sensitivity.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of best diagonals (-topdiags)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702169088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="topdiags" type="text" value="5"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702169088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The number of k-tuple matches on each
+		diagonal (in an imaginary dot-matrix plot) is
+		calculated. Only the best ones (with most matches) are used
+		in the alignment. This parameter specifies how
+		many. Decrease for speed; increase for sensitivity.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="topdiags">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702169088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702169088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The number of k-tuple matches on each
+		diagonal (in an imaginary dot-matrix plot) is
+		calculated. Only the best ones (with most matches) are used
+		in the alignment. This parameter specifies how
+		many. Decrease for speed; increase for sensitivity.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>window</name>
+          <prompt lang="en">Window around best diags (-window)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -window=$value" : ""</code>
+            <code proglang="python">( "" , " -window=" + str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">WINDOW SIZE: This is the number of
+		diagonals around each of the 'best' diagonals that will be
+		used. Decrease for speed; increase for sensitivity</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Window around best diags (-window)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702158864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="window" type="text" value="5"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702158864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>WINDOW SIZE: This is the number of
+		diagonals around each of the 'best' diagonals that will be
+		used. Decrease for speed; increase for sensitivity</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="window">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702158864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702158864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>WINDOW SIZE: This is the number of
+		diagonals around each of the 'best' diagonals that will be
+		used. Decrease for speed; increase for sensitivity</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>pairgap</name>
+          <prompt lang="en">Gap penalty (-pairgap)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>3</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -pairgap=$value" : ""</code>
+            <code proglang="python">( "" , " -pairgap=" + str( value ))[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">This is a penalty for each gap in the fast
+		alignments. It has little affect on the speed or
+		sensitivity except for extreme values.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap penalty (-pairgap)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702451584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pairgap" type="text" value="3"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702451584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is a penalty for each gap in the fast
+		alignments. It has little affect on the speed or
+		sensitivity except for extreme values.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pairgap">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702451584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702451584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is a penalty for each gap in the fast
+		alignments. It has little affect on the speed or
+		sensitivity except for extreme values.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>score</name>
+          <prompt lang="en">Percent or absolute score ? (-score)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>percent</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>percent</value>
+              <label>Percent</label>
+            </velem>
+            <velem>
+              <value>absolute</value>
+              <label>Absolute</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -score=$value" : ""</code>
+            <code proglang="python">( "" , " -score=" +str( value ) )[value is not None or value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Percent or absolute score ? (-score)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="score">
+                <xhtml:option value="percent" selected="selected">Percent</xhtml:option>
+                <xhtml:option value="absolute">Absolute</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="percent" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="score"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>slowpw</name>
+      <prompt lang="en">Slow Pairwise Alignments parameters</prompt>
+      <precond>
+        <code proglang="perl">$quicktree eq "slow"</code>
+        <code proglang="python">quicktree == "slow"</code>
+      </precond>
+      <argpos>4</argpos>
+      <comment>
+        <text lang="en">These parameters do not have any affect on the
+	  speed of the alignments. They are used to give initial alignments
+	  which are then rescored to give percent identity scores. These %
+	  scores are the ones which are displayed on the screen. The scores
+	  are converted to distances for the trees.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>pwgapopen</name>
+          <prompt lang="en">Gap opening penalty (-pwgapopen)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10.00</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -pwgapopen=$value" : ""</code>
+            <code proglang="python">( "" , " -pwgapopen=" + str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap opening penalty (-pwgapopen)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pwgapopen" type="text" value="10.00"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pwgapopen"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>pwgapext</name>
+          <prompt lang="en">Gap extension penalty (-pwgapext)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.10</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -pwgapext=$value" : ""</code>
+            <code proglang="python">( "" , " -pwgapext=" + str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap extension penalty (-pwgapext)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pwgapext" type="text" value="0.10"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.10" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pwgapext"/>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>slowpw_prot</name>
+          <prompt lang="en">Protein parameters</prompt>
+          <precond>
+            <code proglang="perl">$typeseq eq "protein"</code>
+            <code proglang="python">typeseq == "protein"</code>
+          </precond>
+          <parameters>
+            <parameter>
+              <name>pwmatrix</name>
+              <prompt lang="en">Protein weight matrix (-pwmatrix)</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>gonnet</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>blosum</value>
+                  <label>BLOSUM30 (Henikoff)</label>
+                </velem>
+                <velem>
+                  <value>gonnet</value>
+                  <label>Gonnet 250</label>
+                </velem>
+                <velem>
+                  <value>pam</value>
+                  <label>PAM350 (Dayhoff)</label>
+                </velem>
+                <velem>
+                  <value>id</value>
+                  <label>Identity matrix</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -pwmatrix=$value" : ""</code>
+                <code proglang="python">( "" , " -pwmatrix=" + str(value) )[value is not None and value != vdef ]</code>
+              </format>
+              <comment>
+                <text lang="en">The scoring table which describes the
+		similarity of each amino acid to each other. For DNA, an
+		identity matrix is used.</text>
+                <text lang="en">BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</text>
+                <text lang="en">The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</text>
+                <text lang="en">PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Protein weight matrix (-pwmatrix)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702292288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pwmatrix">
+                    <xhtml:option value="blosum">BLOSUM30 (Henikoff)</xhtml:option>
+                    <xhtml:option value="gonnet" selected="selected">Gonnet 250</xhtml:option>
+                    <xhtml:option value="pam">PAM350 (Dayhoff)</xhtml:option>
+                    <xhtml:option value="id">Identity matrix</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702292288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>The scoring table which describes the
+		similarity of each amino acid to each other. For DNA, an
+		identity matrix is used.</xhtml:div>
+                    <xhtml:div>BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</xhtml:div>
+                    <xhtml:div>The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</xhtml:div>
+                    <xhtml:div>PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="gonnet" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pwmatrix">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702292288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702292288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>The scoring table which describes the
+		similarity of each amino acid to each other. For DNA, an
+		identity matrix is used.</xhtml:div>
+                    <xhtml:div>BLOSUM (Henikoff). These matrices appear to
+		be the best available for carrying out data base similarity
+		(homology searches). The matrices used are: Blosum80, 62,
+		40 and 30.</xhtml:div>
+                    <xhtml:div>The Gonnet Pam 250 matrix has been reported
+		as the best single matrix for alignment, if you only choose
+		one matrix. Our experience with profile database searches
+		is that the Gonnet series is unambiguously superior to the
+		Blosum series at high divergence. However, we did not get
+		the series to perform systematically better than the Blosum
+		series in Clustal W (communication of the authors).</xhtml:div>
+                    <xhtml:div>PAM (Dayhoff). These have been extremely
+		widely used since the late '70s. We use the PAM 120, 160,
+		250 and 350 matrices.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+        <paragraph>
+          <name>slowpw_dna</name>
+          <prompt lang="en">DNA parameters</prompt>
+          <precond>
+            <code proglang="perl">$typeseq eq "dna"</code>
+            <code proglang="python">typeseq == "dna"</code>
+          </precond>
+          <parameters>
+            <parameter>
+              <name>pwdnamatrix</name>
+              <prompt lang="en">DNA weight matrix (-pwdnamatrix)</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>iub</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>iub</value>
+                  <label>IUB</label>
+                </velem>
+                <velem>
+                  <value>clustalw</value>
+                  <label>CLUSTALW</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -pwdnamatrix=$value" : ""</code>
+                <code proglang="python">( "" , " -pwdnamatrix=" + str(value) )[ value is not None and value != vdef ]</code>
+              </format>
+              <comment>
+                <text lang="en">For DNA, a single matrix (not a series) is
+		used. Two hard-coded matrices are available:</text>
+                <text lang="en">1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</text>
+                <text lang="en">2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">DNA weight matrix (-pwdnamatrix)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702267568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pwdnamatrix">
+                    <xhtml:option value="iub" selected="selected">IUB</xhtml:option>
+                    <xhtml:option value="clustalw">CLUSTALW</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702267568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>For DNA, a single matrix (not a series) is
+		used. Two hard-coded matrices are available:</xhtml:div>
+                    <xhtml:div>1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</xhtml:div>
+                    <xhtml:div>2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="iub" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pwdnamatrix">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702267568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702267568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>For DNA, a single matrix (not a series) is
+		used. Two hard-coded matrices are available:</xhtml:div>
+                    <xhtml:div>1) IUB. This is the default scoring matrix
+		used by BESTFIT for the comparison of nucleic acid
+		sequences. X's and N's are treated as matches to any IUB
+		ambiguity symbol. All matches score 1.9; all mismatches for
+		IUB symbols score 0.</xhtml:div>
+                    <xhtml:div>2) CLUSTALW(1.6). The previous system used
+		by ClustalW, in which matches score 1.0 and mismatches
+		score 0. All matches for IUB symbols also score 0.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>outputparam</name>
+      <prompt lang="en">Output parameters</prompt>
+      <argpos>5</argpos>
+      <parameters>
+        <parameter>
+          <name>outputformat</name>
+          <prompt lang="en">Output format (-output)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>null</value>
+              <label>CLUSTAL</label>
+            </velem>
+            <velem>
+              <value>FASTA</value>
+              <label>FASTA</label>
+            </velem>
+            <velem>
+              <value>GCG</value>
+              <label>GCG</label>
+            </velem>
+            <velem>
+              <value>GDE</value>
+              <label>GDE</label>
+            </velem>
+            <velem>
+              <value>PHYLIPI</value>
+              <label>PHYLIP</label>
+            </velem>
+            <velem>
+              <value>PIR</value>
+              <label>PIR/NBRF</label>
+            </velem>
+            <velem>
+              <value>NEXUS</value>
+              <label>NEXUS</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value ) ? " -output=$value" : ""</code>
+            <code proglang="python">( "" , " -output=" + str( value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output format (-output)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outputformat">
+                <xhtml:option value="null" selected="selected">CLUSTAL</xhtml:option>
+                <xhtml:option value="FASTA">FASTA</xhtml:option>
+                <xhtml:option value="GCG">GCG</xhtml:option>
+                <xhtml:option value="GDE">GDE</xhtml:option>
+                <xhtml:option value="PHYLIPI">PHYLIP</xhtml:option>
+                <xhtml:option value="PIR">PIR/NBRF</xhtml:option>
+                <xhtml:option value="NEXUS">NEXUS</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outputformat"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>seqnos</name>
+          <prompt lang="en">Output sequence numbers in the output file (for clustalw output only) (-seqnos)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not defined $outputformat</code>
+            <code proglang="python">outputformat is None</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -seqnos=on" : ""</code>
+            <code proglang="python">( "" , " -seqnos=on")[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output sequence numbers in the output file (for clustalw output only) (-seqnos)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqnos">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqnos"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>outorder</name>
+          <prompt lang="en">Result order (-outorder)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>aligned</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>input</value>
+              <label>Input</label>
+            </velem>
+            <velem>
+              <value>aligned</value>
+              <label>Aligned</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -outorder=$value" : ""</code>
+            <code proglang="python">( "" , " -outorder=" + str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Result order (-outorder)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outorder">
+                <xhtml:option value="input">Input</xhtml:option>
+                <xhtml:option value="aligned" selected="selected">Aligned</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="aligned" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outorder"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>outfile</name>
+          <prompt lang="en">Sequence alignment file name (-outfile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -outfile=$value" : ""</code>
+            <code proglang="python">( "" , " -outfile=" + str( value))[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Sequence alignment file name (-outfile)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outfile" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>clustalaligfile</name>
+          <prompt>Alignment file</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>CLUSTAL</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">not defined $outputformat</code>
+            <code proglang="python">outputformat is None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">(defined $outfile)? "$outfile":"*.aln"</code>
+            <code proglang="python">("*.aln", str(outfile))[outfile is not None]</code>
+          </filenames>
+          <comment>
+            <text lang="en">In the conservation line output in the clustal format alignment file, three characters are used:</text>
+            <text lang="en">'*' indicates positions which have a single, fully conserved residue.</text>
+            <text lang="en">':' indicates that one of the following 'strong' groups is fully conserved (STA,NEQK,NHQK,NDEQ,QHRK,MILV,MILF,HY,FYW).</text>
+            <text lang="en">'.' indicates that one of the following 'weaker' groups is fully conserved (CSA,ATV,SAG,STNK,STPA,SGND,SNDEQK,NDEQHK,NEQHRK,FVLIM,HFY).</text>
+            <text lang="en">These are all the positively scoring groups that occur in the Gonnet Pam250
+matrix. The strong and weak groups are defined as strong score &gt;0.5 and weak
+score =&lt;0.5 respectively.</text>
+          </comment>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="CLUSTAL " data-parametername="clustalaligfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702050288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702050288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In the conservation line output in the clustal format alignment file, three characters are used:</xhtml:div>
+                <xhtml:div>'*' indicates positions which have a single, fully conserved residue.</xhtml:div>
+                <xhtml:div>':' indicates that one of the following 'strong' groups is fully conserved (STA,NEQK,NHQK,NDEQ,QHRK,MILV,MILF,HY,FYW).</xhtml:div>
+                <xhtml:div>'.' indicates that one of the following 'weaker' groups is fully conserved (CSA,ATV,SAG,STNK,STPA,SGND,SNDEQK,NDEQHK,NEQHRK,FVLIM,HFY).</xhtml:div>
+                <xhtml:div>These are all the positively scoring groups that occur in the Gonnet Pam250
+matrix. The strong and weak groups are defined as strong score &gt;0.5 and weak
+score =&lt;0.5 respectively.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>aligfile</name>
+          <prompt>Alignment file</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>
+              <ref param="outputformat"/>
+            </dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$outputformat =~ /^(NEXUS|GCG|PHYLIPI|FASTA)$/</code>
+            <code proglang="python">outputformat in [ "NEXUS", "GCG", "PHYLIPI","FASTA"]</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">(defined $outfile)? "$outfile":"*.fasta *.nxs *.phy *.msf"</code>
+            <code proglang="python">{ "OUTFILE":outfile, "FASTA":"*.fasta", "NEXUS": "*.nxs", "PHYLIPI": "*.phy" , 'GCG': '*.msf' }[( "OUTFILE", outputformat)[outfile is None]]</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="aligfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>seqfile</name>
+          <prompt>Sequences file</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>
+              <test param="outputformat" eq="PIR">NBRF</test>
+              <test param="outputformat" eq="GDE">GDE</test>
+            </dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$outputformat =~ /^(GDE|PIR)$/</code>
+            <code proglang="python">outputformat in [ 'GDE', 'PIR' ]</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">(defined $outfile)? "$outfile":"*.gde *.pir"</code>
+            <code proglang="python">{ "OUTFILE":outfile,  'GDE':'*.gde', 'PIR':'*.pir}[( "OUTFILE", outputformat)[outfile is None]]</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;            &#9; " data-parametername="seqfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>dndfile</name>
+          <prompt>Tree file</prompt>
+          <type>
+            <datatype>
+              <class>Tree</class>
+            </datatype>
+            <dataFormat>NEWICK</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">not defined $newtree</code>
+            <code proglang="python">newtree is None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"*.dnd"</code>
+            <code proglang="python">"*.dnd"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="dndfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gde_lower</name>
+          <prompt lang="en">Upper case (for GDE output only) (-case)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$outputformat eq "GDE"</code>
+            <code proglang="python">outputformat == "GDE"</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -case=upper" : ""</code>
+            <code proglang="python">( "" , " -case=upper" )[ value ]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Upper case (for GDE output only) (-case)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gde_lower">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gde_lower"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"clustalw-multialign.out"</code>
+        <code proglang="python">"clustalw-multialign.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"clustalw-multialign.err"</code>
+        <code proglang="python">"clustalw-multialign.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

@@ -1,0 +1,1887 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>wise2</name>
+    <version>2.2.0</version>
+    <doc>
+      <title>WISE2</title>
+      <description>
+        <text lang="en">Comparisons of protein/DNA sequences</text>
+      </description>
+      <authors>E. Birney</authors>
+      <homepagelink>http://www.ebi.ac.uk/Tools/Wise2/doc_wise2.html</homepagelink>
+      <sourcelink>ftp://ftp.ebi.ac.uk/pub/software/unix/wise2/</sourcelink>
+    </doc>
+    <category>alignment:pairwise</category>
+    <interface type="form" generated="true">
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="Null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wise2">Wise program<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="wise2">
+          <xhtml:option value="Null" selected="selected">Choose a program</xhtml:option>
+          <xhtml:option value="genewise">Protein to genomic DNA (genewise)</xhtml:option>
+          <xhtml:option value="estwise">Protein to cDNA (estwise)</xhtml:option>
+        </xhtml:select>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="protein_file">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Protein file</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="protein">
+            <legend>Protein sequence File<xhtml:a href="#idm140117728272960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117728272960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must  give  a protein  sequence file  in fasta format.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="protein" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmTextProfile" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="" data-parametername="hmmer">
+            <legend>or Protein HMM File<xhtml:a href="#idm140117726261488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117726261488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must give an HMMER file.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="hmmer" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA " data-parametername="dna">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">DNA sequence File</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dna" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="dna_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">DNA sequence Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dna_start">Start position in dna (-u)<xhtml:input name="dna_start" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dna_end">End position in dna (-v)<xhtml:input name="dna_end" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-tfor" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="strand">Strand comparison<xhtml:select name="strand">
+              <xhtml:option value="-tfor" selected="selected">Forward (-tfor)</xhtml:option>
+              <xhtml:option value="-trev">Reverse (-trev)</xhtml:option>
+              <xhtml:option value="-both">Both (-both)</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tabs">Report positions as absolute to truncated/reverse sequence (-tabs)<xhtml:select name="tabs">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="protein_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Protein comparison Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="protein_start">Start position in protein (-s)<xhtml:input name="protein_start" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="protein_end">End position in protein (-t)<xhtml:input name="protein_end" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="12" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap">Gap penalty (-g)<xhtml:input name="gap" type="text" value="12"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ext">Gap extension penalty (-e)<xhtml:input name="ext" type="text" value="2"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62.bla" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix">Comparison matrix (-m)<xhtml:select name="matrix">
+              <xhtml:option value="BLOSUM30.bla">BLOSUM30</xhtml:option>
+              <xhtml:option value="BLOSUM45.bla">BLOSUM45</xhtml:option>
+              <xhtml:option value="BLOSUM62.bla" selected="selected">BLOSUM62</xhtml:option>
+              <xhtml:option value="BLOSUM80.bla">BLOSUM80</xhtml:option>
+              <xhtml:option value="gon120.bla">GONNET120</xhtml:option>
+              <xhtml:option value="gon160.bla">GONNET160</xhtml:option>
+              <xhtml:option value="gon200.bla">GONNET200</xhtml:option>
+              <xhtml:option value="gon250.bla">GONNET250</xhtml:option>
+              <xhtml:option value="gon350.bla">GONNET350</xhtml:option>
+              <xhtml:option value="idenity.bla">Identity</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="gene_model_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Model Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="default" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="init">Type of match (-init)<xhtml:select name="init">
+              <xhtml:option value="default" selected="selected">Default</xhtml:option>
+              <xhtml:option value="global">Global</xhtml:option>
+              <xhtml:option value="local">Local</xhtml:option>
+              <xhtml:option value="wing">Wing</xhtml:option>
+              <xhtml:option value="endbias">Endbias</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1e-5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="subs">Substitution error rate (-subs)<xhtml:input name="subs" type="text" value="1e-5"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1e-5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="indel">Insertion/deletion error rate (-indel)<xhtml:input name="indel" type="text" value="1e-5"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="syn" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="null">Random Model as synchronous or flat (-null)<xhtml:select name="null">
+              <xhtml:option value="syn" selected="selected">Synchronous</xhtml:option>
+              <xhtml:option value="flat">Flat</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alln">Probability of matching a NNN codon (-alln)<xhtml:input name="alln" type="text" value="1.0"/>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="wise2_model_opt">
+            <legend>Genewise special option</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="human.gf" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gene">Gene parameter file (-gene)<xhtml:select name="gene">
+                  <xhtml:option value="human.gf" selected="selected">Human</xhtml:option>
+                  <xhtml:option value="pb.gf">Pb</xhtml:option>
+                  <xhtml:option value="pombe.gf">Pombe</xhtml:option>
+                  <xhtml:option value="worm.gf">Worm</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="flat" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cfreq">Using codon bias or not (-cfreq)?<xhtml:select name="cfreq">
+                  <xhtml:option value="model">Model</xhtml:option>
+                  <xhtml:option value="flat" selected="selected">Flat</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="model" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="splice">Using splice model or GT/AG (-splice)?<xhtml:select name="splice">
+                  <xhtml:option value="model" selected="selected">Model</xhtml:option>
+                  <xhtml:option value="flat">Flat</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tied" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="intron">Use tied model for introns (-intron)<xhtml:select name="intron">
+                  <xhtml:option value="model">Model</xhtml:option>
+                  <xhtml:option value="tied" selected="selected">Tied</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="flat" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="insert">Protein insert model (-insert)<xhtml:select name="insert">
+                  <xhtml:option value="model">Model</xhtml:option>
+                  <xhtml:option value="flat" selected="selected">Flat</xhtml:option>
+                </xhtml:select>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pretty">Show pretty ascii output (-pretty)<xhtml:select name="pretty">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="para">Show parameters (-para)<xhtml:select name="para">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sum">Show summary output (-sum)<xhtml:select name="sum">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pep">Show protein translation, splicing frameshifts (-pep)<xhtml:select name="pep">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alb">Show logical AlnBlock alignment (-alb)<xhtml:select name="alb">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pal">Show raw matrix alignment (-pal)<xhtml:select name="pal">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="block">Length of main block in pretty output (-block)<xhtml:input name="block" type="text" value="50"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="divide">Divide string for multiple outputs (-divide)<xhtml:input name="divide" type="text" value=""/>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="wise2_out_opt">
+            <legend>Genewise special option</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pseudo">Mark genes with frameshifts as pseudogenes (-pseudo)<xhtml:select name="pseudo">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="genes">Show gene structure (-genes)<xhtml:select name="genes">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="genesf">Show gene structure with supporting evidence (-genesf)<xhtml:select name="genesf">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="embl">Show EMBL feature format with CDS key (-embl)<xhtml:select name="embl">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="diana">Show EMBL feature format with misc_feature key for diana (-diana)<xhtml:select name="diana">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cdna">Show cDNA (-cdna)<xhtml:select name="cdna">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="trans">Show protein translation, breaking at frameshifts (-trans)<xhtml:select name="trans">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ace">Ace file gene structure (-ace)<xhtml:select name="ace">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gff">Gene Feature Format file (-gff)<xhtml:select name="gff">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gener">Raw gene structure (-gener)<xhtml:select name="gener">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="New_gene_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">New gene model statistics for genewise</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="splice_max_collar">Maximum Bits value for a splice site (-splice_max_collar)<xhtml:input name="splice_max_collar" type="text" value="5.0"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-5.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="splice_min_collar">Minimum Bits value for a splice site (-splice_min_collar)<xhtml:input name="splice_min_collar" type="text" value="-5.0"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="splice_score_offset">Score offset for splice sites (-splice_score_offset)<xhtml:input name="splice_score_offset" type="text" value="4.5"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="standard_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Standard Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="erroroffstd">No warning messages (-erroroffstd)<xhtml:select name="erroroffstd">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="wise2" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="Null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="protein_file">
+        <xhtml:legend>Protein file</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="protein" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA ">
+            <xhtml:i>
+				(Protein Sequence)
+			</xhtml:i>
+            <xhtml:a href="#idm140117728272960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117728272960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must  give  a protein  sequence file  in fasta format.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmmer" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmTextProfile" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="">
+            <xhtml:i>
+				(Protein HmmTextProfile)
+			</xhtml:i>
+            <xhtml:a href="#idm140117726261488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117726261488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You must give an HMMER file.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmmer_command" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dna" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="quiet" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="dna_options">
+        <xhtml:legend>DNA sequence Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dna_start" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dna_end" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="strand" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-tfor" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tabs" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="protein_options">
+        <xhtml:legend>Protein comparison Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="protein_start" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="protein_end" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="12" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ext" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="matrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62.bla" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="gene_model_options">
+        <xhtml:legend>Model Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="init" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="default" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="subs" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1e-5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="indel" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1e-5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="null" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="syn" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alln" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <xhtml:fieldset class="minimizable" data-paragraphname="wise2_model_opt">
+            <xhtml:legend>Genewise special option</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gene" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="human.gf" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cfreq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="flat" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="splice" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="model" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="intron" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tied" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="insert" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="flat" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pretty" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="para" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sum" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pep" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alb" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pal" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="block" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="divide" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <xhtml:fieldset class="minimizable" data-paragraphname="wise2_out_opt">
+            <xhtml:legend>Genewise special option</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pseudo" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="genes" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="genesf" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="embl" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="diana" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cdna" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="trans" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ace" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gff" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gener" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="New_gene_options">
+        <xhtml:legend>New gene model statistics for genewise</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="splice_max_collar" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="splice_min_collar" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-5.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="splice_score_offset" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="standard_options">
+        <xhtml:legend>Standard Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="erroroffstd" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" iscommand="1" issimple="1">
+      <name>wise2</name>
+      <prompt lang="en">Wise program</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>Null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>Null</value>
+          <label>Choose a program</label>
+        </velem>
+        <velem>
+          <value>genewise</value>
+          <label>Protein to genomic DNA (genewise)</label>
+        </velem>
+        <velem>
+          <value>estwise</value>
+          <label>Protein to cDNA (estwise)</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">"$value"</code>
+        <code proglang="python">str(value)</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Wise program<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="wise2">
+            <xhtml:option value="Null" selected="selected">Choose a program</xhtml:option>
+            <xhtml:option value="genewise">Protein to genomic DNA (genewise)</xhtml:option>
+            <xhtml:option value="estwise">Protein to cDNA (estwise)</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="Null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wise2"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>protein_file</name>
+      <prompt lang="en">Protein file</prompt>
+      <parameters>
+        <parameter ismandatory="1" issimple="1">
+          <name>protein</name>
+          <prompt lang="en">Protein sequence File</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">not $hmmer</code>
+            <code proglang="python">hmmer is None</code>
+          </precond>
+          <format>
+            <code proglang="perl">" $value"</code>
+            <code proglang="python">" " +str(value)</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">You must  give  a protein  sequence file  in fasta format</text>
+            </message>
+            <code proglang="perl">not ($hmmer)</code>
+            <code proglang="python">not (hmmer)</code>
+          </ctrl>
+          <argpos>2</argpos>
+          <comment>
+            <text lang="en">You must  give  a protein  sequence file  in fasta format.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Protein sequence File</xhtml:legend>
+              <xhtml:textarea name="protein" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="protein">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117728272960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728272960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must  give  a protein  sequence file  in fasta format.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1" issimple="1">
+          <name>hmmer</name>
+          <prompt lang="en">or Protein HMM File</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>HmmTextProfile</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$protein is not defined </code>
+            <code proglang="python">protein is None</code>
+          </precond>
+          <format>
+            <code proglang="perl">" $value"</code>
+            <code proglang="python">" " + str(value)</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">You must give  an HMMER file</text>
+            </message>
+            <code proglang="perl">not ($protein)</code>
+            <code proglang="python">not (protein)</code>
+          </ctrl>
+          <argpos>2</argpos>
+          <comment>
+            <text lang="en">You must give an HMMER file.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>or Protein HMM File</xhtml:legend>
+              <xhtml:textarea name="hmmer" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmTextProfile" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="" data-parametername="hmmer">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein HmmTextProfile)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117726261488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726261488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You must give an HMMER file.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ishidden="1">
+          <name>hmmer_command</name>
+          <prompt lang="en">HMM command (-hmmer)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $hmmer</code>
+            <code proglang="python">hmmer is not None</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -hmmer"</code>
+            <code proglang="python">" -hmmer"</code>
+          </format>
+          <argpos>4</argpos>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hmmer_command"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ismandatory="1" issimple="1">
+      <name>dna</name>
+      <prompt lang="en">DNA sequence File</prompt>
+      <type>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value" </code>
+        <code proglang="python">" " + str(value) </code>
+      </format>
+      <argpos>3</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>DNA sequence File</xhtml:legend>
+          <xhtml:textarea name="dna" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA " data-parametername="dna">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>quiet</name>
+      <prompt lang="en">Silent mode (-silent -quiet)</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" -silent -quiet" </code>
+        <code proglang="python">" -silent -quiet" </code>
+      </format>
+      <argpos>100</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="quiet"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>dna_options</name>
+      <prompt lang="en">DNA sequence Options</prompt>
+      <argpos>5</argpos>
+      <parameters>
+        <parameter>
+          <name>dna_start</name>
+          <prompt lang="en">Start position in dna (-u)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -u $value" : ""</code>
+            <code proglang="python">( "" , " -u " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Start position in dna (-u)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dna_start" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dna_start"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dna_end</name>
+          <prompt lang="en">End position in dna (-v)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -v $value" : ""</code>
+            <code proglang="python">( "" , " -v " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">End position in dna (-v)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dna_end" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dna_end"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>strand</name>
+          <prompt lang="en">Strand comparison</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>-tfor</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>-tfor</value>
+              <label>Forward (-tfor)</label>
+            </velem>
+            <velem>
+              <value>-trev</value>
+              <label>Reverse (-trev)</label>
+            </velem>
+            <velem>
+              <value>-both</value>
+              <label>Both (-both)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " $value" : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Strand comparison<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="strand">
+                <xhtml:option value="-tfor" selected="selected">Forward (-tfor)</xhtml:option>
+                <xhtml:option value="-trev">Reverse (-trev)</xhtml:option>
+                <xhtml:option value="-both">Both (-both)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-tfor" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="strand"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tabs</name>
+          <prompt lang="en">Report positions as absolute to truncated/reverse sequence (-tabs)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -tabs" : ""</code>
+            <code proglang="python">( "" , " -tabs" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Report positions as absolute to truncated/reverse sequence (-tabs)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tabs">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tabs"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>protein_options</name>
+      <prompt lang="en">Protein comparison Options</prompt>
+      <precond>
+        <code proglang="perl">not $hmmer</code>
+        <code proglang="python">hmmer is None</code>
+      </precond>
+      <argpos>6</argpos>
+      <parameters>
+        <parameter>
+          <name>protein_start</name>
+          <prompt lang="en">Start position in protein (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -s $value" : ""</code>
+            <code proglang="python">( "" , " -s " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Start position in protein (-s)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="protein_start" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="protein_start"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>protein_end</name>
+          <prompt lang="en">End position in protein (-t)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -t $value" : ""</code>
+            <code proglang="python">( "" , " -t " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">End position in protein (-t)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="protein_end" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="protein_end"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gap</name>
+          <prompt lang="en">Gap penalty (-g)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>12</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -g $value" : ""</code>
+            <code proglang="python">( "" , " -g " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap penalty (-g)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gap" type="text" value="12"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="12" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ext</name>
+          <prompt lang="en">Gap extension penalty (-e)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -e $value" : ""</code>
+            <code proglang="python">( "" , " -e " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap extension penalty (-e)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ext" type="text" value="2"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ext"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>matrix</name>
+          <prompt lang="en">Comparison matrix (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>BLOSUM62.bla</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>BLOSUM30.bla</value>
+              <label>BLOSUM30</label>
+            </velem>
+            <velem>
+              <value>BLOSUM45.bla</value>
+              <label>BLOSUM45</label>
+            </velem>
+            <velem>
+              <value>BLOSUM62.bla</value>
+              <label>BLOSUM62</label>
+            </velem>
+            <velem>
+              <value>BLOSUM80.bla</value>
+              <label>BLOSUM80</label>
+            </velem>
+            <velem>
+              <value>gon120.bla</value>
+              <label>GONNET120</label>
+            </velem>
+            <velem>
+              <value>gon160.bla</value>
+              <label>GONNET160</label>
+            </velem>
+            <velem>
+              <value>gon200.bla</value>
+              <label>GONNET200</label>
+            </velem>
+            <velem>
+              <value>gon250.bla</value>
+              <label>GONNET250</label>
+            </velem>
+            <velem>
+              <value>gon350.bla</value>
+              <label>GONNET350</label>
+            </velem>
+            <velem>
+              <value>idenity.bla</value>
+              <label>Identity</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -m $value" : ""</code>
+            <code proglang="python">( "" , " -m" + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Comparison matrix (-m)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="matrix">
+                <xhtml:option value="BLOSUM30.bla">BLOSUM30</xhtml:option>
+                <xhtml:option value="BLOSUM45.bla">BLOSUM45</xhtml:option>
+                <xhtml:option value="BLOSUM62.bla" selected="selected">BLOSUM62</xhtml:option>
+                <xhtml:option value="BLOSUM80.bla">BLOSUM80</xhtml:option>
+                <xhtml:option value="gon120.bla">GONNET120</xhtml:option>
+                <xhtml:option value="gon160.bla">GONNET160</xhtml:option>
+                <xhtml:option value="gon200.bla">GONNET200</xhtml:option>
+                <xhtml:option value="gon250.bla">GONNET250</xhtml:option>
+                <xhtml:option value="gon350.bla">GONNET350</xhtml:option>
+                <xhtml:option value="idenity.bla">Identity</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62.bla" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>gene_model_options</name>
+      <prompt lang="en">Model Options</prompt>
+      <argpos>7</argpos>
+      <parameters>
+        <parameter>
+          <name>init</name>
+          <prompt lang="en">Type of match (-init)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>default</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>default</value>
+              <label>Default</label>
+            </velem>
+            <velem>
+              <value>global</value>
+              <label>Global</label>
+            </velem>
+            <velem>
+              <value>local</value>
+              <label>Local</label>
+            </velem>
+            <velem>
+              <value>wing</value>
+              <label>Wing</label>
+            </velem>
+            <velem>
+              <value>endbias</value>
+              <label>Endbias</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -init $value" : ""</code>
+            <code proglang="python">( "" , " -init " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Type of match (-init)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="init">
+                <xhtml:option value="default" selected="selected">Default</xhtml:option>
+                <xhtml:option value="global">Global</xhtml:option>
+                <xhtml:option value="local">Local</xhtml:option>
+                <xhtml:option value="wing">Wing</xhtml:option>
+                <xhtml:option value="endbias">Endbias</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="default" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="init"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>subs</name>
+          <prompt lang="en">Substitution error rate (-subs)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1e-5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -subs $value" : ""</code>
+            <code proglang="python">( "" , " -subs " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Substitution error rate (-subs)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="subs" type="text" value="1e-5"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1e-5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="subs"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>indel</name>
+          <prompt lang="en">Insertion/deletion error rate (-indel)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1e-5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -indel $value" : ""</code>
+            <code proglang="python">( "" , " -indel " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Insertion/deletion error rate (-indel)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="indel" type="text" value="1e-5"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1e-5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="indel"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>null</name>
+          <prompt lang="en">Random Model as synchronous or flat (-null)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>syn</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>syn</value>
+              <label>Synchronous</label>
+            </velem>
+            <velem>
+              <value>flat</value>
+              <label>Flat</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -null $value" : ""</code>
+            <code proglang="python">( "" , " -null " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Random Model as synchronous or flat (-null)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="null">
+                <xhtml:option value="syn" selected="selected">Synchronous</xhtml:option>
+                <xhtml:option value="flat">Flat</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="syn" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="null"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>alln</name>
+          <prompt lang="en">Probability of matching a NNN codon (-alln)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -alln $value" : ""</code>
+            <code proglang="python">( "" , " -alln " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Probability of matching a NNN codon (-alln)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alln" type="text" value="1.0"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alln"/>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>wise2_model_opt</name>
+          <prompt lang="en">Genewise special option</prompt>
+          <precond>
+            <code proglang="perl">$wise2 eq "genewise"</code>
+            <code proglang="python">wise2 == "genewise"</code>
+          </precond>
+          <parameters>
+            <parameter>
+              <name>gene</name>
+              <prompt lang="en">Gene parameter file (-gene)</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>human.gf</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>human.gf</value>
+                  <label>Human</label>
+                </velem>
+                <velem>
+                  <value>pb.gf</value>
+                  <label>Pb</label>
+                </velem>
+                <velem>
+                  <value>pombe.gf</value>
+                  <label>Pombe</label>
+                </velem>
+                <velem>
+                  <value>worm.gf</value>
+                  <label>Worm</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -gene $value" : ""</code>
+                <code proglang="python">( "" , " -gene " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gene parameter file (-gene)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gene">
+                    <xhtml:option value="human.gf" selected="selected">Human</xhtml:option>
+                    <xhtml:option value="pb.gf">Pb</xhtml:option>
+                    <xhtml:option value="pombe.gf">Pombe</xhtml:option>
+                    <xhtml:option value="worm.gf">Worm</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="human.gf" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gene"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>cfreq</name>
+              <prompt lang="en">Using codon bias or not (-cfreq)?</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>flat</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>model</value>
+                  <label>Model</label>
+                </velem>
+                <velem>
+                  <value>flat</value>
+                  <label>Flat</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -cfreq $value" : ""</code>
+                <code proglang="python">( "" , " -cfreq " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Using codon bias or not (-cfreq)?<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cfreq">
+                    <xhtml:option value="model">Model</xhtml:option>
+                    <xhtml:option value="flat" selected="selected">Flat</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="flat" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cfreq"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>splice</name>
+              <prompt lang="en">Using splice model or GT/AG (-splice)?</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>model</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>model</value>
+                  <label>Model</label>
+                </velem>
+                <velem>
+                  <value>flat</value>
+                  <label>Flat</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -splice $value" : ""</code>
+                <code proglang="python">( "" , " -splice " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Using splice model or GT/AG (-splice)?<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="splice">
+                    <xhtml:option value="model" selected="selected">Model</xhtml:option>
+                    <xhtml:option value="flat">Flat</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="model" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="splice"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>intron</name>
+              <prompt lang="en">Use tied model for introns (-intron)</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>tied</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>model</value>
+                  <label>Model</label>
+                </velem>
+                <velem>
+                  <value>tied</value>
+                  <label>Tied</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -intron $value" : ""</code>
+                <code proglang="python">( "" , " -intron " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use tied model for introns (-intron)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="intron">
+                    <xhtml:option value="model">Model</xhtml:option>
+                    <xhtml:option value="tied" selected="selected">Tied</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tied" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="intron"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>insert</name>
+              <prompt lang="en">Protein insert model (-insert)</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>flat</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>model</value>
+                  <label>Model</label>
+                </velem>
+                <velem>
+                  <value>flat</value>
+                  <label>Flat</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -insert $value" : ""</code>
+                <code proglang="python">( "" , " -insert " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Protein insert model (-insert)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="insert">
+                    <xhtml:option value="model">Model</xhtml:option>
+                    <xhtml:option value="flat" selected="selected">Flat</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="flat" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="insert"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_options</name>
+      <prompt lang="en">Output Options</prompt>
+      <argpos>9</argpos>
+      <parameters>
+        <parameter>
+          <name>pretty</name>
+          <prompt lang="en">Show pretty ascii output (-pretty)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -pretty" : ""</code>
+            <code proglang="python">( "" , " -pretty" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show pretty ascii output (-pretty)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pretty">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pretty"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>para</name>
+          <prompt lang="en">Show parameters (-para)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -para" : ""</code>
+            <code proglang="python">( "" , " -para" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show parameters (-para)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="para">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="para"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>sum</name>
+          <prompt lang="en">Show summary output (-sum)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -sum" : ""</code>
+            <code proglang="python">( "" , " -sum" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show summary output (-sum)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sum">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sum"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>pep</name>
+          <prompt lang="en">Show protein translation, splicing frameshifts (-pep)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -pep" : ""</code>
+            <code proglang="python">( "" , " -pep" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show protein translation, splicing frameshifts (-pep)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pep">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pep"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>alb</name>
+          <prompt lang="en">Show logical AlnBlock alignment (-alb)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -alb" : ""</code>
+            <code proglang="python">( "" , " -alb" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show logical AlnBlock alignment (-alb)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alb">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alb"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>pal</name>
+          <prompt lang="en">Show raw matrix alignment (-pal)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -pal" : ""</code>
+            <code proglang="python">( "" , " -pal" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show raw matrix alignment (-pal)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pal">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pal"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>block</name>
+          <prompt lang="en">Length of main block in pretty output (-block)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>50</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -block $value" : ""</code>
+            <code proglang="python">( "" , " -block " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Length of main block in pretty output (-block)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="block" type="text" value="50"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="block"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>divide</name>
+          <prompt lang="en">Divide string for multiple outputs (-divide)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -divide \"$value\"" : ""</code>
+            <code proglang="python">( "" , " -divide " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Divide string for multiple outputs (-divide)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="divide" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="divide"/>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>wise2_out_opt</name>
+          <prompt lang="en">Genewise special option</prompt>
+          <precond>
+            <code proglang="perl">$wise2 eq "genewise"</code>
+            <code proglang="python">wise2 == "genewise"</code>
+          </precond>
+          <parameters>
+            <parameter>
+              <name>pseudo</name>
+              <prompt lang="en">Mark genes with frameshifts as pseudogenes (-pseudo)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -pseudo" : ""</code>
+                <code proglang="python">( "" , " -pseudo" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Mark genes with frameshifts as pseudogenes (-pseudo)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pseudo">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pseudo"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>genes</name>
+              <prompt lang="en">Show gene structure (-genes)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -genes" : ""</code>
+                <code proglang="python">( "" , " -genes" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show gene structure (-genes)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="genes">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="genes"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>genesf</name>
+              <prompt lang="en">Show gene structure with supporting evidence (-genesf)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -genesf" : ""</code>
+                <code proglang="python">( "" , " -genesf" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show gene structure with supporting evidence (-genesf)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="genesf">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="genesf"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>embl</name>
+              <prompt lang="en">Show EMBL feature format with CDS key (-embl)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -embl" : ""</code>
+                <code proglang="python">( "" , " -embl" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show EMBL feature format with CDS key (-embl)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="embl">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="embl"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>diana</name>
+              <prompt lang="en">Show EMBL feature format with misc_feature key for diana (-diana)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -diana" : ""</code>
+                <code proglang="python">( "" , " -diana" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show EMBL feature format with misc_feature key for diana (-diana)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="diana">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="diana"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>cdna</name>
+              <prompt lang="en">Show cDNA (-cdna)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -cdna" : ""</code>
+                <code proglang="python">( "" , " -cdna" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show cDNA (-cdna)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cdna">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cdna"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>trans</name>
+              <prompt lang="en">Show protein translation, breaking at frameshifts (-trans)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -trans" : ""</code>
+                <code proglang="python">( "" , " -trans" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show protein translation, breaking at frameshifts (-trans)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="trans">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="trans"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>ace</name>
+              <prompt lang="en">Ace file gene structure (-ace)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -ace" : ""</code>
+                <code proglang="python">( "" , " -ace" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ace file gene structure (-ace)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ace">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ace"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>gff</name>
+              <prompt lang="en">Gene Feature Format file (-gff)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -gff" : ""</code>
+                <code proglang="python">( "" , " -gff" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gene Feature Format file (-gff)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gff">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gff"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>gener</name>
+              <prompt lang="en">Raw gene structure (-gener)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -gener" : ""</code>
+                <code proglang="python">( "" , " -gener" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Raw gene structure (-gener)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gener">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gener"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>New_gene_options</name>
+      <prompt lang="en">New gene model statistics for genewise</prompt>
+      <precond>
+        <code proglang="perl">$wise2 eq "genewise"</code>
+        <code proglang="python">wise2 == "genewise"</code>
+      </precond>
+      <argpos>10</argpos>
+      <parameters>
+        <parameter>
+          <name>splice_max_collar</name>
+          <prompt lang="en">Maximum Bits value for a splice site (-splice_max_collar)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>5.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -splice_max_collar $value" : ""</code>
+            <code proglang="python">( "" , " -splice_max_collar " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum Bits value for a splice site (-splice_max_collar)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="splice_max_collar" type="text" value="5.0"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="splice_max_collar"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>splice_min_collar</name>
+          <prompt lang="en">Minimum Bits value for a splice site (-splice_min_collar)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>-5.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -splice_min_collar $value" : ""</code>
+            <code proglang="python">( "" , " -splice_min_collar " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum Bits value for a splice site (-splice_min_collar)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="splice_min_collar" type="text" value="-5.0"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-5.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="splice_min_collar"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>splice_score_offset</name>
+          <prompt lang="en">Score offset for splice sites (-splice_score_offset)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>4.5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -splice_score_offset $value" : ""</code>
+            <code proglang="python">( "" , " -splice_score_offset " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Score offset for splice sites (-splice_score_offset)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="splice_score_offset" type="text" value="4.5"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="splice_score_offset"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>standard_options</name>
+      <prompt lang="en">Standard Options</prompt>
+      <argpos>11</argpos>
+      <parameters>
+        <parameter>
+          <name>erroroffstd</name>
+          <prompt lang="en">No warning messages (-erroroffstd)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -erroroffstd" : ""</code>
+            <code proglang="python">( "" , " -erroroffstd" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">No warning messages (-erroroffstd)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="erroroffstd">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="erroroffstd"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"wise2.out"</code>
+        <code proglang="python">"wise2.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"wise2.err"</code>
+        <code proglang="python">"wise2.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

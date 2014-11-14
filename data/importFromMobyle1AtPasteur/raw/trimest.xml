@@ -1,0 +1,632 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>trimest</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>trimest</title>
+      <description>
+        <text lang="en">Remove poly-A tails from nucleotide sequences</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/trimest.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>trimest</command>
+    <category>sequence:edit</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+            <legend>sequence option</legend>
+            <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_additional">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Additional section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_minlength">Minimum length of a poly-a tail (value greater than or equal to 1)<xhtml:a href="#idm140117705608224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_minlength" type="text" value="4"/>
+            <xhtml:div id="idm140117705608224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the minimum length that a poly-A (or poly-T) tail must have before it is removed. If there are mismatches in the  tail than there must be at least this length of poly-A tail before  the mismatch for the mismatch to be considered part of the tail.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_mismatches">Number of contiguous mismatches allowed in a tail (value greater than or equal to 0)<xhtml:a href="#idm140117705767152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_mismatches" type="text" value="1"/>
+            <xhtml:div id="idm140117705767152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If there are this number or fewer contiguous non-A bases in a poly-A tail then, if there are '-minlength' 'A' bases before  them, they will be considered part of the tail and removed . 
+  For example the terminal 4 A's of GCAGAAAA would be removed with  the default values of -minlength=4 and -mismatches=1 (There are  not at least 4 A's before the last 'G' and so only the A's after  it are considered to be part of the tail). The terminal 9 bases of  GCAAAAGAAAA would be removed; There are at least -minlength A's  preceeding the last 'G', so it is part of the tail.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_reverse">Write the reverse complement when poly-t is removed<xhtml:a href="#idm140117705786000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_reverse">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117705786000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When a poly-T region at the 5' end of the sequence is found and removed, it is likely that the sequence is in the reverse  sense. This option will change the sequence to the forward sense  when it is written out. If this option is not set, then the sense  will not be changed.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_tolower">Change poly-a tail to lower-case<xhtml:a href="#idm140117704755312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_tolower">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704755312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The poly-A region can be 'masked' by converting the sequence characters to lower-case. Some non-EMBOSS programs e.g.  fasta can interpret this as a masked region. The sequence is  unchanged apart from the case change. You might like to ensure  that the whole sequence is in upper-case before masking the  specified regions to lower-case by using the '-supper' sequence  qualifier.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Advanced section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_fiveprime">Remove poly-t tails at the 5' end of the sequence.<xhtml:a href="#idm140117703991440::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_fiveprime">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117703991440::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set true, then the 5' end of the sequence is inspected for poly-T tails. These will be removed if they are  longer than any 3' poly-A tails. If this is false, then the 5' end  is ignored.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="trimest.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outseq">Name of the output sequence file (e_outseq)<xhtml:input name="e_outseq" type="text" value="trimest.e_outseq"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_osformat_outseq">Choose the sequence output format<xhtml:select name="e_osformat_outseq">
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+              <xhtml:option value="GCG">Gcg</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="NBRF">Nbrf</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="RAW">Raw</xhtml:option>
+              <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_additional">
+        <xhtml:legend>Additional section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_minlength" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705608224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705608224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the minimum length that a poly-A (or poly-T) tail must have before it is removed. If there are mismatches in the  tail than there must be at least this length of poly-A tail before  the mismatch for the mismatch to be considered part of the tail.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_mismatches" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705767152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705767152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If there are this number or fewer contiguous non-A bases in a poly-A tail then, if there are '-minlength' 'A' bases before  them, they will be considered part of the tail and removed . 
+  For example the terminal 4 A's of GCAGAAAA would be removed with  the default values of -minlength=4 and -mismatches=1 (There are  not at least 4 A's before the last 'G' and so only the A's after  it are considered to be part of the tail). The terminal 9 bases of  GCAAAAGAAAA would be removed; There are at least -minlength A's  preceeding the last 'G', so it is part of the tail.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_reverse" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705786000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705786000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When a poly-T region at the 5' end of the sequence is found and removed, it is likely that the sequence is in the reverse  sense. This option will change the sequence to the forward sense  when it is written out. If this option is not set, then the sense  will not be changed.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_tolower" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704755312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704755312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The poly-A region can be 'masked' by converting the sequence characters to lower-case. Some non-EMBOSS programs e.g.  fasta can interpret this as a masked region. The sequence is  unchanged apart from the case change. You might like to ensure  that the whole sequence is in upper-case before masking the  specified regions to lower-case by using the '-supper' sequence  qualifier.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <xhtml:legend>Advanced section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_fiveprime" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117703991440::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117703991440::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set true, then the 5' end of the sequence is inspected for poly-T tails. These will be removed if they are  longer than any 3' poly-A tails. If this is false, then the 5' end  is ignored.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="trimest.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_osformat_outseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outseq_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_sequence</name>
+          <prompt lang="en">sequence option</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -sequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>sequence option</xhtml:legend>
+              <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_additional</name>
+      <prompt lang="en">Additional section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_minlength</name>
+          <prompt lang="en">Minimum length of a poly-a tail (value greater than or equal to 1)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>4</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -minlength=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 1 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 1</code>
+          </ctrl>
+          <argpos>2</argpos>
+          <comment>
+            <text lang="en">This is the minimum length that a poly-A (or poly-T) tail must have before it is removed. If there are mismatches in the  tail than there must be at least this length of poly-A tail before  the mismatch for the mismatch to be considered part of the tail.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum length of a poly-a tail (value greater than or equal to 1)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705608224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_minlength" type="text" value="4"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705608224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the minimum length that a poly-A (or poly-T) tail must have before it is removed. If there are mismatches in the  tail than there must be at least this length of poly-A tail before  the mismatch for the mismatch to be considered part of the tail.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_minlength">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705608224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705608224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the minimum length that a poly-A (or poly-T) tail must have before it is removed. If there are mismatches in the  tail than there must be at least this length of poly-A tail before  the mismatch for the mismatch to be considered part of the tail.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_mismatches</name>
+          <prompt lang="en">Number of contiguous mismatches allowed in a tail (value greater than or equal to 0)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -mismatches=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 0 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 0</code>
+          </ctrl>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">If there are this number or fewer contiguous non-A bases in a poly-A tail then, if there are '-minlength' 'A' bases before  them, they will be considered part of the tail and removed . 
+  For example the terminal 4 A's of GCAGAAAA would be removed with  the default values of -minlength=4 and -mismatches=1 (There are  not at least 4 A's before the last 'G' and so only the A's after  it are considered to be part of the tail). The terminal 9 bases of  GCAAAAGAAAA would be removed; There are at least -minlength A's  preceeding the last 'G', so it is part of the tail.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of contiguous mismatches allowed in a tail (value greater than or equal to 0)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705767152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_mismatches" type="text" value="1"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705767152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If there are this number or fewer contiguous non-A bases in a poly-A tail then, if there are '-minlength' 'A' bases before  them, they will be considered part of the tail and removed . 
+  For example the terminal 4 A's of GCAGAAAA would be removed with  the default values of -minlength=4 and -mismatches=1 (There are  not at least 4 A's before the last 'G' and so only the A's after  it are considered to be part of the tail). The terminal 9 bases of  GCAAAAGAAAA would be removed; There are at least -minlength A's  preceeding the last 'G', so it is part of the tail.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_mismatches">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705767152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705767152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If there are this number or fewer contiguous non-A bases in a poly-A tail then, if there are '-minlength' 'A' bases before  them, they will be considered part of the tail and removed . 
+  For example the terminal 4 A's of GCAGAAAA would be removed with  the default values of -minlength=4 and -mismatches=1 (There are  not at least 4 A's before the last 'G' and so only the A's after  it are considered to be part of the tail). The terminal 9 bases of  GCAAAAGAAAA would be removed; There are at least -minlength A's  preceeding the last 'G', so it is part of the tail.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_reverse</name>
+          <prompt lang="en">Write the reverse complement when poly-t is removed</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -noreverse", "")[ bool(value) ]</code>
+          </format>
+          <argpos>4</argpos>
+          <comment>
+            <text lang="en">When a poly-T region at the 5' end of the sequence is found and removed, it is likely that the sequence is in the reverse  sense. This option will change the sequence to the forward sense  when it is written out. If this option is not set, then the sense  will not be changed.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Write the reverse complement when poly-t is removed<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705786000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_reverse">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705786000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When a poly-T region at the 5' end of the sequence is found and removed, it is likely that the sequence is in the reverse  sense. This option will change the sequence to the forward sense  when it is written out. If this option is not set, then the sense  will not be changed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_reverse">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705786000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705786000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When a poly-T region at the 5' end of the sequence is found and removed, it is likely that the sequence is in the reverse  sense. This option will change the sequence to the forward sense  when it is written out. If this option is not set, then the sense  will not be changed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_tolower</name>
+          <prompt lang="en">Change poly-a tail to lower-case</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -tolower")[ bool(value) ]</code>
+          </format>
+          <argpos>5</argpos>
+          <comment>
+            <text lang="en">The poly-A region can be 'masked' by converting the sequence characters to lower-case. Some non-EMBOSS programs e.g.  fasta can interpret this as a masked region. The sequence is  unchanged apart from the case change. You might like to ensure  that the whole sequence is in upper-case before masking the  specified regions to lower-case by using the '-supper' sequence  qualifier.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Change poly-a tail to lower-case<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704755312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_tolower">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704755312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The poly-A region can be 'masked' by converting the sequence characters to lower-case. Some non-EMBOSS programs e.g.  fasta can interpret this as a masked region. The sequence is  unchanged apart from the case change. You might like to ensure  that the whole sequence is in upper-case before masking the  specified regions to lower-case by using the '-supper' sequence  qualifier.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_tolower">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704755312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704755312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The poly-A region can be 'masked' by converting the sequence characters to lower-case. Some non-EMBOSS programs e.g.  fasta can interpret this as a masked region. The sequence is  unchanged apart from the case change. You might like to ensure  that the whole sequence is in upper-case before masking the  specified regions to lower-case by using the '-supper' sequence  qualifier.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_advanced</name>
+      <prompt lang="en">Advanced section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_fiveprime</name>
+          <prompt lang="en">Remove poly-t tails at the 5' end of the sequence.</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -nofiveprime", "")[ bool(value) ]</code>
+          </format>
+          <argpos>6</argpos>
+          <comment>
+            <text lang="en">If this is set true, then the 5' end of the sequence is inspected for poly-T tails. These will be removed if they are  longer than any 3' poly-A tails. If this is false, then the 5' end  is ignored.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Remove poly-t tails at the 5' end of the sequence.<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703991440::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_fiveprime">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703991440::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set true, then the 5' end of the sequence is inspected for poly-T tails. These will be removed if they are  longer than any 3' poly-A tails. If this is false, then the 5' end  is ignored.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_fiveprime">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703991440::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703991440::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set true, then the 5' end of the sequence is inspected for poly-T tails. These will be removed if they are  longer than any 3' poly-A tails. If this is false, then the 5' end  is ignored.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_outseq</name>
+          <prompt lang="en">Name of the output sequence file (e_outseq)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>trimest.e_outseq</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outseq=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>7</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output sequence file (e_outseq)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outseq" type="text" value="trimest.e_outseq"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="trimest.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outseq"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_osformat_outseq</name>
+          <prompt lang="en">Choose the sequence output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>FASTA</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>FASTA</value>
+              <label>Fasta</label>
+            </velem>
+            <velem>
+              <value>GCG</value>
+              <label>Gcg</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>NBRF</value>
+              <label>Nbrf</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>RAW</value>
+              <label>Raw</label>
+            </velem>
+            <velem>
+              <value>SWISSPROT</value>
+              <label>Swissprot</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -osformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>8</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the sequence output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_osformat_outseq">
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+                <xhtml:option value="GCG">Gcg</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="NBRF">Nbrf</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="RAW">Raw</xhtml:option>
+                <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_osformat_outseq"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outseq_out</name>
+          <prompt lang="en">outseq_out option</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_osformat_outseq">
+              </ref>
+            </dataFormat>
+          </type>
+          <filenames>
+            <code proglang="python">e_outseq</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="e_outseq_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>9</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"trimest.out"</code>
+        <code proglang="python">"trimest.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"trimest.err"</code>
+        <code proglang="python">"trimest.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

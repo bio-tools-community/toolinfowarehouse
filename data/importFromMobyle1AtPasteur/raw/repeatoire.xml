@@ -1,0 +1,784 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>repeatoire</name>
+    <version>1.0</version>
+    <doc>
+      <title>repeatoire</title>
+      <description>
+        <text lang="en">Locating DNA repeats inside of sequenced genome</text>
+      </description>
+      <authors>Todd Treangen, Aaron Darling and Eduardo PC Rocha</authors>
+      <reference>Todd J. Treangen, Aaron E. Darling, Guillaume Achaz, Mark A. Ragan, Xavier
+       Messeguer, Eduardo P.C. Rocha, "A Novel Heuristic for Local Multiple Alignment of
+       Interspersed DNA Repeats," IEEE/ACM Transactions on Computational Biology and
+       Bioinformatics, vol. 6, no. 2, pp. 180-189
+       </reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/repeatoire/Repeatoire_UserGuide.pdf</doclink>
+      <homepagelink>http://wwwabi.snv.jussieu.fr/public/Repeatoire/</homepagelink>
+      <sourcelink>http://wwwabi.snv.jussieu.fr/public/Repeatoire/</sourcelink>
+    </doc>
+    <command>repeatoire</command>
+    <category>sequence:nucleic:repeats</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA " data-parametername="infile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input sequence<xhtml:a href="#idm140117721090192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721090192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Fasta sequence input file</xhtml:div>
+        </xhtml:div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="infile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="main">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Main options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="17" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seedSize">Seed weight<xhtml:a href="#idm140117721205728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="seedSize" type="text" value="17"/>
+            <xhtml:div id="idm140117721205728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Forms the foundation of the repeats families. Smaller values are more sensitive
+        but allow for more noise (less specific), whereas larger values are less sensitive but more specific.
+        </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="onlydirect">Only process seed matches on same strand<xhtml:a href="#idm140117719988528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="onlydirect">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117719988528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Often one wants to only analyze repeats in the same orientation. Else, program will include
+            inverted repeats in the output.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend">Perform gapped extension<xhtml:a href="#idm140117721980864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="extend">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117721980864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If gapped extension is disabled, output will be the local multiple alignments of the gapped chains.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="large-repeats">Optimize for large repeats<xhtml:select name="large-repeats">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minreplen">Minimum final repeat length<xhtml:a href="#idm140117719719792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="minreplen" type="text" value="100"/>
+            <xhtml:div id="idm140117719719792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To increase specificity when wanting to focus on larger repeats, this option will only return repeat families containing repeats &gt; value</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="500" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxmulti">Maximum repeat multiplicity<xhtml:a href="#idm140117719668288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="maxmulti" type="text" value="500"/>
+            <xhtml:div id="idm140117719668288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Option to increase specificity. If one knows a priori that high copy repeats can be excluded from 
+            the analysis, this option can be used to discard all repeat families with more repeat copies than this specified value.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minmulti">Minimum repeat multiplicity<xhtml:a href="#idm140117720763392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="minmulti" type="text" value="2"/>
+            <xhtml:div id="idm140117720763392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Similar to maxmulti, this option can be used to discard all repeat families that have fewer copies than this value.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="solid">Use solid/exact seeds<xhtml:a href="#idm140117719368256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="solid">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117719368256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default, the program uses palindromic spaces seed patterns to find seed matches inside of the input
+            sequence. However, this can be turned off, which will use solid seed patterns (no mismatches in the seed matches allowed).</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Expert options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="redundant">Allow redundant alignments<xhtml:select name="redundant">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="two_hits">Require two hits for gapped extension<xhtml:select name="two_hits">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="chain">Chain seeds<xhtml:select name="chain">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xml">XML format output<xhtml:select name="xml">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="infile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721090192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721090192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Fasta sequence input file</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="main">
+        <xhtml:legend>Main options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seedSize" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="17" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117721205728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117721205728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Forms the foundation of the repeats families. Smaller values are more sensitive
+        but allow for more noise (less specific), whereas larger values are less sensitive but more specific.
+        </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="onlydirect" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719988528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719988528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Often one wants to only analyze repeats in the same orientation. Else, program will include
+            inverted repeats in the output.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="extend" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117721980864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117721980864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If gapped extension is disabled, output will be the local multiple alignments of the gapped chains.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="large-repeats" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="minreplen" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719719792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719719792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To increase specificity when wanting to focus on larger repeats, this option will only return repeat families containing repeats &gt; value</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="maxmulti" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="500" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719668288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719668288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Option to increase specificity. If one knows a priori that high copy repeats can be excluded from 
+            the analysis, this option can be used to discard all repeat families with more repeat copies than this specified value.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="minmulti" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117720763392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117720763392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Similar to maxmulti, this option can be used to discard all repeat families that have fewer copies than this value.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="solid" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719368256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719368256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default, the program uses palindromic spaces seed patterns to find seed matches inside of the input
+            sequence. However, this can be turned off, which will use solid seed patterns (no mismatches in the seed matches allowed).</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert">
+        <xhtml:legend>Expert options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="redundant" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="two_hits" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="chain" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gle_output" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stat_output" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xml_output" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>infile</name>
+      <prompt lang="en">Input sequence</prompt>
+      <type>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" --sequence=$value"</code>
+        <code proglang="python">" --sequence=" + str(value)</code>
+      </format>
+      <comment>
+        <text lang="en">Fasta sequence input file</text>
+      </comment>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Input sequence</xhtml:legend>
+          <xhtml:textarea name="infile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA " data-parametername="infile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721090192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721090192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Fasta sequence input file</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>main</name>
+      <prompt lang="en">Main options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter issimple="1">
+          <name>seedSize</name>
+          <prompt lang="en">Seed weight</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>17</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --z=$value" : ""</code>
+            <code proglang="python">( "" , " --z=" + str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Forms the foundation of the repeats families. Smaller values are more sensitive
+        but allow for more noise (less specific), whereas larger values are less sensitive but more specific.
+        </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Seed weight<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721205728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seedSize" type="text" value="17"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721205728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Forms the foundation of the repeats families. Smaller values are more sensitive
+        but allow for more noise (less specific), whereas larger values are less sensitive but more specific.
+        </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="17" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seedSize">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721205728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721205728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Forms the foundation of the repeats families. Smaller values are more sensitive
+        but allow for more noise (less specific), whereas larger values are less sensitive but more specific.
+        </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>onlydirect</name>
+          <prompt lang="en">Only process seed matches on same strand</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? " --onlydirect=1" : ""</code>
+            <code proglang="python">( "" , " --onlydirect=1")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Often one wants to only analyze repeats in the same orientation. Else, program will include
+            inverted repeats in the output.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Only process seed matches on same strand<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719988528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="onlydirect">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719988528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Often one wants to only analyze repeats in the same orientation. Else, program will include
+            inverted repeats in the output.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="onlydirect">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719988528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719988528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Often one wants to only analyze repeats in the same orientation. Else, program will include
+            inverted repeats in the output.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>extend</name>
+          <prompt lang="en">Perform gapped extension</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? "" : " --extend=0"</code>
+            <code proglang="python">( " --extend=0" , "" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">If gapped extension is disabled, output will be the local multiple alignments of the gapped chains.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Perform gapped extension<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721980864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="extend">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721980864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If gapped extension is disabled, output will be the local multiple alignments of the gapped chains.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721980864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721980864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If gapped extension is disabled, output will be the local multiple alignments of the gapped chains.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>large-repeats</name>
+          <prompt lang="en">Optimize for large repeats</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? "" : " --large-repeats=0"</code>
+            <code proglang="python">( " --large-repeats=0" , "" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Optimize for large repeats<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="large-repeats">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="large-repeats"/>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>minreplen</name>
+          <prompt lang="en">Minimum final repeat length</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>100</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --minreplen=$value" : ""</code>
+            <code proglang="python">( "" , " --minreplen=" + str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">To increase specificity when wanting to focus on larger repeats, this option will only return repeat families containing repeats &gt; value</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum final repeat length<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719719792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="minreplen" type="text" value="100"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719719792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To increase specificity when wanting to focus on larger repeats, this option will only return repeat families containing repeats &gt; value</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minreplen">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719719792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719719792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To increase specificity when wanting to focus on larger repeats, this option will only return repeat families containing repeats &gt; value</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>maxmulti</name>
+          <prompt lang="en">Maximum repeat multiplicity</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>500</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --maxmulti=$value" : ""</code>
+            <code proglang="python">( "" , " --maxmulti=" + str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Option to increase specificity. If one knows a priori that high copy repeats can be excluded from 
+            the analysis, this option can be used to discard all repeat families with more repeat copies than this specified value.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum repeat multiplicity<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719668288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="maxmulti" type="text" value="500"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719668288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Option to increase specificity. If one knows a priori that high copy repeats can be excluded from 
+            the analysis, this option can be used to discard all repeat families with more repeat copies than this specified value.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="500" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxmulti">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719668288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719668288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Option to increase specificity. If one knows a priori that high copy repeats can be excluded from 
+            the analysis, this option can be used to discard all repeat families with more repeat copies than this specified value.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>minmulti</name>
+          <prompt lang="en">Minimum repeat multiplicity</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --minmulti=$value" : ""</code>
+            <code proglang="python">( "" , " --minmulti=" + str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Similar to maxmulti, this option can be used to discard all repeat families that have fewer copies than this value.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum repeat multiplicity<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720763392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="minmulti" type="text" value="2"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720763392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Similar to maxmulti, this option can be used to discard all repeat families that have fewer copies than this value.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minmulti">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720763392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720763392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Similar to maxmulti, this option can be used to discard all repeat families that have fewer copies than this value.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>solid</name>
+          <prompt lang="en">Use solid/exact seeds</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? " --solid=1" : ""</code>
+            <code proglang="python">( "" , " --solid=1")[ value  ]</code>
+          </format>
+          <comment>
+            <text lang="en">By default, the program uses palindromic spaces seed patterns to find seed matches inside of the input
+            sequence. However, this can be turned off, which will use solid seed patterns (no mismatches in the seed matches allowed).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use solid/exact seeds<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719368256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="solid">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719368256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By default, the program uses palindromic spaces seed patterns to find seed matches inside of the input
+            sequence. However, this can be turned off, which will use solid seed patterns (no mismatches in the seed matches allowed).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="solid">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719368256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719368256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By default, the program uses palindromic spaces seed patterns to find seed matches inside of the input
+            sequence. However, this can be turned off, which will use solid seed patterns (no mismatches in the seed matches allowed).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>expert</name>
+      <prompt lang="en">Expert options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>redundant</name>
+          <prompt lang="en">Allow redundant alignments</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? " --allow-redundant=1" : ""</code>
+            <code proglang="python">( "" , " --allow-redundant=1" )[ value  ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Allow redundant alignments<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="redundant">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="redundant"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>two_hits</name>
+          <prompt lang="en">Require two hits for gapped extension</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? " --two-hits=1" : ""</code>
+            <code proglang="python">( "" , " --two-hits=1" )[ value  ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Require two hits for gapped extension<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="two_hits">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="two_hits"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>chain</name>
+          <prompt lang="en">Chain seeds</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? "" : " --chain=0"</code>
+            <code proglang="python">( " --chain=0" , "" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Chain seeds<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="chain">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="chain"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>xml</name>
+          <prompt lang="en">XML format output</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? " --xml=repeatoire.xml" : ""</code>
+            <code proglang="python">( "" , " --xml=repeatoire.xml" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">XML format output<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="xml">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xml"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>gle_output</name>
+      <prompt lang="en">General results</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"reps.out"</code>
+        <code proglang="python">"reps.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gle_output">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>stat_output</name>
+      <prompt lang="en">Statistical results</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"stats.highest"</code>
+        <code proglang="python">"stats.highest"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stat_output">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>xml_output</name>
+      <prompt lang="en">Xml output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$xml</code>
+        <code proglang="python">xml</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"repeatoire.xml"</code>
+        <code proglang="python">"repeatoire.xml"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xml_output">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"repeatoire.out"</code>
+        <code proglang="python">"repeatoire.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"repeatoire.err"</code>
+        <code proglang="python">"repeatoire.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

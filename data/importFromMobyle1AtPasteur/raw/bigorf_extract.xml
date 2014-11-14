@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Herve Menager,                             -->
+<!-- Centre d'Informatique en Biologie, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>bigorf_extract</name>
+    <version>0.1</version>
+    <doc>
+      <title>bigorf_extract</title>
+      <description>
+        <text lang="en">extract sequences with the largest ORF from a sequence translated with EMBOSS transseq and checktrans</text>
+      </description>
+      <authors>E. Deveaud</authors>
+    </doc>
+    <command>bigorf_extract.py</command>
+    <category>sequence:protein:composition</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="protein_sequences">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Protein sequences to filter<xhtml:a href="#idm140117711926720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711926720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>This is where you should enter the list of candidate ORFs for each gene</xhtml:div>
+        </xhtml:div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="protein_sequences" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="characters_to_strip">Integer<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711617152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="characters_to_strip" type="text" value="4"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711617152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Number of characters that should be stripped. Default value is 4 because transseq adds 2 characters (_[frame index]) and checktrans another 2 (_[candidate index])</xhtml:div>
+        </xhtml:div>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="protein_sequences" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711926720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711926720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>This is where you should enter the list of candidate ORFs for each gene</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="characters_to_strip" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711617152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711617152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Number of characters that should be stripped. Default value is 4 because transseq adds 2 characters (_[frame index]) and checktrans another 2 (_[candidate index])</xhtml:div>
+        </xhtml:div>
+      </div>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="protein_sequence_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter issimple="1">
+      <name>protein_sequences</name>
+      <prompt>Protein sequences to filter</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <comment>
+        <text lang="en">This is where you should enter the list of candidate ORFs for each gene</text>
+      </comment>
+      <argpos>2</argpos>
+      <format>
+        <code proglang="python">" " + value</code>
+      </format>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Protein sequences to filter</xhtml:legend>
+          <xhtml:textarea name="protein_sequences" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="protein_sequences">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711926720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711926720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>This is where you should enter the list of candidate ORFs for each gene</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>characters_to_strip</name>
+      <prompt>Integer</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <comment>
+        <text lang="en">Number of characters that should be stripped. Default value is 4 because transseq adds 2 characters (_[frame index]) and checktrans another 2 (_[candidate index])</text>
+      </comment>
+      <argpos>1</argpos>
+      <format>
+        <code proglang="python">" -s %d" % value</code>
+      </format>
+      <vdef>
+        <value>4</value>
+      </vdef>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Integer<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711617152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="characters_to_strip" type="text" value="4"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711617152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Number of characters that should be stripped. Default value is 4 because transseq adds 2 characters (_[frame index]) and checktrans another 2 (_[candidate index])</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="characters_to_strip">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711617152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711617152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Number of characters that should be stripped. Default value is 4 because transseq adds 2 characters (_[frame index]) and checktrans another 2 (_[candidate index])</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="1">
+      <name>protein_sequence_out</name>
+      <prompt lang="en">Sequence</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"bigorf_extract.out"</code>
+        <code proglang="python">"bigorf_extract.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="protein_sequence_out">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"bigorf_extract.err"</code>
+        <code proglang="python">"bigorf_extract.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

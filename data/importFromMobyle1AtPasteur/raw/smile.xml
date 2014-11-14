@@ -1,0 +1,726 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>smile</name>
+    <version>1.47</version>
+    <doc>
+      <title>SMILE</title>
+      <description>
+        <text lang="en">Inference of structured signals in multiple sequences</text>
+      </description>
+      <authors>L. Marsan, J. Allali</authors>
+      <reference>Marsan L, Sagot MF (2001). Algorithms for extracting structured motifs using a suffix-tree with application to promoter and regulatory site consensus identification. J. of Computational Biology, 7:345-360.</reference>
+      <comment>
+        <text lang="en">smile is a program that was primarily made to extract promoter sequences from sequences. The interest of this program is to infer simultaneously several motifs (calledboxes) that respects distance constraints. The user has to select criterias. In a first step of extraction, all signals respecting these criterias are found.  In a second step, they are all statistically evaluated,  aiming  to  detect  the ones that are exceptionally represented in the original sequences.</text>
+      </comment>
+      <homepagelink>http://www-igm.univ-mlv.fr/~marsan/smile_english.html</homepagelink>
+      <sourcelink>http://www-igm.univ-mlv.fr/~marsan/smile_english.html</sourcelink>
+    </doc>
+    <category>sequence:nucleic:pattern</category>
+    <category>sequence:protein:pattern</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequences File<xhtml:a href="#idm140117724862160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117724862160::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724862160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>This file must contain at least two sequences, as you cannot detect motifs which are common to several sequences in one sequence!</xhtml:div>
+          <div class="example" id="idm140117724862160::example" data-forparameter="seq">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+&amp;gt;sequence1
+atagtagtagcatcagcatcgatccggactcgtcgcgagcactgacacgatc
+aatcgatgatgcacgacgatcgactgatgctacgtcgacatcgctgctgtcc
+&amp;gt;sequence2
+gatccggactcgtcagcatcagcagcgatagtagtagcatcagcatcgatcc
+ggactcgtcgcgagcactgacacgatcatgctacgtcgacatcgcatgctac
+&amp;gt;sequenceN
+gtcgacatcgccgagcactgacacgatcatgctacgtcgacatcgcatgctac
+aatcgatgatccggactcgtcgcggatgcacgacagcatcagcagatcgactg
+      </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117724862160::example" data-forparameter="seq" style="display:none">
+          <pre>
+&amp;gt;sequence1
+atagtagtagcatcagcatcgatccggactcgtcgcgagcactgacacgatc
+aatcgatgatgcacgacgatcgactgatgctacgtcgacatcgctgctgtcc
+&amp;gt;sequence2
+gatccggactcgtcagcatcagcagcgatagtagtagcatcagcatcgatcc
+ggactcgtcgcgagcactgacacgatcatgctacgtcgacatcgcatgctac
+&amp;gt;sequenceN
+gtcgacatcgccgagcactgacacgatcatgctacgtcgacatcgcatgctac
+aatcgatgatccggactcgtcgcggatgcacgacagcatcagcagatcgactg
+      </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="dna.alphabet" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alphabet">Alphabet<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alphabet">
+          <xhtml:option value="dna.alphabet" selected="selected">DNA</xhtml:option>
+          <xhtml:option value="dnadeg.alphabet">Degenerated DNA</xhtml:option>
+          <xhtml:option value="aa-barton.alphabet">Protein (Zvelebil Barton Taylor Sternberg, JMolBiol 195 (1987)</xhtml:option>
+          <xhtml:option value="aa-smiths.alphabet">Protein (Smith and Smith 1990)</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="how_many_N">Maximum number of N in a motif for degenerated DNA or protein alphabet.<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="how_many_N" type="text" value="0"/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="how_many_R">Maximum number of purine (R) in a motif for degenerated DNA<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="how_many_R" type="text" value="0"/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="how_many_Y">Maximum number of pyrimidine (Y) in a motif for degenerated DNA<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="how_many_Y" type="text" value="0"/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="quorum">Minimum percentage of sequences containing a motif (quorum)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725912432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="quorum" type="text" value="50"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725912432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The  percentage of sequences where at least one occurrence of a motif must appear to make it valid. 100 means that a motif must have occurrences in every sequences.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minlen">Total min length<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725324560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="minlen" type="text" value=""/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725324560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The minimal length of the whole motif, i.e. the sum of minimal lengths of each  box. Warning:  the  length  of  the gaps between boxes mustn't me taken into account. The total minimal length may differ of the sum of boxs's minimal length:  you  can,  for instance, infer motifs made of two boxes, with min length of boxes equals to 4 and a total min length equals to 10.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxlen">Total max length<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724735008::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="maxlen" type="text" value="0"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724735008::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Same explanation as "Total min length". Excepted that a 0 length means "infinity"</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="subst">Total substitutions<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723900000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="subst" type="text" value=""/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723900000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Total maximum number of substitutions for the motif.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="shuffling">Number of shufflings<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724695984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="shuffling" type="text" value="100"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724695984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The number of shufflings of the original sequences to realize for the evaluation  of the statistical significance of the motifs found.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="kmer">Length of the words to conserve during shufflings<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723353808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="kmer" type="text" value="2"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723353808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Length of the words to conserve during shufflings (usually 2).</xhtml:div>
+        </xhtml:div>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="smile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724862160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724862160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>This file must contain at least two sequences, as you cannot detect motifs which are common to several sequences in one sequence!</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alphabet" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="dna.alphabet" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="how_many_N" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="how_many_R" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="how_many_Y" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="quorum" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725912432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725912432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The  percentage of sequences where at least one occurrence of a motif must appear to make it valid. 100 means that a motif must have occurrences in every sequences.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="minlen" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725324560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725324560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The minimal length of the whole motif, i.e. the sum of minimal lengths of each  box. Warning:  the  length  of  the gaps between boxes mustn't me taken into account. The total minimal length may differ of the sum of boxs's minimal length:  you  can,  for instance, infer motifs made of two boxes, with min length of boxes equals to 4 and a total min length equals to 10.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="maxlen" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724735008::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724735008::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Same explanation as "Total min length". Excepted that a 0 length means "infinity"</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="subst" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723900000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723900000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Total maximum number of substitutions for the motif.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="boxes" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723311536::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723311536::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The  number of boxes that compose the motifs to infer. Imposed 1 for xml.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="shuffling" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724695984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724695984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The number of shufflings of the original sequences to realize for the evaluation  of the statistical significance of the motifs found.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="kmer" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723353808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723353808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Length of the words to conserve during shufflings (usually 2).</xhtml:div>
+        </xhtml:div>
+      </div>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="result" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="shufflefiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter iscommand="1" ishidden="1">
+      <name>smile</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"smile smile.params"</code>
+        <code proglang="python">"smile smile.params"</code>
+      </format>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="smile"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">Sequences File</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">"FASTA file\t\t\t$value\\n"</code>
+        <code proglang="python">"FASTA file\t\t\t" + str(value) + "\n"</code>
+      </format>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">This file must contain at least two sequences, as you cannot detect motifs which are common to several sequences in one sequence!</text>
+      </comment>
+      <paramfile>smile.params</paramfile>
+      <example>
+&gt;sequence1
+atagtagtagcatcagcatcgatccggactcgtcgcgagcactgacacgatc
+aatcgatgatgcacgacgatcgactgatgctacgtcgacatcgctgctgtcc
+&gt;sequence2
+gatccggactcgtcagcatcagcagcgatagtagtagcatcagcatcgatcc
+ggactcgtcgcgagcactgacacgatcatgctacgtcgacatcgcatgctac
+&gt;sequenceN
+gtcgacatcgccgagcactgacacgatcatgctacgtcgacatcgcatgctac
+aatcgatgatccggactcgtcgcggatgcacgacagcatcagcagatcgactg
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequences File</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724862160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724862160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>This file must contain at least two sequences, as you cannot detect motifs which are common to several sequences in one sequence!</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>alphabet</name>
+      <prompt lang="en">Alphabet</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>dna.alphabet</value>
+      </vdef>
+      <vlist>
+        <velem>
+          <value>dna.alphabet</value>
+          <label>DNA</label>
+        </velem>
+        <velem>
+          <value>dnadeg.alphabet</value>
+          <label>Degenerated DNA</label>
+        </velem>
+        <velem>
+          <value>aa-barton.alphabet</value>
+          <label>Protein (Zvelebil Barton Taylor Sternberg, JMolBiol 195 (1987)</label>
+        </velem>
+        <velem>
+          <value>aa-smiths.alphabet</value>
+          <label>Protein (Smith and Smith 1990)</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">"Alphabet file\t\t\t/local/gensoft2/exe/smile/1.47/share/$value\\n"</code>
+        <code proglang="python">"Alphabet file\t\t\t/local/gensoft2/exe/smile/1.47/share/" + str(value) + "\n"</code>
+      </format>
+      <argpos>2</argpos>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alphabet<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alphabet">
+            <xhtml:option value="dna.alphabet" selected="selected">DNA</xhtml:option>
+            <xhtml:option value="dnadeg.alphabet">Degenerated DNA</xhtml:option>
+            <xhtml:option value="aa-barton.alphabet">Protein (Zvelebil Barton Taylor Sternberg, JMolBiol 195 (1987)</xhtml:option>
+            <xhtml:option value="aa-smiths.alphabet">Protein (Smith and Smith 1990)</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="dna.alphabet" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alphabet"/>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>how_many_N</name>
+      <prompt lang="en">Maximum number of N in a motif for degenerated DNA or protein alphabet.</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$alphabet ne "dna.alphabet"</code>
+        <code proglang="python">alphabet != "dna.alphabet"</code>
+      </precond>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">"Composition in *\t\t$value\\n"</code>
+        <code proglang="python">"Composition in *\t\t" + str(value)+"\n"</code>
+      </format>
+      <argpos>3</argpos>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number of N in a motif for degenerated DNA or protein alphabet.<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="how_many_N" type="text" value="0"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="how_many_N"/>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>how_many_R</name>
+      <prompt lang="en">Maximum number of purine (R) in a motif for degenerated DNA</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$alphabet eq "dnadeg.alphabet"</code>
+        <code proglang="python">alphabet == "dnadeg.alphabet"</code>
+      </precond>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">"Composition in AG\t\t$value\\n"</code>
+        <code proglang="python">"Composition in AG\t\t" + str(value)+"\n"</code>
+      </format>
+      <argpos>3</argpos>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number of purine (R) in a motif for degenerated DNA<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="how_many_R" type="text" value="0"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="how_many_R"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>how_many_Y</name>
+      <prompt lang="en">Maximum number of pyrimidine (Y) in a motif for degenerated DNA</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$alphabet eq "dnadeg.alphabet"</code>
+        <code proglang="python">alphabet == "dnadeg.alphabet"</code>
+      </precond>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">"Composition in CT\t\t$value\\n"</code>
+        <code proglang="python">"Composition in CT\t\t" + str(value)+"\n"</code>
+      </format>
+      <argpos>3</argpos>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number of pyrimidine (Y) in a motif for degenerated DNA<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="how_many_Y" type="text" value="0"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="how_many_Y"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1">
+      <name>quorum</name>
+      <prompt lang="en">Minimum percentage of sequences containing a motif (quorum)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>50</value>
+      </vdef>
+      <format>
+        <code proglang="perl">"Quorum\t\t\t\t$value\\n"</code>
+        <code proglang="python">"Quorum\t\t\t\t" + str(value)+"\n"</code>
+      </format>
+      <argpos>10</argpos>
+      <comment>
+        <text lang="en">The  percentage of sequences where at least one occurrence of a motif must appear to make it valid. 100 means that a motif must have occurrences in every sequences.</text>
+      </comment>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum percentage of sequences containing a motif (quorum)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725912432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="quorum" type="text" value="50"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725912432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The  percentage of sequences where at least one occurrence of a motif must appear to make it valid. 100 means that a motif must have occurrences in every sequences.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="quorum">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725912432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725912432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The  percentage of sequences where at least one occurrence of a motif must appear to make it valid. 100 means that a motif must have occurrences in every sequences.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>minlen</name>
+      <prompt lang="en">Total min length</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"Total min length\t\t$value\\n"</code>
+        <code proglang="python">"Total min length\t\t" + str(value)+"\n"</code>
+      </format>
+      <argpos>11</argpos>
+      <comment>
+        <text lang="en">The minimal length of the whole motif, i.e. the sum of minimal lengths of each  box. Warning:  the  length  of  the gaps between boxes mustn't me taken into account. The total minimal length may differ of the sum of boxs's minimal length:  you  can,  for instance, infer motifs made of two boxes, with min length of boxes equals to 4 and a total min length equals to 10.</text>
+      </comment>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Total min length<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725324560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="minlen" type="text" value=""/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725324560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The minimal length of the whole motif, i.e. the sum of minimal lengths of each  box. Warning:  the  length  of  the gaps between boxes mustn't me taken into account. The total minimal length may differ of the sum of boxs's minimal length:  you  can,  for instance, infer motifs made of two boxes, with min length of boxes equals to 4 and a total min length equals to 10.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minlen">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117725324560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117725324560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The minimal length of the whole motif, i.e. the sum of minimal lengths of each  box. Warning:  the  length  of  the gaps between boxes mustn't me taken into account. The total minimal length may differ of the sum of boxs's minimal length:  you  can,  for instance, infer motifs made of two boxes, with min length of boxes equals to 4 and a total min length equals to 10.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>maxlen</name>
+      <prompt lang="en">Total max length</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value)? "Total max length\t\t$value\\n" : ""</code>
+        <code proglang="python">( "" , "Total max length\t\t" + str(value)+"\n" )[ value is not None ]</code>
+      </format>
+      <argpos>12</argpos>
+      <comment>
+        <text lang="en">Same explanation as "Total min length". Excepted that a 0 length means "infinity"</text>
+      </comment>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Total max length<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724735008::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="maxlen" type="text" value="0"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724735008::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Same explanation as "Total min length". Excepted that a 0 length means "infinity"</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="maxlen">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724735008::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724735008::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Same explanation as "Total min length". Excepted that a 0 length means "infinity"</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>subst</name>
+      <prompt lang="en">Total substitutions</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"Total substitutions\t\t$value\\n"</code>
+        <code proglang="python">"Total substitutions\t\t" + str(value)+"\n"</code>
+      </format>
+      <ctrl>
+        <message>
+          <text lang="en">Too many substitutions (number of substitutions
+	    must be smaller than min length)</text>
+        </message>
+        <code proglang="perl">defined $subst and $subst &lt;= $minlen</code>
+        <code proglang="python">subst is not None and subst &lt;= minlen</code>
+      </ctrl>
+      <argpos>13</argpos>
+      <comment>
+        <text lang="en">Total maximum number of substitutions for the motif.</text>
+      </comment>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Total substitutions<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723900000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="subst" type="text" value=""/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723900000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Total maximum number of substitutions for the motif.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="subst">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723900000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723900000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Total maximum number of substitutions for the motif.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>boxes</name>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"Boxes\t\t\t\t\1\\n"</code>
+        <code proglang="python">"Boxes\t\t\t\t1\n"</code>
+      </format>
+      <argpos>20</argpos>
+      <comment>
+        <text lang="en">The  number of boxes that compose the motifs to infer. Imposed 1 for xml.</text>
+      </comment>
+      <paramfile>smile.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="boxes">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723311536::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723311536::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The  number of boxes that compose the motifs to infer. Imposed 1 for xml.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>shuffling</name>
+      <prompt lang="en">Number of shufflings</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>100</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value)?  "Shufflings\t\t\t$value\\n":"" </code>
+        <code proglang="python">( "" , "Shufflings\t\t\t"+ str(value)+"\n")[value is not None]</code>
+      </format>
+      <argpos>100</argpos>
+      <comment>
+        <text lang="en">The number of shufflings of the original sequences to realize for the evaluation  of the statistical significance of the motifs found.</text>
+      </comment>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of shufflings<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724695984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="shuffling" type="text" value="100"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724695984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The number of shufflings of the original sequences to realize for the evaluation  of the statistical significance of the motifs found.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="shuffling">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724695984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724695984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The number of shufflings of the original sequences to realize for the evaluation  of the statistical significance of the motifs found.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>kmer</name>
+      <prompt lang="en">Length of the words to conserve during shufflings</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>2</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value)?  "Size k-mer\t\t\t$value\\n":"" </code>
+        <code proglang="python">("" , "Size k-mer\t\t\t"+ str(value)+"\n")[value is not None]</code>
+      </format>
+      <argpos>100</argpos>
+      <comment>
+        <text lang="en">Length of the words to conserve during shufflings (usually 2).</text>
+      </comment>
+      <paramfile>smile.params</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Length of the words to conserve during shufflings<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723353808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="kmer" type="text" value="2"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723353808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Length of the words to conserve during shufflings (usually 2).</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="kmer">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723353808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723353808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Length of the words to conserve during shufflings (usually 2).</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>result</name>
+      <prompt>Result file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl"> "Output file\t\t\tsmile.result\\n" </code>
+        <code proglang="python">"Output file\t\t\tsmile.result\n"</code>
+      </format>
+      <argpos>1</argpos>
+      <paramfile>smile.params</paramfile>
+      <filenames>
+        <code proglang="perl">"smile.result"</code>
+        <code proglang="python">"smile.result"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="result">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>shufflefiles</name>
+      <prompt>Shuffle result file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"smile.result.shuffle"</code>
+        <code proglang="python">"smile.result.shuffle"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="shufflefiles">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"smile.out"</code>
+        <code proglang="python">"smile.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"smile.err"</code>
+        <code proglang="python">"smile.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

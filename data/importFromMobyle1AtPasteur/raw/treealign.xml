@@ -1,0 +1,440 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>treealign</name>
+    <doc>
+      <title>treealign</title>
+      <description>
+        <text lang="en">Phylogenetic alignment of homologous sequences</text>
+      </description>
+      <authors>J. Hein</authors>
+      <reference>Hein, J.: Unified approach to alignment and phylogenies. Meth. Enzymol. 183:626-645 (1990).</reference>
+      <reference>Hein, J.: A new method that simultaneously aligns and reconstruct ancestral sequences for any number of homologous sequences, when the phylogeny is given. Mol. Biol. Evol. 6:649-668 (1989).</reference>
+      <reference>Hein, J.: A tree reconstruction method that is economical in the number of pairwise comparisons used. Mol. Biol. Evol. 6:669-684 (1989).</reference>
+    </doc>
+    <command>treealign</command>
+    <category>alignment:pairwise</category>
+    <category>phylogeny:parsimony</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NBRF " data-parametername="fileseq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequences File<xhtml:a href="#idm140117722045504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117722045504::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722045504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The sequences should
+be homologous and there should be a history to be found. If you give it a set
+of COMPLETELY unrelated sequences, it is possible that it will not be able to
+align them, since it cannot allocate enough memory.</xhtml:div>
+          <xhtml:div>The sequences should not vary in length because they have been sequenced
+unequally much.  Length differences should be due to evolution. Thus it should
+not be used to look for local homologies.</xhtml:div>
+          <div class="example" id="idm140117722045504::example" data-forparameter="fileseq">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+&amp;gt;P1;alpha
+
+GDGKMTADKLNFPGNS*
+&amp;gt;P1;beta
+
+GDGKNTRDKINFPGNS*
+&amp;gt;P1;gamma
+
+GDGKNTADKINFPGNS*
+      </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117722045504::example" data-forparameter="fileseq" style="display:none">
+          <pre>
+&amp;gt;P1;alpha
+
+GDGKMTADKLNFPGNS*
+&amp;gt;P1;beta
+
+GDGKNTRDKINFPGNS*
+&amp;gt;P1;gamma
+
+GDGKNTADKINFPGNS*
+      </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="fileseq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqtype">Sequence type<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqtype">
+          <xhtml:option value="null" selected="selected">Choose a sequence type</xhtml:option>
+          <xhtml:option value="1">Protein (1)</xhtml:option>
+          <xhtml:option value="0">DNA (0)</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nuseq">Number of sequences<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nuseq" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap_open">Gap open penalty<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gap_open" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap_ext">Gap extension penalty<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gap_ext" type="text" value=""/>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="other_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Other options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ancesterout">Present ancestral sequences<xhtml:select name="ancesterout">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fileseq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NBRF ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722045504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722045504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The sequences should
+be homologous and there should be a history to be found. If you give it a set
+of COMPLETELY unrelated sequences, it is possible that it will not be able to
+align them, since it cannot allocate enough memory.</xhtml:div>
+          <xhtml:div>The sequences should not vary in length because they have been sequenced
+unequally much.  Length differences should be due to evolution. Thus it should
+not be used to look for local homologies.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqtype" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nuseq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gap_open" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gap_ext" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="other_options">
+        <xhtml:legend>Other options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ancesterout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="filetree" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fileali" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>fileseq</name>
+      <prompt lang="en">Sequences File</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>NBRF</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">"$value\\n"</code>
+        <code proglang="python">str(value)+ "\n"</code>
+      </format>
+      <argpos>30</argpos>
+      <comment>
+        <text lang="en">The sequences should
+be homologous and there should be a history to be found. If you give it a set
+of COMPLETELY unrelated sequences, it is possible that it will not be able to
+align them, since it cannot allocate enough memory.</text>
+        <text lang="en">The sequences should not vary in length because they have been sequenced
+unequally much.  Length differences should be due to evolution. Thus it should
+not be used to look for local homologies.</text>
+      </comment>
+      <paramfile>par.dat</paramfile>
+      <example>
+&gt;P1;alpha
+
+GDGKMTADKLNFPGNS*
+&gt;P1;beta
+
+GDGKNTRDKINFPGNS*
+&gt;P1;gamma
+
+GDGKNTADKINFPGNS*
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequences File</xhtml:legend>
+          <xhtml:textarea name="fileseq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NBRF " data-parametername="fileseq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722045504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722045504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The sequences should
+be homologous and there should be a history to be found. If you give it a set
+of COMPLETELY unrelated sequences, it is possible that it will not be able to
+align them, since it cannot allocate enough memory.</xhtml:div>
+            <xhtml:div>The sequences should not vary in length because they have been sequenced
+unequally much.  Length differences should be due to evolution. Thus it should
+not be used to look for local homologies.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>seqtype</name>
+      <prompt lang="en">Sequence type</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>null</value>
+          <label>Choose a sequence type</label>
+        </velem>
+        <velem>
+          <value>1</value>
+          <label>Protein (1)</label>
+        </velem>
+        <velem>
+          <value>0</value>
+          <label>DNA (0)</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">"$value"</code>
+        <code proglang="python">str(value)</code>
+      </format>
+      <argpos>11</argpos>
+      <paramfile>par.dat</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Sequence type<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqtype">
+            <xhtml:option value="null" selected="selected">Choose a sequence type</xhtml:option>
+            <xhtml:option value="1">Protein (1)</xhtml:option>
+            <xhtml:option value="0">DNA (0)</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqtype"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>nuseq</name>
+      <prompt lang="en">Number of sequences</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <argpos>12</argpos>
+      <paramfile>par.dat</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of sequences<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nuseq" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nuseq"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>gap_open</name>
+      <prompt lang="en">Gap open penalty</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <ctrl>
+        <message>
+          <text lang="en">Enter a non-negative value</text>
+        </message>
+        <code proglang="perl">$value &gt;= 0</code>
+        <code proglang="python">value &gt;= 0</code>
+      </ctrl>
+      <argpos>13</argpos>
+      <paramfile>par.dat</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap open penalty<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gap_open" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap_open"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>gap_ext</name>
+      <prompt lang="en">Gap extension penalty</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value\\n"</code>
+        <code proglang="python">" " + str(value) + "\n"</code>
+      </format>
+      <argpos>14</argpos>
+      <paramfile>par.dat</paramfile>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap extension penalty<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gap_ext" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap_ext"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>other_options</name>
+      <prompt lang="en">Other options</prompt>
+      <parameters>
+        <parameter>
+          <name>ancesterout</name>
+          <prompt lang="en">Present ancestral sequences</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "1" : "0"</code>
+            <code proglang="python">( "0" , "1" )[ value ]</code>
+          </format>
+          <argpos>21</argpos>
+          <paramfile>par.dat</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Present ancestral sequences<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ancesterout">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ancesterout"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>filetree</name>
+      <prompt lang="en">Output tree file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"$fileseq.tree\\n"</code>
+        <code proglang="python">str(fileseq)+ ".tree\n"</code>
+      </format>
+      <argpos>40</argpos>
+      <paramfile>par.dat</paramfile>
+      <filenames>
+        <code proglang="perl">"*.tree"</code>
+        <code proglang="python">"*.tree"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="filetree">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>fileali</name>
+      <prompt lang="en">Output alignment file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"$fileseq.ali\\n"</code>
+        <code proglang="python">str(fileseq)+".ali\n"</code>
+      </format>
+      <argpos>50</argpos>
+      <paramfile>par.dat</paramfile>
+      <filenames>
+        <code proglang="perl">"*.ali"</code>
+        <code proglang="python">"*.ali"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fileali">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"treealign.out"</code>
+        <code proglang="python">"treealign.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"treealign.err"</code>
+        <code proglang="python">"treealign.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

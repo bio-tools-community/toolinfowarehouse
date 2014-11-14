@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>cosa</name>
+    <doc>
+      <title>cosa</title>
+      <description>
+        <text lang="en">Clustal ouput structural analysis</text>
+      </description>
+      <authors>T. Rose</authors>
+      <comment>
+        <text lang="en">This program gives simple statistics about residue conservation from clustal output files.</text>
+        <text lang="en">There is the possibility to redirect the residue frequency at every position of the protein </text>
+        <text lang="en">sequence in the PDB file corresponding to one of the identified sequences of the multiple alignment.</text>
+        <text lang="en">This frequency or conservation index is put in place of B-factors and allows spectral coloring according to</text>
+        <text lang="en">the index value in most of pdb structure viewers.</text>
+      </comment>
+    </doc>
+    <command>cosa</command>
+    <category>alignment:structure</category>
+    <category>structure:indexing</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="CLUSTAL " data-parametername="alig">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Alignment</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alig" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="struct_pos">Position in the sequence multialignment of the structure used as reference<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="struct_pos" type="text" value=""/>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="pdbin">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">PDB entry</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pdbin" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tmp_clustal.pdb" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pdbout">Name of the output PDB file<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pdbout" type="text" value="tmp_clustal.pdb"/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tmp_stats.txt" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="txtout">Name of the output result file<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="txtout" type="text" value="tmp_stats.txt"/>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alig" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="CLUSTAL ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="struct_pos" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pdbin" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein _3DStructure)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pdbout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tmp_clustal.pdb" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="txtout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tmp_stats.txt" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="default_pdbout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein _3DStructure)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720595456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720595456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>PDB file format of the structure used as reference with 
+        the residue occurrence in place of B-factor</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="default_txtout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720649920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720649920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Vertical sequence alignment and statistics</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>alig</name>
+      <prompt lang="en">Alignment</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>CLUSTAL</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Alignment</xhtml:legend>
+          <xhtml:textarea name="alig" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="CLUSTAL " data-parametername="alig">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>struct_pos</name>
+      <prompt lang="en">Position in the sequence multialignment of the structure used as reference</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str( value )</code>
+      </format>
+      <argpos>2</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Position in the sequence multialignment of the structure used as reference<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="struct_pos" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="struct_pos"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>pdbin</name>
+      <prompt lang="en">PDB entry</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <datatype>
+          <superclass>AbstractText</superclass>
+          <class>_3DStructure</class>
+        </datatype>
+        <dataFormat>PDB</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str( value )</code>
+      </format>
+      <argpos>3</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>PDB entry</xhtml:legend>
+          <xhtml:textarea name="pdbin" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="pdbin">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein _3DStructure)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>pdbout</name>
+      <prompt lang="en">Name of the output PDB file</prompt>
+      <type>
+        <datatype>
+          <class>Filename</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>tmp_clustal.pdb</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value) ? " $value" : ""</code>
+        <code proglang="python">("", " " + str( value ) )[ value is not None ]</code>
+      </format>
+      <argpos>4</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output PDB file<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pdbout" type="text" value="tmp_clustal.pdb"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tmp_clustal.pdb" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pdbout"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>txtout</name>
+      <prompt lang="en">Name of the output result file</prompt>
+      <type>
+        <datatype>
+          <class>Filename</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>tmp_stats.txt</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value) ? " $value" : ""</code>
+        <code proglang="python">("" , " " + str( value ) )[ value is not None ]</code>
+      </format>
+      <argpos>5</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output result file<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="txtout" type="text" value="tmp_stats.txt"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tmp_stats.txt" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="txtout"/>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>default_pdbout</name>
+      <prompt lang="en">PDB with the residue occurrence</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <datatype>
+          <superclass>AbstractText</superclass>
+          <class>_3DStructure</class>
+        </datatype>
+        <dataFormat>PDB</dataFormat>
+      </type>
+      <comment>
+        <text lang="en">PDB file format of the structure used as reference with 
+        the residue occurrence in place of B-factor</text>
+      </comment>
+      <filenames>
+        <code proglang="perl">$pdbout</code>
+        <code proglang="python">pdbout</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="PDB " data-parametername="default_pdbout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein _3DStructure)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720595456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720595456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>PDB file format of the structure used as reference with 
+        the residue occurrence in place of B-factor</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>default_txtout</name>
+      <prompt lang="en">Alignment and statistics</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <comment>
+        <text lang="en">Vertical sequence alignment and statistics</text>
+      </comment>
+      <filenames>
+        <code proglang="perl">$txtout</code>
+        <code proglang="python">txtout</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="default_txtout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720649920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720649920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Vertical sequence alignment and statistics</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"cosa.out"</code>
+        <code proglang="python">"cosa.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"cosa.err"</code>
+        <code proglang="python">"cosa.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

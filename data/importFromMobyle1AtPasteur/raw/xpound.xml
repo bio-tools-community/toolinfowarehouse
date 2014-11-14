@@ -1,0 +1,571 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>xpound</name>
+    <doc>
+      <title>Xpound</title>
+      <description>
+        <text lang="en">Software for exon trapping</text>
+      </description>
+      <authors>Thomas and Skolnick</authors>
+      <reference>A probabilistic model for detecting coding regions in DNA sequences. Alun Thomas and Mark H Skolnick, IMA Journal of Mathematics Applied in Medicine and Biology, 1994, 11, 149-160.</reference>
+    </doc>
+    <command>xpound</command>
+    <category>sequence:nucleic:gene_finding</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,1" data-formats="RAW " data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">DNA sequence File<xhtml:a href="#idm140117716918368::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117716918368::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Everything after a % on a line in the input
+          file is ignored. Other than comment xpound expects only white
+          space, which is also ignored, or IUPAC characters:</xhtml:div>
+          <xhtml:div>A C M G R S V T W Y H K D B N</xhtml:div>
+          <xhtml:div>in upper or lower case. Characters which do
+          not uniquely determine a base, such as N, B, S and so on, are
+          all interpreted as a C.</xhtml:div>
+          <xhtml:div>Xpound will not accept the IUPAC character -,
+          all occurences of which should be stripped from the input file
+          beforehand.</xhtml:div>
+        </xhtml:div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="report_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Report options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="report">Reports regions of bases for which the probability of coding is high (xreport)<xhtml:select name="report">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.75" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cut_off">Cut off value for report<xhtml:input name="cut_off" type="text" value="0.75"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="min_length">Minimum length value for report<xhtml:input name="min_length" type="text" value="0"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="postscript_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Postscript options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="postscript">Produces a file of graphs in PostScript format (xpscript)<xhtml:select name="postscript">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="portrait" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="orientation">Orientation (-l)<xhtml:select name="orientation">
+              <xhtml:option value="portrait" selected="selected">Portrait</xhtml:option>
+              <xhtml:option value="lanscape">Lanscape</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rows">Rows of plots per page (-r)<xhtml:input name="rows" type="text" value="5"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="columns">Columns of plots per page (-c)<xhtml:input name="columns" type="text" value="1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.75" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="high">Draw a line at this level (-hi)<xhtml:input name="high" type="text" value="0.75"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="low">Draw a line at this level (-lo)<xhtml:input name="low" type="text" value="0.5"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,1" data-formats="RAW ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117716918368::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117716918368::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Everything after a % on a line in the input
+          file is ignored. Other than comment xpound expects only white
+          space, which is also ignored, or IUPAC characters:</xhtml:div>
+          <xhtml:div>A C M G R S V T W Y H K D B N</xhtml:div>
+          <xhtml:div>in upper or lower case. Characters which do
+          not uniquely determine a base, such as N, B, S and so on, are
+          all interpreted as a C.</xhtml:div>
+          <xhtml:div>Xpound will not accept the IUPAC character -,
+          all occurences of which should be stripped from the input file
+          beforehand.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="report_options">
+        <xhtml:legend>Report options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="report" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cut_off" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.75" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="min_length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="postscript_options">
+        <xhtml:legend>Postscript options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="postscript" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="orientation" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="portrait" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="rows" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="columns" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="high" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.75" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="low" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="XpoundReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(XpoundReport)
+			</xhtml:i>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="report_options">
+        <xhtml:legend>Report options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="report_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="XreportReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(XreportReport)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="postscript_options">
+        <xhtml:legend>Postscript options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="psfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">DNA sequence File</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>RAW</dataFormat>
+        <card>1,1</card>
+      </type>
+      <format>
+        <code proglang="perl">" &lt;$value"</code>
+        <code proglang="python">" &lt;"+str(value)</code>
+      </format>
+      <argpos>2</argpos>
+      <comment>
+        <text lang="en">Everything after a % on a line in the input
+          file is ignored. Other than comment xpound expects only white
+          space, which is also ignored, or IUPAC characters:</text>
+        <text lang="en">A C M G R S V T W Y H K D B N</text>
+        <text lang="en">in upper or lower case. Characters which do
+          not uniquely determine a base, such as N, B, S and so on, are
+          all interpreted as a C.</text>
+        <text lang="en">Xpound will not accept the IUPAC character -,
+          all occurences of which should be stripped from the input file
+          beforehand.</text>
+      </comment>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>DNA sequence File</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,1" data-formats="RAW " data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117716918368::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117716918368::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Everything after a % on a line in the input
+          file is ignored. Other than comment xpound expects only white
+          space, which is also ignored, or IUPAC characters:</xhtml:div>
+            <xhtml:div>A C M G R S V T W Y H K D B N</xhtml:div>
+            <xhtml:div>in upper or lower case. Characters which do
+          not uniquely determine a base, such as N, B, S and so on, are
+          all interpreted as a C.</xhtml:div>
+            <xhtml:div>Xpound will not accept the IUPAC character -,
+          all occurences of which should be stripped from the input file
+          beforehand.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="1">
+      <name>outfile</name>
+      <prompt lang="en">Output file</prompt>
+      <type>
+        <datatype>
+          <class>XpoundReport</class>
+          <superclass>Report</superclass>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"xpound.out"</code>
+        <code proglang="python">"xpound.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="XpoundReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(XpoundReport)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>report_options</name>
+      <prompt lang="en">Report options</prompt>
+      <parameters>
+        <parameter>
+          <name>report</name>
+          <prompt lang="en">Reports regions of bases for which the probability of coding is high (xreport)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " ; xreport &lt;xpound.out " : ""</code>
+            <code proglang="python">( "" , " ; xreport &lt;xpound.out " )[ value ]</code>
+          </format>
+          <argpos>20</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Reports regions of bases for which the probability of coding is high (xreport)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="report">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="report"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>cut_off</name>
+          <prompt lang="en">Cut off value for report</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$report</code>
+            <code proglang="python">report</code>
+          </precond>
+          <vdef>
+            <value>0.75</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " $value " : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>21</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cut off value for report<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cut_off" type="text" value="0.75"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.75" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cut_off"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>min_length</name>
+          <prompt lang="en">Minimum length value for report</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$report</code>
+            <code proglang="python">report</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " $value " : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>22</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum length value for report<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="min_length" type="text" value="0"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="min_length"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>report_file</name>
+          <prompt lang="en">Report file</prompt>
+          <type>
+            <datatype>
+              <class>XreportReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$report</code>
+            <code proglang="python">report</code>
+          </precond>
+          <format>
+            <code proglang="perl">" &gt;xreport.out "</code>
+            <code proglang="python">"&gt;xreport.out "</code>
+          </format>
+          <argpos>25</argpos>
+          <filenames>
+            <code proglang="perl">"xreport.out"</code>
+            <code proglang="python">"xreport.out"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="XreportReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="report_file">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(XreportReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>postscript_options</name>
+      <prompt lang="en">Postscript options</prompt>
+      <parameters>
+        <parameter>
+          <name>postscript</name>
+          <prompt lang="en">Produces a file of graphs in PostScript format (xpscript)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "; xpscript xpound.out" : ""</code>
+            <code proglang="python">( "" , "; xpscript xpound.out" )[ value ]</code>
+          </format>
+          <argpos>30</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produces a file of graphs in PostScript format (xpscript)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="postscript">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="postscript"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>orientation</name>
+          <prompt lang="en">Orientation (-l)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$postscript</code>
+            <code proglang="python">postscript</code>
+          </precond>
+          <vdef>
+            <value>portrait</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>portrait</value>
+              <label>Portrait</label>
+            </velem>
+            <velem>
+              <value>lanscape</value>
+              <label>Lanscape</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value eq "lanscape") ? " -l " : ""</code>
+            <code proglang="python">( "" , " -l " )[ value == "lanscape" ]</code>
+          </format>
+          <argpos>31</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Orientation (-l)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="orientation">
+                <xhtml:option value="portrait" selected="selected">Portrait</xhtml:option>
+                <xhtml:option value="lanscape">Lanscape</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="portrait" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="orientation"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>rows</name>
+          <prompt lang="en">Rows of plots per page (-r)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$postscript</code>
+            <code proglang="python">postscript</code>
+          </precond>
+          <vdef>
+            <value>5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -r $value " : ""</code>
+            <code proglang="python">( "" , " -r " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>32</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Rows of plots per page (-r)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="rows" type="text" value="5"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rows"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>columns</name>
+          <prompt lang="en">Columns of plots per page (-c)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$postscript</code>
+            <code proglang="python">postscript</code>
+          </precond>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -c $value " : ""</code>
+            <code proglang="python">( "" , " -c " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>32</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Columns of plots per page (-c)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="columns" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="columns"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>high</name>
+          <prompt lang="en">Draw a line at this level (-hi)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$postscript</code>
+            <code proglang="python">postscript</code>
+          </precond>
+          <vdef>
+            <value>0.75</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -hi $value " : ""</code>
+            <code proglang="python">( "" , " -hi " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>33</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Draw a line at this level (-hi)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="high" type="text" value="0.75"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.75" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="high"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>low</name>
+          <prompt lang="en">Draw a line at this level (-lo)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$postscript</code>
+            <code proglang="python">postscript</code>
+          </precond>
+          <vdef>
+            <value>0.5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -lo $value " : ""</code>
+            <code proglang="python">( "" , " -lo " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>34</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Draw a line at this level (-lo)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="low" type="text" value="0.5"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="low"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>psfile</name>
+          <prompt lang="en">PostScript file</prompt>
+          <type>
+            <datatype>
+              <class>PostScript</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$postscript</code>
+            <code proglang="python">postscript</code>
+          </precond>
+          <format>
+            <code proglang="perl">" &gt;xpound.ps"</code>
+            <code proglang="python">" &gt;xpound.ps"</code>
+          </format>
+          <argpos>100</argpos>
+          <filenames>
+            <code proglang="perl">"xpound.ps"</code>
+            <code proglang="python">"xpound.ps"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="psfile"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"xpound.err"</code>
+        <code proglang="python">"xpound.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

@@ -1,0 +1,697 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Sandrine Larroude,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>ktreedist</name>
+    <version>1.0</version>
+    <doc>
+      <title>Ktreedist</title>
+      <description>
+        <text lang="en">Calculation of the minimum branch length distance (K tree score) between phylogenetic trees</text>
+      </description>
+      <authors>Victor Soria-Carrasco, Jose Castresana</authors>
+      <reference>Soria-Carrasco, V., Talavera, G., Igea, J., and Castresana, J. (2007). The K tree score: quantification of differences 
+      		in the relative branch length and topology of phylogenetic trees. Bioinformatics 23, 2954-2956.</reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/ktreedist/</doclink>
+      <homepagelink>http://molevol.cmima.csic.es/castresana/Ktreedist.html</homepagelink>
+      <sourcelink>http://molevol.cmima.csic.es/castresana/Ktreedist.html</sourcelink>
+    </doc>
+    <command>ktreedist</command>
+    <category>phylogeny:tree_analyser</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input<xhtml:a href="#idm140117712544560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712544560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The program is supposed to run with one reference tree and one or several comparison trees. If the reference file contains more than one tree, only the first one will be used.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK NEXUS " data-parametername="ref_tree">
+            <legend>Reference Tree<xhtml:a href="#idm140117712244016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a href="#idm140117712244016::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            </legend>
+            <xhtml:div id="idm140117712244016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the file that contains the tree to which you want to compare the comparison tree/s.</xhtml:div>
+              <xhtml:div> Only NEWICK or NEXUS tree format are accepted by ktreedist.</xhtml:div>
+              <xhtml:div>The input tree must be write in one line. for nexus tree the tree itself must be write in one line</xhtml:div>
+              <div class="example" id="idm140117712244016::example" data-forparameter="ref_tree">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+#NEXUS
+begin trees;
+tree &amp;apos;name&amp;apos; =(1:0.212481,8:0.297838,(9:0.222729,((6:0.201563,7:0.194547):0.282035,(4:1.146091,(3:1.008881,(10:0.384105,(2:0.235682,5:0.353432):0.323680):0.103875):0.413540):0.254687):0.095341):0.079254):0.000000;
+end;
+          </pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117712244016::example" data-forparameter="ref_tree" style="display:none">
+              <pre>
+#NEXUS
+begin trees;
+tree &amp;apos;name&amp;apos; =(1:0.212481,8:0.297838,(9:0.222729,((6:0.201563,7:0.194547):0.282035,(4:1.146091,(3:1.008881,(10:0.384105,(2:0.235682,5:0.353432):0.323680):0.103875):0.413540):0.254687):0.095341):0.079254):0.000000;
+end;
+          </pre>
+            </div>
+            <xhtml:textarea name="ref_tree" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK NEXUS " data-parametername="comp_tree">
+            <legend>Comparison Tree<xhtml:a href="#idm140117713213680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a href="#idm140117713213680::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            </legend>
+            <xhtml:div id="idm140117713213680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the file that contains the tree or the set of trees you want to compare to the reference tree. They will be scaled to match as much as possible the reference tree.</xhtml:div>
+              <xhtml:div>Only NEWICK or NEXUS tree format are accepted by ktreedist.</xhtml:div>
+              <xhtml:div>The input tree must be write in one line. for nexus tree the tree itself must be write in one line</xhtml:div>
+              <div class="example" id="idm140117713213680::example" data-forparameter="comp_tree">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+(1:0.212481,8:0.297838,(9:0.222729,((6:0.201563,7:0.194547):0.282035,(4:1.146091,(3:1.008881,(10:0.384105,(2:0.235682,5:0.353432):0.323680):0.103875):0.413540):0.254687):0.095341):0.079254):0.000000;          
+          </pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117713213680::example" data-forparameter="comp_tree" style="display:none">
+              <pre>
+(1:0.212481,8:0.297838,(9:0.222729,((6:0.201563,7:0.194547):0.282035,(4:1.146091,(3:1.008881,(10:0.384105,(2:0.235682,5:0.353432):0.323680):0.103875):0.413540):0.254687):0.095341):0.079254):0.000000;          
+          </pre>
+            </div>
+            <xhtml:textarea name="comp_tree" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_res">Output file for table of results (-t)<xhtml:a href="#idm140117712230912::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="output_res">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117712230912::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> A file containing a table of results is generated.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_part">Output file for table of partitions (-p)<xhtml:a href="#idm140117716307792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="output_part">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117716307792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> A file containing a table of partitions for each comparison tree is generated.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_comp">Output file for comparison tree/s after scaling (-s)<xhtml:a href="#idm140117713272016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="output_comp">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117713272016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A file containing the scaled comparison tree/s is generated.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_rf">Output symmetric difference (Robinson-Foulds) (-r)<xhtml:a href="#idm140117712179776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="output_rf">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117712179776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The symmetric difference is defined as the number of partitions that are not shared between two trees, 
+						that is, the number of partitions of the first tree that are not present in the second tree plus the number of partitions 
+						of the second tree that are not present in the first tree.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_nbpf">Output number of partitions in the comparison tree/s (-n)<xhtml:a href="#idm140117711408672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="output_nbpf">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117711408672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The knowledge of the number of partitions may be useful to detect trees with polytomies.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_all">Equivalent to all options (-a)<xhtml:a href="#idm140117711370880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="output_all">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117711370880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Equivalent to all options.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <xhtml:legend>Input</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ref_tree" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK NEXUS ">
+            <xhtml:i>
+				(Tree)
+			</xhtml:i>
+            <xhtml:a href="#idm140117712244016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117712244016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the file that contains the tree to which you want to compare the comparison tree/s.</xhtml:div>
+              <xhtml:div> Only NEWICK or NEXUS tree format are accepted by ktreedist.</xhtml:div>
+              <xhtml:div>The input tree must be write in one line. for nexus tree the tree itself must be write in one line</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="comp_tree" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK NEXUS ">
+            <xhtml:i>
+				(Tree)
+			</xhtml:i>
+            <xhtml:a href="#idm140117713213680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117713213680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the file that contains the tree or the set of trees you want to compare to the reference tree. They will be scaled to match as much as possible the reference tree.</xhtml:div>
+              <xhtml:div>Only NEWICK or NEXUS tree format are accepted by ktreedist.</xhtml:div>
+              <xhtml:div>The input tree must be write in one line. for nexus tree the tree itself must be write in one line</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="options">
+        <xhtml:legend>Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_res" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117712230912::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117712230912::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> A file containing a table of results is generated.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_part" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117716307792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117716307792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> A file containing a table of partitions for each comparison tree is generated.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_comp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117713272016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117713272016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A file containing the scaled comparison tree/s is generated.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_rf" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117712179776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117712179776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The symmetric difference is defined as the number of partitions that are not shared between two trees, 
+						that is, the number of partitions of the first tree that are not present in the second tree plus the number of partitions 
+						of the second tree that are not present in the first tree.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_nbpf" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117711408672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117711408672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The knowledge of the number of partitions may be useful to detect trees with polytomies.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_all" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117711370880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117711370880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Equivalent to all options.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_res_f" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_part_f" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_comp_f" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>input</name>
+      <prompt lang="en">Input</prompt>
+      <comment>
+        <text lang="en">The program is supposed to run with one reference tree and one or several comparison trees. If the reference file contains more than one tree, only the first one will be used.</text>
+      </comment>
+      <parameters>
+        <parameter ismandatory="1" issimple="1">
+          <name>ref_tree</name>
+          <prompt lang="en">Reference Tree</prompt>
+          <type>
+            <datatype>
+              <class>Tree</class>
+            </datatype>
+            <dataFormat>NEWICK</dataFormat>
+            <dataFormat>NEXUS</dataFormat>
+          </type>
+          <format>
+            <code proglang="perl">"-rt $value"</code>
+            <code proglang="python">" -rt "+str(value)</code>
+          </format>
+          <argpos>2</argpos>
+          <comment>
+            <text lang="en">This is the file that contains the tree to which you want to compare the comparison tree/s.</text>
+            <text lang="en"> Only NEWICK or NEXUS tree format are accepted by ktreedist.</text>
+            <text lang="en">The input tree must be write in one line. for nexus tree the tree itself must be write in one line</text>
+          </comment>
+          <example>
+#NEXUS
+begin trees;
+tree 'name' =(1:0.212481,8:0.297838,(9:0.222729,((6:0.201563,7:0.194547):0.282035,(4:1.146091,(3:1.008881,(10:0.384105,(2:0.235682,5:0.353432):0.323680):0.103875):0.413540):0.254687):0.095341):0.079254):0.000000;
+end;
+          </example>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Reference Tree</xhtml:legend>
+              <xhtml:textarea name="ref_tree" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK NEXUS " data-parametername="ref_tree">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712244016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712244016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the file that contains the tree to which you want to compare the comparison tree/s.</xhtml:div>
+                <xhtml:div> Only NEWICK or NEXUS tree format are accepted by ktreedist.</xhtml:div>
+                <xhtml:div>The input tree must be write in one line. for nexus tree the tree itself must be write in one line</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1" issimple="1">
+          <name>comp_tree</name>
+          <prompt lang="en">Comparison Tree</prompt>
+          <type>
+            <datatype>
+              <class>Tree</class>
+            </datatype>
+            <dataFormat>NEWICK</dataFormat>
+            <dataFormat>NEXUS</dataFormat>
+          </type>
+          <format>
+            <code proglang="perl">"-ct $value "</code>
+            <code proglang="python">" -ct "+str(value)+" "</code>
+          </format>
+          <comment>
+            <text lang="en">This is the file that contains the tree or the set of trees you want to compare to the reference tree. They will be scaled to match as much as possible the reference tree.</text>
+            <text lang="en">Only NEWICK or NEXUS tree format are accepted by ktreedist.</text>
+            <text lang="en">The input tree must be write in one line. for nexus tree the tree itself must be write in one line</text>
+          </comment>
+          <example>
+(1:0.212481,8:0.297838,(9:0.222729,((6:0.201563,7:0.194547):0.282035,(4:1.146091,(3:1.008881,(10:0.384105,(2:0.235682,5:0.353432):0.323680):0.103875):0.413540):0.254687):0.095341):0.079254):0.000000;          
+          </example>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Comparison Tree</xhtml:legend>
+              <xhtml:textarea name="comp_tree" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK NEXUS " data-parametername="comp_tree">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713213680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713213680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the file that contains the tree or the set of trees you want to compare to the reference tree. They will be scaled to match as much as possible the reference tree.</xhtml:div>
+                <xhtml:div>Only NEWICK or NEXUS tree format are accepted by ktreedist.</xhtml:div>
+                <xhtml:div>The input tree must be write in one line. for nexus tree the tree itself must be write in one line</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>options</name>
+      <prompt lang="en">Options</prompt>
+      <argpos>4</argpos>
+      <parameters>
+        <parameter>
+          <name>output_res</name>
+          <prompt lang="en">Output file for table of results (-t)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -t"</code>
+            <code proglang="python">("", " -t")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en"> A file containing a table of results is generated.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output file for table of results (-t)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712230912::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="output_res">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712230912::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> A file containing a table of results is generated.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_res">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712230912::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712230912::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> A file containing a table of results is generated.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>output_part</name>
+          <prompt lang="en">Output file for table of partitions (-p)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -p"</code>
+            <code proglang="python">("", " -p")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en"> A file containing a table of partitions for each comparison tree is generated.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output file for table of partitions (-p)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117716307792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="output_part">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117716307792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> A file containing a table of partitions for each comparison tree is generated.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_part">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117716307792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117716307792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> A file containing a table of partitions for each comparison tree is generated.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>output_comp</name>
+          <prompt lang="en">Output file for comparison tree/s after scaling (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -s"</code>
+            <code proglang="python">("", " -s")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">A file containing the scaled comparison tree/s is generated.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output file for comparison tree/s after scaling (-s)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713272016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="output_comp">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713272016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>A file containing the scaled comparison tree/s is generated.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_comp">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713272016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713272016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>A file containing the scaled comparison tree/s is generated.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>output_rf</name>
+          <prompt lang="en">Output symmetric difference (Robinson-Foulds) (-r)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -r"</code>
+            <code proglang="python">("", " -r")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">The symmetric difference is defined as the number of partitions that are not shared between two trees, 
+						that is, the number of partitions of the first tree that are not present in the second tree plus the number of partitions 
+						of the second tree that are not present in the first tree.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output symmetric difference (Robinson-Foulds) (-r)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712179776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="output_rf">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712179776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The symmetric difference is defined as the number of partitions that are not shared between two trees, 
+						that is, the number of partitions of the first tree that are not present in the second tree plus the number of partitions 
+						of the second tree that are not present in the first tree.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_rf">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712179776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712179776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The symmetric difference is defined as the number of partitions that are not shared between two trees, 
+						that is, the number of partitions of the first tree that are not present in the second tree plus the number of partitions 
+						of the second tree that are not present in the first tree.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>output_nbpf</name>
+          <prompt lang="en">Output number of partitions in the comparison tree/s (-n)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -n"</code>
+            <code proglang="python">("", " -n")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">The knowledge of the number of partitions may be useful to detect trees with polytomies.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output number of partitions in the comparison tree/s (-n)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711408672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="output_nbpf">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711408672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The knowledge of the number of partitions may be useful to detect trees with polytomies.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_nbpf">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711408672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711408672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The knowledge of the number of partitions may be useful to detect trees with polytomies.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>output_all</name>
+          <prompt lang="en">Equivalent to all options (-a)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -a"</code>
+            <code proglang="python">("", " -a")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Equivalent to all options.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Equivalent to all options (-a)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711370880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="output_all">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711370880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Equivalent to all options.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_all">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711370880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711370880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Equivalent to all options.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>output_res_f</name>
+      <prompt lang="en">Output file for table of results</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$output_res or $output_all</code>
+        <code proglang="python">output_res or output_all</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*.tab"</code>
+        <code proglang="python">"*.tab"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_res_f">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>output_part_f</name>
+      <prompt lang="en">Output file for table of partitions</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$output_part or $output_all</code>
+        <code proglang="python">output_part or output_all</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*.part"</code>
+        <code proglang="python">"*.part"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_part_f">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>output_comp_f</name>
+      <prompt lang="en">Output file for comparison tree/s after scaling</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$output_comp or $output_all</code>
+        <code proglang="python">output_comp or output_all</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*.scaled"</code>
+        <code proglang="python">"*.scaled"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_comp_f">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"ktreedist.out"</code>
+        <code proglang="python">"ktreedist.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"ktreedist.err"</code>
+        <code proglang="python">"ktreedist.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

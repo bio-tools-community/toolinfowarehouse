@@ -1,0 +1,615 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>dca</name>
+    <version>1.1</version>
+    <doc>
+      <title>DCA</title>
+      <description>
+        <text lang="en">Divide-and-Conquer Multiple Sequence Alignment</text>
+      </description>
+      <authors>J. Stoye</authors>
+      <reference>A.W.M. Dress, G. Fullen, S.W. Perrey, A Divide and Conquer Approach to Multiple Alignment, Proceedings of the Third International Conference on Intelligent Systems for Molecular Biology (ISMB 95), AAAI Press, Menlo Park, CA, USA, 107-113, 1995.</reference>
+      <reference>J. Stoye, Multiple Sequence Alignment with the Divide-and-Conquer Method, Gene 211(2), GC45-GC56, 1998. (Gene-COMBIS)</reference>
+      <comment>
+        <text lang="en">Divide-and-Conquer Multiple Sequence Alignment  (DCA) is a program for producing fast, high quality simultaneous multiple sequence alignments of amino acid, RNA, or DNA sequences. The program is based on the DCA algorithm, a heuristic approach to sum-of-pairs (SP) optimal alignment that has been developed at the FSPM  over the years 1995-97.</text>
+      </comment>
+      <homepagelink>http://bibiserv.techfak.uni-bielefeld.de/dca/</homepagelink>
+      <sourcelink>http://bibiserv.techfak.uni-bielefeld.de/download/tools/dca.html</sourcelink>
+    </doc>
+    <command>dca</command>
+    <category>alignment:multiple</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequences File</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cost">Cost matrix (-c)<xhtml:select name="cost">
+              <xhtml:option value="null" selected="selected">Default: depends on sequences</xhtml:option>
+              <xhtml:option value="blosum30">BLOSUM30</xhtml:option>
+              <xhtml:option value="blosum45">BLOSUM45</xhtml:option>
+              <xhtml:option value="blosum62">BLOSUM62</xhtml:option>
+              <xhtml:option value="pam160">PAM160</xhtml:option>
+              <xhtml:option value="pam250">PAM250</xhtml:option>
+              <xhtml:option value="unitcost">Unitcost</xhtml:option>
+              <xhtml:option value="dna">DNA</xhtml:option>
+              <xhtml:option value="rna">RNA</xhtml:option>
+              <xhtml:option value="dnarna">DNA/RNA</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gaps">Penalize end gaps as internal gaps (-g)<xhtml:a href="#idm140117698437264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="gaps">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117698437264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default: free shift</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="approximate">Use approximate cut positions (-a)<xhtml:a href="#idm140117700377824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="approximate">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117700377824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>On: FastDCA (use approximate cut positions); Off: slower, more accurate algorithm (search for exact cut positions)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="intensity">Weight intensity (-b)<xhtml:input name="intensity" type="text" value="0.0"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="recursion">Recursion stop size (-l)<xhtml:a href="#idm140117698433120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="recursion" type="text" value="30"/>
+            <xhtml:div id="idm140117698433120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>5 ... 100 recommended; small: faster algorithm, maybe worse.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="window">Window size (-w)<xhtml:a href="#idm140117698034016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="window" type="text" value="0"/>
+            <xhtml:div id="idm140117698034016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To correct the alignment in the proximity of division sites, the sequences can be re-aligned inside a window of size w &gt;= 0 placed across each slicing site.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_format">Output format (-f)<xhtml:select name="output_format">
+              <xhtml:option value="1">aln (1)</xhtml:option>
+              <xhtml:option value="2" selected="selected">fasta (2)</xhtml:option>
+              <xhtml:option value="3">nex (3)</xhtml:option>
+              <xhtml:option value="4">dca (4)</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <xhtml:legend>Control parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cost" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gaps" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698437264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698437264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default: free shift</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="approximate" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700377824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700377824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>On: FastDCA (use approximate cut positions); Off: slower, more accurate algorithm (search for exact cut positions)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="intensity" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="recursion" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698433120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698433120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>5 ... 100 recommended; small: faster algorithm, maybe worse.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="window" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698034016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698034016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To correct the alignment in the proximity of division sites, the sequences can be re-aligned inside a window of size w &gt;= 0 placed across each slicing site.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="quiet" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_format" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="suppress_output" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fasta_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;           ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="aln_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Dcalignment" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="&#10;           ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Dcalignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">Sequences File</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <argpos>100</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequences File</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>control</name>
+      <prompt lang="en">Control parameters</prompt>
+      <parameters>
+        <parameter>
+          <name>cost</name>
+          <prompt lang="en">Cost matrix (-c)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>null</value>
+              <label>Default: depends on sequences</label>
+            </velem>
+            <velem>
+              <value>blosum30</value>
+              <label>BLOSUM30</label>
+            </velem>
+            <velem>
+              <value>blosum45</value>
+              <label>BLOSUM45</label>
+            </velem>
+            <velem>
+              <value>blosum62</value>
+              <label>BLOSUM62</label>
+            </velem>
+            <velem>
+              <value>pam160</value>
+              <label>PAM160</label>
+            </velem>
+            <velem>
+              <value>pam250</value>
+              <label>PAM250</label>
+            </velem>
+            <velem>
+              <value>unitcost</value>
+              <label>Unitcost</label>
+            </velem>
+            <velem>
+              <value>dna</value>
+              <label>DNA</label>
+            </velem>
+            <velem>
+              <value>rna</value>
+              <label>RNA</label>
+            </velem>
+            <velem>
+              <value>dnarna</value>
+              <label>DNA/RNA</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " -c $value" : "" </code>
+            <code proglang="python">( ""  , " -c " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cost matrix (-c)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cost">
+                <xhtml:option value="null" selected="selected">Default: depends on sequences</xhtml:option>
+                <xhtml:option value="blosum30">BLOSUM30</xhtml:option>
+                <xhtml:option value="blosum45">BLOSUM45</xhtml:option>
+                <xhtml:option value="blosum62">BLOSUM62</xhtml:option>
+                <xhtml:option value="pam160">PAM160</xhtml:option>
+                <xhtml:option value="pam250">PAM250</xhtml:option>
+                <xhtml:option value="unitcost">Unitcost</xhtml:option>
+                <xhtml:option value="dna">DNA</xhtml:option>
+                <xhtml:option value="rna">RNA</xhtml:option>
+                <xhtml:option value="dnarna">DNA/RNA</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cost"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gaps</name>
+          <prompt lang="en">Penalize end gaps as internal gaps (-g)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl"> ($value)? " -g ":""</code>
+            <code proglang="python">("" , " -g ")[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Default: free shift</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Penalize end gaps as internal gaps (-g)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698437264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gaps">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698437264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default: free shift</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gaps">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698437264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698437264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default: free shift</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>approximate</name>
+          <prompt lang="en">Use approximate cut positions (-a)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl"> ($value)? " -a":""</code>
+            <code proglang="python">("" , " -a")[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">On: FastDCA (use approximate cut positions); Off: slower, more accurate algorithm (search for exact cut positions)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use approximate cut positions (-a)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700377824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="approximate">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700377824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>On: FastDCA (use approximate cut positions); Off: slower, more accurate algorithm (search for exact cut positions)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="approximate">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700377824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700377824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>On: FastDCA (use approximate cut positions); Off: slower, more accurate algorithm (search for exact cut positions)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>intensity</name>
+          <prompt lang="en">Weight intensity (-b)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -b $value" : "" </code>
+            <code proglang="python">( ""  , " -b " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Weight intensity must be &gt;= 0.0 and &lt;= 1.0</text>
+            </message>
+            <code proglang="perl">$intensity &gt;= 0.0 and $intensity &lt;= 1.0</code>
+            <code proglang="python">intensity &gt;= 0.0 and intensity &lt;= 1.0</code>
+          </ctrl>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Weight intensity (-b)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="intensity" type="text" value="0.0"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="intensity"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>recursion</name>
+          <prompt lang="en">Recursion stop size (-l)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>30</value>
+          </vdef>
+          <format>
+            <code proglang="perl"> (defined $value and $value != $vdef)? " -l $value" : "" </code>
+            <code proglang="python">( ""  , " -l " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">5 ... 100 recommended; small: faster algorithm, maybe worse.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Recursion stop size (-l)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698433120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="recursion" type="text" value="30"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698433120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>5 ... 100 recommended; small: faster algorithm, maybe worse.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="recursion">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698433120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698433120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>5 ... 100 recommended; small: faster algorithm, maybe worse.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>window</name>
+          <prompt lang="en">Window size (-w)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and  $value != $vdef)? " -w $value" : "" </code>
+            <code proglang="python">( ""  , " -w " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">To correct the alignment in the proximity of division sites, the sequences can be re-aligned inside a window of size w &gt;= 0 placed across each slicing site.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Window size (-w)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698034016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="window" type="text" value="0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698034016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To correct the alignment in the proximity of division sites, the sequences can be re-aligned inside a window of size w &gt;= 0 placed across each slicing site.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="window">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698034016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698034016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To correct the alignment in the proximity of division sites, the sequences can be re-aligned inside a window of size w &gt;= 0 placed across each slicing site.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output parameters</prompt>
+      <parameters>
+        <parameter ishidden="1">
+          <name>quiet</name>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">" -q"</code>
+            <code proglang="python">" -q"</code>
+          </format>
+          <argpos>1</argpos>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="quiet"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>output_format</name>
+          <prompt lang="en">Output format (-f)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>1</value>
+              <label>aln (1)</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>fasta (2)</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>nex (3)</label>
+            </velem>
+            <velem>
+              <value>4</value>
+              <label>dca (4)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " -f $value" : "" </code>
+            <code proglang="python">( ""  , " -f " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output format (-f)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="output_format">
+                <xhtml:option value="1">aln (1)</xhtml:option>
+                <xhtml:option value="2" selected="selected">fasta (2)</xhtml:option>
+                <xhtml:option value="3">nex (3)</xhtml:option>
+                <xhtml:option value="4">dca (4)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_format"/>
+          </interface>
+        </parameter>
+        <parameter ishidden="1">
+          <name>suppress_output</name>
+          <prompt lang="en">Suppress output about progress of the program (-o)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">" -o"</code>
+            <code proglang="python">" -o"</code>
+          </format>
+          <argpos>1</argpos>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="suppress_output"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="1">
+      <name>fasta_outfile</name>
+      <prompt>Alignment file</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>
+          <test param="output_format" eq="2">FASTA</test>
+          <test param="output_format" eq="3">NEXUS</test>
+        </dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$output_format eq "2" or $output_format eq "3"</code>
+        <code proglang="python">output_format == "2" or output_format == "3"</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"dca.out"</code>
+        <code proglang="python">"dca.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;           " data-parametername="fasta_outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="1">
+      <name>aln_outfile</name>
+      <prompt>DCA alignment file</prompt>
+      <type>
+        <datatype>
+          <class>Dcalignment</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+        <dataFormat>
+          <test param="output_format" eq="1">CLUSTAL</test>
+          <test param="output_format" eq="4">DCA</test>
+        </dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$output_format eq "1" or $output_format eq "4"</code>
+        <code proglang="python">output_format == "1" or output_format == "4"</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"dca.out"</code>
+        <code proglang="python">"dca.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Dcalignment" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="&#10;           " data-parametername="aln_outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Dcalignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"dca.err"</code>
+        <code proglang="python">"dca.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

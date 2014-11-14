@@ -1,0 +1,809 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Sandrine Larroude 	                                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>growthpred</name>
+    <version>v1.07</version>
+    <doc>
+      <title>growthpred</title>
+      <description>
+        <text lang="en">Sequence-based Prediction of Minimum Generation Times for Bacteria and Archaea</text>
+      </description>
+      <authors>S. Vieira-Silva, E. Rocha</authors>
+      <reference>
+        <a xmlns="http://www.w3.org/1999/xhtml" target="ftp" href="ftp://ftp.pasteur.fr/pub/gensoft/projects/growthpred/"> The program sources and Example files are downloadable here. </a>
+      </reference>
+      <reference>Vieira-Silva S,  Rocha EPC, 2010 The Systemic Imprint of Growth and Its Uses in Ecological (Meta)Genomics. PLoS Genet 6(1): e1000808. doi:10.1371/journal.pgen.1000808</reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/growthpred/growthpred.pdf</doclink>
+      <comment>
+        <text lang="en">This application predicts the minimum generation time for a bacterial or archaeal organism based on  its codon usage bias intensity (CUB). 
+    	The CUB index is calculated given two input sets of sequences: 1) highly expressed genes 2) other genes. 
+    	The application runs 1000 bootstraps and outputs the average and the standard deviation of the predictions.
+    	</text>
+      </comment>
+      <sourcelink>ftp://ftp.pasteur.fr/pub/GenSoft/projects/growthpred/</sourcelink>
+    </doc>
+    <command>growthpred</command>
+    <category>sequence:nucleic:prediction</category>
+    <category>sequence:nucleic:codon_usage</category>
+    <interface type="form" generated="true">
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="example">Run with example data (-e)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727186960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="example">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727186960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Use a set of example files (E. coli K12) to run the program.</xhtml:div>
+          <xhtml:div>The expected results depending on the choosen option and the example files are shown in the program help pages (end of the form).</xhtml:div>
+        </xhtml:div>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="FASTA " data-parametername="hsequence">
+            <legend>Enter sequences of highly expressed genes (-f)<xhtml:a href="#idm140117727279776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117727279776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set of genes under purifying selection for codon usage.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="hsequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="b">Retrieve ribosomal protein genes by blast (-b)<xhtml:select name="b">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="FASTA " data-parametername="nhsequence">
+            <legend>Enter sequences of non-highly expressed genes/Complete genome (-g)<xhtml:a href="#idm140117727251888::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117727251888::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set of control genes with near random codon usage.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="nhsequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="typeg">Mixed organisms sequences<xhtml:a href="#idm140117728062064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="typeg">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117728062064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You need to precise to the program if your sequences are metagenome or mixed organisms sequences.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="codon_remove">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Remove from sequences</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:table>
+            <xhtml:tr>
+              <xhtml:td>
+                <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fc">First codon (-s)<xhtml:select name="fc">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </xhtml:td>
+              <xhtml:td>
+                <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lc">Last codon (-S)<xhtml:select name="lc">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </xhtml:td>
+            </xhtml:tr>
+          </xhtml:table>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="geneticcode">Choose genetic code (-c)<xhtml:select name="geneticcode">
+              <xhtml:option value="0" selected="selected">Universal</xhtml:option>
+              <xhtml:option value="1">Yeast Mitochondrial</xhtml:option>
+              <xhtml:option value="2">Vertebrate Mitochondrial</xhtml:option>
+              <xhtml:option value="3">Mold/Protozoan/Mycoplasma/Spiroplasma</xhtml:option>
+              <xhtml:option value="4">Invertebrate Mitochondrial</xhtml:option>
+              <xhtml:option value="5">Candida cylindracea</xhtml:option>
+              <xhtml:option value="6">Ciliate</xhtml:option>
+              <xhtml:option value="7">Euplotes</xhtml:option>
+              <xhtml:option value="8">Echinoderm/Flatworm Mitochondrial</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rfiles">Recover file with ribosomal protein genes retrieved by blast or given as input (-r)<xhtml:select name="rfiles">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ifiles">Recover file with codon usage bias indexes for each gene (-i)<xhtml:select name="ifiles">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="autotemp">Estimate optimal growth temperature (-t)<xhtml:select name="autotemp">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="36" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="temp">Enter optimal growth temperature (Celsius) (-T)<xhtml:input name="temp" type="text" value="36"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile">Outfile name (-o)<xhtml:input name="outfile" type="text" value="outfile"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="example" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727186960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727186960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Use a set of example files (E. coli K12) to run the program.</xhtml:div>
+          <xhtml:div>The expected results depending on the choosen option and the example files are shown in the program help pages (end of the form).</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hsequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="FASTA ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+            <xhtml:a href="#idm140117727279776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117727279776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set of genes under purifying selection for codon usage.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="b" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nhsequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="FASTA ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+            <xhtml:a href="#idm140117727251888::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117727251888::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set of control genes with near random codon usage.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="typeg" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117728062064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117728062064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You need to precise to the program if your sequences are metagenome or mixed organisms sequences.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="codon_remove">
+        <xhtml:legend>Remove from sequences</xhtml:legend>
+        <xhtml:div>
+          <xhtml:table>
+            <xhtml:tr>
+              <xhtml:td>
+                <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fc" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              </xhtml:td>
+              <xhtml:td>
+                <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="lc" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              </xhtml:td>
+            </xhtml:tr>
+          </xhtml:table>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="options">
+        <xhtml:legend>Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="geneticcode" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="rfiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ifiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="autotemp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="temp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="36" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="res" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="err" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cubs" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ribs" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter>
+      <name>example</name>
+      <prompt lang="en">Run with example data (-e)</prompt>
+      <argpos>4</argpos>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="python">( "" , " -e " )[value]</code>
+      </format>
+      <comment>
+        <text lang="en">Use a set of example files (E. coli K12) to run the program.</text>
+        <text lang="en">The expected results depending on the choosen option and the example files are shown in the program help pages (end of the form).</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Run with example data (-e)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727186960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="example">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727186960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Use a set of example files (E. coli K12) to run the program.</xhtml:div>
+            <xhtml:div>The expected results depending on the choosen option and the example files are shown in the program help pages (end of the form).</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="example">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727186960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727186960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Use a set of example files (E. coli K12) to run the program.</xhtml:div>
+            <xhtml:div>The expected results depending on the choosen option and the example files are shown in the program help pages (end of the form).</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>input</name>
+      <prompt lang="en">Input section</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter ismandatory="1">
+          <name>hsequence</name>
+          <prompt lang="en">Enter sequences of highly expressed genes (-f)</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <card>1,n</card>
+          </type>
+          <precond>
+            <code proglang="python">not example and not b</code>
+          </precond>
+          <format>
+            <code proglang="python">( "" , " -f " + str( value ) + " " )[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Set of genes under purifying selection for codon usage.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Enter sequences of highly expressed genes (-f)</xhtml:legend>
+              <xhtml:textarea name="hsequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="FASTA " data-parametername="hsequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727279776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727279776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set of genes under purifying selection for codon usage.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>b</name>
+          <prompt lang="en">Retrieve ribosomal protein genes by blast (-b)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">( "" , " -b")[value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Retrieve ribosomal protein genes by blast (-b)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="b">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="b"/>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>nhsequence</name>
+          <prompt lang="en">Enter sequences of non-highly expressed genes/Complete genome (-g)</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <card>1,n</card>
+          </type>
+          <precond>
+            <code proglang="python">not example</code>
+          </precond>
+          <format>
+            <code proglang="python">( "" , " -g " + str( value ) + " " )[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Set of control genes with near random codon usage.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Enter sequences of non-highly expressed genes/Complete genome (-g)</xhtml:legend>
+              <xhtml:textarea name="nhsequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="FASTA " data-parametername="nhsequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727251888::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727251888::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set of control genes with near random codon usage.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>typeg</name>
+          <prompt lang="en">Mixed organisms sequences</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">( "" , " -m" )[value]</code>
+          </format>
+          <comment>
+            <text lang="en">You need to precise to the program if your sequences are metagenome or mixed organisms sequences.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Mixed organisms sequences<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117728062064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="typeg">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728062064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You need to precise to the program if your sequences are metagenome or mixed organisms sequences.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="typeg">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117728062064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728062064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You need to precise to the program if your sequences are metagenome or mixed organisms sequences.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>codon_remove</name>
+      <prompt lang="en">Remove from sequences</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>fc</name>
+          <prompt lang="en">First codon (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">( " -s " , "" )[value!=vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">First codon (-s)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="fc">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fc"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>lc</name>
+          <prompt lang="en">Last codon (-S)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">( " -S " , "" )[value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Last codon (-S)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="lc">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lc"/>
+          </interface>
+        </parameter>
+      </parameters>
+      <layout>
+        <hbox>
+          <box>fc</box>
+          <box>lc</box>
+        </hbox>
+      </layout>
+    </paragraph>
+    <paragraph>
+      <name>options</name>
+      <prompt lang="en">Options</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>geneticcode</name>
+          <prompt lang="en">Choose genetic code (-c)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>0</value>
+              <label>Universal</label>
+            </velem>
+            <velem>
+              <value>1</value>
+              <label>Yeast Mitochondrial</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>Vertebrate Mitochondrial</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>Mold/Protozoan/Mycoplasma/Spiroplasma</label>
+            </velem>
+            <velem>
+              <value>4</value>
+              <label>Invertebrate Mitochondrial</label>
+            </velem>
+            <velem>
+              <value>5</value>
+              <label>Candida cylindracea</label>
+            </velem>
+            <velem>
+              <value>6</value>
+              <label>Ciliate</label>
+            </velem>
+            <velem>
+              <value>7</value>
+              <label>Euplotes</label>
+            </velem>
+            <velem>
+              <value>8</value>
+              <label>Echinoderm/Flatworm Mitochondrial</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">" -c " + str( value )</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose genetic code (-c)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="geneticcode">
+                <xhtml:option value="0" selected="selected">Universal</xhtml:option>
+                <xhtml:option value="1">Yeast Mitochondrial</xhtml:option>
+                <xhtml:option value="2">Vertebrate Mitochondrial</xhtml:option>
+                <xhtml:option value="3">Mold/Protozoan/Mycoplasma/Spiroplasma</xhtml:option>
+                <xhtml:option value="4">Invertebrate Mitochondrial</xhtml:option>
+                <xhtml:option value="5">Candida cylindracea</xhtml:option>
+                <xhtml:option value="6">Ciliate</xhtml:option>
+                <xhtml:option value="7">Euplotes</xhtml:option>
+                <xhtml:option value="8">Echinoderm/Flatworm Mitochondrial</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="geneticcode"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>rfiles</name>
+          <prompt lang="en">Recover file with ribosomal protein genes retrieved by blast or given as input (-r)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">( "" , " -r")[value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Recover file with ribosomal protein genes retrieved by blast or given as input (-r)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="rfiles">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rfiles"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ifiles</name>
+          <prompt lang="en">Recover file with codon usage bias indexes for each gene (-i)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">( "" , " -i")[value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Recover file with codon usage bias indexes for each gene (-i)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ifiles">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ifiles"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>autotemp</name>
+          <prompt lang="en">Estimate optimal growth temperature (-t)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">( "" , " -t")[value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Estimate optimal growth temperature (-t)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="autotemp">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="autotemp"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>temp</name>
+          <prompt lang="en">Enter optimal growth temperature (Celsius) (-T)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>36</value>
+          </vdef>
+          <precond>
+            <code proglang="perl">not $autotemp</code>
+            <code proglang="python">not autotemp</code>
+          </precond>
+          <format>
+            <code proglang="python">( "" , " -T " + str( value ) )[value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Enter optimal growth temperature (Celsius) (-T)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="temp" type="text" value="36"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="36" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="temp"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>outfile</name>
+          <prompt lang="en">Outfile name (-o)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>outfile</value>
+          </vdef>
+          <format>
+            <code proglang="python">( "" , " -o " + str(value))[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Outfile name (-o)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outfile" type="text" value="outfile"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>res</name>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <prompt lang="en">Prediction results</prompt>
+      <filenames>
+        <code proglang="python">"*.results"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="res">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>err</name>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <prompt lang="en">Prediction error(s)</prompt>
+      <filenames>
+        <code proglang="python">"*.errors"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="err">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>cubs</name>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <prompt lang="en">Codon usage bias indexes for each gene</prompt>
+      <precond>
+        <code proglang="python">ifiles</code>
+      </precond>
+      <filenames>
+        <code proglang="python">"*.cub"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cubs">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>ribs</name>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <prompt lang="en">Ribosomal protein genes retrieved by blast</prompt>
+      <precond>
+        <code proglang="python">rfiles</code>
+      </precond>
+      <filenames>
+        <code proglang="python">"*.ribs"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ribs">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"growthpred.out"</code>
+        <code proglang="python">"growthpred.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"growthpred.err"</code>
+        <code proglang="python">"growthpred.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

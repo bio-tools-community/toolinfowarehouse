@@ -1,0 +1,440 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>sig</name>
+    <version>1.0</version>
+    <doc>
+      <title>sig</title>
+      <description>
+        <text lang="en">Multiple Prosite motifs searching</text>
+      </description>
+      <authors>Eric Deveaud</authors>
+      <comment>
+        <text lang="en">sig  is a program to search  multiple occurences of
+	multiple motifs in a set of sequences.</text>
+      </comment>
+      <sourcelink>ftp://ftp.pasteur.fr/pub/gensoft/projects/sig/</sourcelink>
+    </doc>
+    <command>sig</command>
+    <category>sequence:nucleic:pattern</category>
+    <category>sequence:protein:pattern</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seqfile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Protein Sequences</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqfile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="SigPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="patterns">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Pattern File (-f)<xhtml:a href="#idm140117699813920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117699813920::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699813920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+File format : 
+<ul>
+              <li>one pattern per line.</li>
+              <li>A pattern consists in motifs definition separated by distance constraints.</li>
+              <li>The format is strictly the following: motif_1 (min,max) motif_2 ... (min,max) motif_n, and so on.</li>
+            </ul> 
+The sig motif syntax follow the syntax used in the PROSITE database :
+<h3>Pattern syntax</h3>
+            <ol>
+              <li>The standard IUPAC one-letter codes for the amino acids are used in PROSITE.</li>
+              <li>The symbol `x' is used for a position where any amino acid is accepted.</li>
+              <li>Ambiguities are indicated by listing the acceptable amino acids for a 
+    given position, between square brackets `[ ]'. For example: [ALT] 
+    stands for Ala or Leu or Thr.</li>
+              <li>Ambiguities are also indicated by listing between a pair of curly 
+    brackets `{ }' the amino acids that are not accepted at a given 
+    position. For example: {AM} stands for any amino acid except Ala and Met.</li>
+              <li>Each element in a pattern is separated from its neighbor by a `-'.</li>
+              <li>Repetition of an element of the pattern can be indicated by following 
+    that element with a numerical value or, if it is a gap ('x'),
+     by a numerical range between parentheses.<br/>
+                <dl>
+                  <dt>Examples:</dt>
+                  <dd>x(3) corresponds to x-x-x</dd>
+                  <dd>x(2,4) corresponds to x-x or x-x-x or x-x-x-x</dd>
+                  <dd>A(3) corresponds to A-A-A</dd>
+                  <dt>Note: You can only use a range with 'x', i.e. A(2,4) is not a valid pattern element.</dt>
+                </dl>
+              </li>
+              <li>When a pattern is restricted to either the N- or C-terminal of a sequence, 
+   that pattern either starts with a `&lt;' symbol or respectively ends with a `&gt;' symbol. 
+   In some rare cases (<em>e.g.</em> PS00267 or PS00539), '&gt;' can also occur inside square brackets for the C-terminal element. 
+'F-[GSTV]-P-R-L-[G&gt;]' means that either 'F-[GSTV]-P-R-L-G' or 'F-[GSTV]-P-R-L&gt;' are considered.</li>
+            </ol>
+
+the sig pattern ( motifs with distance constraints).
+<ul>
+              <li>
+                <strong>[RK]-x-V-x-[FW] (0,) F-x-x-[RK]-x-[RK]</strong>:
+    no distance constraints are set between motif [RK]-X-V-X-[FW] and motif F-X-X-[RK]-X-[RK]</li>
+              <li>
+                <strong>[RK]-x-V-x-[FW] (5,15) F-X-X-[RK]-X-[RK]</strong>:
+            motif [RK]-X-V-X-[FW] and motif F-X-X-[RK]-X-[RK] should be separated by a gap
+            whose length is longer or equal to 5 and shorter or equal to 15.</li>
+            </ul>
+          </div>
+          <div class="example" id="idm140117699813920::example" data-forparameter="patterns">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+[RK]-x-V-x-[FW] (0,) F-x-x-[RK]-x-[RK]
+[RK]-x-V-x-[FW] (5,15) F-X-X-[RK]-X-[RK]
+      </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117699813920::example" data-forparameter="patterns" style="display:none">
+          <pre>
+[RK]-x-V-x-[FW] (0,) F-x-x-[RK]-x-[RK]
+[RK]-x-V-x-[FW] (5,15) F-X-X-[RK]-X-[RK]
+      </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="patterns" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="overlapping">Allows motifs from pattern to be overlapping (-i)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="overlapping">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="reverse">Searches motifs in ordered and reverse search order, conserving the distance constraints (-r)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="reverse">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="patterns" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="SigPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SigPattern)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699813920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699813920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+File format : 
+<ul>
+              <li>one pattern per line.</li>
+              <li>A pattern consists in motifs definition separated by distance constraints.</li>
+              <li>The format is strictly the following: motif_1 (min,max) motif_2 ... (min,max) motif_n, and so on.</li>
+            </ul> 
+The sig motif syntax follow the syntax used in the PROSITE database :
+<h3>Pattern syntax</h3>
+            <ol>
+              <li>The standard IUPAC one-letter codes for the amino acids are used in PROSITE.</li>
+              <li>The symbol `x' is used for a position where any amino acid is accepted.</li>
+              <li>Ambiguities are indicated by listing the acceptable amino acids for a 
+    given position, between square brackets `[ ]'. For example: [ALT] 
+    stands for Ala or Leu or Thr.</li>
+              <li>Ambiguities are also indicated by listing between a pair of curly 
+    brackets `{ }' the amino acids that are not accepted at a given 
+    position. For example: {AM} stands for any amino acid except Ala and Met.</li>
+              <li>Each element in a pattern is separated from its neighbor by a `-'.</li>
+              <li>Repetition of an element of the pattern can be indicated by following 
+    that element with a numerical value or, if it is a gap ('x'),
+     by a numerical range between parentheses.<br/>
+                <dl>
+                  <dt>Examples:</dt>
+                  <dd>x(3) corresponds to x-x-x</dd>
+                  <dd>x(2,4) corresponds to x-x or x-x-x or x-x-x-x</dd>
+                  <dd>A(3) corresponds to A-A-A</dd>
+                  <dt>Note: You can only use a range with 'x', i.e. A(2,4) is not a valid pattern element.</dt>
+                </dl>
+              </li>
+              <li>When a pattern is restricted to either the N- or C-terminal of a sequence, 
+   that pattern either starts with a `&lt;' symbol or respectively ends with a `&gt;' symbol. 
+   In some rare cases (<em>e.g.</em> PS00267 or PS00539), '&gt;' can also occur inside square brackets for the C-terminal element. 
+'F-[GSTV]-P-R-L-[G&gt;]' means that either 'F-[GSTV]-P-R-L-G' or 'F-[GSTV]-P-R-L&gt;' are considered.</li>
+            </ol>
+
+the sig pattern ( motifs with distance constraints).
+<ul>
+              <li>
+                <strong>[RK]-x-V-x-[FW] (0,) F-x-x-[RK]-x-[RK]</strong>:
+    no distance constraints are set between motif [RK]-X-V-X-[FW] and motif F-X-X-[RK]-X-[RK]</li>
+              <li>
+                <strong>[RK]-x-V-x-[FW] (5,15) F-X-X-[RK]-X-[RK]</strong>:
+            motif [RK]-X-V-X-[FW] and motif F-X-X-[RK]-X-[RK] should be separated by a gap
+            whose length is longer or equal to 5 and shorter or equal to 15.</li>
+            </ul>
+          </div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="overlapping" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="reverse" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seqfile</name>
+      <prompt lang="en">Protein Sequences</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <argpos>100</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Protein Sequences</xhtml:legend>
+          <xhtml:textarea name="seqfile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seqfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>patterns</name>
+      <prompt lang="en">Pattern File (-f)</prompt>
+      <type>
+        <datatype>
+          <class>SigPattern</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -f $value" : ""</code>
+        <code proglang="python">("", " -f "+str(value))[value is not None]</code>
+      </format>
+      <argpos>2</argpos>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+File format : 
+<ul>
+            <li>one pattern per line.</li>
+            <li>A pattern consists in motifs definition separated by distance constraints.</li>
+            <li>The format is strictly the following: motif_1 (min,max) motif_2 ... (min,max) motif_n, and so on.</li>
+          </ul> 
+The sig motif syntax follow the syntax used in the PROSITE database :
+<h3>Pattern syntax</h3>
+          <ol>
+            <li>The standard IUPAC one-letter codes for the amino acids are used in PROSITE.</li>
+            <li>The symbol `x' is used for a position where any amino acid is accepted.</li>
+            <li>Ambiguities are indicated by listing the acceptable amino acids for a 
+    given position, between square brackets `[ ]'. For example: [ALT] 
+    stands for Ala or Leu or Thr.</li>
+            <li>Ambiguities are also indicated by listing between a pair of curly 
+    brackets `{ }' the amino acids that are not accepted at a given 
+    position. For example: {AM} stands for any amino acid except Ala and Met.</li>
+            <li>Each element in a pattern is separated from its neighbor by a `-'.</li>
+            <li>Repetition of an element of the pattern can be indicated by following 
+    that element with a numerical value or, if it is a gap ('x'),
+     by a numerical range between parentheses.<br/>
+              <dl>
+                <dt>Examples:</dt>
+                <dd>x(3) corresponds to x-x-x</dd>
+                <dd>x(2,4) corresponds to x-x or x-x-x or x-x-x-x</dd>
+                <dd>A(3) corresponds to A-A-A</dd>
+                <dt>Note: You can only use a range with 'x', i.e. A(2,4) is not a valid pattern element.</dt>
+              </dl>
+            </li>
+            <li>When a pattern is restricted to either the N- or C-terminal of a sequence, 
+   that pattern either starts with a `&lt;' symbol or respectively ends with a `&gt;' symbol. 
+   In some rare cases (<em>e.g.</em> PS00267 or PS00539), '&gt;' can also occur inside square brackets for the C-terminal element. 
+'F-[GSTV]-P-R-L-[G&gt;]' means that either 'F-[GSTV]-P-R-L-G' or 'F-[GSTV]-P-R-L&gt;' are considered.</li>
+          </ol>
+
+the sig pattern ( motifs with distance constraints).
+<ul>
+            <li>
+              <strong>[RK]-x-V-x-[FW] (0,) F-x-x-[RK]-x-[RK]</strong>:
+    no distance constraints are set between motif [RK]-X-V-X-[FW] and motif F-X-X-[RK]-X-[RK]</li>
+            <li>
+              <strong>[RK]-x-V-x-[FW] (5,15) F-X-X-[RK]-X-[RK]</strong>:
+            motif [RK]-X-V-X-[FW] and motif F-X-X-[RK]-X-[RK] should be separated by a gap
+            whose length is longer or equal to 5 and shorter or equal to 15.</li>
+          </ul>
+        </div>
+      </comment>
+      <example>
+[RK]-x-V-x-[FW] (0,) F-x-x-[RK]-x-[RK]
+[RK]-x-V-x-[FW] (5,15) F-X-X-[RK]-X-[RK]
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Pattern File (-f)</xhtml:legend>
+          <xhtml:textarea name="patterns" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="SigPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="patterns">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SigPattern)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699813920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699813920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+File format : 
+<ul>
+                <li>one pattern per line.</li>
+                <li>A pattern consists in motifs definition separated by distance constraints.</li>
+                <li>The format is strictly the following: motif_1 (min,max) motif_2 ... (min,max) motif_n, and so on.</li>
+              </ul> 
+The sig motif syntax follow the syntax used in the PROSITE database :
+<h3>Pattern syntax</h3>
+              <ol>
+                <li>The standard IUPAC one-letter codes for the amino acids are used in PROSITE.</li>
+                <li>The symbol `x' is used for a position where any amino acid is accepted.</li>
+                <li>Ambiguities are indicated by listing the acceptable amino acids for a 
+    given position, between square brackets `[ ]'. For example: [ALT] 
+    stands for Ala or Leu or Thr.</li>
+                <li>Ambiguities are also indicated by listing between a pair of curly 
+    brackets `{ }' the amino acids that are not accepted at a given 
+    position. For example: {AM} stands for any amino acid except Ala and Met.</li>
+                <li>Each element in a pattern is separated from its neighbor by a `-'.</li>
+                <li>Repetition of an element of the pattern can be indicated by following 
+    that element with a numerical value or, if it is a gap ('x'),
+     by a numerical range between parentheses.<br/>
+                  <dl>
+                    <dt>Examples:</dt>
+                    <dd>x(3) corresponds to x-x-x</dd>
+                    <dd>x(2,4) corresponds to x-x or x-x-x or x-x-x-x</dd>
+                    <dd>A(3) corresponds to A-A-A</dd>
+                    <dt>Note: You can only use a range with 'x', i.e. A(2,4) is not a valid pattern element.</dt>
+                  </dl>
+                </li>
+                <li>When a pattern is restricted to either the N- or C-terminal of a sequence, 
+   that pattern either starts with a `&lt;' symbol or respectively ends with a `&gt;' symbol. 
+   In some rare cases (<em>e.g.</em> PS00267 or PS00539), '&gt;' can also occur inside square brackets for the C-terminal element. 
+'F-[GSTV]-P-R-L-[G&gt;]' means that either 'F-[GSTV]-P-R-L-G' or 'F-[GSTV]-P-R-L&gt;' are considered.</li>
+              </ol>
+
+the sig pattern ( motifs with distance constraints).
+<ul>
+                <li>
+                  <strong>[RK]-x-V-x-[FW] (0,) F-x-x-[RK]-x-[RK]</strong>:
+    no distance constraints are set between motif [RK]-X-V-X-[FW] and motif F-X-X-[RK]-X-[RK]</li>
+                <li>
+                  <strong>[RK]-x-V-x-[FW] (5,15) F-X-X-[RK]-X-[RK]</strong>:
+            motif [RK]-X-V-X-[FW] and motif F-X-X-[RK]-X-[RK] should be separated by a gap
+            whose length is longer or equal to 5 and shorter or equal to 15.</li>
+              </ul>
+            </div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>overlapping</name>
+      <prompt lang="en">Allows motifs from pattern to be overlapping (-i)</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -i" : ""</code>
+        <code proglang="python">("", " -i")[ value ]</code>
+      </format>
+      <argpos>2</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Allows motifs from pattern to be overlapping (-i)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="overlapping">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="overlapping"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>reverse</name>
+      <prompt lang="en">Searches motifs in ordered and reverse search order, conserving the distance constraints (-r)</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -r" : ""</code>
+        <code proglang="python">("", " -r")[ value ]</code>
+      </format>
+      <argpos>2</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Searches motifs in ordered and reverse search order, conserving the distance constraints (-r)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="reverse">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="reverse"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"sig.out"</code>
+        <code proglang="python">"sig.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"sig.err"</code>
+        <code proglang="python">"sig.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

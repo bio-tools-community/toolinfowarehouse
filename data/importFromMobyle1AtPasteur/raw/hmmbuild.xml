@@ -1,0 +1,1954 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>hmmbuild</name>
+    <package xml:base="Entities/hmmer_package.xml">
+      <name>hmmer</name>
+      <version>3.0</version>
+      <doc>
+        <title>hmmer</title>
+        <description>
+          <text lang="en">HMMER is an implementation of profile HMM methods for sensitive
+        database searches using multiple sequence alignments as queries.</text>
+        </description>
+        <homepagelink>http://hmmer.janelia.org/</homepagelink>
+        <sourcelink>ftp://selab.janelia.org/pub/software/hmmer3/</sourcelink>
+        <authors>S. Eddy</authors>
+        <reference>Eddy, S. R. (1998). Profile hidden Markov models. Bioinformatics, 14:755-763.</reference>
+        <reference>Eddy, S. R. (2008). A probabilistic model of local sequence alignment that simplifies statistical significance
+estimation. PLoS Comput. Biol., 4:e1000069</reference>
+        <doclink>http://bioweb2.pasteur.fr/docs/hmmer/Userguide.pdf</doclink>
+      </doc>
+    </package>
+    <doc>
+      <title>HMMBUILD</title>
+      <description>
+        <text lang="en">Build a profile HMM from an input multiple alignment</text>
+      </description>
+    </doc>
+    <command>hmmbuild</command>
+    <category>hmm:building</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="STOCKHOLM " data-parametername="alignfile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Aligned sequences File</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alignfile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alphabet">Forcing an alphabet in input alignment<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698849056::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alphabet">
+          <xhtml:option value="null" selected="selected">Autodetection</xhtml:option>
+          <xhtml:option value="--amino">Protein</xhtml:option>
+          <xhtml:option value="--dna">DNA</xhtml:option>
+          <xhtml:option value="--rna">RNA</xhtml:option>
+        </xhtml:select>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698849056::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</xhtml:div>
+          <xhtml:div>Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</xhtml:div>
+          <xhtml:div>DNA: Specify that all sequences in seqfile are DNAs.</xhtml:div>
+          <xhtml:div>RNA: Specify that all sequences in seqfile are RNAs.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hmmname">Name the HMM (-n)<xhtml:a href="#idm140117700470640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="hmmname" type="text" value=""/>
+            <xhtml:div id="idm140117700470640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Name the new profile. The default is to use the name of the alignment (if one
+          is present in the msafile, or, failing that, the name of the hmmfile. If msafile contains
+          more than one alignment, -n doesn't work, and every alignment must have a name
+          annotated in the msafile (as in Stockholm #=GF ID annotation).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="re_save">Re_save annotated, possibly modified MSA to 'file', in Stockholm format. (-O)<xhtml:a href="#idm140117699041136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="re_save" type="text" value=""/>
+            <xhtml:div id="idm140117699041136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>After each model is constructed, resave annotated, possibly modified source alignments
+            to a file in Stockholm format. The alignments are annotated with a
+            reference annotation line indicating which columns were assigned as consensus,
+            and sequences are annotated with what relative sequence weights were assigned.
+            Some residues of the alignment may have been shifted to accommodate restrictions
+            of the Plan7 profile architecture, which disallows transitions between insert
+            and delete states..
+            </xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="AlternativeConstruction">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Alternative model construction strategies<xhtml:a href="#idm140117700458608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700458608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>These options control how consensus columns are defined in an alignment.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fast">Quickly and heuristically determine the architecture of the model (fast)
+          <xhtml:a href="#idm140117699607904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="fast">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117699607904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Define consensus columns as those that have a fraction &gt;= symfrac of residues
+            as opposed to gaps. (See the --symfrac option.) This is the default.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="symfrac">Sets sym fraction controlling for the --fast model construction algorithm, (symfrac) <xhtml:a href="#idm140117699796528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="symfrac" type="text" value="0.5"/>
+            <xhtml:div id="idm140117699796528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. Define the residue fraction threshold necessary 
+              to define a consensus column
+              when using the --fast option. The default is 0.5. The symbol fraction in each
+              column is calculated after taking relative sequence weighting into account, and ignoring
+              gap characters corresponding to ends of sequence fragments (as opposed
+              to internal insertions/deletions). 
+              Setting this to 0.0 means that every alignment column will be assigned
+			  as consensus, which may be useful in some cases. Setting it to 1.0
+	          means that only columns that have no gap characters at all will be
+              assigned as consensus.
+              </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fragthresh">Tag sequence as a fragment, (fragthresh)<xhtml:a href="#idm140117698304352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="fragthresh" type="text" value="0.5"/>
+            <xhtml:div id="idm140117698304352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. We only want to count terminal gaps as deletions if the aligned sequence is known
+           to be full-length, not if it is a fragment (for instance, because only part of it was
+           sequenced). HMMER uses a simple rule to infer fragments: if the sequence length
+           L is less than a fraction x times the mean sequence length of all the sequences
+           in the alignment, then the sequence is handled as a fragment. The default is 0.5.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="advanced">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Advanced options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="wpb" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="relativeWeight">Alternative relative sequence weighting strategies<xhtml:a href="#idm140117700225376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="relativeWeight">
+              <xhtml:option value="wpb" selected="selected">Henikoff position-based weighting scheme (wpb)</xhtml:option>
+              <xhtml:option value="wgsc">Gerstein/Sonnhammer/Chothia ad hoc sequence weighting algorithm (wgsc)</xhtml:option>
+              <xhtml:option value="wblosum">BLOSUM filtering algorithm to weight the sequences (wblosum)</xhtml:option>
+              <xhtml:option value="wnone">Turn off all sequence weighting (wnone)</xhtml:option>
+              <xhtml:option value="infoWgiven">Personal weights in file. Give file in next parameter</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117700225376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>HMMER uses an ad hoc sequence weighting algorithm to downweight closely related sequences and upweight
+          distantly related ones. This has the effect of making models less biased by uneven phylogenetic
+          representation. For example, two identical sequences would typically each receive half the weight that one
+          sequence would. These options control which algorithm gets used.</xhtml:div>
+              <xhtml:div>wnp: Use the Henikoff position-based sequence weighting scheme [Henikoff and Henikoff,
+          J. Mol. Biol. 243:574, 1994]. This is the default.</xhtml:div>
+              <xhtml:div>wgsc: Use the Gerstein/Sonnhammer/Chothia weighting algorithm [Gerstein et al, J. Mol.
+          Biol. 235:1067, 1994].</xhtml:div>
+              <xhtml:div>wblosum: Use the same clustering scheme that was used to weight data in calculating BLOSUM
+          subsitution matrices [Henikoff and Henikoff, Proc. Natl. Acad. Sci 89:10915,
+          1992]. Sequences are single-linkage clustered at an identity threshold (default
+          0.62; see --wid) and within each cluster of c sequences, each sequence gets relative
+          weight 1/c.</xhtml:div>
+              <xhtml:div>wnone: No relative weights. All sequences are assigned uniform weight
+            </xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="MSAFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="wgiven">
+            <legend>Personal weights in file </legend>
+            <xhtml:textarea name="wgiven" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.62" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wid">Set identity cutoff for BLOSUM filtering algorithm option (wid)<xhtml:a href="#idm140117698645344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="wid" type="text" value="0.62"/>
+            <xhtml:div id="idm140117698645344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the identity threshold used by single-linkage clustering when using --wblosum.
+            Invalid with any other weighting scheme. Default is 0.62. Enter a value &gt;= 0 and &lt;= 1 </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="--eent" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="effectiveWeight">Alternate effective sequence weighting strategies<xhtml:a href="#idm140117699008208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="effectiveWeight">
+              <xhtml:option value="--eent" selected="selected">Adjust effective sequence weighting to achieve relative entropy target (eent)</xhtml:option>
+              <xhtml:option value="--eclust">Effective sequence weighting is weighting of single linkage clusters (eclust)</xhtml:option>
+              <xhtml:option value="--enone">No effective sequence weighting: just use number of sequence (enone)</xhtml:option>
+              <xhtml:option value="turnOff">Personal setting of effective sequence weighting for all models to value</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117699008208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>After relative weights are determined, they are normalized to sum to a total effective sequence number,
+eff nseq. This number may be the actual number of sequences in the alignment, but it is almost always
+smaller than that. The default entropy weighting method (--eent) reduces the effective sequence number
+to reduce the information content (relative entropy, or average expected score on true homologs) per
+consensus position. The target relative entropy is controlled by a two-parameter function, where the two
+parameters are settable with --ere and --esigma.</xhtml:div>
+              <xhtml:div>--eent: Adjust effective sequence number to achieve a specific relative entropy per position
+(see --ere). This is the default.</xhtml:div>
+              <xhtml:div>--eclust: Set effective sequence number to the number of single-linkage clusters at a specific
+identity threshold (see --eid). This option is not recommended; it's for experiments
+evaluating how much better --eent is.</xhtml:div>
+              <xhtml:div>--enone: Turn off effective sequence number determination and just use the actual number
+of sequences. One reason you might want to do this is to try to maximize the
+relative entropy/position of your model, which may be useful for short models</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eset">Set personal effective sequence weighting for all models to value (eset)<xhtml:a href="#idm140117698307248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="eset" type="text" value=""/>
+            <xhtml:div id="idm140117698307248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Explicitly set the effective sequence number for all models to value</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ere">For personal adjustment of effective sequence weighting: set minimum relative entropy/position to value (ere)<xhtml:a href="#idm140117698834544::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="ere" type="text" value=""/>
+            <xhtml:div id="idm140117698834544::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the minimum relative entropy/position target to value. Requires --eent. Default
+              depends on the sequence alphabet; for protein sequences, it is 0.59 bits/position.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="45.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="esigma">For personal adjustment of effective sequence weighting: set sigma parameter to value (esigma)<xhtml:a href="#idm140117698123360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="esigma" type="text" value="45.0"/>
+            <xhtml:div id="idm140117698123360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the minimum relative entropy contributed by an entire model alignment, over
+            its whole length. This has the effect of making short models have higher relative
+            entropy per position than --ere alone would give. The default is 45.0 bits.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.62" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eid">For single linkage clustering: set fractional identity cutoff to value (eid)<xhtml:a href="#idm140117698058640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="eid" type="text" value="0.62"/>
+            <xhtml:div id="idm140117698058640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. Sets the fractional pairwise identity cutoff used 
+           by single linkage clustering with the --eclust option. The default is 0.62.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="ECalibration">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control of E-value calibration<xhtml:a href="#idm140117698141488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698141488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The location parameters for the expected score distributions for MSV filter scores, 
+        Viterbi filter scores, and Forward scores require three short random sequence simulations.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EmL">Lengt of sequences for MSV Gumbel mu fit (EmL)<xhtml:a href="#idm140117698137584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EmL" type="text" value="200"/>
+            <xhtml:div id="idm140117698137584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for MSV filter E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EmN">Number of sequences for MSV Gumbel mu fit (EmN)<xhtml:a href="#idm140117698334592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EmN" type="text" value="200"/>
+            <xhtml:div id="idm140117698334592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for MSV filter E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EvL">Lengt of sequences for Viterbi Gumbel mu fit (EvL)<xhtml:a href="#idm140117698321296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EvL" type="text" value="200"/>
+            <xhtml:div id="idm140117698321296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for Viterbi filter E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EvN">Number of sequences for Viterbi Gumbel mu fit (EvN)<xhtml:a href="#idm140117698108560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EvN" type="text" value="200"/>
+            <xhtml:div id="idm140117698108560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for Viterbi filter E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EfL">Lengt of sequences for Forward exp tail tau fit (EfL)<xhtml:a href="#idm140117698095296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EfL" type="text" value="100"/>
+            <xhtml:div id="idm140117698095296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter tau
+for Forward E-values. Default is 100.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EfN">Number of sequences for Forward exp tail tau fit (EfN)<xhtml:a href="#idm140117698082032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EfN" type="text" value="200"/>
+            <xhtml:div id="idm140117698082032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+tau for Forward E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.04" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Eft">Tail mass for Forward exponential tail tau fit (Eft)<xhtml:a href="#idm140117698068768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="Eft" type="text" value="0.04"/>
+            <xhtml:div id="idm140117698068768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0 and &lt; 1. Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+tau for Forward evalues. Default is 0.04.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="other">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Other options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="42" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed">Set random number seed  (seed)<xhtml:a href="#idm140117697980720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="seed" type="text" value="42"/>
+            <xhtml:div id="idm140117697980720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+            any stochastic simulations will be reproducible; the same command will give the
+            same results. If the number is 0, the random number generator is seeded arbitrarily, and
+            stochastic simulations will vary from run to run of the same command. The default
+            seed is 42.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="laplace">Use a Laplace +1 prior<xhtml:select name="laplace">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alignfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="STOCKHOLM ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alphabet" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698849056::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698849056::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</xhtml:div>
+          <xhtml:div>Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</xhtml:div>
+          <xhtml:div>DNA: Specify that all sequences in seqfile are DNAs.</xhtml:div>
+          <xhtml:div>RNA: Specify that all sequences in seqfile are RNAs.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmm_textfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmmname" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700470640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700470640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Name the new profile. The default is to use the name of the alignment (if one
+          is present in the msafile, or, failing that, the name of the hmmfile. If msafile contains
+          more than one alignment, -n doesn't work, and every alignment must have a name
+          annotated in the msafile (as in Stockholm #=GF ID annotation).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="re_save" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699041136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699041136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>After each model is constructed, resave annotated, possibly modified source alignments
+            to a file in Stockholm format. The alignments are annotated with a
+            reference annotation line indicating which columns were assigned as consensus,
+            and sequences are annotated with what relative sequence weights were assigned.
+            Some residues of the alignment may have been shifted to accommodate restrictions
+            of the Plan7 profile architecture, which disallows transitions between insert
+            and delete states..
+            </xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="AlternativeConstruction">
+        <xhtml:legend>Alternative model construction strategies</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fast" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699607904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699607904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Define consensus columns as those that have a fraction &gt;= symfrac of residues
+            as opposed to gaps. (See the --symfrac option.) This is the default.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="symfrac" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699796528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699796528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. Define the residue fraction threshold necessary 
+              to define a consensus column
+              when using the --fast option. The default is 0.5. The symbol fraction in each
+              column is calculated after taking relative sequence weighting into account, and ignoring
+              gap characters corresponding to ends of sequence fragments (as opposed
+              to internal insertions/deletions). 
+              Setting this to 0.0 means that every alignment column will be assigned
+			  as consensus, which may be useful in some cases. Setting it to 1.0
+	          means that only columns that have no gap characters at all will be
+              assigned as consensus.
+              </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fragthresh" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698304352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698304352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. We only want to count terminal gaps as deletions if the aligned sequence is known
+           to be full-length, not if it is a fragment (for instance, because only part of it was
+           sequenced). HMMER uses a simple rule to infer fragments: if the sequence length
+           L is less than a fraction x times the mean sequence length of all the sequences
+           in the alignment, then the sequence is handled as a fragment. The default is 0.5.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="advanced">
+        <xhtml:legend>Advanced options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="relativeWeight" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="wpb" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700225376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700225376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>HMMER uses an ad hoc sequence weighting algorithm to downweight closely related sequences and upweight
+          distantly related ones. This has the effect of making models less biased by uneven phylogenetic
+          representation. For example, two identical sequences would typically each receive half the weight that one
+          sequence would. These options control which algorithm gets used.</xhtml:div>
+              <xhtml:div>wnp: Use the Henikoff position-based sequence weighting scheme [Henikoff and Henikoff,
+          J. Mol. Biol. 243:574, 1994]. This is the default.</xhtml:div>
+              <xhtml:div>wgsc: Use the Gerstein/Sonnhammer/Chothia weighting algorithm [Gerstein et al, J. Mol.
+          Biol. 235:1067, 1994].</xhtml:div>
+              <xhtml:div>wblosum: Use the same clustering scheme that was used to weight data in calculating BLOSUM
+          subsitution matrices [Henikoff and Henikoff, Proc. Natl. Acad. Sci 89:10915,
+          1992]. Sequences are single-linkage clustered at an identity threshold (default
+          0.62; see --wid) and within each cluster of c sequences, each sequence gets relative
+          weight 1/c.</xhtml:div>
+              <xhtml:div>wnone: No relative weights. All sequences are assigned uniform weight
+            </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="wgiven" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="MSAFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(MSAFile)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="wid" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.62" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698645344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698645344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the identity threshold used by single-linkage clustering when using --wblosum.
+            Invalid with any other weighting scheme. Default is 0.62. Enter a value &gt;= 0 and &lt;= 1 </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="effectiveWeight" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="--eent" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699008208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699008208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>After relative weights are determined, they are normalized to sum to a total effective sequence number,
+eff nseq. This number may be the actual number of sequences in the alignment, but it is almost always
+smaller than that. The default entropy weighting method (--eent) reduces the effective sequence number
+to reduce the information content (relative entropy, or average expected score on true homologs) per
+consensus position. The target relative entropy is controlled by a two-parameter function, where the two
+parameters are settable with --ere and --esigma.</xhtml:div>
+              <xhtml:div>--eent: Adjust effective sequence number to achieve a specific relative entropy per position
+(see --ere). This is the default.</xhtml:div>
+              <xhtml:div>--eclust: Set effective sequence number to the number of single-linkage clusters at a specific
+identity threshold (see --eid). This option is not recommended; it's for experiments
+evaluating how much better --eent is.</xhtml:div>
+              <xhtml:div>--enone: Turn off effective sequence number determination and just use the actual number
+of sequences. One reason you might want to do this is to try to maximize the
+relative entropy/position of your model, which may be useful for short models</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="eset" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698307248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698307248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Explicitly set the effective sequence number for all models to value</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ere" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698834544::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698834544::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the minimum relative entropy/position target to value. Requires --eent. Default
+              depends on the sequence alphabet; for protein sequences, it is 0.59 bits/position.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="esigma" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="45.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698123360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698123360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the minimum relative entropy contributed by an entire model alignment, over
+            its whole length. This has the effect of making short models have higher relative
+            entropy per position than --ere alone would give. The default is 45.0 bits.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="eid" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.62" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698058640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698058640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. Sets the fractional pairwise identity cutoff used 
+           by single linkage clustering with the --eclust option. The default is 0.62.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="ECalibration">
+        <xhtml:legend>Control of E-value calibration</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EmL" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698137584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698137584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for MSV filter E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EmN" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698334592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698334592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for MSV filter E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EvL" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698321296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698321296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for Viterbi filter E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EvN" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698108560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698108560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for Viterbi filter E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EfL" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698095296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698095296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter tau
+for Forward E-values. Default is 100.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EfN" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698082032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698082032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+tau for Forward E-values. Default is 200.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Eft" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.04" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698068768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698068768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Enter a value &gt; 0 and &lt; 1. Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+tau for Forward evalues. Default is 0.04.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="other">
+        <xhtml:legend>Other options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seed" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="42" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697980720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697980720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+            any stochastic simulations will be reproducible; the same command will give the
+            same results. If the number is 0, the random number generator is seeded arbitrarily, and
+            stochastic simulations will vary from run to run of the same command. The default
+            seed is 42.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="laplace" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmmfile_res" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="HMMER3 ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(HmmProfile)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="re_save_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="STOCKHOLM ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>alignfile</name>
+      <prompt lang="en">Aligned sequences File</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>STOCKHOLM</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <argpos>30</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Aligned sequences File</xhtml:legend>
+          <xhtml:textarea name="alignfile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="STOCKHOLM " data-parametername="alignfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>alphabet</name>
+      <prompt lang="en">Forcing an alphabet in input alignment</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>null</value>
+          <label>Autodetection</label>
+        </velem>
+        <velem>
+          <value>--amino</value>
+          <label>Protein</label>
+        </velem>
+        <velem>
+          <value>--dna</value>
+          <label>DNA</label>
+        </velem>
+        <velem>
+          <value>--rna</value>
+          <label>RNA</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">(defined $value and $value ne $vdef)? " $value" : ""</code>
+        <code proglang="python">("", " " + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <comment>
+        <text lang="en">The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</text>
+        <text lang="en">Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</text>
+        <text lang="en">DNA: Specify that all sequences in seqfile are DNAs.</text>
+        <text lang="en">RNA: Specify that all sequences in seqfile are RNAs.</text>
+      </comment>
+      <argpos>2</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Forcing an alphabet in input alignment<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698849056::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alphabet">
+            <xhtml:option value="null" selected="selected">Autodetection</xhtml:option>
+            <xhtml:option value="--amino">Protein</xhtml:option>
+            <xhtml:option value="--dna">DNA</xhtml:option>
+            <xhtml:option value="--rna">RNA</xhtml:option>
+          </xhtml:select>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698849056::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</xhtml:div>
+            <xhtml:div>Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</xhtml:div>
+            <xhtml:div>DNA: Specify that all sequences in seqfile are DNAs.</xhtml:div>
+            <xhtml:div>RNA: Specify that all sequences in seqfile are RNAs.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alphabet">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698849056::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698849056::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</xhtml:div>
+            <xhtml:div>Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</xhtml:div>
+            <xhtml:div>DNA: Specify that all sequences in seqfile are DNAs.</xhtml:div>
+            <xhtml:div>RNA: Specify that all sequences in seqfile are RNAs.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>hmm_textfile</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $alignfile.hmm"</code>
+        <code proglang="python">" " + str(alignfile) + ".hmm"</code>
+      </format>
+      <argpos>20</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hmm_textfile"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>output_options</name>
+      <prompt lang="en">Output options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>hmmname</name>
+          <prompt lang="en">Name the HMM (-n)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -n $value" : ""</code>
+            <code proglang="python">( "" , " -n " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Name the new profile. The default is to use the name of the alignment (if one
+          is present in the msafile, or, failing that, the name of the hmmfile. If msafile contains
+          more than one alignment, -n doesn't work, and every alignment must have a name
+          annotated in the msafile (as in Stockholm #=GF ID annotation).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name the HMM (-n)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700470640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="hmmname" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700470640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Name the new profile. The default is to use the name of the alignment (if one
+          is present in the msafile, or, failing that, the name of the hmmfile. If msafile contains
+          more than one alignment, -n doesn't work, and every alignment must have a name
+          annotated in the msafile (as in Stockholm #=GF ID annotation).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hmmname">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700470640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700470640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Name the new profile. The default is to use the name of the alignment (if one
+          is present in the msafile, or, failing that, the name of the hmmfile. If msafile contains
+          more than one alignment, -n doesn't work, and every alignment must have a name
+          annotated in the msafile (as in Stockholm #=GF ID annotation).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <!--<parameter>
+          <name>save</name>
+          <prompt lang="en">Direct summary output to file, not stdout. (-o)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">($value)? " -o $value" : ""</code>
+            <code proglang="python">( "" , " -o " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+         
+        </parameter>
+        -->
+        <parameter>
+          <name>re_save</name>
+          <prompt lang="en">Re_save annotated, possibly modified MSA to 'file', in Stockholm format. (-O)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -O $value" : ""</code>
+            <code proglang="python">( "" , " -O " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">After each model is constructed, resave annotated, possibly modified source alignments
+            to a file in Stockholm format. The alignments are annotated with a
+            reference annotation line indicating which columns were assigned as consensus,
+            and sequences are annotated with what relative sequence weights were assigned.
+            Some residues of the alignment may have been shifted to accommodate restrictions
+            of the Plan7 profile architecture, which disallows transitions between insert
+            and delete states..
+            </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Re_save annotated, possibly modified MSA to 'file', in Stockholm format. (-O)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699041136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="re_save" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699041136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>After each model is constructed, resave annotated, possibly modified source alignments
+            to a file in Stockholm format. The alignments are annotated with a
+            reference annotation line indicating which columns were assigned as consensus,
+            and sequences are annotated with what relative sequence weights were assigned.
+            Some residues of the alignment may have been shifted to accommodate restrictions
+            of the Plan7 profile architecture, which disallows transitions between insert
+            and delete states..
+            </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="re_save">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699041136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699041136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>After each model is constructed, resave annotated, possibly modified source alignments
+            to a file in Stockholm format. The alignments are annotated with a
+            reference annotation line indicating which columns were assigned as consensus,
+            and sequences are annotated with what relative sequence weights were assigned.
+            Some residues of the alignment may have been shifted to accommodate restrictions
+            of the Plan7 profile architecture, which disallows transitions between insert
+            and delete states..
+            </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>AlternativeConstruction</name>
+      <prompt lang="en">Alternative model construction strategies</prompt>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">These options control how consensus columns are defined in an alignment.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>fast</name>
+          <prompt lang="en">Quickly and heuristically determine the architecture of the model (fast)
+          </prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --fast" : ""</code>
+            <code proglang="python">( "" , " --fast" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Define consensus columns as those that have a fraction &gt;= symfrac of residues
+            as opposed to gaps. (See the --symfrac option.) This is the default.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Quickly and heuristically determine the architecture of the model (fast)
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699607904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="fast">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699607904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Define consensus columns as those that have a fraction &gt;= symfrac of residues
+            as opposed to gaps. (See the --symfrac option.) This is the default.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fast">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699607904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699607904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Define consensus columns as those that have a fraction &gt;= symfrac of residues
+            as opposed to gaps. (See the --symfrac option.) This is the default.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>symfrac</name>
+          <prompt lang="en">Sets sym fraction controlling for the --fast model construction algorithm, (symfrac) </prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$fast</code>
+            <code proglang="python">fast </code>
+          </precond>
+          <vdef>
+            <value>0.5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --symfrac $value" : ""</code>
+            <code proglang="python">( "" , " --symfrac " + str(value) )[ value is not None and value !=vdef ]
+            </code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt;= 0 and &lt;= 1. Define the residue fraction threshold necessary 
+              to define a consensus column
+              when using the --fast option. The default is 0.5. The symbol fraction in each
+              column is calculated after taking relative sequence weighting into account, and ignoring
+              gap characters corresponding to ends of sequence fragments (as opposed
+              to internal insertions/deletions). 
+              Setting this to 0.0 means that every alignment column will be assigned
+			  as consensus, which may be useful in some cases. Setting it to 1.0
+	          means that only columns that have no gap characters at all will be
+              assigned as consensus.
+              </text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt;= 0 and &lt;= 1</text>
+            </message>
+            <code proglang="perl">0 &lt;= $value &lt;= 1 </code>
+            <code proglang="python">0 &lt;= value &lt;= 1 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Sets sym fraction controlling for the --fast model construction algorithm, (symfrac) <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699796528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="symfrac" type="text" value="0.5"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699796528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. Define the residue fraction threshold necessary 
+              to define a consensus column
+              when using the --fast option. The default is 0.5. The symbol fraction in each
+              column is calculated after taking relative sequence weighting into account, and ignoring
+              gap characters corresponding to ends of sequence fragments (as opposed
+              to internal insertions/deletions). 
+              Setting this to 0.0 means that every alignment column will be assigned
+			  as consensus, which may be useful in some cases. Setting it to 1.0
+	          means that only columns that have no gap characters at all will be
+              assigned as consensus.
+              </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="symfrac">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699796528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699796528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. Define the residue fraction threshold necessary 
+              to define a consensus column
+              when using the --fast option. The default is 0.5. The symbol fraction in each
+              column is calculated after taking relative sequence weighting into account, and ignoring
+              gap characters corresponding to ends of sequence fragments (as opposed
+              to internal insertions/deletions). 
+              Setting this to 0.0 means that every alignment column will be assigned
+			  as consensus, which may be useful in some cases. Setting it to 1.0
+	          means that only columns that have no gap characters at all will be
+              assigned as consensus.
+              </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>fragthresh</name>
+          <prompt lang="en">Tag sequence as a fragment, (fragthresh)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value  and $value != $vdef) ? " --fragthresh $value" : ""</code>
+            <code proglang="python">( "" , " --fragthresh " + str(value) )[ value is not None and value !=vdef ] </code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt;= 0 and &lt;= 1. We only want to count terminal gaps as deletions if the aligned sequence is known
+           to be full-length, not if it is a fragment (for instance, because only part of it was
+           sequenced). HMMER uses a simple rule to infer fragments: if the sequence length
+           L is less than a fraction x times the mean sequence length of all the sequences
+           in the alignment, then the sequence is handled as a fragment. The default is 0.5.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt;= 0 and &lt;= 1</text>
+            </message>
+            <code proglang="perl">0 &lt;= $value &lt;= 1 </code>
+            <code proglang="python">0 &lt;= value &lt;= 1 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Tag sequence as a fragment, (fragthresh)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698304352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="fragthresh" type="text" value="0.5"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698304352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. We only want to count terminal gaps as deletions if the aligned sequence is known
+           to be full-length, not if it is a fragment (for instance, because only part of it was
+           sequenced). HMMER uses a simple rule to infer fragments: if the sequence length
+           L is less than a fraction x times the mean sequence length of all the sequences
+           in the alignment, then the sequence is handled as a fragment. The default is 0.5.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fragthresh">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698304352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698304352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. We only want to count terminal gaps as deletions if the aligned sequence is known
+           to be full-length, not if it is a fragment (for instance, because only part of it was
+           sequenced). HMMER uses a simple rule to infer fragments: if the sequence length
+           L is less than a fraction x times the mean sequence length of all the sequences
+           in the alignment, then the sequence is handled as a fragment. The default is 0.5.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>advanced</name>
+      <prompt lang="en">Advanced options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>relativeWeight</name>
+          <prompt lang="en">Alternative relative sequence weighting strategies</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>wpb</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>wpb</value>
+              <label>Henikoff position-based weighting scheme (wpb)</label>
+            </velem>
+            <velem>
+              <value>wgsc</value>
+              <label>Gerstein/Sonnhammer/Chothia ad hoc sequence weighting algorithm (wgsc)</label>
+            </velem>
+            <velem>
+              <value>wblosum</value>
+              <label>BLOSUM filtering algorithm to weight the sequences (wblosum)</label>
+            </velem>
+            <velem>
+              <value>wnone</value>
+              <label>Turn off all sequence weighting (wnone)</label>
+            </velem>
+            <velem>
+              <value>infoWgiven</value>
+              <label>Personal weights in file. Give file in next parameter</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value ne $vdef and $value ne 'infoWgiven') ? " --$value" : ""</code>
+            <code proglang="python">( "" , ' --'+ str(value) )[ value != vdef and value != 'infoWgiven' ]</code>
+          </format>
+          <comment>
+            <text lang="en">HMMER uses an ad hoc sequence weighting algorithm to downweight closely related sequences and upweight
+          distantly related ones. This has the effect of making models less biased by uneven phylogenetic
+          representation. For example, two identical sequences would typically each receive half the weight that one
+          sequence would. These options control which algorithm gets used.</text>
+            <text lang="en">wnp: Use the Henikoff position-based sequence weighting scheme [Henikoff and Henikoff,
+          J. Mol. Biol. 243:574, 1994]. This is the default.</text>
+            <text lang="en">wgsc: Use the Gerstein/Sonnhammer/Chothia weighting algorithm [Gerstein et al, J. Mol.
+          Biol. 235:1067, 1994].</text>
+            <text lang="en">wblosum: Use the same clustering scheme that was used to weight data in calculating BLOSUM
+          subsitution matrices [Henikoff and Henikoff, Proc. Natl. Acad. Sci 89:10915,
+          1992]. Sequences are single-linkage clustered at an identity threshold (default
+          0.62; see --wid) and within each cluster of c sequences, each sequence gets relative
+          weight 1/c.</text>
+            <text lang="en">wnone: No relative weights. All sequences are assigned uniform weight
+            </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alternative relative sequence weighting strategies<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700225376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="relativeWeight">
+                <xhtml:option value="wpb" selected="selected">Henikoff position-based weighting scheme (wpb)</xhtml:option>
+                <xhtml:option value="wgsc">Gerstein/Sonnhammer/Chothia ad hoc sequence weighting algorithm (wgsc)</xhtml:option>
+                <xhtml:option value="wblosum">BLOSUM filtering algorithm to weight the sequences (wblosum)</xhtml:option>
+                <xhtml:option value="wnone">Turn off all sequence weighting (wnone)</xhtml:option>
+                <xhtml:option value="infoWgiven">Personal weights in file. Give file in next parameter</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700225376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>HMMER uses an ad hoc sequence weighting algorithm to downweight closely related sequences and upweight
+          distantly related ones. This has the effect of making models less biased by uneven phylogenetic
+          representation. For example, two identical sequences would typically each receive half the weight that one
+          sequence would. These options control which algorithm gets used.</xhtml:div>
+                <xhtml:div>wnp: Use the Henikoff position-based sequence weighting scheme [Henikoff and Henikoff,
+          J. Mol. Biol. 243:574, 1994]. This is the default.</xhtml:div>
+                <xhtml:div>wgsc: Use the Gerstein/Sonnhammer/Chothia weighting algorithm [Gerstein et al, J. Mol.
+          Biol. 235:1067, 1994].</xhtml:div>
+                <xhtml:div>wblosum: Use the same clustering scheme that was used to weight data in calculating BLOSUM
+          subsitution matrices [Henikoff and Henikoff, Proc. Natl. Acad. Sci 89:10915,
+          1992]. Sequences are single-linkage clustered at an identity threshold (default
+          0.62; see --wid) and within each cluster of c sequences, each sequence gets relative
+          weight 1/c.</xhtml:div>
+                <xhtml:div>wnone: No relative weights. All sequences are assigned uniform weight
+            </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="wpb" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="relativeWeight">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700225376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700225376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>HMMER uses an ad hoc sequence weighting algorithm to downweight closely related sequences and upweight
+          distantly related ones. This has the effect of making models less biased by uneven phylogenetic
+          representation. For example, two identical sequences would typically each receive half the weight that one
+          sequence would. These options control which algorithm gets used.</xhtml:div>
+                <xhtml:div>wnp: Use the Henikoff position-based sequence weighting scheme [Henikoff and Henikoff,
+          J. Mol. Biol. 243:574, 1994]. This is the default.</xhtml:div>
+                <xhtml:div>wgsc: Use the Gerstein/Sonnhammer/Chothia weighting algorithm [Gerstein et al, J. Mol.
+          Biol. 235:1067, 1994].</xhtml:div>
+                <xhtml:div>wblosum: Use the same clustering scheme that was used to weight data in calculating BLOSUM
+          subsitution matrices [Henikoff and Henikoff, Proc. Natl. Acad. Sci 89:10915,
+          1992]. Sequences are single-linkage clustered at an identity threshold (default
+          0.62; see --wid) and within each cluster of c sequences, each sequence gets relative
+          weight 1/c.</xhtml:div>
+                <xhtml:div>wnone: No relative weights. All sequences are assigned uniform weight
+            </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>wgiven</name>
+          <prompt lang="en">Personal weights in file </prompt>
+          <type>
+            <datatype>
+              <class>MSAFile</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$relativeWeight eq 'infoWgiven'</code>
+            <code proglang="python">relativeWeight == 'infoWgiven'</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " --wgiven $value" : ""  </code>
+            <code proglang="python">("", "--wgiven " + str( value ))[value is not None] </code>
+          </format>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Personal weights in file </xhtml:legend>
+              <xhtml:textarea name="wgiven" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="MSAFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="wgiven">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(MSAFile)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>wid</name>
+          <prompt lang="en">Set identity cutoff for BLOSUM filtering algorithm option (wid)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$wblosum eq 'wblosum' and not $eset</code>
+            <code proglang="python">relativeWeight == 'wblosum' and not eset</code>
+          </precond>
+          <vdef>
+            <value>0.62</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --wid $value" : ""</code>
+            <code proglang="python">("", " --wid " + str(value))[value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the identity threshold used by single-linkage clustering when using --wblosum.
+            Invalid with any other weighting scheme. Default is 0.62. Enter a value &gt;= 0 and &lt;= 1 </text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt;= 0 and &lt;= 1</text>
+            </message>
+            <code proglang="perl">0 &lt;= $value and $value &lt;= 1 </code>
+            <code proglang="python">0 &lt;= value and value &lt;= 1 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set identity cutoff for BLOSUM filtering algorithm option (wid)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698645344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="wid" type="text" value="0.62"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698645344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the identity threshold used by single-linkage clustering when using --wblosum.
+            Invalid with any other weighting scheme. Default is 0.62. Enter a value &gt;= 0 and &lt;= 1 </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.62" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wid">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698645344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698645344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the identity threshold used by single-linkage clustering when using --wblosum.
+            Invalid with any other weighting scheme. Default is 0.62. Enter a value &gt;= 0 and &lt;= 1 </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>effectiveWeight</name>
+          <prompt lang="en">Alternate effective sequence weighting strategies</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not $eset</code>
+            <code proglang="python">not eset</code>
+          </precond>
+          <vdef>
+            <value>--eent</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>--eent</value>
+              <label>Adjust effective sequence weighting to achieve relative entropy target (eent)</label>
+            </velem>
+            <velem>
+              <value>--eclust</value>
+              <label>Effective sequence weighting is weighting of single linkage clusters (eclust)</label>
+            </velem>
+            <velem>
+              <value>--enone</value>
+              <label>No effective sequence weighting: just use number of sequence (enone)</label>
+            </velem>
+            <velem>
+              <value>turnOff</value>
+              <label>Personal setting of effective sequence weighting for all models to value</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value ne $vdef and $value ne 'turnOff') ? " $value" : ""</code>
+            <code proglang="python">( "" , " " +str(value) )[ value != vdef and value != 'turnOff']</code>
+          </format>
+          <comment>
+            <text lang="en">After relative weights are determined, they are normalized to sum to a total effective sequence number,
+eff nseq. This number may be the actual number of sequences in the alignment, but it is almost always
+smaller than that. The default entropy weighting method (--eent) reduces the effective sequence number
+to reduce the information content (relative entropy, or average expected score on true homologs) per
+consensus position. The target relative entropy is controlled by a two-parameter function, where the two
+parameters are settable with --ere and --esigma.</text>
+            <text lang="en">--eent: Adjust effective sequence number to achieve a specific relative entropy per position
+(see --ere). This is the default.</text>
+            <text lang="en">--eclust: Set effective sequence number to the number of single-linkage clusters at a specific
+identity threshold (see --eid). This option is not recommended; it's for experiments
+evaluating how much better --eent is.</text>
+            <text lang="en">--enone: Turn off effective sequence number determination and just use the actual number
+of sequences. One reason you might want to do this is to try to maximize the
+relative entropy/position of your model, which may be useful for short models</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alternate effective sequence weighting strategies<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699008208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="effectiveWeight">
+                <xhtml:option value="--eent" selected="selected">Adjust effective sequence weighting to achieve relative entropy target (eent)</xhtml:option>
+                <xhtml:option value="--eclust">Effective sequence weighting is weighting of single linkage clusters (eclust)</xhtml:option>
+                <xhtml:option value="--enone">No effective sequence weighting: just use number of sequence (enone)</xhtml:option>
+                <xhtml:option value="turnOff">Personal setting of effective sequence weighting for all models to value</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699008208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>After relative weights are determined, they are normalized to sum to a total effective sequence number,
+eff nseq. This number may be the actual number of sequences in the alignment, but it is almost always
+smaller than that. The default entropy weighting method (--eent) reduces the effective sequence number
+to reduce the information content (relative entropy, or average expected score on true homologs) per
+consensus position. The target relative entropy is controlled by a two-parameter function, where the two
+parameters are settable with --ere and --esigma.</xhtml:div>
+                <xhtml:div>--eent: Adjust effective sequence number to achieve a specific relative entropy per position
+(see --ere). This is the default.</xhtml:div>
+                <xhtml:div>--eclust: Set effective sequence number to the number of single-linkage clusters at a specific
+identity threshold (see --eid). This option is not recommended; it's for experiments
+evaluating how much better --eent is.</xhtml:div>
+                <xhtml:div>--enone: Turn off effective sequence number determination and just use the actual number
+of sequences. One reason you might want to do this is to try to maximize the
+relative entropy/position of your model, which may be useful for short models</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="--eent" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="effectiveWeight">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699008208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699008208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>After relative weights are determined, they are normalized to sum to a total effective sequence number,
+eff nseq. This number may be the actual number of sequences in the alignment, but it is almost always
+smaller than that. The default entropy weighting method (--eent) reduces the effective sequence number
+to reduce the information content (relative entropy, or average expected score on true homologs) per
+consensus position. The target relative entropy is controlled by a two-parameter function, where the two
+parameters are settable with --ere and --esigma.</xhtml:div>
+                <xhtml:div>--eent: Adjust effective sequence number to achieve a specific relative entropy per position
+(see --ere). This is the default.</xhtml:div>
+                <xhtml:div>--eclust: Set effective sequence number to the number of single-linkage clusters at a specific
+identity threshold (see --eid). This option is not recommended; it's for experiments
+evaluating how much better --eent is.</xhtml:div>
+                <xhtml:div>--enone: Turn off effective sequence number determination and just use the actual number
+of sequences. One reason you might want to do this is to try to maximize the
+relative entropy/position of your model, which may be useful for short models</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>eset</name>
+          <prompt lang="en">Set personal effective sequence weighting for all models to value (eset)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$effectiveWeight eq 'turnOff'</code>
+            <code proglang="python">effectiveWeight == 'turnOff'</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " --eset $value" : ""</code>
+            <code proglang="python">( "" , " --eset " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Explicitly set the effective sequence number for all models to value</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set personal effective sequence weighting for all models to value (eset)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698307248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="eset" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698307248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Explicitly set the effective sequence number for all models to value</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eset">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698307248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698307248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Explicitly set the effective sequence number for all models to value</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ere</name>
+          <prompt lang="en">For personal adjustment of effective sequence weighting: set minimum relative entropy/position to value (ere)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$effectiveWeight eq "--eent"</code>
+            <code proglang="python">effectiveWeight == "--eent"</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " --ere $value" : ""</code>
+            <code proglang="python">( "" , " --ere " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the minimum relative entropy/position target to value. Requires --eent. Default
+              depends on the sequence alphabet; for protein sequences, it is 0.59 bits/position.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">For personal adjustment of effective sequence weighting: set minimum relative entropy/position to value (ere)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698834544::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ere" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698834544::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the minimum relative entropy/position target to value. Requires --eent. Default
+              depends on the sequence alphabet; for protein sequences, it is 0.59 bits/position.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ere">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698834544::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698834544::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the minimum relative entropy/position target to value. Requires --eent. Default
+              depends on the sequence alphabet; for protein sequences, it is 0.59 bits/position.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>esigma</name>
+          <prompt lang="en">For personal adjustment of effective sequence weighting: set sigma parameter to value (esigma)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$effectiveWeight eq "--eent"</code>
+            <code proglang="python">effectiveWeight == "--eent"</code>
+          </precond>
+          <vdef>
+            <value>45.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --esigma $value" : ""</code>
+            <code proglang="python">( "" , " --esigma " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the minimum relative entropy contributed by an entire model alignment, over
+            its whole length. This has the effect of making short models have higher relative
+            entropy per position than --ere alone would give. The default is 45.0 bits.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">For personal adjustment of effective sequence weighting: set sigma parameter to value (esigma)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698123360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="esigma" type="text" value="45.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698123360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the minimum relative entropy contributed by an entire model alignment, over
+            its whole length. This has the effect of making short models have higher relative
+            entropy per position than --ere alone would give. The default is 45.0 bits.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="45.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="esigma">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698123360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698123360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the minimum relative entropy contributed by an entire model alignment, over
+            its whole length. This has the effect of making short models have higher relative
+            entropy per position than --ere alone would give. The default is 45.0 bits.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>eid</name>
+          <prompt lang="en">For single linkage clustering: set fractional identity cutoff to value (eid)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$effectiveWeight eq "--eclust"  and not $eset</code>
+            <code proglang="python">effectiveWeight == "--eclust"  and not eset</code>
+          </precond>
+          <vdef>
+            <value>0.62</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --eid $value" : ""</code>
+            <code proglang="python">( "" , " --eid " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt;= 0 and &lt;= 1. Sets the fractional pairwise identity cutoff used 
+           by single linkage clustering with the --eclust option. The default is 0.62.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt;= 0 and &lt;= 1</text>
+            </message>
+            <code proglang="perl">0 &lt;= $value &lt;= 1 </code>
+            <code proglang="python">0 &lt;= value &lt;= 1 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">For single linkage clustering: set fractional identity cutoff to value (eid)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698058640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="eid" type="text" value="0.62"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698058640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. Sets the fractional pairwise identity cutoff used 
+           by single linkage clustering with the --eclust option. The default is 0.62.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.62" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eid">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698058640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698058640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt;= 0 and &lt;= 1. Sets the fractional pairwise identity cutoff used 
+           by single linkage clustering with the --eclust option. The default is 0.62.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>ECalibration</name>
+      <prompt lang="en">Control of E-value calibration</prompt>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">The location parameters for the expected score distributions for MSV filter scores, 
+        Viterbi filter scores, and Forward scores require three short random sequence simulations.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>EmL</name>
+          <prompt lang="en">Lengt of sequences for MSV Gumbel mu fit (EmL)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --EmL $value" : ""</code>
+            <code proglang="python">( "" , " --EmL " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for MSV filter E-values. Default is 200.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Lengt of sequences for MSV Gumbel mu fit (EmL)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698137584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EmL" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698137584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for MSV filter E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EmL">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698137584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698137584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for MSV filter E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EmN</name>
+          <prompt lang="en">Number of sequences for MSV Gumbel mu fit (EmN)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --EmN $value" : ""</code>
+            <code proglang="python">( "" , " --EmN " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for MSV filter E-values. Default is 200.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0. </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of sequences for MSV Gumbel mu fit (EmN)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698334592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EmN" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698334592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for MSV filter E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EmN">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698334592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698334592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for MSV filter E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EvL</name>
+          <prompt lang="en">Lengt of sequences for Viterbi Gumbel mu fit (EvL)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --EvL $value" : ""</code>
+            <code proglang="python">( "" , " --EvL " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for Viterbi filter E-values. Default is 200.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Lengt of sequences for Viterbi Gumbel mu fit (EvL)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698321296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EvL" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698321296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for Viterbi filter E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EvL">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698321296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698321296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter mu
+for Viterbi filter E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EvN</name>
+          <prompt lang="en">Number of sequences for Viterbi Gumbel mu fit (EvN)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --EvN $value" : ""</code>
+            <code proglang="python">( "" , " --EvN " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for Viterbi filter E-values. Default is 200.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0.</text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of sequences for Viterbi Gumbel mu fit (EvN)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698108560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EvN" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698108560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for Viterbi filter E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EvN">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698108560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698108560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+mu for Viterbi filter E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EfL</name>
+          <prompt lang="en">Lengt of sequences for Forward exp tail tau fit (EfL)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>100</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --EfL $value" : ""</code>
+            <code proglang="python">( "" , " --EfL " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter tau
+for Forward E-values. Default is 100.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Lengt of sequences for Forward exp tail tau fit (EfL)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698095296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EfL" type="text" value="100"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698095296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter tau
+for Forward E-values. Default is 100.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EfL">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698095296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698095296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the sequence length in simulation that estimates the location parameter tau
+for Forward E-values. Default is 100.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EfN</name>
+          <prompt lang="en">Number of sequences for Forward exp tail tau fit (EfN)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --EfN $value" : ""</code>
+            <code proglang="python">( "" , " --EfN " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+tau for Forward E-values. Default is 200.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of sequences for Forward exp tail tau fit (EfN)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698082032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EfN" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698082032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+tau for Forward E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EfN">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698082032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698082032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0. Sets the number of sequences in simulation that estimates the location parameter
+tau for Forward E-values. Default is 200.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Eft</name>
+          <prompt lang="en">Tail mass for Forward exponential tail tau fit (Eft)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.04</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --Eft $value" : ""</code>
+            <code proglang="python">( "" , " --Eft " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Enter a value &gt; 0 and &lt; 1. Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+tau for Forward evalues. Default is 0.04.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 and &lt; 1</text>
+            </message>
+            <code proglang="perl">$value &gt; 0 and $value &lt; 1</code>
+            <code proglang="python">value &gt; 0 and value &lt; 1</code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Tail mass for Forward exponential tail tau fit (Eft)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698068768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Eft" type="text" value="0.04"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698068768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0 and &lt; 1. Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+tau for Forward evalues. Default is 0.04.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.04" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Eft">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698068768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698068768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Enter a value &gt; 0 and &lt; 1. Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+tau for Forward evalues. Default is 0.04.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>other</name>
+      <prompt lang="en">Other options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>seed</name>
+          <prompt lang="en">Set random number seed  (seed)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>42</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --seed $value" : ""</code>
+            <code proglang="python">( "" , " --seed " + str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+            any stochastic simulations will be reproducible; the same command will give the
+            same results. If the number is 0, the random number generator is seeded arbitrarily, and
+            stochastic simulations will vary from run to run of the same command. The default
+            seed is 42.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set random number seed  (seed)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697980720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seed" type="text" value="42"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697980720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+            any stochastic simulations will be reproducible; the same command will give the
+            same results. If the number is 0, the random number generator is seeded arbitrarily, and
+            stochastic simulations will vary from run to run of the same command. The default
+            seed is 42.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="42" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697980720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697980720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+            any stochastic simulations will be reproducible; the same command will give the
+            same results. If the number is 0, the random number generator is seeded arbitrarily, and
+            stochastic simulations will vary from run to run of the same command. The default
+            seed is 42.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>laplace</name>
+          <prompt lang="en">Use a Laplace +1 prior</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --laplace" : ""</code>
+            <code proglang="python">( "" , " --laplace " )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use a Laplace +1 prior<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="laplace">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="laplace"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>hmmfile_res</name>
+      <prompt lang="en">Hmm profile</prompt>
+      <type>
+        <datatype>
+          <class>HmmProfile</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+        <dataFormat>HMMER3</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">*.hmm</code>
+        <code proglang="python">"*.hmm"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="HMMER3 " data-parametername="hmmfile_res">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(HmmProfile)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>re_save_file</name>
+      <prompt lang="en">Alignment file</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>STOCKHOLM</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">$re_save</code>
+        <code proglang="python">re_save</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="STOCKHOLM " data-parametername="re_save_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"hmmbuild.out"</code>
+        <code proglang="python">"hmmbuild.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"hmmbuild.err"</code>
+        <code proglang="python">"hmmbuild.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

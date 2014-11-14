@@ -1,0 +1,684 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>hmmemit</name>
+    <package xml:base="Entities/hmmer_package.xml">
+      <name>hmmer</name>
+      <version>3.0</version>
+      <doc>
+        <title>hmmer</title>
+        <description>
+          <text lang="en">HMMER is an implementation of profile HMM methods for sensitive
+        database searches using multiple sequence alignments as queries.</text>
+        </description>
+        <homepagelink>http://hmmer.janelia.org/</homepagelink>
+        <sourcelink>ftp://selab.janelia.org/pub/software/hmmer3/</sourcelink>
+        <authors>S. Eddy</authors>
+        <reference>Eddy, S. R. (1998). Profile hidden Markov models. Bioinformatics, 14:755-763.</reference>
+        <reference>Eddy, S. R. (2008). A probabilistic model of local sequence alignment that simplifies statistical significance
+estimation. PLoS Comput. Biol., 4:e1000069</reference>
+        <doclink>http://bioweb2.pasteur.fr/docs/hmmer/Userguide.pdf</doclink>
+      </doc>
+    </package>
+    <doc>
+      <title>HMMEMIT</title>
+      <description>
+        <text lang="en">Generate sequences from a profile HMM</text>
+      </description>
+      <comment>
+        <text lang="en">hmmemit reads an HMM file from hmmfile and generates a number of sequences from it; or, if the -c option is selected, generate a single majority-rule consensus. This can be useful for various applications in which one needs a simulation of sequences consistent with a sequence family consensus.By default, hmmemit generates 10 sequences and outputs them in FASTA (unaligned) format.</text>
+      </comment>
+    </doc>
+    <category>hmm:building</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="hmmfile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">HMM file</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="hmmfile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile_name">Name of the synthetic sequences file (-o)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699144672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outfile_name" type="text" value=""/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699144672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Save the synthetic sequences to file rather than writing them to stdout.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consensus">Consensus sequence (-c)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699670960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="consensus">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699670960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Emit a consensus sequence, instead of sampling a sequence from the profile
+        HMM's probability distribution. The consensus sequence is formed by selecting
+        the maximum probability residue at each match state.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="number">Number of sequences to sample (-N)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699158128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="number" type="text" value="1"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699158128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Sample x sequences, rather than just one.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sample">Sample from profile, not core model (-p)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699510192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sample">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699510192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Sample sequences from the implicit profile, not from the core model. 
+        The core
+        model consists only of the homologous states (between the begin and end states
+        of a HMMER Plan7 model). The profile includes the nonhomologous N, C, and J
+        states, local/glocal and uni/multihit algorithm configuration, and the target length
+        model. Therefore sequences sampled from a profile may include nonhomologous
+        as well as homologous sequences, and may contain more than one homologous
+        sequence segment. By default, the profile is in multihit local mode, and the target
+        sequence length is configured for L=400. To change these defaults, see Options
+        Controlling Emission from Profiles, below.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="controlP">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options controlling emission from profiles (with -p)</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="400" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="len">Set expected length from profile (-L)<xhtml:a href="#idm140117698325712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="len" type="text" value="400"/>
+            <xhtml:div id="idm140117698325712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Configure the profile's target sequence length model to generate a mean length of
+          approximately the value rather than the default of 400.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="local">Configure profile mode<xhtml:select name="local">
+              <xhtml:option value="null" selected="selected"/>
+              <xhtml:option value="local">local mode</xhtml:option>
+              <xhtml:option value="unilocal">unilocal mode</xhtml:option>
+              <xhtml:option value="glocal">glocal mode</xhtml:option>
+              <xhtml:option value="uniglocal">uniglocal mode</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed">Seed number (--seed)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698096512::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seed" type="text" value="0"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698096512::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+          any stochastic simulations will be reproducible; the same command will give the
+          same results. If the value is 0, the random number generator is seeded arbitrarily, and
+          stochastic simulations will vary from run to run of the same command. The default
+          is 0: use an arbitrary seed, so different hmmemit runs will generate different
+          samples.</xhtml:div>
+        </xhtml:div>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmmcmd" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmmfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(HmmProfile)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile_name" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699144672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699144672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Save the synthetic sequences to file rather than writing them to stdout.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="consensus" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699670960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699670960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Emit a consensus sequence, instead of sampling a sequence from the profile
+        HMM's probability distribution. The consensus sequence is formed by selecting
+        the maximum probability residue at each match state.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="number" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699158128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699158128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Sample x sequences, rather than just one.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sample" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699510192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699510192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Sample sequences from the implicit profile, not from the core model. 
+        The core
+        model consists only of the homologous states (between the begin and end states
+        of a HMMER Plan7 model). The profile includes the nonhomologous N, C, and J
+        states, local/glocal and uni/multihit algorithm configuration, and the target length
+        model. Therefore sequences sampled from a profile may include nonhomologous
+        as well as homologous sequences, and may contain more than one homologous
+        sequence segment. By default, the profile is in multihit local mode, and the target
+        sequence length is configured for L=400. To change these defaults, see Options
+        Controlling Emission from Profiles, below.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="controlP">
+        <xhtml:legend>Options controlling emission from profiles (with -p)</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="len" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="400" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698325712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698325712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Configure the profile's target sequence length model to generate a mean length of
+          approximately the value rather than the default of 400.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="local" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seed" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698096512::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698096512::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+          any stochastic simulations will be reproducible; the same command will give the
+          same results. If the value is 0, the random number generator is seeded arbitrarily, and
+          stochastic simulations will vary from run to run of the same command. The default
+          is 0: use an arbitrary seed, so different hmmemit runs will generate different
+          samples.</xhtml:div>
+        </xhtml:div>
+      </div>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="out_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter iscommand="1" ishidden="1">
+      <name>hmmcmd</name>
+      <prompt lang="en">HMM emit command</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"hmmemit"</code>
+        <code proglang="python">"hmmemit"</code>
+      </format>
+      <argpos>0</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hmmcmd"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>hmmfile</name>
+      <prompt lang="en">HMM file</prompt>
+      <type>
+        <datatype>
+          <class>HmmProfile</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $hmmfile"</code>
+        <code proglang="python">" " + str(hmmfile)</code>
+      </format>
+      <argpos>2</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>HMM file</xhtml:legend>
+          <xhtml:textarea name="hmmfile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="hmmfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(HmmProfile)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>outfile_name</name>
+      <prompt lang="en">Name of the synthetic sequences file (-o)</prompt>
+      <type>
+        <datatype>
+          <class>Filename</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -o $value" : ""</code>
+        <code proglang="python">( "" , " -o " + str(value) )[ value is not None ]</code>
+      </format>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">Save the synthetic sequences to file rather than writing them to stdout.</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the synthetic sequences file (-o)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699144672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outfile_name" type="text" value=""/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699144672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Save the synthetic sequences to file rather than writing them to stdout.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile_name">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699144672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699144672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Save the synthetic sequences to file rather than writing them to stdout.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>output_file</name>
+      <prompt lang="en">Output file</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">defined $outfile_name</code>
+        <code proglang="python">outfile_name is not None</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">$outfile_name</code>
+        <code proglang="python">str(outfile_name)</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="output_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="1">
+      <name>out_file</name>
+      <prompt lang="en">Output file</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">not defined $outfile_name</code>
+        <code proglang="python">outfile_name is None</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"hmmemit.out"</code>
+        <code proglang="python">"hmmemit.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="out_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <!--<parameter isout="1">
+      <name>output_align_name</name>
+      <prompt lang="en">Output align file</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$outfile_name and defined $output_format</code>
+        <code proglang="python">outfile_name and output_format is not None</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">$outfile_name</code>
+        <code proglang="python">str(outfile_name)</code>
+      </filenames>
+    </parameter>
+    -->
+    <parameter>
+      <name>consensus</name>
+      <prompt lang="en">Consensus sequence (-c)</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$number == 1 and not sample</code>
+        <code proglang="python">number ==  1 and not sample</code>
+      </precond>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -c" : ""</code>
+        <code proglang="python">( "" , " -c" )[ value ]</code>
+      </format>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">Emit a consensus sequence, instead of sampling a sequence from the profile
+        HMM's probability distribution. The consensus sequence is formed by selecting
+        the maximum probability residue at each match state.</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Consensus sequence (-c)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699670960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="consensus">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699670960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Emit a consensus sequence, instead of sampling a sequence from the profile
+        HMM's probability distribution. The consensus sequence is formed by selecting
+        the maximum probability residue at each match state.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consensus">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699670960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699670960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Emit a consensus sequence, instead of sampling a sequence from the profile
+        HMM's probability distribution. The consensus sequence is formed by selecting
+        the maximum probability residue at each match state.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>number</name>
+      <prompt lang="en">Number of sequences to sample (-N)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>1</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value != $vdef) ? " -N $value " : ""</code>
+        <code proglang="python">( "" , " -N " + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <argpos>1</argpos>
+      <ctrl>
+        <message>
+          <text lang="en">Enter a value &gt; 0</text>
+        </message>
+        <code proglang="perl">0 &lt; $value</code>
+        <code proglang="python">0 &lt; value</code>
+      </ctrl>
+      <comment>
+        <text lang="en">Sample x sequences, rather than just one.</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of sequences to sample (-N)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699158128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="number" type="text" value="1"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699158128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Sample x sequences, rather than just one.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="number">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699158128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699158128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Sample x sequences, rather than just one.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>sample</name>
+      <prompt lang="en">Sample from profile, not core model (-p)</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">( $value ) ? " -p " : ""</code>
+        <code proglang="python">( "" , " -p " )[ value ]</code>
+      </format>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">Sample sequences from the implicit profile, not from the core model. 
+        The core
+        model consists only of the homologous states (between the begin and end states
+        of a HMMER Plan7 model). The profile includes the nonhomologous N, C, and J
+        states, local/glocal and uni/multihit algorithm configuration, and the target length
+        model. Therefore sequences sampled from a profile may include nonhomologous
+        as well as homologous sequences, and may contain more than one homologous
+        sequence segment. By default, the profile is in multihit local mode, and the target
+        sequence length is configured for L=400. To change these defaults, see Options
+        Controlling Emission from Profiles, below.</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Sample from profile, not core model (-p)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699510192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sample">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699510192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Sample sequences from the implicit profile, not from the core model. 
+        The core
+        model consists only of the homologous states (between the begin and end states
+        of a HMMER Plan7 model). The profile includes the nonhomologous N, C, and J
+        states, local/glocal and uni/multihit algorithm configuration, and the target length
+        model. Therefore sequences sampled from a profile may include nonhomologous
+        as well as homologous sequences, and may contain more than one homologous
+        sequence segment. By default, the profile is in multihit local mode, and the target
+        sequence length is configured for L=400. To change these defaults, see Options
+        Controlling Emission from Profiles, below.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sample">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699510192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699510192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Sample sequences from the implicit profile, not from the core model. 
+        The core
+        model consists only of the homologous states (between the begin and end states
+        of a HMMER Plan7 model). The profile includes the nonhomologous N, C, and J
+        states, local/glocal and uni/multihit algorithm configuration, and the target length
+        model. Therefore sequences sampled from a profile may include nonhomologous
+        as well as homologous sequences, and may contain more than one homologous
+        sequence segment. By default, the profile is in multihit local mode, and the target
+        sequence length is configured for L=400. To change these defaults, see Options
+        Controlling Emission from Profiles, below.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>controlP</name>
+      <prompt lang="en">Options controlling emission from profiles (with -p)</prompt>
+      <precond>
+        <code proglang="perl">define $sample</code>
+        <code proglang="python">sample</code>
+      </precond>
+      <parameters>
+        <parameter>
+          <name>len</name>
+          <prompt lang="en">Set expected length from profile (-L)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>400</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -L $value " : ""</code>
+            <code proglang="python">( "" , " -L " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Configure the profile's target sequence length model to generate a mean length of
+          approximately the value rather than the default of 400.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set expected length from profile (-L)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698325712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="len" type="text" value="400"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698325712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Configure the profile's target sequence length model to generate a mean length of
+          approximately the value rather than the default of 400.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="400" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="len">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698325712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698325712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Configure the profile's target sequence length model to generate a mean length of
+          approximately the value rather than the default of 400.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>local</name>
+          <prompt>Configure profile mode</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>null</value>
+              <label/>
+            </velem>
+            <velem>
+              <value>local</value>
+              <label>local mode</label>
+            </velem>
+            <velem>
+              <value>unilocal</value>
+              <label>unilocal mode</label>
+            </velem>
+            <velem>
+              <value>glocal</value>
+              <label>glocal mode</label>
+            </velem>
+            <velem>
+              <value>uniglocal</value>
+              <label>uniglocal mode</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value) ? " --$value " : ""</code>
+            <code proglang="python">( "" , " --" + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Configure profile mode<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="local">
+                <xhtml:option value="null" selected="selected"/>
+                <xhtml:option value="local">local mode</xhtml:option>
+                <xhtml:option value="unilocal">unilocal mode</xhtml:option>
+                <xhtml:option value="glocal">glocal mode</xhtml:option>
+                <xhtml:option value="uniglocal">uniglocal mode</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="local"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter>
+      <name>seed</name>
+      <prompt lang="en">Seed number (--seed)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value != $vdef) ? " --seed $value " : ""</code>
+        <code proglang="python">( "" , " --seed " + str(value) )[ value is not None and value !=vdef ]</code>
+      </format>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+          any stochastic simulations will be reproducible; the same command will give the
+          same results. If the value is 0, the random number generator is seeded arbitrarily, and
+          stochastic simulations will vary from run to run of the same command. The default
+          is 0: use an arbitrary seed, so different hmmemit runs will generate different
+          samples.</text>
+      </comment>
+      <ctrl>
+        <message>
+          <text lang="en">Enter a value &gt;= 0</text>
+        </message>
+        <code proglang="perl">0 &lt;= $value</code>
+        <code proglang="python">0 &lt;= value</code>
+      </ctrl>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Seed number (--seed)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698096512::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seed" type="text" value="0"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698096512::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+          any stochastic simulations will be reproducible; the same command will give the
+          same results. If the value is 0, the random number generator is seeded arbitrarily, and
+          stochastic simulations will vary from run to run of the same command. The default
+          is 0: use an arbitrary seed, so different hmmemit runs will generate different
+          samples.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698096512::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698096512::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Seed the random number generator with the value, an integer &gt;= 0. If the value is nonzero,
+          any stochastic simulations will be reproducible; the same command will give the
+          same results. If the value is 0, the random number generator is seeded arbitrarily, and
+          stochastic simulations will vary from run to run of the same command. The default
+          is 0: use an arbitrary seed, so different hmmemit runs will generate different
+          samples.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"hmmemit.err"</code>
+        <code proglang="python">"hmmemit.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

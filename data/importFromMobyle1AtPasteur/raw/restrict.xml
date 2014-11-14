@@ -1,0 +1,1348 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>restrict</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>restrict</title>
+      <description>
+        <text lang="en">Report restriction enzyme cleavage sites in a nucleotide sequence</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/restrict.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>restrict</command>
+    <category>sequence:nucleic:restriction</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+            <legend>sequence option</legend>
+            <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RestrictionEnzymeData" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_datafile">
+            <legend>Restriction enzyme data file (optional)</legend>
+            <xhtml:textarea name="e_datafile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RestrictionEnzymeMethylationData" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_mfile">
+            <legend>Restriction enzyme methylation data file (optional)</legend>
+            <xhtml:textarea name="e_mfile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_required">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Required section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_sitelen">Minimum recognition site length (value from 2 to 20)<xhtml:a href="#idm140117712238240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_sitelen" type="text" value="4"/>
+            <xhtml:div id="idm140117712238240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This sets the minimum length of the restriction enzyme recognition site. Any enzymes with sites shorter than this will be  ignored.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="all" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_enzymes">Comma separated enzyme list<xhtml:a href="#idm140117712139328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_enzymes" type="text" value="all"/>
+            <xhtml:div id="idm140117712139328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The name 'all' reads in all enzyme names from the REBASE database. You can specify enzymes by giving their names with  commas between then, such as: 'HincII,hinfI,ppiI,hindiii'. 
+  The case of the names is not important. You can specify a file of  enzyme names to read in by giving the name of the file holding the  enzyme names with a '@' character in front of it, for example,  '@enz.list'. 
+  Blank lines and lines starting with a hash character or '!' are  ignored and all other lines are concatenated together with a comma  character ',' and then treated as the list of enzymes to search  for. 
+  An example of a file of enzyme names is: 
+  ! my enzymes 
+  HincII, ppiII 
+  ! other enzymes 
+  hindiii 
+  HinfI 
+  PpiI</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Advanced section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_min">Minimum cuts per re (value from 1 to 1000)<xhtml:a href="#idm140117711626016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_min" type="text" value="1"/>
+            <xhtml:div id="idm140117711626016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This sets the minimum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut fewer times  than this will be ignored.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2000000000" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_max">Maximum cuts per re<xhtml:a href="#idm140117711379744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_max" type="text" value="2000000000"/>
+            <xhtml:div id="idm140117711379744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This sets the maximum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut more times  than this will be ignored.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_solofragment">List individual enzymes with their fragments<xhtml:a href="#idm140117712239024::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_solofragment">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117712239024::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This gives the fragment lengths of the forward sense strand produced by complete restriction by each restriction enzyme on  its own. Results are added to the tail section of the report.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_single">Force single site only cuts<xhtml:a href="#idm140117712347616::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_single">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117712347616::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set then this forces the values of the mincuts and maxcuts qualifiers to both be 1. Any other value you may have  set them to will be ignored.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_blunt">Allow blunt end cutters<xhtml:a href="#idm140117712355248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_blunt">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117712355248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This allows those enzymes which cut at the same position on the forward and reverse strands to be considered.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_sticky">Allow sticky end cutters<xhtml:a href="#idm140117711187664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_sticky">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117711187664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This allows those enzymes which cut at different positions on the forward and reverse strands, leaving an overhang, to be  considered.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_ambiguity">Allow ambiguous matches<xhtml:a href="#idm140117710061312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_ambiguity">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117710061312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This allows those enzymes which have one or more 'N' ambiguity codes in their pattern to be considered</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_plasmid">Allow circular dna<xhtml:a href="#idm140117710050736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_plasmid">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117710050736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set then this allows searches for restriction enzyme recognition site and cut positions that span the end of the  sequence to be considered.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_methylation">Use methylation data<xhtml:a href="#idm140117710757584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_methylation">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117710757584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set then RE recognition sites will not match methylated bases.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_commercial">Only enzymes with suppliers<xhtml:a href="#idm140117710747120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_commercial">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117710747120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set, then only those enzymes with a commercial supplier will be searched for. This qualifier is ignored if you  have specified an explicit list of enzymes to search for, rather  than searching through 'all' the enzymes in the REBASE database.  It is assumed that, if you are asking for an explicit enzyme, then  you probably know where to get it from and so all enzymes names  that you have asked to be searched for, and which cut, will be  reported whether or not they have a commercial supplier.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_limit">Limits reports to one isoschizomer<xhtml:a href="#idm140117710293568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_limit">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117710293568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This limits the reporting of enzymes to just one enzyme from each group of isoschizomers. The enzyme chosen to represent  an isoschizomer group is the prototype indicated in the data file  'embossre.equ', which is created by the program 'rebaseextract'.  If you prefer different prototypes to be used, make a copy of  embossre.equ in your home directory and edit it. If this value is  set to be false then all of the input enzymes will be reported.  You might like to set this to false if you are supplying an  explicit set of enzymes rather than searching 'all' of them.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_alphabetic">Sort output alphabetically<xhtml:select name="e_alphabetic">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_fragments">Show fragment lengths<xhtml:a href="#idm140117710738240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_fragments">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117710738240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This gives the fragment lengths of the forward sense strand produced by complete restriction using all of the input enzymes  together. Results are added to the tail section of the report.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_name">Show sequence name<xhtml:select name="e_name">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="restrict.report" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile">Name of the report file<xhtml:input name="e_outfile" type="text" value="restrict.report"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="TABLE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_rformat_outfile">Choose the report output format<xhtml:select name="e_rformat_outfile">
+              <xhtml:option value="DASGFF">Dasgff</xhtml:option>
+              <xhtml:option value="DBMOTIF">Dbmotif</xhtml:option>
+              <xhtml:option value="DIFFSEQ">Diffseq</xhtml:option>
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="EXCEL">Excel</xhtml:option>
+              <xhtml:option value="FEATTABLE">Feattable</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+              <xhtml:option value="LISTFILE">Listfile</xhtml:option>
+              <xhtml:option value="MOTIF">Motif</xhtml:option>
+              <xhtml:option value="NAMETABLE">Nametable</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="REGIONS">Regions</xhtml:option>
+              <xhtml:option value="SEQTABLE">Seqtable</xhtml:option>
+              <xhtml:option value="SIMPLE">Simple</xhtml:option>
+              <xhtml:option value="SRS">Srs</xhtml:option>
+              <xhtml:option value="SWISS">Swiss</xhtml:option>
+              <xhtml:option value="TABLE" selected="selected">Table</xhtml:option>
+              <xhtml:option value="TAGSEQ">Tagseq</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_datafile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RestrictionEnzymeData" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(RestrictionEnzymeData)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_mfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RestrictionEnzymeMethylationData" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(RestrictionEnzymeMethylationData)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_required">
+        <xhtml:legend>Required section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sitelen" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117712238240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117712238240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This sets the minimum length of the restriction enzyme recognition site. Any enzymes with sites shorter than this will be  ignored.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_enzymes" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="all" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117712139328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117712139328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The name 'all' reads in all enzyme names from the REBASE database. You can specify enzymes by giving their names with  commas between then, such as: 'HincII,hinfI,ppiI,hindiii'. 
+  The case of the names is not important. You can specify a file of  enzyme names to read in by giving the name of the file holding the  enzyme names with a '@' character in front of it, for example,  '@enz.list'. 
+  Blank lines and lines starting with a hash character or '!' are  ignored and all other lines are concatenated together with a comma  character ',' and then treated as the list of enzymes to search  for. 
+  An example of a file of enzyme names is: 
+  ! my enzymes 
+  HincII, ppiII 
+  ! other enzymes 
+  hindiii 
+  HinfI 
+  PpiI</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <xhtml:legend>Advanced section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_min" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117711626016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117711626016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This sets the minimum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut fewer times  than this will be ignored.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_max" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2000000000" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117711379744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117711379744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This sets the maximum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut more times  than this will be ignored.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_solofragment" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117712239024::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117712239024::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This gives the fragment lengths of the forward sense strand produced by complete restriction by each restriction enzyme on  its own. Results are added to the tail section of the report.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_single" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117712347616::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117712347616::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set then this forces the values of the mincuts and maxcuts qualifiers to both be 1. Any other value you may have  set them to will be ignored.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_blunt" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117712355248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117712355248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This allows those enzymes which cut at the same position on the forward and reverse strands to be considered.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sticky" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117711187664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117711187664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This allows those enzymes which cut at different positions on the forward and reverse strands, leaving an overhang, to be  considered.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_ambiguity" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117710061312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710061312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This allows those enzymes which have one or more 'N' ambiguity codes in their pattern to be considered</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_plasmid" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117710050736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710050736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set then this allows searches for restriction enzyme recognition site and cut positions that span the end of the  sequence to be considered.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_methylation" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117710757584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710757584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set then RE recognition sites will not match methylated bases.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_commercial" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117710747120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710747120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this is set, then only those enzymes with a commercial supplier will be searched for. This qualifier is ignored if you  have specified an explicit list of enzymes to search for, rather  than searching through 'all' the enzymes in the REBASE database.  It is assumed that, if you are asking for an explicit enzyme, then  you probably know where to get it from and so all enzymes names  that you have asked to be searched for, and which cut, will be  reported whether or not they have a commercial supplier.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_limit" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117710293568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710293568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This limits the reporting of enzymes to just one enzyme from each group of isoschizomers. The enzyme chosen to represent  an isoschizomer group is the prototype indicated in the data file  'embossre.equ', which is created by the program 'rebaseextract'.  If you prefer different prototypes to be used, make a copy of  embossre.equ in your home directory and edit it. If this value is  set to be false then all of the input enzymes will be reported.  You might like to set this to false if you are supplying an  explicit set of enzymes rather than searching 'all' of them.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_alphabetic" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_fragments" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117710738240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710738240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This gives the fragment lengths of the forward sense strand produced by complete restriction using all of the input enzymes  together. Results are added to the tail section of the report.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_name" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="restrict.report" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_rformat_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="TABLE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_sequence</name>
+          <prompt lang="en">sequence option</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -sequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>sequence option</xhtml:legend>
+              <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_datafile</name>
+          <prompt lang="en">Restriction enzyme data file (optional)</prompt>
+          <type>
+            <datatype>
+              <class>RestrictionEnzymeData</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -datafile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Restriction enzyme data file (optional)</xhtml:legend>
+              <xhtml:textarea name="e_datafile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RestrictionEnzymeData" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_datafile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(RestrictionEnzymeData)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_mfile</name>
+          <prompt lang="en">Restriction enzyme methylation data file (optional)</prompt>
+          <type>
+            <datatype>
+              <class>RestrictionEnzymeMethylationData</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -mfile=" + str(value))[value is not None ]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Restriction enzyme methylation data file (optional)</xhtml:legend>
+              <xhtml:textarea name="e_mfile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RestrictionEnzymeMethylationData" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_mfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(RestrictionEnzymeMethylationData)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_required</name>
+      <prompt lang="en">Required section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_sitelen</name>
+          <prompt lang="en">Minimum recognition site length (value from 2 to 20)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>4</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -sitelen=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 2 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 2</code>
+          </ctrl>
+          <ctrl>
+            <message>
+              <text lang="en">Value less than or equal to 20 is required</text>
+            </message>
+            <code proglang="python">value &lt;= 20</code>
+          </ctrl>
+          <argpos>4</argpos>
+          <comment>
+            <text lang="en">This sets the minimum length of the restriction enzyme recognition site. Any enzymes with sites shorter than this will be  ignored.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum recognition site length (value from 2 to 20)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712238240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_sitelen" type="text" value="4"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712238240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This sets the minimum length of the restriction enzyme recognition site. Any enzymes with sites shorter than this will be  ignored.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_sitelen">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712238240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712238240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This sets the minimum length of the restriction enzyme recognition site. Any enzymes with sites shorter than this will be  ignored.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_enzymes</name>
+          <prompt lang="en">Comma separated enzyme list</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>all</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -enzymes=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>5</argpos>
+          <comment>
+            <text lang="en">The name 'all' reads in all enzyme names from the REBASE database. You can specify enzymes by giving their names with  commas between then, such as: 'HincII,hinfI,ppiI,hindiii'. 
+  The case of the names is not important. You can specify a file of  enzyme names to read in by giving the name of the file holding the  enzyme names with a '@' character in front of it, for example,  '@enz.list'. 
+  Blank lines and lines starting with a hash character or '!' are  ignored and all other lines are concatenated together with a comma  character ',' and then treated as the list of enzymes to search  for. 
+  An example of a file of enzyme names is: 
+  ! my enzymes 
+  HincII, ppiII 
+  ! other enzymes 
+  hindiii 
+  HinfI 
+  PpiI</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Comma separated enzyme list<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712139328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_enzymes" type="text" value="all"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712139328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The name 'all' reads in all enzyme names from the REBASE database. You can specify enzymes by giving their names with  commas between then, such as: 'HincII,hinfI,ppiI,hindiii'. 
+  The case of the names is not important. You can specify a file of  enzyme names to read in by giving the name of the file holding the  enzyme names with a '@' character in front of it, for example,  '@enz.list'. 
+  Blank lines and lines starting with a hash character or '!' are  ignored and all other lines are concatenated together with a comma  character ',' and then treated as the list of enzymes to search  for. 
+  An example of a file of enzyme names is: 
+  ! my enzymes 
+  HincII, ppiII 
+  ! other enzymes 
+  hindiii 
+  HinfI 
+  PpiI</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="all" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_enzymes">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712139328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712139328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The name 'all' reads in all enzyme names from the REBASE database. You can specify enzymes by giving their names with  commas between then, such as: 'HincII,hinfI,ppiI,hindiii'. 
+  The case of the names is not important. You can specify a file of  enzyme names to read in by giving the name of the file holding the  enzyme names with a '@' character in front of it, for example,  '@enz.list'. 
+  Blank lines and lines starting with a hash character or '!' are  ignored and all other lines are concatenated together with a comma  character ',' and then treated as the list of enzymes to search  for. 
+  An example of a file of enzyme names is: 
+  ! my enzymes 
+  HincII, ppiII 
+  ! other enzymes 
+  hindiii 
+  HinfI 
+  PpiI</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_advanced</name>
+      <prompt lang="en">Advanced section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_min</name>
+          <prompt lang="en">Minimum cuts per re (value from 1 to 1000)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -min=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 1 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 1</code>
+          </ctrl>
+          <ctrl>
+            <message>
+              <text lang="en">Value less than or equal to 1000 is required</text>
+            </message>
+            <code proglang="python">value &lt;= 1000</code>
+          </ctrl>
+          <argpos>6</argpos>
+          <comment>
+            <text lang="en">This sets the minimum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut fewer times  than this will be ignored.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum cuts per re (value from 1 to 1000)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711626016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_min" type="text" value="1"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711626016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This sets the minimum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut fewer times  than this will be ignored.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_min">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711626016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711626016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This sets the minimum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut fewer times  than this will be ignored.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_max</name>
+          <prompt lang="en">Maximum cuts per re</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2000000000</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -max=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>7</argpos>
+          <comment>
+            <text lang="en">This sets the maximum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut more times  than this will be ignored.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum cuts per re<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711379744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_max" type="text" value="2000000000"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711379744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This sets the maximum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut more times  than this will be ignored.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2000000000" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_max">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711379744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711379744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This sets the maximum number of cuts for any restriction enzyme that will be considered. Any enzymes that cut more times  than this will be ignored.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_solofragment</name>
+          <prompt lang="en">List individual enzymes with their fragments</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -solofragment")[ bool(value) ]</code>
+          </format>
+          <argpos>8</argpos>
+          <comment>
+            <text lang="en">This gives the fragment lengths of the forward sense strand produced by complete restriction by each restriction enzyme on  its own. Results are added to the tail section of the report.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">List individual enzymes with their fragments<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712239024::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_solofragment">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712239024::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This gives the fragment lengths of the forward sense strand produced by complete restriction by each restriction enzyme on  its own. Results are added to the tail section of the report.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_solofragment">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712239024::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712239024::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This gives the fragment lengths of the forward sense strand produced by complete restriction by each restriction enzyme on  its own. Results are added to the tail section of the report.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_single</name>
+          <prompt lang="en">Force single site only cuts</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -single")[ bool(value) ]</code>
+          </format>
+          <argpos>9</argpos>
+          <comment>
+            <text lang="en">If this is set then this forces the values of the mincuts and maxcuts qualifiers to both be 1. Any other value you may have  set them to will be ignored.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Force single site only cuts<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712347616::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_single">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712347616::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set then this forces the values of the mincuts and maxcuts qualifiers to both be 1. Any other value you may have  set them to will be ignored.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_single">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712347616::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712347616::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set then this forces the values of the mincuts and maxcuts qualifiers to both be 1. Any other value you may have  set them to will be ignored.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_blunt</name>
+          <prompt lang="en">Allow blunt end cutters</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -noblunt", "")[ bool(value) ]</code>
+          </format>
+          <argpos>10</argpos>
+          <comment>
+            <text lang="en">This allows those enzymes which cut at the same position on the forward and reverse strands to be considered.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Allow blunt end cutters<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712355248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_blunt">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712355248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This allows those enzymes which cut at the same position on the forward and reverse strands to be considered.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_blunt">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712355248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712355248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This allows those enzymes which cut at the same position on the forward and reverse strands to be considered.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_sticky</name>
+          <prompt lang="en">Allow sticky end cutters</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -nosticky", "")[ bool(value) ]</code>
+          </format>
+          <argpos>11</argpos>
+          <comment>
+            <text lang="en">This allows those enzymes which cut at different positions on the forward and reverse strands, leaving an overhang, to be  considered.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Allow sticky end cutters<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711187664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_sticky">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711187664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This allows those enzymes which cut at different positions on the forward and reverse strands, leaving an overhang, to be  considered.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_sticky">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711187664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711187664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This allows those enzymes which cut at different positions on the forward and reverse strands, leaving an overhang, to be  considered.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_ambiguity</name>
+          <prompt lang="en">Allow ambiguous matches</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -noambiguity", "")[ bool(value) ]</code>
+          </format>
+          <argpos>12</argpos>
+          <comment>
+            <text lang="en">This allows those enzymes which have one or more 'N' ambiguity codes in their pattern to be considered</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Allow ambiguous matches<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710061312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_ambiguity">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710061312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This allows those enzymes which have one or more 'N' ambiguity codes in their pattern to be considered</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_ambiguity">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710061312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710061312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This allows those enzymes which have one or more 'N' ambiguity codes in their pattern to be considered</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_plasmid</name>
+          <prompt lang="en">Allow circular dna</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -plasmid")[ bool(value) ]</code>
+          </format>
+          <argpos>13</argpos>
+          <comment>
+            <text lang="en">If this is set then this allows searches for restriction enzyme recognition site and cut positions that span the end of the  sequence to be considered.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Allow circular dna<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710050736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_plasmid">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710050736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set then this allows searches for restriction enzyme recognition site and cut positions that span the end of the  sequence to be considered.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_plasmid">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710050736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710050736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set then this allows searches for restriction enzyme recognition site and cut positions that span the end of the  sequence to be considered.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_methylation</name>
+          <prompt lang="en">Use methylation data</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -methylation")[ bool(value) ]</code>
+          </format>
+          <argpos>14</argpos>
+          <comment>
+            <text lang="en">If this is set then RE recognition sites will not match methylated bases.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use methylation data<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710757584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_methylation">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710757584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set then RE recognition sites will not match methylated bases.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_methylation">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710757584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710757584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set then RE recognition sites will not match methylated bases.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_commercial</name>
+          <prompt lang="en">Only enzymes with suppliers</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -nocommercial", "")[ bool(value) ]</code>
+          </format>
+          <argpos>15</argpos>
+          <comment>
+            <text lang="en">If this is set, then only those enzymes with a commercial supplier will be searched for. This qualifier is ignored if you  have specified an explicit list of enzymes to search for, rather  than searching through 'all' the enzymes in the REBASE database.  It is assumed that, if you are asking for an explicit enzyme, then  you probably know where to get it from and so all enzymes names  that you have asked to be searched for, and which cut, will be  reported whether or not they have a commercial supplier.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Only enzymes with suppliers<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710747120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_commercial">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710747120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set, then only those enzymes with a commercial supplier will be searched for. This qualifier is ignored if you  have specified an explicit list of enzymes to search for, rather  than searching through 'all' the enzymes in the REBASE database.  It is assumed that, if you are asking for an explicit enzyme, then  you probably know where to get it from and so all enzymes names  that you have asked to be searched for, and which cut, will be  reported whether or not they have a commercial supplier.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_commercial">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710747120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710747120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this is set, then only those enzymes with a commercial supplier will be searched for. This qualifier is ignored if you  have specified an explicit list of enzymes to search for, rather  than searching through 'all' the enzymes in the REBASE database.  It is assumed that, if you are asking for an explicit enzyme, then  you probably know where to get it from and so all enzymes names  that you have asked to be searched for, and which cut, will be  reported whether or not they have a commercial supplier.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_limit</name>
+          <prompt lang="en">Limits reports to one isoschizomer</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="python">(" -nolimit", "")[ bool(value) ]</code>
+          </format>
+          <argpos>16</argpos>
+          <comment>
+            <text lang="en">This limits the reporting of enzymes to just one enzyme from each group of isoschizomers. The enzyme chosen to represent  an isoschizomer group is the prototype indicated in the data file  'embossre.equ', which is created by the program 'rebaseextract'.  If you prefer different prototypes to be used, make a copy of  embossre.equ in your home directory and edit it. If this value is  set to be false then all of the input enzymes will be reported.  You might like to set this to false if you are supplying an  explicit set of enzymes rather than searching 'all' of them.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Limits reports to one isoschizomer<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710293568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_limit">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710293568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This limits the reporting of enzymes to just one enzyme from each group of isoschizomers. The enzyme chosen to represent  an isoschizomer group is the prototype indicated in the data file  'embossre.equ', which is created by the program 'rebaseextract'.  If you prefer different prototypes to be used, make a copy of  embossre.equ in your home directory and edit it. If this value is  set to be false then all of the input enzymes will be reported.  You might like to set this to false if you are supplying an  explicit set of enzymes rather than searching 'all' of them.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_limit">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710293568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710293568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This limits the reporting of enzymes to just one enzyme from each group of isoschizomers. The enzyme chosen to represent  an isoschizomer group is the prototype indicated in the data file  'embossre.equ', which is created by the program 'rebaseextract'.  If you prefer different prototypes to be used, make a copy of  embossre.equ in your home directory and edit it. If this value is  set to be false then all of the input enzymes will be reported.  You might like to set this to false if you are supplying an  explicit set of enzymes rather than searching 'all' of them.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_alphabetic</name>
+          <prompt lang="en">Sort output alphabetically</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -alphabetic")[ bool(value) ]</code>
+          </format>
+          <argpos>17</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Sort output alphabetically<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_alphabetic">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_alphabetic"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_fragments</name>
+          <prompt lang="en">Show fragment lengths</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -fragments")[ bool(value) ]</code>
+          </format>
+          <argpos>18</argpos>
+          <comment>
+            <text lang="en">This gives the fragment lengths of the forward sense strand produced by complete restriction using all of the input enzymes  together. Results are added to the tail section of the report.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show fragment lengths<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710738240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_fragments">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710738240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This gives the fragment lengths of the forward sense strand produced by complete restriction using all of the input enzymes  together. Results are added to the tail section of the report.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_fragments">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710738240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710738240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This gives the fragment lengths of the forward sense strand produced by complete restriction using all of the input enzymes  together. Results are added to the tail section of the report.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_name</name>
+          <prompt lang="en">Show sequence name</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -name")[ bool(value) ]</code>
+          </format>
+          <argpos>19</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show sequence name<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_name">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_name"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_outfile</name>
+          <prompt lang="en">Name of the report file</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>restrict.report</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outfile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>20</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the report file<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outfile" type="text" value="restrict.report"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="restrict.report" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_rformat_outfile</name>
+          <prompt lang="en">Choose the report output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>TABLE</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>DASGFF</value>
+              <label>Dasgff</label>
+            </velem>
+            <velem>
+              <value>DBMOTIF</value>
+              <label>Dbmotif</label>
+            </velem>
+            <velem>
+              <value>DIFFSEQ</value>
+              <label>Diffseq</label>
+            </velem>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>EXCEL</value>
+              <label>Excel</label>
+            </velem>
+            <velem>
+              <value>FEATTABLE</value>
+              <label>Feattable</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+            <velem>
+              <value>LISTFILE</value>
+              <label>Listfile</label>
+            </velem>
+            <velem>
+              <value>MOTIF</value>
+              <label>Motif</label>
+            </velem>
+            <velem>
+              <value>NAMETABLE</value>
+              <label>Nametable</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>REGIONS</value>
+              <label>Regions</label>
+            </velem>
+            <velem>
+              <value>SEQTABLE</value>
+              <label>Seqtable</label>
+            </velem>
+            <velem>
+              <value>SIMPLE</value>
+              <label>Simple</label>
+            </velem>
+            <velem>
+              <value>SRS</value>
+              <label>Srs</label>
+            </velem>
+            <velem>
+              <value>SWISS</value>
+              <label>Swiss</label>
+            </velem>
+            <velem>
+              <value>TABLE</value>
+              <label>Table</label>
+            </velem>
+            <velem>
+              <value>TAGSEQ</value>
+              <label>Tagseq</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -rformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>21</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the report output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_rformat_outfile">
+                <xhtml:option value="DASGFF">Dasgff</xhtml:option>
+                <xhtml:option value="DBMOTIF">Dbmotif</xhtml:option>
+                <xhtml:option value="DIFFSEQ">Diffseq</xhtml:option>
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="EXCEL">Excel</xhtml:option>
+                <xhtml:option value="FEATTABLE">Feattable</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+                <xhtml:option value="LISTFILE">Listfile</xhtml:option>
+                <xhtml:option value="MOTIF">Motif</xhtml:option>
+                <xhtml:option value="NAMETABLE">Nametable</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="REGIONS">Regions</xhtml:option>
+                <xhtml:option value="SEQTABLE">Seqtable</xhtml:option>
+                <xhtml:option value="SIMPLE">Simple</xhtml:option>
+                <xhtml:option value="SRS">Srs</xhtml:option>
+                <xhtml:option value="SWISS">Swiss</xhtml:option>
+                <xhtml:option value="TABLE" selected="selected">Table</xhtml:option>
+                <xhtml:option value="TAGSEQ">Tagseq</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="TABLE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_rformat_outfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outfile_out</name>
+          <prompt lang="en">outfile_out option</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_rformat_outfile">
+              </ref>
+            </dataFormat>
+          </type>
+          <precond>
+            <code proglang="python">e_rformat_outfile in ['DASGFF', 'DBMOTIF', 'DIFFSEQ', 'EMBL', 'EXCEL', 'FEATTABLE', 'GENBANK', 'GFF', 'LISTFILE', 'MOTIF', 'NAMETABLE', 'CODATA', 'REGIONS', 'SEQTABLE', 'SIMPLE', 'SRS', 'SWISS', 'TABLE', 'TAGSEQ']</code>
+          </precond>
+          <filenames>
+            <code proglang="python">e_outfile</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="e_outfile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>22</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"restrict.out"</code>
+        <code proglang="python">"restrict.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"restrict.err"</code>
+        <code proglang="python">"restrict.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

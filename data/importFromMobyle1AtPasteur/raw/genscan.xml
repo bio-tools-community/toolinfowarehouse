@@ -1,0 +1,571 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>genscan</name>
+    <version>1.0</version>
+    <doc>
+      <title>GENSCAN</title>
+      <description>
+        <text lang="en">Gene Identification</text>
+      </description>
+      <authors>C. Burge</authors>
+      <reference>Burge, C., Karlin, S. (1997) Prediction of complete gene structures in human genomic DNA. J. Mol. Biol. 268, 78-94.</reference>
+      <reference>Burge, C., Karlin, S. (1997) Gene structure, exon prediction, and alternative splicing. (in preparation).</reference>
+      <reference>Burge, C. (1997) Identification of genes in human genomic DNA. PhD thesis, Stanford University, Stanford, CA.</reference>
+      <reference>Burset, M., Guigo, R. (1996) Evaluation of gene structure prediction programs. Genomics 34, 353-367.</reference>
+      <homepagelink>http://genes.mit.edu/GENSCANinfo.html</homepagelink>
+    </doc>
+    <command>genscan</command>
+    <category>sequence:nucleic:gene_finding</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA " data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">DNA Sequence File</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="organism">Organism<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697054752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="organism">
+          <xhtml:option value="null" selected="selected">Choose an organism</xhtml:option>
+          <xhtml:option value="Arabidopsis.smat">Arabidopsis</xhtml:option>
+          <xhtml:option value="HumanIso.smat">HumanIso</xhtml:option>
+          <xhtml:option value="Maize.smat">Maize</xhtml:option>
+        </xhtml:select>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697054752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Currently available parameter files are:</xhtml:div>
+          <xhtml:div>HumanIso.smat for human/vertebrate sequences (also Drosophila)</xhtml:div>
+          <xhtml:div>Arabidopsis.smat for Arabidopsis thaliana sequences</xhtml:div>
+          <xhtml:div>Maize.smat for Zea mays sequences</xhtml:div>
+        </xhtml:div>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="verbose">Verbose output (-v)<xhtml:a href="#idm140117696605568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="verbose">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117696605568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Add some extra explanatory information to the text output. This information may be helpful the first few times you run the program but will soon become tiresome (that's why its optional).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cds">Print predicted coding sequences (-cds)<xhtml:select name="cds">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="subopt">Identify suboptimal exons (-subopt)?<xhtml:a href="#idm140117697918400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="subopt">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117697918400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The default output of the program is the optimal 'parse' of the sequence, i.e. the highest probability gene structure(s) which is present: the exons in this optimal parse are referred to as 'optimal exons' and are always printed out by GENSCAN.</xhtml:div>
+              <xhtml:div>Suboptimal exons, on the other hand, are defined as potential exons which have probability above a certian threshold but which are not contained in the optimal parse of the sequence.</xhtml:div>
+              <xhtml:div>Suboptimal exons have a variety of potential uses.</xhtml:div>
+              <xhtml:div>First, suboptimal exons sometimes correspond to real exons which were missed for whatever reason by the optimal parse of the sequence.</xhtml:div>
+              <xhtml:div>Second, regions of a prediction which contain multiple overlapping and/or incompatible optimal and suboptimal exons may in some cases indicate alternatively spliced regions of a gene (Burge &amp; Karlin, in preparation).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cutoff">Cutoff value for suboptimal exons<xhtml:a href="#idm140117697186000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="cutoff" type="text" value=""/>
+            <xhtml:div id="idm140117697186000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The cutoff is the probability cutoff used to determine which potential exons qualify as suboptimal exons.</xhtml:div>
+              <xhtml:div>This argument should be a number between 0.01 and 0.99.</xhtml:div>
+              <xhtml:div>For most applications, a cutoff value of about 0.10 is recommended.</xhtml:div>
+              <xhtml:div>Setting the value much lower than 0.10 will often lead to an explosion in the number of suboptimal exons, most of which will probably not be useful.</xhtml:div>
+              <xhtml:div>On the other hand, if the value is set much higher than 0.10, then potentially interesting suboptimal exons may be missed.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ps">Create Postscript output (-ps)<xhtml:select name="ps">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="scale">Scale for PostScript output<xhtml:input name="scale" type="text" value=""/>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="genscan.ps" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="psfname">Filename for PostScript output<xhtml:input name="psfname" type="text" value="genscan.ps"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="organism" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697054752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697054752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Currently available parameter files are:</xhtml:div>
+          <xhtml:div>HumanIso.smat for human/vertebrate sequences (also Drosophila)</xhtml:div>
+          <xhtml:div>Arabidopsis.smat for Arabidopsis thaliana sequences</xhtml:div>
+          <xhtml:div>Maize.smat for Zea mays sequences</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="verbose" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117696605568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117696605568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Add some extra explanatory information to the text output. This information may be helpful the first few times you run the program but will soon become tiresome (that's why its optional).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cds" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="subopt" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697918400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697918400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The default output of the program is the optimal 'parse' of the sequence, i.e. the highest probability gene structure(s) which is present: the exons in this optimal parse are referred to as 'optimal exons' and are always printed out by GENSCAN.</xhtml:div>
+              <xhtml:div>Suboptimal exons, on the other hand, are defined as potential exons which have probability above a certian threshold but which are not contained in the optimal parse of the sequence.</xhtml:div>
+              <xhtml:div>Suboptimal exons have a variety of potential uses.</xhtml:div>
+              <xhtml:div>First, suboptimal exons sometimes correspond to real exons which were missed for whatever reason by the optimal parse of the sequence.</xhtml:div>
+              <xhtml:div>Second, regions of a prediction which contain multiple overlapping and/or incompatible optimal and suboptimal exons may in some cases indicate alternatively spliced regions of a gene (Burge &amp; Karlin, in preparation).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cutoff" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697186000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697186000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The cutoff is the probability cutoff used to determine which potential exons qualify as suboptimal exons.</xhtml:div>
+              <xhtml:div>This argument should be a number between 0.01 and 0.99.</xhtml:div>
+              <xhtml:div>For most applications, a cutoff value of about 0.10 is recommended.</xhtml:div>
+              <xhtml:div>Setting the value much lower than 0.10 will often lead to an explosion in the number of suboptimal exons, most of which will probably not be useful.</xhtml:div>
+              <xhtml:div>On the other hand, if the value is set much higher than 0.10, then potentially interesting suboptimal exons may be missed.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ps" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="scale" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="psfname" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="genscan.ps" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="psFile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">DNA Sequence File</prompt>
+      <type>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str(value)</code>
+      </format>
+      <argpos>2</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>DNA Sequence File</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="FASTA " data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>organism</name>
+      <prompt lang="en">Organism</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>null</value>
+          <label>Choose an organism</label>
+        </velem>
+        <velem>
+          <value>Arabidopsis.smat</value>
+          <label>Arabidopsis</label>
+        </velem>
+        <velem>
+          <value>HumanIso.smat</value>
+          <label>HumanIso</label>
+        </velem>
+        <velem>
+          <value>Maize.smat</value>
+          <label>Maize</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">Currently available parameter files are:</text>
+        <text lang="en">HumanIso.smat for human/vertebrate sequences (also Drosophila)</text>
+        <text lang="en">Arabidopsis.smat for Arabidopsis thaliana sequences</text>
+        <text lang="en">Maize.smat for Zea mays sequences</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Organism<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697054752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="organism">
+            <xhtml:option value="null" selected="selected">Choose an organism</xhtml:option>
+            <xhtml:option value="Arabidopsis.smat">Arabidopsis</xhtml:option>
+            <xhtml:option value="HumanIso.smat">HumanIso</xhtml:option>
+            <xhtml:option value="Maize.smat">Maize</xhtml:option>
+          </xhtml:select>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697054752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Currently available parameter files are:</xhtml:div>
+            <xhtml:div>HumanIso.smat for human/vertebrate sequences (also Drosophila)</xhtml:div>
+            <xhtml:div>Arabidopsis.smat for Arabidopsis thaliana sequences</xhtml:div>
+            <xhtml:div>Maize.smat for Zea mays sequences</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="organism">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697054752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697054752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Currently available parameter files are:</xhtml:div>
+            <xhtml:div>HumanIso.smat for human/vertebrate sequences (also Drosophila)</xhtml:div>
+            <xhtml:div>Arabidopsis.smat for Arabidopsis thaliana sequences</xhtml:div>
+            <xhtml:div>Maize.smat for Zea mays sequences</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output parameters</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>verbose</name>
+          <prompt lang="en">Verbose output (-v)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -v" : ""</code>
+            <code proglang="python">("" , " -v")[ value ]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">Add some extra explanatory information to the text output. This information may be helpful the first few times you run the program but will soon become tiresome (that's why its optional).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Verbose output (-v)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696605568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="verbose">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696605568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Add some extra explanatory information to the text output. This information may be helpful the first few times you run the program but will soon become tiresome (that's why its optional).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="verbose">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696605568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696605568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Add some extra explanatory information to the text output. This information may be helpful the first few times you run the program but will soon become tiresome (that's why its optional).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>cds</name>
+          <prompt lang="en">Print predicted coding sequences (-cds)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -cds" : ""</code>
+            <code proglang="python">("" , " -cds")[ value ]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print predicted coding sequences (-cds)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cds">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cds"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>subopt</name>
+          <prompt lang="en">Identify suboptimal exons (-subopt)?</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value and defined $cutoff ) ? " -subopt $cutoff" : ""</code>
+            <code proglang="python">("" , " -subopt " + str( cutoff ))[ value and cutoff is not None]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">The default output of the program is the optimal 'parse' of the sequence, i.e. the highest probability gene structure(s) which is present: the exons in this optimal parse are referred to as 'optimal exons' and are always printed out by GENSCAN.</text>
+            <text lang="en">Suboptimal exons, on the other hand, are defined as potential exons which have probability above a certian threshold but which are not contained in the optimal parse of the sequence.</text>
+            <text lang="en">Suboptimal exons have a variety of potential uses.</text>
+            <text lang="en">First, suboptimal exons sometimes correspond to real exons which were missed for whatever reason by the optimal parse of the sequence.</text>
+            <text lang="en">Second, regions of a prediction which contain multiple overlapping and/or incompatible optimal and suboptimal exons may in some cases indicate alternatively spliced regions of a gene (Burge &amp; Karlin, in preparation).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Identify suboptimal exons (-subopt)?<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697918400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="subopt">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697918400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The default output of the program is the optimal 'parse' of the sequence, i.e. the highest probability gene structure(s) which is present: the exons in this optimal parse are referred to as 'optimal exons' and are always printed out by GENSCAN.</xhtml:div>
+                <xhtml:div>Suboptimal exons, on the other hand, are defined as potential exons which have probability above a certian threshold but which are not contained in the optimal parse of the sequence.</xhtml:div>
+                <xhtml:div>Suboptimal exons have a variety of potential uses.</xhtml:div>
+                <xhtml:div>First, suboptimal exons sometimes correspond to real exons which were missed for whatever reason by the optimal parse of the sequence.</xhtml:div>
+                <xhtml:div>Second, regions of a prediction which contain multiple overlapping and/or incompatible optimal and suboptimal exons may in some cases indicate alternatively spliced regions of a gene (Burge &amp; Karlin, in preparation).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="subopt">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697918400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697918400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The default output of the program is the optimal 'parse' of the sequence, i.e. the highest probability gene structure(s) which is present: the exons in this optimal parse are referred to as 'optimal exons' and are always printed out by GENSCAN.</xhtml:div>
+                <xhtml:div>Suboptimal exons, on the other hand, are defined as potential exons which have probability above a certian threshold but which are not contained in the optimal parse of the sequence.</xhtml:div>
+                <xhtml:div>Suboptimal exons have a variety of potential uses.</xhtml:div>
+                <xhtml:div>First, suboptimal exons sometimes correspond to real exons which were missed for whatever reason by the optimal parse of the sequence.</xhtml:div>
+                <xhtml:div>Second, regions of a prediction which contain multiple overlapping and/or incompatible optimal and suboptimal exons may in some cases indicate alternatively spliced regions of a gene (Burge &amp; Karlin, in preparation).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>cutoff</name>
+          <prompt lang="en">Cutoff value for suboptimal exons</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$subopt</code>
+            <code proglang="python">subopt</code>
+          </precond>
+          <ctrl>
+            <message>
+              <text lang="en">Choose a cutoff value for identify suboptimal exon</text>
+            </message>
+            <code proglang="perl">($subopt  and defined $value) or ( not $subopt)</code>
+            <code proglang="python">(subopt and value is not None) or ( not subopt)</code>
+          </ctrl>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">The cutoff is the probability cutoff used to determine which potential exons qualify as suboptimal exons.</text>
+            <text lang="en">This argument should be a number between 0.01 and 0.99.</text>
+            <text lang="en">For most applications, a cutoff value of about 0.10 is recommended.</text>
+            <text lang="en">Setting the value much lower than 0.10 will often lead to an explosion in the number of suboptimal exons, most of which will probably not be useful.</text>
+            <text lang="en">On the other hand, if the value is set much higher than 0.10, then potentially interesting suboptimal exons may be missed.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cutoff value for suboptimal exons<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697186000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cutoff" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697186000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The cutoff is the probability cutoff used to determine which potential exons qualify as suboptimal exons.</xhtml:div>
+                <xhtml:div>This argument should be a number between 0.01 and 0.99.</xhtml:div>
+                <xhtml:div>For most applications, a cutoff value of about 0.10 is recommended.</xhtml:div>
+                <xhtml:div>Setting the value much lower than 0.10 will often lead to an explosion in the number of suboptimal exons, most of which will probably not be useful.</xhtml:div>
+                <xhtml:div>On the other hand, if the value is set much higher than 0.10, then potentially interesting suboptimal exons may be missed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cutoff">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697186000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697186000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The cutoff is the probability cutoff used to determine which potential exons qualify as suboptimal exons.</xhtml:div>
+                <xhtml:div>This argument should be a number between 0.01 and 0.99.</xhtml:div>
+                <xhtml:div>For most applications, a cutoff value of about 0.10 is recommended.</xhtml:div>
+                <xhtml:div>Setting the value much lower than 0.10 will often lead to an explosion in the number of suboptimal exons, most of which will probably not be useful.</xhtml:div>
+                <xhtml:div>On the other hand, if the value is set much higher than 0.10, then potentially interesting suboptimal exons may be missed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ps</name>
+          <prompt lang="en">Create Postscript output (-ps)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? (defined $scale) ? " -ps $psfname $scale" : " -ps $psfname" : ""</code>
+            <code proglang="python">( "" , (" -ps " + str( psfname ), " -ps " + str( psfname ) + " " + str( scale ))[scale is not None] )[ value ]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Create Postscript output (-ps)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ps">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ps"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>scale</name>
+          <prompt lang="en">Scale for PostScript output</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$ps</code>
+            <code proglang="python">ps</code>
+          </precond>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Scale for PostScript output<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="scale" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="scale"/>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>psfname</name>
+          <prompt lang="en">Filename for PostScript output</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$ps</code>
+            <code proglang="python">ps</code>
+          </precond>
+          <vdef>
+            <value>genscan.ps</value>
+          </vdef>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Filename for PostScript output<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="psfname" type="text" value="genscan.ps"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="genscan.ps" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="psfname"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>psFile</name>
+          <prompt lang="en">PostScript output</prompt>
+          <type>
+            <datatype>
+              <class>PostScript</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$ps</code>
+            <code proglang="python">ps</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">$psfname</code>
+            <code proglang="python">str( psfname )</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="psFile"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"genscan.out"</code>
+        <code proglang="python">"genscan.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"genscan.err"</code>
+        <code proglang="python">"genscan.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

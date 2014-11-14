@@ -1,0 +1,1241 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>rnaalifold</name>
+    <package xml:base="Entities/ViennaRNA_package.xml">
+      <name>ViennaRNA</name>
+      <version>1.8.4</version>
+      <doc>
+        <title>ViennaRNA</title>
+        <description>
+          <text lang="en">RNA Secondary Structure Prediction and Comparison.</text>
+        </description>
+        <authors>Ivo L Hofacker</authors>
+        <homepagelink>http://www.tbi.univie.ac.at/RNA/</homepagelink>
+        <sourcelink>http://www.tbi.univie.ac.at/RNA/</sourcelink>
+        <doclink>http://www.tbi.univie.ac.at/RNA/</doclink>
+        <doclink>http://bioweb2.pasteur.fr/gensoft/sequence/nucleic/2D_structure.html#ViennaRNa</doclink>
+      </doc>
+    </package>
+    <doc>
+      <title>RNAalifold</title>
+      <description>
+        <text lang="en">Calculate secondary structures for a set of aligned RNAs</text>
+      </description>
+      <reference>D.H. Mathews, J. Sabina, M. Zuker and H. Turner "Expanded Sequence Dependence of Thermodynamic Parameters Provides Robust Prediction of RNA Secondary Structure" JMB, 288, pp 911-940, 1999</reference>
+      <reference>vo L. Hofacker, Martin Fekete, and Peter F. Stadler "Secondary Structure Prediction for Aligned RNA Sequences" J.Mol.Biol. 319: 1059-1066 (2002).</reference>
+      <doclink>http://www.tbi.univie.ac.at/RNA/RNAalifold.html</doclink>
+      <comment>
+        <text lang="en">RNAalifold reads aligned RNA sequences from file and  calculates 
+        their minimum free energy (mfe) structure, partition function (pf) and base pairing probability matrix. 
+        Currently, the input alignment  has  to  be  in  CLUSTAL  format.  
+        It returns  the  mfe  structure in bracket notation, its energy, 
+        the free energy of the thermodynamic ensemble and the frequency of the mfe structure 
+        in  the  ensemble  to outfile.  It  also  produces  Postscript files with plots of the resulting 
+        secondary structure graph ("alirna.ps") and a "dot plot" of the  base  pairing  matrix  ("alidot.ps"). 
+        The file "alifold.out" will contain a list of likely pairs sorted by credibility. </text>
+        <text lang="en">
+        CAVEATS: Since gaps are not removed for the evaluation of energies, 
+        it may be of advantage to remove any columns with more than, say, 
+        75% gaps from the alignment before folding with RNAalifold.
+		</text>
+        <text lang="en">Sequences are not weighted. If possible, do not mix very similar and dissimilar sequences. 
+		Duplicate sequences, for example, can distort the prediction.  
+        </text>
+      </comment>
+    </doc>
+    <command>RNAalifold</command>
+    <category>alignment:multiple:display</category>
+    <category>structure:2D_structure</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Nucleic " data-card="" data-formats="CLUSTAL " data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Aligned RNA Sequences File</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="covariance">Weight of the covariance (-cv)<xhtml:a href="#idm140117718063280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="covariance" type="text" value="1"/>
+            <xhtml:div id="idm140117718063280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set  the  weight  of  the  covariance  term in the energy function to factor. Default is 1.
+	    </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="non_compatible">Penalty for non-compatible sequences in the covariance (-nc)<xhtml:a href="#idm140117718689744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="non_compatible" type="text" value="1"/>
+            <xhtml:div id="idm140117718689744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the penalty for non-compatible sequences in the covariance  term  of  the energy function to factor. Default is 1.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="endgaps">Score pairs with endgaps (-E)<xhtml:a href="#idm140117718589856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="endgaps">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718589856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Score pairs with endgaps same as gap-gap pairs.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="partition">Calculate the partition function and base pairing probability matrix (-p)<xhtml:a href="#idm140117720736352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="partition">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117720736352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Calculate  the  partition function and base pairing probability matrix in addition to the mfe structure. Default is calculation  of  mfe  structure only.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="37" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="temperature">Rescale energy parameters to a temperature of temp C. (-T)<xhtml:input name="temperature" type="text" value="37"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tetraloops">Do not include special stabilizing energies for certain tetraloops (-4)<xhtml:select name="tetraloops">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-d1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dangling">How to treat dangling end energies for bases adjacent to helices in free ends and multiloops (-d)<xhtml:a href="#idm140117718902288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="dangling">
+              <xhtml:option value="-d1" selected="selected">Only unpaired bases can participate in at most one dangling end (-d1)</xhtml:option>
+              <xhtml:option value="-d">Ignores dangling ends altogether (-d)</xhtml:option>
+              <xhtml:option value="-d2">The check is ignored, this is the default for partition function folding (-d2)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718902288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end.
+             With -d2 this check is ignored, this is the default for partition function folding (-p). 
+             -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, 
+             use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. 
+             The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="circ">Circular RNA molecules (-circ)?<xhtml:a href="#idm140117718755280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="circ">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718755280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Assume circular (instead of linear) RNA molecules.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noLP">Avoid structures without lonely pairs (helices of length 1) (-noLP)<xhtml:a href="#idm140117718050272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="noLP">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718050272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noGU">Do not allow GU pairs (-noGU)<xhtml:select name="noGU">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noCloseGU">Do not allow GU pairs at the end of helices (-noCloseGU)<xhtml:select name="noCloseGU">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nsp">Non standard pairs (comma seperated list) (-nsp)<xhtml:a href="#idm140117718036720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="nsp" type="text" value=""/>
+            <xhtml:div id="idm140117718036720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EnergyParameterFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="parameter">
+            <legend>Energy parameter file (-P)<xhtml:a href="#idm140117718027504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117718027504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="parameter" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ribosum_matrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="ribosum_matrix">
+            <legend> use specified Ribosum Matrix instead of normal energy model.<xhtml:a href="#idm140117718017648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117718017648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>use specified Ribosum Matrix instead of normal energy model. Matrices to use
+              should be 6x6 matrices, the order of the terms is AU, CG, GC, GU, UA, UG.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="ribosum_matrix" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="use_ribosum_matrix"> use  Ribosum  scoring  matrix.<xhtml:a href="#idm140117718129936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="use_ribosum_matrix">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718129936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> use  Ribosum  scoring  matrix. The matrix is chosen according to the minimal
+              and maximal pairwise identities of the sequences in the  file.   When  using
+              Ribosum  scores,  best  benchmark results were achieved with options -cv 0.6
+              -nc 0.5 (see above).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Constraint" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="constraints">
+            <legend>Calculate structures subject to constraints (-C)<xhtml:a href="#idm140117718120128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117718120128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The programm reads first the sequence then the a string containg constraints on the structure encoded with the symbols: </xhtml:div>
+              <xhtml:div>| (the corresponding base has to be paired x (the base is unpaired)</xhtml:div>
+              <xhtml:div>&lt; (base i is paired with a base j&gt;i)</xhtml:div>
+              <xhtml:div>&gt; (base i is paired with a base j&lt;i)</xhtml:div>
+              <xhtml:div>matching brackets ( ) (base i pairs base j)</xhtml:div>
+              <xhtml:div>Pf folding ignores constraints of type '|' '&lt;' and '&gt;', but disallow all pairs conflicting with a constraint of type 'x' or '( )'. This is usually sufficient to enforce the constraint.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="constraints" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="informative">Print most informative sequence instead of simple consensus (-mis)?<xhtml:select name="informative">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="color">Produce a colored version of the consensus strcture plot (-color)?<xhtml:a href="#idm140117718094272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="color">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718094272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Produce a colored version of the consensus strcture plot "alirna.ps" (default black and white).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="aln">Produce a colored and structure annotated alignment in PostScript format (-aln) ?<xhtml:a href="#idm140117717967920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="aln">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117717967920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Produce a colored and structure annotated alignment in PostScript  format  in the file "aln.ps".</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Nucleic " data-card="" data-formats="CLUSTAL ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Nucleic Alignment)
+			</xhtml:i>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <xhtml:legend>Control options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="covariance" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718063280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718063280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set  the  weight  of  the  covariance  term in the energy function to factor. Default is 1.
+	    </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="non_compatible" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718689744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718689744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the penalty for non-compatible sequences in the covariance  term  of  the energy function to factor. Default is 1.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="endgaps" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718589856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718589856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Score pairs with endgaps same as gap-gap pairs.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="partition" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117720736352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117720736352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Calculate  the  partition function and base pairing probability matrix in addition to the mfe structure. Default is calculation  of  mfe  structure only.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="temperature" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="37" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tetraloops" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dangling" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-d1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718902288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718902288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end.
+             With -d2 this check is ignored, this is the default for partition function folding (-p). 
+             -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, 
+             use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. 
+             The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <xhtml:legend>Input parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="circ" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718755280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718755280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Assume circular (instead of linear) RNA molecules.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="noLP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718050272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718050272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="noGU" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="noCloseGU" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nsp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718036720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718036720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="parameter" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EnergyParameterFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(EnergyParameterFile)
+			</xhtml:i>
+            <xhtml:a href="#idm140117718027504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718027504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ribosum_matrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ribosum_matrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(ribosum_matrix)
+			</xhtml:i>
+            <xhtml:a href="#idm140117718017648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718017648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>use specified Ribosum Matrix instead of normal energy model. Matrices to use
+              should be 6x6 matrices, the order of the terms is AU, CG, GC, GU, UA, UG.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="use_ribosum_matrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718129936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718129936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> use  Ribosum  scoring  matrix. The matrix is chosen according to the minimal
+              and maximal pairwise identities of the sequences in the  file.   When  using
+              Ribosum  scores,  best  benchmark results were achieved with options -cv 0.6
+              -nc 0.5 (see above).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="constraints" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Constraint" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Constraint)
+			</xhtml:i>
+            <xhtml:a href="#idm140117718120128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718120128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The programm reads first the sequence then the a string containg constraints on the structure encoded with the symbols: </xhtml:div>
+              <xhtml:div>| (the corresponding base has to be paired x (the base is unpaired)</xhtml:div>
+              <xhtml:div>&lt; (base i is paired with a base j&gt;i)</xhtml:div>
+              <xhtml:div>&gt; (base i is paired with a base j&lt;i)</xhtml:div>
+              <xhtml:div>matching brackets ( ) (base i pairs base j)</xhtml:div>
+              <xhtml:div>Pf folding ignores constraints of type '|' '&lt;' and '&gt;', but disallow all pairs conflicting with a constraint of type 'x' or '( )'. This is usually sufficient to enforce the constraint.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="informative" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="color" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718094272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718094272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Produce a colored version of the consensus strcture plot "alirna.ps" (default black and white).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="aln" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117717967920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117717967920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Produce a colored and structure annotated alignment in PostScript  format  in the file "aln.ps".</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="psfiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alifold_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="vienna_likely_pairs" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(vienna_likely_pairs)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117717952528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117717952528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The  file  "alifold.out"  will  contain a list of likely pairs sorted by
+       credibility, suitable for viewing  with "AliDot.pl"</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">Aligned RNA Sequences File</prompt>
+      <type>
+        <biotype>Nucleic</biotype>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>CLUSTAL</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value" </code>
+        <code proglang="python">" "+str( value ) </code>
+      </format>
+      <argpos>1000</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Aligned RNA Sequences File</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Nucleic " data-card="" data-formats="CLUSTAL " data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Nucleic Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>control</name>
+      <prompt lang="en">Control options</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>covariance</name>
+          <prompt lang="en">Weight of the covariance (-cv)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -cv $value" : ""</code>
+            <code proglang="python">( "" , " -cv " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Set  the  weight  of  the  covariance  term in the energy function to factor. Default is 1.
+	    </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Weight of the covariance (-cv)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718063280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="covariance" type="text" value="1"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718063280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set  the  weight  of  the  covariance  term in the energy function to factor. Default is 1.
+	    </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="covariance">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718063280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718063280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set  the  weight  of  the  covariance  term in the energy function to factor. Default is 1.
+	    </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>non_compatible</name>
+          <prompt lang="en">Penalty for non-compatible sequences in the covariance (-nc)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -nc $value" : ""</code>
+            <code proglang="python">( "" , " -nc " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the penalty for non-compatible sequences in the covariance  term  of  the energy function to factor. Default is 1.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Penalty for non-compatible sequences in the covariance (-nc)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718689744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="non_compatible" type="text" value="1"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718689744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the penalty for non-compatible sequences in the covariance  term  of  the energy function to factor. Default is 1.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="non_compatible">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718689744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718689744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the penalty for non-compatible sequences in the covariance  term  of  the energy function to factor. Default is 1.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>endgaps</name>
+          <prompt lang="en">Score pairs with endgaps (-E)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -E" : ""</code>
+            <code proglang="python">( "" , " -E" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Score pairs with endgaps same as gap-gap pairs.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Score pairs with endgaps (-E)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718589856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="endgaps">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718589856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Score pairs with endgaps same as gap-gap pairs.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="endgaps">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718589856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718589856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Score pairs with endgaps same as gap-gap pairs.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>partition</name>
+          <prompt lang="en">Calculate the partition function and base pairing probability matrix (-p)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -p" : ""</code>
+            <code proglang="python">( "" , " -p" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Calculate  the  partition function and base pairing probability matrix in addition to the mfe structure. Default is calculation  of  mfe  structure only.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Calculate the partition function and base pairing probability matrix (-p)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720736352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="partition">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720736352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Calculate  the  partition function and base pairing probability matrix in addition to the mfe structure. Default is calculation  of  mfe  structure only.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="partition">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720736352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720736352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Calculate  the  partition function and base pairing probability matrix in addition to the mfe structure. Default is calculation  of  mfe  structure only.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>temperature</name>
+          <prompt lang="en">Rescale energy parameters to a temperature of temp C. (-T)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>37</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -T $value" : ""</code>
+            <code proglang="python">( "" , " -T " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Rescale energy parameters to a temperature of temp C. (-T)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="temperature" type="text" value="37"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="37" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="temperature"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tetraloops</name>
+          <prompt lang="en">Do not include special stabilizing energies for certain tetraloops (-4)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -4" : ""</code>
+            <code proglang="python">( "" , " -4" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not include special stabilizing energies for certain tetraloops (-4)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tetraloops">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tetraloops"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dangling</name>
+          <prompt lang="en">How to treat dangling end energies for bases adjacent to helices in free ends and multiloops (-d)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>-d1</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>-d1</value>
+              <label>Only unpaired bases can participate in at most one dangling end (-d1)</label>
+            </velem>
+            <velem>
+              <value>-d</value>
+              <label>Ignores dangling ends altogether (-d)</label>
+            </velem>
+            <velem>
+              <value>-d2</value>
+              <label>The check is ignored, this is the default for partition function folding (-d2)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " $value" : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end.
+             With -d2 this check is ignored, this is the default for partition function folding (-p). 
+             -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, 
+             use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. 
+             The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">How to treat dangling end energies for bases adjacent to helices in free ends and multiloops (-d)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718902288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dangling">
+                <xhtml:option value="-d1" selected="selected">Only unpaired bases can participate in at most one dangling end (-d1)</xhtml:option>
+                <xhtml:option value="-d">Ignores dangling ends altogether (-d)</xhtml:option>
+                <xhtml:option value="-d2">The check is ignored, this is the default for partition function folding (-d2)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718902288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end.
+             With -d2 this check is ignored, this is the default for partition function folding (-p). 
+             -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, 
+             use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. 
+             The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-d1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dangling">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718902288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718902288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end.
+             With -d2 this check is ignored, this is the default for partition function folding (-p). 
+             -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, 
+             use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. 
+             The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>input</name>
+      <prompt lang="en">Input parameters</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>circ</name>
+          <prompt lang="en">Circular RNA molecules (-circ)?</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -circ" : ""</code>
+            <code proglang="python">( "" , " -circ" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Assume circular (instead of linear) RNA molecules.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Circular RNA molecules (-circ)?<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718755280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="circ">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718755280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Assume circular (instead of linear) RNA molecules.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="circ">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718755280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718755280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Assume circular (instead of linear) RNA molecules.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>noLP</name>
+          <prompt lang="en">Avoid structures without lonely pairs (helices of length 1) (-noLP)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -noLP" : ""</code>
+            <code proglang="python">( "" , " -noLP" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Avoid structures without lonely pairs (helices of length 1) (-noLP)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718050272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="noLP">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718050272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noLP">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718050272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718050272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>noGU</name>
+          <prompt lang="en">Do not allow GU pairs (-noGU)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -noGU" : ""</code>
+            <code proglang="python">( "" , " -noGU" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not allow GU pairs (-noGU)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="noGU">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noGU"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>noCloseGU</name>
+          <prompt lang="en">Do not allow GU pairs at the end of helices (-noCloseGU)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -noCloseGU" : ""</code>
+            <code proglang="python">( "" , " -noCloseGU" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not allow GU pairs at the end of helices (-noCloseGU)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="noCloseGU">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noCloseGU"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nsp</name>
+          <prompt lang="en">Non standard pairs (comma seperated list) (-nsp)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -nsp $value" : "" </code>
+            <code proglang="python">( ""  , " -nsp " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Non standard pairs (comma seperated list) (-nsp)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718036720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nsp" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718036720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nsp">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718036720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718036720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>parameter</name>
+          <prompt lang="en">Energy parameter file (-P)</prompt>
+          <type>
+            <datatype>
+              <class>EnergyParameterFile</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -P $value" : ""</code>
+            <code proglang="python">( "" , " -P " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Energy parameter file (-P)</xhtml:legend>
+              <xhtml:textarea name="parameter" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EnergyParameterFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="parameter">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(EnergyParameterFile)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718027504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718027504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ribosum_matrix</name>
+          <prompt lang="en"> use specified Ribosum Matrix instead of normal energy model.</prompt>
+          <type>
+            <datatype>
+              <class>ribosum_matrix</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -P $value" : ""</code>
+            <code proglang="python">( "" , " -P " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">use specified Ribosum Matrix instead of normal energy model. Matrices to use
+              should be 6x6 matrices, the order of the terms is AU, CG, GC, GU, UA, UG.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend> use specified Ribosum Matrix instead of normal energy model.</xhtml:legend>
+              <xhtml:textarea name="ribosum_matrix" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ribosum_matrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="ribosum_matrix">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ribosum_matrix)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718017648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718017648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>use specified Ribosum Matrix instead of normal energy model. Matrices to use
+              should be 6x6 matrices, the order of the terms is AU, CG, GC, GU, UA, UG.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>use_ribosum_matrix</name>
+          <prompt lang="en"> use  Ribosum  scoring  matrix.</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -r $value" : ""</code>
+            <code proglang="python">( "" , " -r ")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en"> use  Ribosum  scoring  matrix. The matrix is chosen according to the minimal
+              and maximal pairwise identities of the sequences in the  file.   When  using
+              Ribosum  scores,  best  benchmark results were achieved with options -cv 0.6
+              -nc 0.5 (see above).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""> use  Ribosum  scoring  matrix.<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718129936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="use_ribosum_matrix">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718129936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> use  Ribosum  scoring  matrix. The matrix is chosen according to the minimal
+              and maximal pairwise identities of the sequences in the  file.   When  using
+              Ribosum  scores,  best  benchmark results were achieved with options -cv 0.6
+              -nc 0.5 (see above).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="use_ribosum_matrix">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718129936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718129936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> use  Ribosum  scoring  matrix. The matrix is chosen according to the minimal
+              and maximal pairwise identities of the sequences in the  file.   When  using
+              Ribosum  scores,  best  benchmark results were achieved with options -cv 0.6
+              -nc 0.5 (see above).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>constraints</name>
+          <prompt lang="en">Calculate structures subject to constraints (-C)</prompt>
+          <type>
+            <datatype>
+              <class>Constraint</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -C &lt; $value" : ""</code>
+            <code proglang="python">( "" , " -C &lt;" + str( value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">The programm reads first the sequence then the a string containg constraints on the structure encoded with the symbols: </text>
+            <text lang="en">| (the corresponding base has to be paired x (the base is unpaired)</text>
+            <text lang="en">&lt; (base i is paired with a base j&gt;i)</text>
+            <text lang="en">&gt; (base i is paired with a base j&lt;i)</text>
+            <text lang="en">matching brackets ( ) (base i pairs base j)</text>
+            <text lang="en">Pf folding ignores constraints of type '|' '&lt;' and '&gt;', but disallow all pairs conflicting with a constraint of type 'x' or '( )'. This is usually sufficient to enforce the constraint.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Calculate structures subject to constraints (-C)</xhtml:legend>
+              <xhtml:textarea name="constraints" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Constraint" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="constraints">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Constraint)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718120128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718120128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The programm reads first the sequence then the a string containg constraints on the structure encoded with the symbols: </xhtml:div>
+                <xhtml:div>| (the corresponding base has to be paired x (the base is unpaired)</xhtml:div>
+                <xhtml:div>&lt; (base i is paired with a base j&gt;i)</xhtml:div>
+                <xhtml:div>&gt; (base i is paired with a base j&lt;i)</xhtml:div>
+                <xhtml:div>matching brackets ( ) (base i pairs base j)</xhtml:div>
+                <xhtml:div>Pf folding ignores constraints of type '|' '&lt;' and '&gt;', but disallow all pairs conflicting with a constraint of type 'x' or '( )'. This is usually sufficient to enforce the constraint.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <!-- core dumped on raclette
+	<parameter>
+	  <name>energy</name>
+	  <prompt lang="en">Energy parameters for the artificial ABCD... alphabet (-e)</prompt>
+	  <type>
+	    <datatype>
+	      <class>Choice</class>
+	    </datatype>
+	  </type>
+	  <vdef>
+	    <value>Null</value>
+	  </vdef>
+	  <vlist>
+	    <velem undef="1">
+	      <value>Null</value>
+	      <label>No energy for the artificial ABCD</label>
+	    </velem>
+	    <velem>
+	      <value>1</value>
+	      <label>Use energy parameters for GC pairs (1)</label>
+	    </velem>
+	    <velem>
+	      <value>2</value>
+	      <label>Use energy parameters for AU pairs (2)</label>
+	    </velem>
+	  </vlist>
+	  <format>
+	    <code proglang="perl">($value)? " -e $value" : ""</code>
+	    <code proglang="python">( "" , " -e " + str(value) )[ value is not None and value!=vdef]</code>
+	  </format>
+	</parameter>
+-->
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_options</name>
+      <prompt lang="en">Output options</prompt>
+      <parameters>
+        <parameter>
+          <name>informative</name>
+          <prompt lang="en">Print most informative sequence instead of simple consensus (-mis)?</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -mis" : ""</code>
+            <code proglang="python">( "" , " -mis" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print most informative sequence instead of simple consensus (-mis)?<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="informative">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="informative"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>color</name>
+          <prompt lang="en">Produce a colored version of the consensus strcture plot (-color)?</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -color" : ""</code>
+            <code proglang="python">( "" , " -color" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Produce a colored version of the consensus strcture plot "alirna.ps" (default black and white).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce a colored version of the consensus strcture plot (-color)?<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718094272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="color">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718094272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Produce a colored version of the consensus strcture plot "alirna.ps" (default black and white).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="color">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718094272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718094272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Produce a colored version of the consensus strcture plot "alirna.ps" (default black and white).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>aln</name>
+          <prompt lang="en">Produce a colored and structure annotated alignment in PostScript format (-aln) ?</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -aln" : ""</code>
+            <code proglang="python">( "" , " -aln" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Produce a colored and structure annotated alignment in PostScript  format  in the file "aln.ps".</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce a colored and structure annotated alignment in PostScript format (-aln) ?<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117717967920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="aln">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117717967920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Produce a colored and structure annotated alignment in PostScript  format  in the file "aln.ps".</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="aln">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117717967920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117717967920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Produce a colored and structure annotated alignment in PostScript  format  in the file "aln.ps".</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>psfiles</name>
+      <prompt>Postscript file</prompt>
+      <type>
+        <datatype>
+          <class>PostScript</class>
+          <superclass>Binary</superclass>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.ps"</code>
+        <code proglang="python">"*.ps"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="psfiles"/>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>alifold_out</name>
+      <prompt>list of likely pairs</prompt>
+      <type>
+        <datatype>
+          <class>vienna_likely_pairs</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$partition</code>
+        <code proglang="python">partition</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"alifold.out"</code>
+        <code proglang="python">"alifold.out"</code>
+      </filenames>
+      <comment>
+        <text lang="en">The  file  "alifold.out"  will  contain a list of likely pairs sorted by
+       credibility, suitable for viewing  with "AliDot.pl"</text>
+      </comment>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="vienna_likely_pairs" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="alifold_out">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(vienna_likely_pairs)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117717952528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117717952528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The  file  "alifold.out"  will  contain a list of likely pairs sorted by
+       credibility, suitable for viewing  with "AliDot.pl"</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"rnaalifold.out"</code>
+        <code proglang="python">"rnaalifold.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"rnaalifold.err"</code>
+        <code proglang="python">"rnaalifold.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

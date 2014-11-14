@@ -1,0 +1,1220 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>rnaup</name>
+    <version>1.8.4</version>
+    <package xml:base="Entities/ViennaRNA_package.xml">
+      <name>ViennaRNA</name>
+      <version>1.8.4</version>
+      <doc>
+        <title>ViennaRNA</title>
+        <description>
+          <text lang="en">RNA Secondary Structure Prediction and Comparison.</text>
+        </description>
+        <authors>Ivo L Hofacker</authors>
+        <homepagelink>http://www.tbi.univie.ac.at/RNA/</homepagelink>
+        <sourcelink>http://www.tbi.univie.ac.at/RNA/</sourcelink>
+        <doclink>http://www.tbi.univie.ac.at/RNA/</doclink>
+        <doclink>http://bioweb2.pasteur.fr/gensoft/sequence/nucleic/2D_structure.html#ViennaRNa</doclink>
+      </doc>
+    </package>
+    <doc>
+      <title>RNAup</title>
+      <description>
+        <text lang="en">Calculate the thermodynamics of RNA-RNA interactions</text>
+      </description>
+      <authors>Ivo L Hofacker, Peter F Stadler, Stephan Bernhart</authors>
+      <reference>I.L. Hofacker, W. Fontana, P.F. Stadler, S. Bonhoeffer, M. Tacker, P. Schuster (1994) Fast Folding and Comparison of RNA Secondary Structures. Monatshefte f. Chemie 125: 167-188</reference>
+      <reference>S.H.Bernhart, Ch. Flamm, P.F. Stadler, I.L. Hofacker Partition Function and Base Pairing Probabilities of RNA Heterodimers Algorithms Mol. Biol. (2006)</reference>
+      <reference>D.H. Mathews, J. Sabina, M. Zuker and H. Turner "Expanded Sequence Dependence of Thermodynamic Parameters Provides Robust Prediction of RNA Secondary Structure" JMB, 288, pp 911-940, 1999</reference>
+      <doclink>http://bioweb2.pasteur.fr/gensoft/sequence/nucleic/2D_structure.html#ViennaRNa</doclink>
+      <comment>
+        <text lang="en">RNAup  calculates the thermodynamics of RNA-RNA interactions, by decomposing the 
+        binding into two stages. </text>
+        <text lang="en">(1) First the  probability  that  a
+       potential binding sites remains unpaired (equivalent to the free energy
+       needed to open the site) is computed. </text>
+        <text lang="en">(2) Then  this  accessibility  is
+       combined  with  the  interaction  energy  to  obtain  the total binding
+       energy. </text>
+        <text lang="en">All calculations are done by computing partition functions over
+       all possible conformations.</text>
+      </comment>
+    </doc>
+    <command>RNAup</command>
+    <category>sequence:nucleic:2D_structure</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="RNASequence" data-datatype-superclass="AbstractText" data-biotype="RNA " data-card="" data-formats="" data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">RNA Sequences File<xhtml:a href="#idm140117699144192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117699144192::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699144192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Each line of file corresponds to one sequence, except for lines starting with "&gt;" which contain the name of the next sequence. To compute the hybrid structure of two molecules, the two sequences must be concatenated using the &amp; character as separator.</xhtml:div>
+          <div class="example" id="idm140117699144192::example" data-forparameter="seq">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+ACGAUCAGAGAUCAGAGCAUACGACAGCAG&amp;amp;ACGAAAAAAAGAGCAUACGACAGCAG
+      </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117699144192::example" data-forparameter="seq" style="display:none">
+          <pre>
+ACGAUCAGAGAUCAGAGCAUACGACAGCAG&amp;amp;ACGAAAAAAAGAGCAUACGACAGCAG
+      </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="freeEnergie">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options for calculation of free energies</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="partition_free">Specifies  the  length of the unstructured region  (-u)<xhtml:a href="#idm140117699790480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="partition_free" type="text" value="4"/>
+            <xhtml:div id="idm140117699790480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Specifies  the  length  (len)  of the unstructured region in the
+              output. The  default  value  is  4.  The  probability  of  being
+              unpaired  is plotted on the right border of the unpaired region.
+              You can specify up to 20 different length values:   use  "-"  to
+              specify  a range of continuous values (e.g. -u 4-8) or specify a
+              list of comma separated values (e.g. -u 4,8,15).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="shime">Option allows to get the different contributions to the probability of being unpaired. (-c)<xhtml:a href="#idm140117700005936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="shime" type="text" value=""/>
+            <xhtml:div id="idm140117700005936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>by default only the full probability of being unpaired is  plot-
+              ted. The -c option allows to get the different contributions (c)
+              to the probability of being unpaired: The  full  probability  of
+              being  unpaired  ("S")  is  the  sum of the probability of being
+              unpaired in the exterior  loop  ("E"),  within  a  hairpin  loop
+              ("H"),  within  an  interior  loop  ("I") and within a multiloop
+              ("M"). Any combination of these letters may be given.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="interaction">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options for calculation of interaction</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="25" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Length">Determines the maximal length of the region of interaction (-w)<xhtml:a href="#idm140117702097792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="Length" type="text" value="25"/>
+            <xhtml:div id="idm140117702097792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Determines the maximal length of the region of interaction,  the
+              default is 25.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="unpaired">Include the probability of unpaired regions in both RNAs (-b)<xhtml:a href="#idm140117700334848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="unpaired">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117700334848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Include the probability of unpaired regions in both (b) RNAs. By
+              default only the probability of being unpaired in the longer RNA
+              (target) is used.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="side5">Extend the region of interaction in the target by len residues  to the 5' side<xhtml:a href="#idm140117699187152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="side5" type="text" value=""/>
+            <xhtml:div id="idm140117699187152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="side3">Extend the region of interaction in the target by len residues  to the  3' side<xhtml:a href="#idm140117699188752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="side3" type="text" value=""/>
+            <xhtml:div id="idm140117699188752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="interaction">Interaction  mode<xhtml:a href="#idm140117700471328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="interaction">
+              <xhtml:option value="null" selected="selected"/>
+              <xhtml:option value="-Xp">Pairwise interaction is calculated (-Xp)</xhtml:option>
+              <xhtml:option value="-Xf">The interaction of each sequence with the first one is calculated  (-Xf)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117700471328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Xp: Pairwise (p) interaction is calculated:
+              The first sequence interacts with the 2nd, the  third  with  the
+              4th  etc.  If  -Xp  is selected two interacting sequences may be
+              given in a single line separated by "&amp;" or each sequence may  be
+              given on an extra line.</xhtml:div>
+              <xhtml:div>Xf: The interaction of each sequence with the
+              first one is calculated (e.g. interaction of one mRNA with  many
+              small RNAs). Each sequence has to be given on an extra line.
+            </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="target">Use  the  first  sequence  in  the  input file as the target<xhtml:a href="#idm140117699559136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="target">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117699559136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use  the  first  sequence  in  the  input file as the target. No
+              length check is done</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="general">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">General option</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="37" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="temperature">Rescale energy parameters to a temperature of temp C. (-T)<xhtml:input name="temperature" type="text" value="37"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tetraloops">Do not include special stabilizing energies for certain tetraloops (-4)<xhtml:select name="tetraloops">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-d1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dangling">How to treat dangling end energies for bases adjacent to helices in free ends and multiloops (-d)<xhtml:a href="#idm140117698908400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="dangling">
+              <xhtml:option value="-d1" selected="selected">Only unpaired bases can participate in at most one dangling end (-d1)</xhtml:option>
+              <xhtml:option value="-d">Ignores dangling ends altogether (-d)</xhtml:option>
+              <xhtml:option value="-d2">The check is ignored, this is the default for partition function folding. (-d2)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117698908400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end. With -d2 this check is ignored, this is the default for partition function folding (-p). -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="scale">Use scale*mfe as an estimate for the free energy (-S)<xhtml:a href="#idm140117698988336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="scale" type="text" value=""/>
+            <xhtml:div id="idm140117698988336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In the calculation of the pf use scale*mfe as an estimate for the ensemble free energy (used to avoid overflows). The default is 1.07, usefull values are 1.0 to 1.2. Occasionally needed for long sequences. You can also recompile the programm to use double precision (see the README file).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noLP">Avoid lonely pairs (helices of length 1) (-noLP)<xhtml:a href="#idm140117698977648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="noLP">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117698977648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noGU">Do not allow GU pairs (-noGU)<xhtml:select name="noGU">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noCloseGU">Do not allow GU pairs at the end of helices (-noCloseGU)<xhtml:select name="noCloseGU">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nsp">Non standard pairs (comma seperated list) (-nsp)<xhtml:a href="#idm140117698864992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="nsp" type="text" value=""/>
+            <xhtml:div id="idm140117698864992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EnergyParameterFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="parameter">
+            <legend>Energy parameter file (-P)<xhtml:a href="#idm140117698564816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117698564816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="parameter" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="RNASequence" data-datatype-superclass="AbstractText" data-biotype="RNA " data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(RNA RNASequence)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699144192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699144192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Each line of file corresponds to one sequence, except for lines starting with "&gt;" which contain the name of the next sequence. To compute the hybrid structure of two molecules, the two sequences must be concatenated using the &amp; character as separator.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="freeEnergie">
+        <xhtml:legend>Options for calculation of free energies</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="partition_free" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699790480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699790480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Specifies  the  length  (len)  of the unstructured region in the
+              output. The  default  value  is  4.  The  probability  of  being
+              unpaired  is plotted on the right border of the unpaired region.
+              You can specify up to 20 different length values:   use  "-"  to
+              specify  a range of continuous values (e.g. -u 4-8) or specify a
+              list of comma separated values (e.g. -u 4,8,15).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="shime" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700005936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700005936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>by default only the full probability of being unpaired is  plot-
+              ted. The -c option allows to get the different contributions (c)
+              to the probability of being unpaired: The  full  probability  of
+              being  unpaired  ("S")  is  the  sum of the probability of being
+              unpaired in the exterior  loop  ("E"),  within  a  hairpin  loop
+              ("H"),  within  an  interior  loop  ("I") and within a multiloop
+              ("M"). Any combination of these letters may be given.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="interaction">
+        <xhtml:legend>Options for calculation of interaction</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="25" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702097792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702097792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Determines the maximal length of the region of interaction,  the
+              default is 25.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="unpaired" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700334848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700334848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Include the probability of unpaired regions in both (b) RNAs. By
+              default only the probability of being unpaired in the longer RNA
+              (target) is used.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="side5" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699187152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699187152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="side3" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699188752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699188752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="interaction" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700471328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700471328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Xp: Pairwise (p) interaction is calculated:
+              The first sequence interacts with the 2nd, the  third  with  the
+              4th  etc.  If  -Xp  is selected two interacting sequences may be
+              given in a single line separated by "&amp;" or each sequence may  be
+              given on an extra line.</xhtml:div>
+              <xhtml:div>Xf: The interaction of each sequence with the
+              first one is calculated (e.g. interaction of one mRNA with  many
+              small RNAs). Each sequence has to be given on an extra line.
+            </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="target" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699559136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699559136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use  the  first  sequence  in  the  input file as the target. No
+              length check is done</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="general">
+        <xhtml:legend>General option</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="temperature" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="37" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tetraloops" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dangling" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-d1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698908400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698908400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end. With -d2 this check is ignored, this is the default for partition function folding (-p). -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="scale" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698988336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698988336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In the calculation of the pf use scale*mfe as an estimate for the ensemble free energy (used to avoid overflows). The default is 1.07, usefull values are 1.0 to 1.2. Occasionally needed for long sequences. You can also recompile the programm to use double precision (see the README file).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="noLP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698977648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698977648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="noGU" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="noCloseGU" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nsp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698864992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698864992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="parameter" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EnergyParameterFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(EnergyParameterFile)
+			</xhtml:i>
+            <xhtml:a href="#idm140117698564816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698564816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RNAupOut" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(RNAupOut)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">RNA Sequences File</prompt>
+      <type>
+        <biotype>RNA</biotype>
+        <datatype>
+          <class>RNASequence</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" &lt; $value" </code>
+        <code proglang="python">" &lt; " + str(value) </code>
+      </format>
+      <argpos>1000</argpos>
+      <comment>
+        <text lang="en">Each line of file corresponds to one sequence, except for lines starting with "&gt;" which contain the name of the next sequence. To compute the hybrid structure of two molecules, the two sequences must be concatenated using the &amp; character as separator.</text>
+      </comment>
+      <example>
+ACGAUCAGAGAUCAGAGCAUACGACAGCAG&amp;ACGAAAAAAAGAGCAUACGACAGCAG
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>RNA Sequences File</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="RNASequence" data-datatype-superclass="AbstractText" data-biotype="RNA " data-card="" data-formats="" data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(RNA RNASequence)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699144192::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699144192::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Each line of file corresponds to one sequence, except for lines starting with "&gt;" which contain the name of the next sequence. To compute the hybrid structure of two molecules, the two sequences must be concatenated using the &amp; character as separator.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>freeEnergie</name>
+      <prompt lang="en">Options for calculation of free energies</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>partition_free</name>
+          <prompt lang="en">Specifies  the  length of the unstructured region  (-u)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>4</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -u $value" : ""</code>
+            <code proglang="python">( "" , " -u "+ str(value) )[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Specifies  the  length  (len)  of the unstructured region in the
+              output. The  default  value  is  4.  The  probability  of  being
+              unpaired  is plotted on the right border of the unpaired region.
+              You can specify up to 20 different length values:   use  "-"  to
+              specify  a range of continuous values (e.g. -u 4-8) or specify a
+              list of comma separated values (e.g. -u 4,8,15).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Specifies  the  length of the unstructured region  (-u)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699790480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="partition_free" type="text" value="4"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699790480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Specifies  the  length  (len)  of the unstructured region in the
+              output. The  default  value  is  4.  The  probability  of  being
+              unpaired  is plotted on the right border of the unpaired region.
+              You can specify up to 20 different length values:   use  "-"  to
+              specify  a range of continuous values (e.g. -u 4-8) or specify a
+              list of comma separated values (e.g. -u 4,8,15).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="partition_free">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699790480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699790480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Specifies  the  length  (len)  of the unstructured region in the
+              output. The  default  value  is  4.  The  probability  of  being
+              unpaired  is plotted on the right border of the unpaired region.
+              You can specify up to 20 different length values:   use  "-"  to
+              specify  a range of continuous values (e.g. -u 4-8) or specify a
+              list of comma separated values (e.g. -u 4,8,15).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>shime</name>
+          <prompt lang="en">Option allows to get the different contributions to the probability of being unpaired. (-c)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">($value)? " -c $value" : ""</code>
+            <code proglang="python">( "" , " -c " +str(value)  )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">by default only the full probability of being unpaired is  plot-
+              ted. The -c option allows to get the different contributions (c)
+              to the probability of being unpaired: The  full  probability  of
+              being  unpaired  ("S")  is  the  sum of the probability of being
+              unpaired in the exterior  loop  ("E"),  within  a  hairpin  loop
+              ("H"),  within  an  interior  loop  ("I") and within a multiloop
+              ("M"). Any combination of these letters may be given.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Option allows to get the different contributions to the probability of being unpaired. (-c)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700005936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="shime" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700005936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>by default only the full probability of being unpaired is  plot-
+              ted. The -c option allows to get the different contributions (c)
+              to the probability of being unpaired: The  full  probability  of
+              being  unpaired  ("S")  is  the  sum of the probability of being
+              unpaired in the exterior  loop  ("E"),  within  a  hairpin  loop
+              ("H"),  within  an  interior  loop  ("I") and within a multiloop
+              ("M"). Any combination of these letters may be given.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="shime">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700005936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700005936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>by default only the full probability of being unpaired is  plot-
+              ted. The -c option allows to get the different contributions (c)
+              to the probability of being unpaired: The  full  probability  of
+              being  unpaired  ("S")  is  the  sum of the probability of being
+              unpaired in the exterior  loop  ("E"),  within  a  hairpin  loop
+              ("H"),  within  an  interior  loop  ("I") and within a multiloop
+              ("M"). Any combination of these letters may be given.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>interaction</name>
+      <prompt lang="en">Options for calculation of interaction</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>Length</name>
+          <prompt lang="en">Determines the maximal length of the region of interaction (-w)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>25</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -w $value" : ""</code>
+            <code proglang="python">( "" , " -w " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Determines the maximal length of the region of interaction,  the
+              default is 25.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Determines the maximal length of the region of interaction (-w)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702097792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Length" type="text" value="25"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702097792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Determines the maximal length of the region of interaction,  the
+              default is 25.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="25" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Length">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702097792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702097792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Determines the maximal length of the region of interaction,  the
+              default is 25.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>unpaired</name>
+          <prompt lang="en">Include the probability of unpaired regions in both RNAs (-b)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -b " : ""</code>
+            <code proglang="python">( "" , " -b " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Include the probability of unpaired regions in both (b) RNAs. By
+              default only the probability of being unpaired in the longer RNA
+              (target) is used.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Include the probability of unpaired regions in both RNAs (-b)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700334848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="unpaired">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700334848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Include the probability of unpaired regions in both (b) RNAs. By
+              default only the probability of being unpaired in the longer RNA
+              (target) is used.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="unpaired">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700334848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700334848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Include the probability of unpaired regions in both (b) RNAs. By
+              default only the probability of being unpaired in the longer RNA
+              (target) is used.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>side5</name>
+          <prompt lang="en">Extend the region of interaction in the target by len residues  to the 5' side</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -5 $value" : ""</code>
+            <code proglang="python">( "" , " -5 " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en"> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Extend the region of interaction in the target by len residues  to the 5' side<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699187152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="side5" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699187152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="side5">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699187152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699187152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>side3</name>
+          <prompt lang="en">Extend the region of interaction in the target by len residues  to the  3' side</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -3 $value" : ""</code>
+            <code proglang="python">( "" , " -3 " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en"> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Extend the region of interaction in the target by len residues  to the  3' side<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699188752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="side3" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699188752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="side3">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699188752::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699188752::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> These  options extend the region of interaction in the target by
+              len residues to the 5' and 3' side, respectively. The underlying
+              assumption  is  that  it  is favorable for an interaction if not
+              only the direct region of contact is unpaired  but  also  a  few
+              residues 5' and 3' of this region.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>interaction</name>
+          <prompt lang="en">Interaction  mode</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>null</value>
+              <label/>
+            </velem>
+            <velem>
+              <value>-Xp</value>
+              <label>Pairwise interaction is calculated (-Xp)</label>
+            </velem>
+            <velem>
+              <value>-Xf</value>
+              <label>The interaction of each sequence with the first one is calculated  (-Xf)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " $value" : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Xp: Pairwise (p) interaction is calculated:
+              The first sequence interacts with the 2nd, the  third  with  the
+              4th  etc.  If  -Xp  is selected two interacting sequences may be
+              given in a single line separated by "&amp;" or each sequence may  be
+              given on an extra line.</text>
+            <text lang="en">Xf: The interaction of each sequence with the
+              first one is calculated (e.g. interaction of one mRNA with  many
+              small RNAs). Each sequence has to be given on an extra line.
+            </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Interaction  mode<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700471328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="interaction">
+                <xhtml:option value="null" selected="selected"/>
+                <xhtml:option value="-Xp">Pairwise interaction is calculated (-Xp)</xhtml:option>
+                <xhtml:option value="-Xf">The interaction of each sequence with the first one is calculated  (-Xf)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700471328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Xp: Pairwise (p) interaction is calculated:
+              The first sequence interacts with the 2nd, the  third  with  the
+              4th  etc.  If  -Xp  is selected two interacting sequences may be
+              given in a single line separated by "&amp;" or each sequence may  be
+              given on an extra line.</xhtml:div>
+                <xhtml:div>Xf: The interaction of each sequence with the
+              first one is calculated (e.g. interaction of one mRNA with  many
+              small RNAs). Each sequence has to be given on an extra line.
+            </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="interaction">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700471328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700471328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Xp: Pairwise (p) interaction is calculated:
+              The first sequence interacts with the 2nd, the  third  with  the
+              4th  etc.  If  -Xp  is selected two interacting sequences may be
+              given in a single line separated by "&amp;" or each sequence may  be
+              given on an extra line.</xhtml:div>
+                <xhtml:div>Xf: The interaction of each sequence with the
+              first one is calculated (e.g. interaction of one mRNA with  many
+              small RNAs). Each sequence has to be given on an extra line.
+            </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>target</name>
+          <prompt lang="en">Use  the  first  sequence  in  the  input file as the target</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -target " : ""</code>
+            <code proglang="python">( "" , " -target " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Use  the  first  sequence  in  the  input file as the target. No
+              length check is done</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use  the  first  sequence  in  the  input file as the target<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699559136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="target">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699559136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use  the  first  sequence  in  the  input file as the target. No
+              length check is done</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="target">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699559136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699559136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use  the  first  sequence  in  the  input file as the target. No
+              length check is done</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>general</name>
+      <prompt lang="en">General option</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>temperature</name>
+          <prompt lang="en">Rescale energy parameters to a temperature of temp C. (-T)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>37</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -T $value" : ""</code>
+            <code proglang="python">( "" , " -T " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Rescale energy parameters to a temperature of temp C. (-T)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="temperature" type="text" value="37"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="37" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="temperature"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tetraloops</name>
+          <prompt lang="en">Do not include special stabilizing energies for certain tetraloops (-4)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -4" : ""</code>
+            <code proglang="python">( "" , " -4" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not include special stabilizing energies for certain tetraloops (-4)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tetraloops">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tetraloops"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dangling</name>
+          <prompt lang="en">How to treat dangling end energies for bases adjacent to helices in free ends and multiloops (-d)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>-d1</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>-d1</value>
+              <label>Only unpaired bases can participate in at most one dangling end (-d1)</label>
+            </velem>
+            <velem>
+              <value>-d</value>
+              <label>Ignores dangling ends altogether (-d)</label>
+            </velem>
+            <velem>
+              <value>-d2</value>
+              <label>The check is ignored, this is the default for partition function folding. (-d2)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " $value" : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end. With -d2 this check is ignored, this is the default for partition function folding (-p). -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">How to treat dangling end energies for bases adjacent to helices in free ends and multiloops (-d)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698908400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dangling">
+                <xhtml:option value="-d1" selected="selected">Only unpaired bases can participate in at most one dangling end (-d1)</xhtml:option>
+                <xhtml:option value="-d">Ignores dangling ends altogether (-d)</xhtml:option>
+                <xhtml:option value="-d2">The check is ignored, this is the default for partition function folding. (-d2)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698908400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end. With -d2 this check is ignored, this is the default for partition function folding (-p). -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-d1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dangling">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698908400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698908400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>How to treat 'dangling end' energies for bases adjacent to helices in free ends and multiloops: Normally only unpaired bases can participate in at most one dangling end. With -d2 this check is ignored, this is the default for partition function folding (-p). -d ignores dangling ends altogether. Note that by default pf and mfe folding treat dangling ends differently, use -d2 (or -d) in addition to -p to ensure that both algorithms use the same energy model. The -d2 options is available for RNAfold, RNAeval, and RNAinverse only.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>scale</name>
+          <prompt lang="en">Use scale*mfe as an estimate for the free energy (-S)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -S $value" : ""</code>
+            <code proglang="python">( "" , " -S " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">In the calculation of the pf use scale*mfe as an estimate for the ensemble free energy (used to avoid overflows). The default is 1.07, usefull values are 1.0 to 1.2. Occasionally needed for long sequences. You can also recompile the programm to use double precision (see the README file).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use scale*mfe as an estimate for the free energy (-S)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698988336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="scale" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698988336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In the calculation of the pf use scale*mfe as an estimate for the ensemble free energy (used to avoid overflows). The default is 1.07, usefull values are 1.0 to 1.2. Occasionally needed for long sequences. You can also recompile the programm to use double precision (see the README file).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="scale">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698988336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698988336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In the calculation of the pf use scale*mfe as an estimate for the ensemble free energy (used to avoid overflows). The default is 1.07, usefull values are 1.0 to 1.2. Occasionally needed for long sequences. You can also recompile the programm to use double precision (see the README file).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <!-- core dumped
+
+	<parameter>
+	  <name>constraints</name>
+	  <prompt lang="en">Calculate structures subject to constraints (-C)</prompt>
+	  <type>
+	    <datatype>
+	      <class>Boolean</class>
+	    </datatype>
+	  </type>
+	  <vdef>
+	    <value>0</value>
+	  </vdef>
+	  <format>
+	    <code proglang="perl">($value)? " -C" : ""</code>
+	    <code proglang="python">( "" , " -C" )[ value ]</code>
+	  </format>
+	  <comment>
+	    <text lang="en">The programm reads first the sequence then the a string containg constraints on the structure encoded with the symbols: </text>
+	    <text lang="en">| (the corresponding base has to be paired x (the base is unpaired)</text>
+	    <text lang="en">&lt; (base i is paired with a base j&gt;i)</text>
+	    <text lang="en">&gt; (base i is paired with a base j&lt;i)</text>
+	    <text lang="en">matching brackets ( ) (base i pairs base j)</text>
+	    <text lang="en">Pf folding ignores constraints of type '|' '&lt;' and '&gt;', but disallow all pairs conflicting with a constraint of type 'x' or '( )'. This is usually sufficient to enforce the constraint.</text>
+	  </comment>
+	</parameter>
+
+-->
+        <parameter>
+          <name>noLP</name>
+          <prompt lang="en">Avoid lonely pairs (helices of length 1) (-noLP)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -noLP" : ""</code>
+            <code proglang="python">( "" , " -noLP" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Avoid lonely pairs (helices of length 1) (-noLP)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698977648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="noLP">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698977648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noLP">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698977648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698977648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Produce structures without lonely pairs (helices of length 1).  For  partition  function  folding  this  only disallows pairs that can only occur isolated. Other pairs may still occasionally occur as helices  of  length 1.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>noGU</name>
+          <prompt lang="en">Do not allow GU pairs (-noGU)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -noGU" : ""</code>
+            <code proglang="python">( "" , " -noGU" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not allow GU pairs (-noGU)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="noGU">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noGU"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>noCloseGU</name>
+          <prompt lang="en">Do not allow GU pairs at the end of helices (-noCloseGU)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -noCloseGU" : ""</code>
+            <code proglang="python">( "" , " -noCloseGU" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not allow GU pairs at the end of helices (-noCloseGU)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="noCloseGU">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noCloseGU"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nsp</name>
+          <prompt lang="en">Non standard pairs (comma seperated list) (-nsp)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -nsp $value" : "" </code>
+            <code proglang="python">( ""  , " -nsp " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Non standard pairs (comma seperated list) (-nsp)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698864992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nsp" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698864992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nsp">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698864992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698864992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Allow other pairs in addition to the usual AU,GC,and GU pairs. pairs is a comma seperated list of additionally allowed pairs. If a the first character is a '-' then AB will imply that AB and BA are allowed pairs. e.g. RNAfold -nsp -GA will allow GA and AG pairs. Nonstandard pairs are given 0 stacking energy.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>parameter</name>
+          <prompt lang="en">Energy parameter file (-P)</prompt>
+          <type>
+            <datatype>
+              <class>EnergyParameterFile</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -P $value" : ""</code>
+            <code proglang="python">( "" , " -P " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Energy parameter file (-P)</xhtml:legend>
+              <xhtml:textarea name="parameter" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EnergyParameterFile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="parameter">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(EnergyParameterFile)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698564816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698564816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Read energy parameters from paramfile, instead of using the default parameter set. A sample parameterfile should accompany your distribution. See the RNAlib documentation for details on the file format.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>outfiles</name>
+      <prompt lang="en">RNAup output</prompt>
+      <type>
+        <datatype>
+          <class>RNAupOut</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"RNA*.out"</code>
+        <code proglang="python">"RNA*.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RNAupOut" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="outfiles">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(RNAupOut)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"rnaup.out"</code>
+        <code proglang="python">"rnaup.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"rnaup.err"</code>
+        <code proglang="python">"rnaup.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

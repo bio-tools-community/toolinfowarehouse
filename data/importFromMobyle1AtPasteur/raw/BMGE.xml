@@ -1,0 +1,1832 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>BMGE</name>
+    <version>1.0</version>
+    <doc>
+      <title>BMGE</title>
+      <description>
+        <text lang="en">Block Mapping and Gathering using Entropy</text>
+      </description>
+      <authors>Alexis Criscuolo and Simonetta Gribaldo</authors>
+      <reference>Criscuolo A, Gribaldo S (2010) BMGE (Block Mapping and Gathering with Entropy): selection of phylogenetic informative regions from multiple
+sequence alignments. BMC Evolutionary Biology 10:210.
+	</reference>
+      <sourcelink>ftp://ftp.pasteur.fr/pub/gensoft/projects/BMGE/</sourcelink>
+      <doclink>http://bioweb2.pasteur.fr/docs/BMGE/BMGE_doc.pdf</doclink>
+    </doc>
+    <command>BMGE</command>
+    <category>alignment:multiple:information</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA PHYLIPS " data-parametername="infile">
+            <legend>Alignment (-i)<xhtml:a href="#idm140117706803200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117706803200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>BMGE uses FASTA or PHYLIP sequential format for input. These are
+                    plain text files. There is no limit on the length of the
+                    alignment. There is also no limit on the length of the label of
+                    a sequence (i.e. its FASTA annotation line), although a too long
+                    label (e.g. more than 100 letters) will be truncated if the
+                    output format is PHYLIP sequential.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="infile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="input_type">Type of sequence (-t)<xhtml:a href="#idm140117708783776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="input_type">
+              <xhtml:option value="null" selected="selected">Set the input sequence coding</xhtml:option>
+              <xhtml:option value="AA">Amino acid</xhtml:option>
+              <xhtml:option value="DNA">Nucleotide</xhtml:option>
+              <xhtml:option value="CODON">Codon</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117708783776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Both standard single-letter amino acid and nucleotide alphabets
+                          are used by BMGE. When using amino acid sequences, degenerated
+                          character states B and Z are understood by BMGE; similarly,
+                          degenerated nucleotide characters are also understood. The
+                          character state X is understood to be any of the 4 or 20
+                          character states when using as input nucleotide or amino acid
+                          sequences, respectively. Dashes (i.e. '-') are understood as
+                          gaps, whereas dots (i.e. '.'), as any other single letter that
+                          are not inside standard alphabets, are considered as unknown
+                          character state (i.e. '?'). Nucleotide sequences can be set as
+                          codon ones. In this case, each successive nucleotide character
+                          triplet is considered as one codon character.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrixaa">Similarity Matrices for amino acid and codon sequences (-m)<xhtml:a href="#idm140117706386960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="matrixaa">
+              <xhtml:option value="BLOSUM62" selected="selected">BLOSUM62</xhtml:option>
+              <xhtml:option value="ID">Identity</xhtml:option>
+              <xhtml:option value="BLOSUM30">BLOSUM30</xhtml:option>
+              <xhtml:option value="BLOSUM35">BLOSUM35</xhtml:option>
+              <xhtml:option value="BLOSUM40">BLOSUM40</xhtml:option>
+              <xhtml:option value="BLOSUM45">BLOSUM45</xhtml:option>
+              <xhtml:option value="BLOSUM50">BLOSUM50</xhtml:option>
+              <xhtml:option value="BLOSUM55">BLOSUM55</xhtml:option>
+              <xhtml:option value="BLOSUM60">BLOSUM60</xhtml:option>
+              <xhtml:option value="BLOSUM65">BLOSUM65</xhtml:option>
+              <xhtml:option value="BLOSUM70">BLOSUM70</xhtml:option>
+              <xhtml:option value="BLOSUM75">BLOSUM75</xhtml:option>
+              <xhtml:option value="BLOSUM80">BLOSUM80</xhtml:option>
+              <xhtml:option value="BLOSUM85">BLOSUM85</xhtml:option>
+              <xhtml:option value="BLOSUM90">BLOSUM90</xhtml:option>
+              <xhtml:option value="BLOSUM95">BLOSUM95</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117706386960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For each character, BMGE computes a score mainly determined by the entropy induced by
+              the respective proportion of each residue. To estimate realistic
+              scores that take into account biologically relevant substitution processes, BMGE weights the
+              entropy estimation with substitution matrices.</xhtml:div>
+              <xhtml:div>These option can be used with the 15 estimated BLOSUM matrices. BMGE uses by 
+              default the popular BLOSUM62 matrix. The character
+              trimming is progressively more stringent as the BLOSUM index
+              increases (e.g. BLOSUM95); reciprocally, the trimming is
+              progressively more relaxed as the BLOSUM index is lower (e.g.
+              BLOSUM30). In practice, it is recommended to use BLOSUM95 with
+              closely related sequences, and BLOSUM30 with distantly related
+              sequences.</xhtml:div>
+              <xhtml:div>If input sequences are set as codons, BMGE performs a conversion
+              into amino acid sequences (following the universal genetic code)
+              and uses BLOSUM matrices to estimate the entropy-like score for
+              each codon character. So, with option -t set as CODON, one can
+              modify the option -m only with BLOSUM matrices.
+              It is also possible to use the identity matrix with any sequence
+              types.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="DNAPAM100" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrixan">Similarity Matrices for nucleotide sequences (-m)<xhtml:a href="#idm140117706282544::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="matrixan">
+              <xhtml:option value="DNAPAM100" selected="selected">DNAPAM100</xhtml:option>
+              <xhtml:option value="ID">Identity</xhtml:option>
+              <xhtml:option value="DNAPAM1">DNAPAM1</xhtml:option>
+              <xhtml:option value="DNAPAM5">DNAPAM5</xhtml:option>
+              <xhtml:option value="DNAPAM10">DNAPAM10</xhtml:option>
+              <xhtml:option value="DNAPAM20">DNAPAM20</xhtml:option>
+              <xhtml:option value="DNAPAM30">DNAPAM30</xhtml:option>
+              <xhtml:option value="DNAPAM40">DNAPAM40</xhtml:option>
+              <xhtml:option value="DNAPAM50">DNAPAM50</xhtml:option>
+              <xhtml:option value="DNAPAM60">DNAPAM60</xhtml:option>
+              <xhtml:option value="DNAPAM70">DNAPAM70</xhtml:option>
+              <xhtml:option value="DNAPAM80">DNAPAM80</xhtml:option>
+              <xhtml:option value="DNAPAM90">DNAPAM90</xhtml:option>
+              <xhtml:option value="DNAPAM110">DNAPAM110</xhtml:option>
+              <xhtml:option value="DNAPAM120">DNAPAM120</xhtml:option>
+              <xhtml:option value="DNAPAM130">DNAPAM130</xhtml:option>
+              <xhtml:option value="DNAPAM140">DNAPAM140</xhtml:option>
+              <xhtml:option value="DNAPAM150">DNAPAM150</xhtml:option>
+              <xhtml:option value="DNAPAM160">DNAPAM160</xhtml:option>
+              <xhtml:option value="DNAPAM170">DNAPAM170</xhtml:option>
+              <xhtml:option value="DNAPAM180">DNAPAM180</xhtml:option>
+              <xhtml:option value="DNAPAM190">DNAPAM190</xhtml:option>
+              <xhtml:option value="DNAPAM200">DNAPAM200</xhtml:option>
+              <xhtml:option value="DNAPAM210">DNAPAM210</xhtml:option>
+              <xhtml:option value="DNAPAM220">DNAPAM220</xhtml:option>
+              <xhtml:option value="DNAPAM230">DNAPAM230</xhtml:option>
+              <xhtml:option value="DNAPAM240">DNAPAM240</xhtml:option>
+              <xhtml:option value="DNAPAM250">DNAPAM250</xhtml:option>
+              <xhtml:option value="DNAPAM260">DNAPAM260</xhtml:option>
+              <xhtml:option value="DNAPAM270">DNAPAM270</xhtml:option>
+              <xhtml:option value="DNAPAM280">DNAPAM280</xhtml:option>
+              <xhtml:option value="DNAPAM290">DNAPAM290</xhtml:option>
+              <xhtml:option value="DNAPAM300">DNAPAM300</xhtml:option>
+              <xhtml:option value="DNAPAM310">DNAPAM310</xhtml:option>
+              <xhtml:option value="DNAPAM320">DNAPAM320</xhtml:option>
+              <xhtml:option value="DNAPAM330">DNAPAM330</xhtml:option>
+              <xhtml:option value="DNAPAM340">DNAPAM340</xhtml:option>
+              <xhtml:option value="DNAPAM350">DNAPAM350</xhtml:option>
+              <xhtml:option value="DNAPAM360">DNAPAM360</xhtml:option>
+              <xhtml:option value="DNAPAM370">DNAPAM370</xhtml:option>
+              <xhtml:option value="DNAPAM380">DNAPAM380</xhtml:option>
+              <xhtml:option value="DNAPAM390">DNAPAM390</xhtml:option>
+              <xhtml:option value="DNAPAM400">DNAPAM400</xhtml:option>
+              <xhtml:option value="DNAPAM410">DNAPAM410</xhtml:option>
+              <xhtml:option value="DNAPAM420">DNAPAM420</xhtml:option>
+              <xhtml:option value="DNAPAM430">DNAPAM430</xhtml:option>
+              <xhtml:option value="DNAPAM440">DNAPAM440</xhtml:option>
+              <xhtml:option value="DNAPAM450">DNAPAM450</xhtml:option>
+              <xhtml:option value="DNAPAM460">DNAPAM460</xhtml:option>
+              <xhtml:option value="DNAPAM470">DNAPAM470</xhtml:option>
+              <xhtml:option value="DNAPAM480">DNAPAM480</xhtml:option>
+              <xhtml:option value="DNAPAM490">DNAPAM490</xhtml:option>
+              <xhtml:option value="DNAPAM500">DNAPAM500</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117706282544::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For nucleotide input sequences, BMGE uses PAM matrices with a
+              fixed transition/transition ratio. BMGE can be used with all
+              possible PAM matrices, from the most stringent (i.e. DNAPAM1) to
+              highly relaxed ones (e.g. DNAPAM500). By default with nucleotide
+              sequences, BMGE uses the PAM-100 matrix.</xhtml:div>
+              <xhtml:div>It is also possible to use the identity matrix.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="transition">Transition/transversion ratio for nucleotide sequences.<xhtml:a href="#idm140117706196064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="transition" type="text" value="2.0"/>
+            <xhtml:div id="idm140117706196064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>It is possible to indicate a transition/transversion ratio to
+              better define the PAM matrices with nucleotide sequences. By
+              default, BMGE uses a transition/transversion ratio of 2.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.2" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap_rate_cutoff">Gap Rate Cut-off (-g)<xhtml:a href="#idm140117705424304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="gap_rate_cutoff" type="text" value="0.2"/>
+            <xhtml:div id="idm140117705424304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>BMGE allows characters containing too many gaps to be removed
+                with this option. By default, BMGE removes all characters with a
+                gap frequency greater than 0.2.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="min_entropy">Minimum entropy Score Cut-off (-h)<xhtml:a href="#idm140117705449920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="min_entropy" type="text" value="0.0"/>
+            <xhtml:div id="idm140117705449920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value greater than a fixed threshold. This cut-off is set
+              to 0.0 by default.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_entropy">Maximum entropy Score Cut-off (-h)<xhtml:a href="#idm140117705436048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="max_entropy" type="text" value="0.5"/>
+            <xhtml:div id="idm140117705436048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value below a fixed threshold. This cut-off is set to 0.5
+              by default.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minimun_block_size">Minimum Block Size (-b)<xhtml:a href="#idm140117705475872::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="minimun_block_size" type="text" value="5"/>
+            <xhtml:div id="idm140117705475872::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>BMGE only selects regions of size greater than or equal to 5. Use
+              this option to modify this minimum block size parameter.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_option">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output format options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="phylip">Output in phylip sequential format (-op)<xhtml:select name="phylip">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="phylip_oppp">Output in phylip sequential format. Special formating (-oppp)<xhtml:a href="#idm140117705612480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="phylip_oppp">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117705612480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If input sequences are in FASTA format with NCBI-formatted annotation lines, e.g.
+                      &gt;field1|field2|field3|field4| field5 [field6]
+            the options -oppp allow naming sequences by field6_____field4 ; knowing that field4 is generally
+            an accession number, and field6 a
+            taxon name, this option leads to PHYLIP files where each sequence is labelled as a
+            taxon name and an accession number.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nexus">Output in nexus format (-on)<xhtml:select name="nexus">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nexus_onnn">Output in nexus format. Special formating (-onnn)<xhtml:a href="#idm140117705392176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="nexus_onnn">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117705392176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If input sequences are in FASTA format with NCBI-formatted
+                 annotation lines,
+               e.g. &gt;field1|field2|field3|field4| field5 [field6]
+               the option -onnn allow naming sequences by field6_____field4 ;
+               knowing that field4 is generally an accession number and field6 a
+              taxon name, this option leads to NEXUS files where each sequence
+              is labelled as a taxon name and an accession number.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fasta">Output in fasta format (-of)<xhtml:select name="fasta">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="html">Output in html format (-oh)<xhtml:select name="html">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <xhtml:legend>Input</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="infile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA PHYLIPS ">
+            <xhtml:i>
+				(Protein or DNA Alignment)
+			</xhtml:i>
+            <xhtml:a href="#idm140117706803200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706803200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>BMGE uses FASTA or PHYLIP sequential format for input. These are
+                    plain text files. There is no limit on the length of the
+                    alignment. There is also no limit on the length of the label of
+                    a sequence (i.e. its FASTA annotation line), although a too long
+                    label (e.g. more than 100 letters) will be truncated if the
+                    output format is PHYLIP sequential.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="input_type" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117708783776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117708783776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Both standard single-letter amino acid and nucleotide alphabets
+                          are used by BMGE. When using amino acid sequences, degenerated
+                          character states B and Z are understood by BMGE; similarly,
+                          degenerated nucleotide characters are also understood. The
+                          character state X is understood to be any of the 4 or 20
+                          character states when using as input nucleotide or amino acid
+                          sequences, respectively. Dashes (i.e. '-') are understood as
+                          gaps, whereas dots (i.e. '.'), as any other single letter that
+                          are not inside standard alphabets, are considered as unknown
+                          character state (i.e. '?'). Nucleotide sequences can be set as
+                          codon ones. In this case, each successive nucleotide character
+                          triplet is considered as one codon character.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="options">
+        <xhtml:legend>Control options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="matrixaa" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706386960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706386960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For each character, BMGE computes a score mainly determined by the entropy induced by
+              the respective proportion of each residue. To estimate realistic
+              scores that take into account biologically relevant substitution processes, BMGE weights the
+              entropy estimation with substitution matrices.</xhtml:div>
+              <xhtml:div>These option can be used with the 15 estimated BLOSUM matrices. BMGE uses by 
+              default the popular BLOSUM62 matrix. The character
+              trimming is progressively more stringent as the BLOSUM index
+              increases (e.g. BLOSUM95); reciprocally, the trimming is
+              progressively more relaxed as the BLOSUM index is lower (e.g.
+              BLOSUM30). In practice, it is recommended to use BLOSUM95 with
+              closely related sequences, and BLOSUM30 with distantly related
+              sequences.</xhtml:div>
+              <xhtml:div>If input sequences are set as codons, BMGE performs a conversion
+              into amino acid sequences (following the universal genetic code)
+              and uses BLOSUM matrices to estimate the entropy-like score for
+              each codon character. So, with option -t set as CODON, one can
+              modify the option -m only with BLOSUM matrices.
+              It is also possible to use the identity matrix with any sequence
+              types.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="matrixan" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="DNAPAM100" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706282544::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706282544::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For nucleotide input sequences, BMGE uses PAM matrices with a
+              fixed transition/transition ratio. BMGE can be used with all
+              possible PAM matrices, from the most stringent (i.e. DNAPAM1) to
+              highly relaxed ones (e.g. DNAPAM500). By default with nucleotide
+              sequences, BMGE uses the PAM-100 matrix.</xhtml:div>
+              <xhtml:div>It is also possible to use the identity matrix.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="transition" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706196064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706196064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>It is possible to indicate a transition/transversion ratio to
+              better define the PAM matrices with nucleotide sequences. By
+              default, BMGE uses a transition/transversion ratio of 2.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gap_rate_cutoff" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.2" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705424304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705424304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>BMGE allows characters containing too many gaps to be removed
+                with this option. By default, BMGE removes all characters with a
+                gap frequency greater than 0.2.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="min_entropy" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705449920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705449920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value greater than a fixed threshold. This cut-off is set
+              to 0.0 by default.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="max_entropy" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705436048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705436048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value below a fixed threshold. This cut-off is set to 0.5
+              by default.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="minimun_block_size" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705475872::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705475872::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>BMGE only selects regions of size greater than or equal to 5. Use
+              this option to modify this minimum block size parameter.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_option">
+        <xhtml:legend>Output format options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="phylip" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="phylip_oppp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705612480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705612480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If input sequences are in FASTA format with NCBI-formatted annotation lines, e.g.
+                      &gt;field1|field2|field3|field4| field5 [field6]
+            the options -oppp allow naming sequences by field6_____field4 ; knowing that field4 is generally
+            an accession number, and field6 a
+            taxon name, this option leads to PHYLIP files where each sequence is labelled as a
+            taxon name and an accession number.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nexus" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nexus_onnn" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705392176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705392176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If input sequences are in FASTA format with NCBI-formatted
+                 annotation lines,
+               e.g. &gt;field1|field2|field3|field4| field5 [field6]
+               the option -onnn allow naming sequences by field6_____field4 ;
+               knowing that field4 is generally an accession number and field6 a
+              taxon name, this option leads to NEXUS files where each sequence
+              is labelled as a taxon name and an accession number.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fasta" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="html" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_option">
+        <xhtml:legend>Output format options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="phylipout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="PHYLIPS ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="phylipout_oppp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="PHYLIPS ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nexusout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEXUS ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nexusout_onnn" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEXUS ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fastaout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="htmlout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>input</name>
+      <prompt lang="en">Input</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter ismandatory="1" issimple="1">
+          <name>infile</name>
+          <prompt lang="en">Alignment (-i)</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>PHYLIPS</dataFormat>
+          </type>
+          <format>
+            <code proglang="perl">" -i $value"</code>
+            <code proglang="python">" -i "+str(value)</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">BMGE uses FASTA or PHYLIP sequential format for input. These are
+                    plain text files. There is no limit on the length of the
+                    alignment. There is also no limit on the length of the label of
+                    a sequence (i.e. its FASTA annotation line), although a too long
+                    label (e.g. more than 100 letters) will be truncated if the
+                    output format is PHYLIP sequential.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Alignment (-i)</xhtml:legend>
+              <xhtml:textarea name="infile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA PHYLIPS " data-parametername="infile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein or DNA Alignment)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706803200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706803200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>BMGE uses FASTA or PHYLIP sequential format for input. These are
+                    plain text files. There is no limit on the length of the
+                    alignment. There is also no limit on the length of the label of
+                    a sequence (i.e. its FASTA annotation line), although a too long
+                    label (e.g. more than 100 letters) will be truncated if the
+                    output format is PHYLIP sequential.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1" issimple="1">
+          <name>input_type</name>
+          <prompt lang="en">Type of sequence (-t)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>null</value>
+              <label>Set the input sequence coding</label>
+            </velem>
+            <velem>
+              <value>AA</value>
+              <label>Amino acid</label>
+            </velem>
+            <velem>
+              <value>DNA</value>
+              <label>Nucleotide</label>
+            </velem>
+            <velem>
+              <value>CODON</value>
+              <label>Codon</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -t $value" : ""</code>
+            <code proglang="python">("", " -t "+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>2</argpos>
+          <comment>
+            <text lang="en">Both standard single-letter amino acid and nucleotide alphabets
+                          are used by BMGE. When using amino acid sequences, degenerated
+                          character states B and Z are understood by BMGE; similarly,
+                          degenerated nucleotide characters are also understood. The
+                          character state X is understood to be any of the 4 or 20
+                          character states when using as input nucleotide or amino acid
+                          sequences, respectively. Dashes (i.e. '-') are understood as
+                          gaps, whereas dots (i.e. '.'), as any other single letter that
+                          are not inside standard alphabets, are considered as unknown
+                          character state (i.e. '?'). Nucleotide sequences can be set as
+                          codon ones. In this case, each successive nucleotide character
+                          triplet is considered as one codon character.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Type of sequence (-t)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708783776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="input_type">
+                <xhtml:option value="null" selected="selected">Set the input sequence coding</xhtml:option>
+                <xhtml:option value="AA">Amino acid</xhtml:option>
+                <xhtml:option value="DNA">Nucleotide</xhtml:option>
+                <xhtml:option value="CODON">Codon</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708783776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Both standard single-letter amino acid and nucleotide alphabets
+                          are used by BMGE. When using amino acid sequences, degenerated
+                          character states B and Z are understood by BMGE; similarly,
+                          degenerated nucleotide characters are also understood. The
+                          character state X is understood to be any of the 4 or 20
+                          character states when using as input nucleotide or amino acid
+                          sequences, respectively. Dashes (i.e. '-') are understood as
+                          gaps, whereas dots (i.e. '.'), as any other single letter that
+                          are not inside standard alphabets, are considered as unknown
+                          character state (i.e. '?'). Nucleotide sequences can be set as
+                          codon ones. In this case, each successive nucleotide character
+                          triplet is considered as one codon character.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="input_type">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708783776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708783776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Both standard single-letter amino acid and nucleotide alphabets
+                          are used by BMGE. When using amino acid sequences, degenerated
+                          character states B and Z are understood by BMGE; similarly,
+                          degenerated nucleotide characters are also understood. The
+                          character state X is understood to be any of the 4 or 20
+                          character states when using as input nucleotide or amino acid
+                          sequences, respectively. Dashes (i.e. '-') are understood as
+                          gaps, whereas dots (i.e. '.'), as any other single letter that
+                          are not inside standard alphabets, are considered as unknown
+                          character state (i.e. '?'). Nucleotide sequences can be set as
+                          codon ones. In this case, each successive nucleotide character
+                          triplet is considered as one codon character.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>options</name>
+      <prompt lang="en">Control options</prompt>
+      <parameters>
+        <parameter>
+          <name>matrixaa</name>
+          <prompt lang="en">Similarity Matrices for amino acid and codon sequences (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$input_type eq 'AA' or $input_type eq 'CODON'</code>
+            <code proglang="python">input_type in ['AA', 'CODON']</code>
+          </precond>
+          <vdef>
+            <value>BLOSUM62</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>BLOSUM62</value>
+              <label>BLOSUM62</label>
+            </velem>
+            <velem>
+              <value>ID</value>
+              <label>Identity</label>
+            </velem>
+            <velem>
+              <value>BLOSUM30</value>
+              <label>BLOSUM30</label>
+            </velem>
+            <velem>
+              <value>BLOSUM35</value>
+              <label>BLOSUM35</label>
+            </velem>
+            <velem>
+              <value>BLOSUM40</value>
+              <label>BLOSUM40</label>
+            </velem>
+            <velem>
+              <value>BLOSUM45</value>
+              <label>BLOSUM45</label>
+            </velem>
+            <velem>
+              <value>BLOSUM50</value>
+              <label>BLOSUM50</label>
+            </velem>
+            <velem>
+              <value>BLOSUM55</value>
+              <label>BLOSUM55</label>
+            </velem>
+            <velem>
+              <value>BLOSUM60</value>
+              <label>BLOSUM60</label>
+            </velem>
+            <velem>
+              <value>BLOSUM65</value>
+              <label>BLOSUM65</label>
+            </velem>
+            <velem>
+              <value>BLOSUM70</value>
+              <label>BLOSUM70</label>
+            </velem>
+            <velem>
+              <value>BLOSUM75</value>
+              <label>BLOSUM75</label>
+            </velem>
+            <velem>
+              <value>BLOSUM80</value>
+              <label>BLOSUM80</label>
+            </velem>
+            <velem>
+              <value>BLOSUM85</value>
+              <label>BLOSUM85</label>
+            </velem>
+            <velem>
+              <value>BLOSUM90</value>
+              <label>BLOSUM90</label>
+            </velem>
+            <velem>
+              <value>BLOSUM95</value>
+              <label>BLOSUM95</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -m $value" : ""</code>
+            <code proglang="python">("", " -m "+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">For each character, BMGE computes a score mainly determined by the entropy induced by
+              the respective proportion of each residue. To estimate realistic
+              scores that take into account biologically relevant substitution processes, BMGE weights the
+              entropy estimation with substitution matrices.</text>
+            <text lang="en">These option can be used with the 15 estimated BLOSUM matrices. BMGE uses by 
+              default the popular BLOSUM62 matrix. The character
+              trimming is progressively more stringent as the BLOSUM index
+              increases (e.g. BLOSUM95); reciprocally, the trimming is
+              progressively more relaxed as the BLOSUM index is lower (e.g.
+              BLOSUM30). In practice, it is recommended to use BLOSUM95 with
+              closely related sequences, and BLOSUM30 with distantly related
+              sequences.</text>
+            <text lang="en">If input sequences are set as codons, BMGE performs a conversion
+              into amino acid sequences (following the universal genetic code)
+              and uses BLOSUM matrices to estimate the entropy-like score for
+              each codon character. So, with option -t set as CODON, one can
+              modify the option -m only with BLOSUM matrices.
+              It is also possible to use the identity matrix with any sequence
+              types.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Similarity Matrices for amino acid and codon sequences (-m)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706386960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="matrixaa">
+                <xhtml:option value="BLOSUM62" selected="selected">BLOSUM62</xhtml:option>
+                <xhtml:option value="ID">Identity</xhtml:option>
+                <xhtml:option value="BLOSUM30">BLOSUM30</xhtml:option>
+                <xhtml:option value="BLOSUM35">BLOSUM35</xhtml:option>
+                <xhtml:option value="BLOSUM40">BLOSUM40</xhtml:option>
+                <xhtml:option value="BLOSUM45">BLOSUM45</xhtml:option>
+                <xhtml:option value="BLOSUM50">BLOSUM50</xhtml:option>
+                <xhtml:option value="BLOSUM55">BLOSUM55</xhtml:option>
+                <xhtml:option value="BLOSUM60">BLOSUM60</xhtml:option>
+                <xhtml:option value="BLOSUM65">BLOSUM65</xhtml:option>
+                <xhtml:option value="BLOSUM70">BLOSUM70</xhtml:option>
+                <xhtml:option value="BLOSUM75">BLOSUM75</xhtml:option>
+                <xhtml:option value="BLOSUM80">BLOSUM80</xhtml:option>
+                <xhtml:option value="BLOSUM85">BLOSUM85</xhtml:option>
+                <xhtml:option value="BLOSUM90">BLOSUM90</xhtml:option>
+                <xhtml:option value="BLOSUM95">BLOSUM95</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706386960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For each character, BMGE computes a score mainly determined by the entropy induced by
+              the respective proportion of each residue. To estimate realistic
+              scores that take into account biologically relevant substitution processes, BMGE weights the
+              entropy estimation with substitution matrices.</xhtml:div>
+                <xhtml:div>These option can be used with the 15 estimated BLOSUM matrices. BMGE uses by 
+              default the popular BLOSUM62 matrix. The character
+              trimming is progressively more stringent as the BLOSUM index
+              increases (e.g. BLOSUM95); reciprocally, the trimming is
+              progressively more relaxed as the BLOSUM index is lower (e.g.
+              BLOSUM30). In practice, it is recommended to use BLOSUM95 with
+              closely related sequences, and BLOSUM30 with distantly related
+              sequences.</xhtml:div>
+                <xhtml:div>If input sequences are set as codons, BMGE performs a conversion
+              into amino acid sequences (following the universal genetic code)
+              and uses BLOSUM matrices to estimate the entropy-like score for
+              each codon character. So, with option -t set as CODON, one can
+              modify the option -m only with BLOSUM matrices.
+              It is also possible to use the identity matrix with any sequence
+              types.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrixaa">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706386960::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706386960::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For each character, BMGE computes a score mainly determined by the entropy induced by
+              the respective proportion of each residue. To estimate realistic
+              scores that take into account biologically relevant substitution processes, BMGE weights the
+              entropy estimation with substitution matrices.</xhtml:div>
+                <xhtml:div>These option can be used with the 15 estimated BLOSUM matrices. BMGE uses by 
+              default the popular BLOSUM62 matrix. The character
+              trimming is progressively more stringent as the BLOSUM index
+              increases (e.g. BLOSUM95); reciprocally, the trimming is
+              progressively more relaxed as the BLOSUM index is lower (e.g.
+              BLOSUM30). In practice, it is recommended to use BLOSUM95 with
+              closely related sequences, and BLOSUM30 with distantly related
+              sequences.</xhtml:div>
+                <xhtml:div>If input sequences are set as codons, BMGE performs a conversion
+              into amino acid sequences (following the universal genetic code)
+              and uses BLOSUM matrices to estimate the entropy-like score for
+              each codon character. So, with option -t set as CODON, one can
+              modify the option -m only with BLOSUM matrices.
+              It is also possible to use the identity matrix with any sequence
+              types.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>matrixan</name>
+          <prompt lang="en">Similarity Matrices for nucleotide sequences (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$input_type eq 'DNA'</code>
+            <code proglang="python">input_type in ['DNA']</code>
+          </precond>
+          <vdef>
+            <value>DNAPAM100</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>DNAPAM100</value>
+              <label>DNAPAM100</label>
+            </velem>
+            <velem>
+              <value>ID</value>
+              <label>Identity</label>
+            </velem>
+            <velem>
+              <value>DNAPAM1</value>
+              <label>DNAPAM1</label>
+            </velem>
+            <velem>
+              <value>DNAPAM5</value>
+              <label>DNAPAM5</label>
+            </velem>
+            <velem>
+              <value>DNAPAM10</value>
+              <label>DNAPAM10</label>
+            </velem>
+            <velem>
+              <value>DNAPAM20</value>
+              <label>DNAPAM20</label>
+            </velem>
+            <velem>
+              <value>DNAPAM30</value>
+              <label>DNAPAM30</label>
+            </velem>
+            <velem>
+              <value>DNAPAM40</value>
+              <label>DNAPAM40</label>
+            </velem>
+            <velem>
+              <value>DNAPAM50</value>
+              <label>DNAPAM50</label>
+            </velem>
+            <velem>
+              <value>DNAPAM60</value>
+              <label>DNAPAM60</label>
+            </velem>
+            <velem>
+              <value>DNAPAM70</value>
+              <label>DNAPAM70</label>
+            </velem>
+            <velem>
+              <value>DNAPAM80</value>
+              <label>DNAPAM80</label>
+            </velem>
+            <velem>
+              <value>DNAPAM90</value>
+              <label>DNAPAM90</label>
+            </velem>
+            <velem>
+              <value>DNAPAM110</value>
+              <label>DNAPAM110</label>
+            </velem>
+            <velem>
+              <value>DNAPAM120</value>
+              <label>DNAPAM120</label>
+            </velem>
+            <velem>
+              <value>DNAPAM130</value>
+              <label>DNAPAM130</label>
+            </velem>
+            <velem>
+              <value>DNAPAM140</value>
+              <label>DNAPAM140</label>
+            </velem>
+            <velem>
+              <value>DNAPAM150</value>
+              <label>DNAPAM150</label>
+            </velem>
+            <velem>
+              <value>DNAPAM160</value>
+              <label>DNAPAM160</label>
+            </velem>
+            <velem>
+              <value>DNAPAM170</value>
+              <label>DNAPAM170</label>
+            </velem>
+            <velem>
+              <value>DNAPAM180</value>
+              <label>DNAPAM180</label>
+            </velem>
+            <velem>
+              <value>DNAPAM190</value>
+              <label>DNAPAM190</label>
+            </velem>
+            <velem>
+              <value>DNAPAM200</value>
+              <label>DNAPAM200</label>
+            </velem>
+            <velem>
+              <value>DNAPAM210</value>
+              <label>DNAPAM210</label>
+            </velem>
+            <velem>
+              <value>DNAPAM220</value>
+              <label>DNAPAM220</label>
+            </velem>
+            <velem>
+              <value>DNAPAM230</value>
+              <label>DNAPAM230</label>
+            </velem>
+            <velem>
+              <value>DNAPAM240</value>
+              <label>DNAPAM240</label>
+            </velem>
+            <velem>
+              <value>DNAPAM250</value>
+              <label>DNAPAM250</label>
+            </velem>
+            <velem>
+              <value>DNAPAM260</value>
+              <label>DNAPAM260</label>
+            </velem>
+            <velem>
+              <value>DNAPAM270</value>
+              <label>DNAPAM270</label>
+            </velem>
+            <velem>
+              <value>DNAPAM280</value>
+              <label>DNAPAM280</label>
+            </velem>
+            <velem>
+              <value>DNAPAM290</value>
+              <label>DNAPAM290</label>
+            </velem>
+            <velem>
+              <value>DNAPAM300</value>
+              <label>DNAPAM300</label>
+            </velem>
+            <velem>
+              <value>DNAPAM310</value>
+              <label>DNAPAM310</label>
+            </velem>
+            <velem>
+              <value>DNAPAM320</value>
+              <label>DNAPAM320</label>
+            </velem>
+            <velem>
+              <value>DNAPAM330</value>
+              <label>DNAPAM330</label>
+            </velem>
+            <velem>
+              <value>DNAPAM340</value>
+              <label>DNAPAM340</label>
+            </velem>
+            <velem>
+              <value>DNAPAM350</value>
+              <label>DNAPAM350</label>
+            </velem>
+            <velem>
+              <value>DNAPAM360</value>
+              <label>DNAPAM360</label>
+            </velem>
+            <velem>
+              <value>DNAPAM370</value>
+              <label>DNAPAM370</label>
+            </velem>
+            <velem>
+              <value>DNAPAM380</value>
+              <label>DNAPAM380</label>
+            </velem>
+            <velem>
+              <value>DNAPAM390</value>
+              <label>DNAPAM390</label>
+            </velem>
+            <velem>
+              <value>DNAPAM400</value>
+              <label>DNAPAM400</label>
+            </velem>
+            <velem>
+              <value>DNAPAM410</value>
+              <label>DNAPAM410</label>
+            </velem>
+            <velem>
+              <value>DNAPAM420</value>
+              <label>DNAPAM420</label>
+            </velem>
+            <velem>
+              <value>DNAPAM430</value>
+              <label>DNAPAM430</label>
+            </velem>
+            <velem>
+              <value>DNAPAM440</value>
+              <label>DNAPAM440</label>
+            </velem>
+            <velem>
+              <value>DNAPAM450</value>
+              <label>DNAPAM450</label>
+            </velem>
+            <velem>
+              <value>DNAPAM460</value>
+              <label>DNAPAM460</label>
+            </velem>
+            <velem>
+              <value>DNAPAM470</value>
+              <label>DNAPAM470</label>
+            </velem>
+            <velem>
+              <value>DNAPAM480</value>
+              <label>DNAPAM480</label>
+            </velem>
+            <velem>
+              <value>DNAPAM490</value>
+              <label>DNAPAM490</label>
+            </velem>
+            <velem>
+              <value>DNAPAM500</value>
+              <label>DNAPAM500</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -m $value" : ""</code>
+            <code proglang="python">("", " -m "+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">For nucleotide input sequences, BMGE uses PAM matrices with a
+              fixed transition/transition ratio. BMGE can be used with all
+              possible PAM matrices, from the most stringent (i.e. DNAPAM1) to
+              highly relaxed ones (e.g. DNAPAM500). By default with nucleotide
+              sequences, BMGE uses the PAM-100 matrix.</text>
+            <text lang="en">It is also possible to use the identity matrix.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Similarity Matrices for nucleotide sequences (-m)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706282544::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="matrixan">
+                <xhtml:option value="DNAPAM100" selected="selected">DNAPAM100</xhtml:option>
+                <xhtml:option value="ID">Identity</xhtml:option>
+                <xhtml:option value="DNAPAM1">DNAPAM1</xhtml:option>
+                <xhtml:option value="DNAPAM5">DNAPAM5</xhtml:option>
+                <xhtml:option value="DNAPAM10">DNAPAM10</xhtml:option>
+                <xhtml:option value="DNAPAM20">DNAPAM20</xhtml:option>
+                <xhtml:option value="DNAPAM30">DNAPAM30</xhtml:option>
+                <xhtml:option value="DNAPAM40">DNAPAM40</xhtml:option>
+                <xhtml:option value="DNAPAM50">DNAPAM50</xhtml:option>
+                <xhtml:option value="DNAPAM60">DNAPAM60</xhtml:option>
+                <xhtml:option value="DNAPAM70">DNAPAM70</xhtml:option>
+                <xhtml:option value="DNAPAM80">DNAPAM80</xhtml:option>
+                <xhtml:option value="DNAPAM90">DNAPAM90</xhtml:option>
+                <xhtml:option value="DNAPAM110">DNAPAM110</xhtml:option>
+                <xhtml:option value="DNAPAM120">DNAPAM120</xhtml:option>
+                <xhtml:option value="DNAPAM130">DNAPAM130</xhtml:option>
+                <xhtml:option value="DNAPAM140">DNAPAM140</xhtml:option>
+                <xhtml:option value="DNAPAM150">DNAPAM150</xhtml:option>
+                <xhtml:option value="DNAPAM160">DNAPAM160</xhtml:option>
+                <xhtml:option value="DNAPAM170">DNAPAM170</xhtml:option>
+                <xhtml:option value="DNAPAM180">DNAPAM180</xhtml:option>
+                <xhtml:option value="DNAPAM190">DNAPAM190</xhtml:option>
+                <xhtml:option value="DNAPAM200">DNAPAM200</xhtml:option>
+                <xhtml:option value="DNAPAM210">DNAPAM210</xhtml:option>
+                <xhtml:option value="DNAPAM220">DNAPAM220</xhtml:option>
+                <xhtml:option value="DNAPAM230">DNAPAM230</xhtml:option>
+                <xhtml:option value="DNAPAM240">DNAPAM240</xhtml:option>
+                <xhtml:option value="DNAPAM250">DNAPAM250</xhtml:option>
+                <xhtml:option value="DNAPAM260">DNAPAM260</xhtml:option>
+                <xhtml:option value="DNAPAM270">DNAPAM270</xhtml:option>
+                <xhtml:option value="DNAPAM280">DNAPAM280</xhtml:option>
+                <xhtml:option value="DNAPAM290">DNAPAM290</xhtml:option>
+                <xhtml:option value="DNAPAM300">DNAPAM300</xhtml:option>
+                <xhtml:option value="DNAPAM310">DNAPAM310</xhtml:option>
+                <xhtml:option value="DNAPAM320">DNAPAM320</xhtml:option>
+                <xhtml:option value="DNAPAM330">DNAPAM330</xhtml:option>
+                <xhtml:option value="DNAPAM340">DNAPAM340</xhtml:option>
+                <xhtml:option value="DNAPAM350">DNAPAM350</xhtml:option>
+                <xhtml:option value="DNAPAM360">DNAPAM360</xhtml:option>
+                <xhtml:option value="DNAPAM370">DNAPAM370</xhtml:option>
+                <xhtml:option value="DNAPAM380">DNAPAM380</xhtml:option>
+                <xhtml:option value="DNAPAM390">DNAPAM390</xhtml:option>
+                <xhtml:option value="DNAPAM400">DNAPAM400</xhtml:option>
+                <xhtml:option value="DNAPAM410">DNAPAM410</xhtml:option>
+                <xhtml:option value="DNAPAM420">DNAPAM420</xhtml:option>
+                <xhtml:option value="DNAPAM430">DNAPAM430</xhtml:option>
+                <xhtml:option value="DNAPAM440">DNAPAM440</xhtml:option>
+                <xhtml:option value="DNAPAM450">DNAPAM450</xhtml:option>
+                <xhtml:option value="DNAPAM460">DNAPAM460</xhtml:option>
+                <xhtml:option value="DNAPAM470">DNAPAM470</xhtml:option>
+                <xhtml:option value="DNAPAM480">DNAPAM480</xhtml:option>
+                <xhtml:option value="DNAPAM490">DNAPAM490</xhtml:option>
+                <xhtml:option value="DNAPAM500">DNAPAM500</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706282544::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For nucleotide input sequences, BMGE uses PAM matrices with a
+              fixed transition/transition ratio. BMGE can be used with all
+              possible PAM matrices, from the most stringent (i.e. DNAPAM1) to
+              highly relaxed ones (e.g. DNAPAM500). By default with nucleotide
+              sequences, BMGE uses the PAM-100 matrix.</xhtml:div>
+                <xhtml:div>It is also possible to use the identity matrix.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="DNAPAM100" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrixan">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706282544::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706282544::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For nucleotide input sequences, BMGE uses PAM matrices with a
+              fixed transition/transition ratio. BMGE can be used with all
+              possible PAM matrices, from the most stringent (i.e. DNAPAM1) to
+              highly relaxed ones (e.g. DNAPAM500). By default with nucleotide
+              sequences, BMGE uses the PAM-100 matrix.</xhtml:div>
+                <xhtml:div>It is also possible to use the identity matrix.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>transition</name>
+          <prompt lang="en">Transition/transversion ratio for nucleotide sequences.</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$input_type eq 'DNA' and ($matrixan ne 'DNAPAM100' and  $matrixan ne 'ID' )</code>
+            <code proglang="python">input_type in ['DNA'] and (matrixan != 'DNAPAM100' and  matrixan != 'ID' )</code>
+          </precond>
+          <vdef>
+            <value>2.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? ":$value " : ""</code>
+            <code proglang="python">("", ":" +str(value) + " ")[value is not None]</code>
+          </format>
+          <argpos>4</argpos>
+          <comment>
+            <text lang="en">It is possible to indicate a transition/transversion ratio to
+              better define the PAM matrices with nucleotide sequences. By
+              default, BMGE uses a transition/transversion ratio of 2.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Transition/transversion ratio for nucleotide sequences.<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706196064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="transition" type="text" value="2.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706196064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>It is possible to indicate a transition/transversion ratio to
+              better define the PAM matrices with nucleotide sequences. By
+              default, BMGE uses a transition/transversion ratio of 2.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="transition">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706196064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706196064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>It is possible to indicate a transition/transversion ratio to
+              better define the PAM matrices with nucleotide sequences. By
+              default, BMGE uses a transition/transversion ratio of 2.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gap_rate_cutoff</name>
+          <prompt lang="en">Gap Rate Cut-off (-g)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.2</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -g $value" : ""</code>
+            <code proglang="python">("", " -g "+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">The value must be between 0 and 1</text>
+            </message>
+            <code proglang="perl">$value &gt;= 0 and $value &lt;= 1</code>
+            <code proglang="python">value &gt;= 0 and value &lt;= 1</code>
+          </ctrl>
+          <argpos>5</argpos>
+          <comment>
+            <text lang="en">BMGE allows characters containing too many gaps to be removed
+                with this option. By default, BMGE removes all characters with a
+                gap frequency greater than 0.2.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap Rate Cut-off (-g)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705424304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gap_rate_cutoff" type="text" value="0.2"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705424304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>BMGE allows characters containing too many gaps to be removed
+                with this option. By default, BMGE removes all characters with a
+                gap frequency greater than 0.2.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.2" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap_rate_cutoff">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705424304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705424304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>BMGE allows characters containing too many gaps to be removed
+                with this option. By default, BMGE removes all characters with a
+                gap frequency greater than 0.2.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>min_entropy</name>
+          <prompt lang="en">Minimum entropy Score Cut-off (-h)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(($max_entropy != 0.5 or $value != $vdef) and  ($max_entropy &gt; $value)) ? " -h $value:$max_entropy" : ""</code>
+            <code proglang="python">("", " -h %s:%s " % ( value, max_entropy) )[ (max_entropy != 0.5 or value !=vdef) and  (max_entropy &gt; value)  ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">The value must be between 0 and 1</text>
+            </message>
+            <code proglang="perl">$value &gt;= 0 and $value &lt;= 1</code>
+            <code proglang="python">value &gt;= 0 and value &lt;= 1</code>
+          </ctrl>
+          <argpos>6</argpos>
+          <comment>
+            <text lang="en">Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value greater than a fixed threshold. This cut-off is set
+              to 0.0 by default.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum entropy Score Cut-off (-h)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705449920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="min_entropy" type="text" value="0.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705449920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value greater than a fixed threshold. This cut-off is set
+              to 0.0 by default.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="min_entropy">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705449920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705449920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value greater than a fixed threshold. This cut-off is set
+              to 0.0 by default.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>max_entropy</name>
+          <prompt lang="en">Maximum entropy Score Cut-off (-h)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.5</value>
+          </vdef>
+          <precond>
+            <code proglang="perl">defined $min_entropy</code>
+            <code proglang="python">min_entropy is not None</code>
+          </precond>
+          <ctrl>
+            <message>
+              <text lang="en">The value must be between 0 and 1 and greather than minimun entropy score</text>
+            </message>
+            <code proglang="perl">($value &gt;= 0 and $value &lt;= 1) and ($value &gt; $min_entropy)</code>
+            <code proglang="python">(value &gt;= 0 and value &lt;= 1) and (value &gt; min_entropy)</code>
+          </ctrl>
+          <argpos>6</argpos>
+          <comment>
+            <text lang="en">Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value below a fixed threshold. This cut-off is set to 0.5
+              by default.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum entropy Score Cut-off (-h)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705436048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="max_entropy" type="text" value="0.5"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705436048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value below a fixed threshold. This cut-off is set to 0.5
+              by default.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.5" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_entropy">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705436048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705436048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Following the smoothing operation of the entropy-like score
+              values across characters, BMGE selects characters associated with
+              a score value below a fixed threshold. This cut-off is set to 0.5
+              by default.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>minimun_block_size</name>
+          <prompt lang="en">Minimum Block Size (-b)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -b $value" : ""</code>
+            <code proglang="python">("", " -b "+str(value) )[value is not None and value!=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">BMGE only selects regions of size greater than or equal to 5. Use
+              this option to modify this minimum block size parameter.</text>
+          </comment>
+          <argpos>7</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum Block Size (-b)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705475872::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="minimun_block_size" type="text" value="5"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705475872::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>BMGE only selects regions of size greater than or equal to 5. Use
+              this option to modify this minimum block size parameter.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="minimun_block_size">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705475872::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705475872::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>BMGE only selects regions of size greater than or equal to 5. Use
+              this option to modify this minimum block size parameter.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <!--<parameter>
+            <name>trimming</name>
+            <prompt lang="en">Stationary-based Trimming (-s)</prompt>
+            <type>
+              <datatype>
+                <class>Boolean</class>
+              </datatype>
+            </type>
+            <vdef>
+              <value>0</value>
+            </vdef>
+            <format>
+                <code proglang="perl">($value) ? " -s" : ""</code>
+                <code proglang="python">("", " -s " )[ value ]</code>
+              </format>
+            <comment>
+              <text lang="en">By setting this option to YES (NO by default), BMGE performs another 
+               character trimming until the remaining characters are compositionally homogeneous, as 
+               assessed by Stuart's (1955) test of marginal homogeneity between each pair of sequences. 
+               If an html file is created (-oh), then all the Stuart's (1955) p-values estimated before and after 
+               the stationary-based trimming will be written.</text>
+              <text lang="en">It should be stressed that the stationary-based trimming is biased with short 
+              alignments (e.g. less than 1,000 character length); consequently, it is more efficient on a 
+              supermatrix of characters. Unfortunately, the running time is quite long (e.g. several hours 
+              for more than 10,000 amino acid characters).</text>
+            </comment>
+            <argpos>8</argpos>
+          </parameter>
+          
+        -->
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_option</name>
+      <prompt lang="en">Output format options</prompt>
+      <parameters>
+        <parameter>
+          <name>phylip</name>
+          <prompt lang="en">Output in phylip sequential format (-op)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $infile</code>
+            <code proglang="python">infile is not None</code>
+          </precond>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">( $value ) ? " -op $infile.phy" : ""</code>
+            <code proglang="python">("", " -op "+ infile.split('.')[0] + ".phy ")[ value ]</code>
+          </format>
+          <argpos>9</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output in phylip sequential format (-op)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="phylip">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="phylip"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>phylipout</name>
+          <prompt lang="en">Output in phylip sequential format</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>PHYLIPS</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$phylip</code>
+            <code proglang="python">phylip</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$infile.phy"</code>
+            <code proglang="python">infile.split('.')[0] + ".phy"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="PHYLIPS " data-parametername="phylipout">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>phylip_oppp</name>
+          <prompt lang="en">Output in phylip sequential format. Special formating (-oppp)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $infile</code>
+            <code proglang="python">infile is not None</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">( $value ) ? " -oppp $infile.phyp" : ""</code>
+            <code proglang="python">("", " -oppp "+ infile.split('.')[0] + ".phyp ")[ value]</code>
+          </format>
+          <argpos>9</argpos>
+          <comment>
+            <text lang="en">If input sequences are in FASTA format with NCBI-formatted annotation lines, e.g.
+                      &gt;field1|field2|field3|field4| field5 [field6]
+            the options -oppp allow naming sequences by field6_____field4 ; knowing that field4 is generally
+            an accession number, and field6 a
+            taxon name, this option leads to PHYLIP files where each sequence is labelled as a
+            taxon name and an accession number.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output in phylip sequential format. Special formating (-oppp)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705612480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="phylip_oppp">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705612480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If input sequences are in FASTA format with NCBI-formatted annotation lines, e.g.
+                      &gt;field1|field2|field3|field4| field5 [field6]
+            the options -oppp allow naming sequences by field6_____field4 ; knowing that field4 is generally
+            an accession number, and field6 a
+            taxon name, this option leads to PHYLIP files where each sequence is labelled as a
+            taxon name and an accession number.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="phylip_oppp">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705612480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705612480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If input sequences are in FASTA format with NCBI-formatted annotation lines, e.g.
+                      &gt;field1|field2|field3|field4| field5 [field6]
+            the options -oppp allow naming sequences by field6_____field4 ; knowing that field4 is generally
+            an accession number, and field6 a
+            taxon name, this option leads to PHYLIP files where each sequence is labelled as a
+            taxon name and an accession number.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>phylipout_oppp</name>
+          <prompt lang="en">Output in phylip sequential format</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>PHYLIPS</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$phylip_oppp</code>
+            <code proglang="python">phylip_oppp</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$infile.phyp"</code>
+            <code proglang="python">infile.split('.')[0] + ".phyp"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="PHYLIPS " data-parametername="phylipout_oppp">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nexus</name>
+          <prompt lang="en">Output in nexus format (-on)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $infile</code>
+            <code proglang="python">infile is not None</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">( $value ) ? " -on $infile.nex" : ""</code>
+            <code proglang="python">("", " -on "+ infile.split('.')[0] + ".nex ")[ value ]</code>
+          </format>
+          <argpos>9</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output in nexus format (-on)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nexus">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nexus"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>nexusout</name>
+          <prompt lang="en">Output in nexus format</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>NEXUS</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$nexus</code>
+            <code proglang="python">nexus</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$infile.nex"</code>
+            <code proglang="python">infile.split('.')[0] + ".nex"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEXUS " data-parametername="nexusout">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nexus_onnn</name>
+          <prompt lang="en">Output in nexus format. Special formating (-onnn)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $infile</code>
+            <code proglang="python">infile is not None</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">( $value ) ? " -onnn $infile.nexn" : ""</code>
+            <code proglang="python">("", " -onnn "+ infile.split('.')[0] + ".nexn ")[ value ]</code>
+          </format>
+          <argpos>9</argpos>
+          <comment>
+            <text lang="en">If input sequences are in FASTA format with NCBI-formatted
+                 annotation lines,
+               e.g. &gt;field1|field2|field3|field4| field5 [field6]
+               the option -onnn allow naming sequences by field6_____field4 ;
+               knowing that field4 is generally an accession number and field6 a
+              taxon name, this option leads to NEXUS files where each sequence
+              is labelled as a taxon name and an accession number.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output in nexus format. Special formating (-onnn)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705392176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nexus_onnn">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705392176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If input sequences are in FASTA format with NCBI-formatted
+                 annotation lines,
+               e.g. &gt;field1|field2|field3|field4| field5 [field6]
+               the option -onnn allow naming sequences by field6_____field4 ;
+               knowing that field4 is generally an accession number and field6 a
+              taxon name, this option leads to NEXUS files where each sequence
+              is labelled as a taxon name and an accession number.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nexus_onnn">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705392176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705392176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If input sequences are in FASTA format with NCBI-formatted
+                 annotation lines,
+               e.g. &gt;field1|field2|field3|field4| field5 [field6]
+               the option -onnn allow naming sequences by field6_____field4 ;
+               knowing that field4 is generally an accession number and field6 a
+              taxon name, this option leads to NEXUS files where each sequence
+              is labelled as a taxon name and an accession number.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>nexusout_onnn</name>
+          <prompt lang="en">Output in nexus format</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>NEXUS</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$nexus_onnn</code>
+            <code proglang="python">nexus_onnn</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$infile.nexn"</code>
+            <code proglang="python">infile.split('.')[0] + ".nexn"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEXUS " data-parametername="nexusout_onnn">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>fasta</name>
+          <prompt lang="en">Output in fasta format (-of)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $infile</code>
+            <code proglang="python">infile is not None</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">( $value ) ? " -of $infile.fa" : ""</code>
+            <code proglang="python">("", " -of "+ infile.split('.')[0] + ".fa ")[ value ]</code>
+          </format>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output in fasta format (-of)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="fasta">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fasta"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>fastaout</name>
+          <prompt lang="en">Output in fasta format</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$fasta</code>
+            <code proglang="python">fasta</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$infile.fa"</code>
+            <code proglang="python">infile.split('.')[0] + ".fa"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="fastaout">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>html</name>
+          <prompt lang="en">Output in html format (-oh)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $infile</code>
+            <code proglang="python">infile is not None</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">( $value ) ? " -oh $infile.html" : ""</code>
+            <code proglang="python">("", " -oh "+ infile.split('.')[0] + ".html ")[ value ]</code>
+          </format>
+          <argpos>11</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output in html format (-oh)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="html">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="html"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>htmlout</name>
+          <prompt lang="en">Output in html format</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$html</code>
+            <code proglang="python">html</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$infile.html"</code>
+            <code proglang="python">infile.split('.')[0] + ".html"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="htmlout">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"BMGE.out"</code>
+        <code proglang="python">"BMGE.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"BMGE.err"</code>
+        <code proglang="python">"BMGE.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

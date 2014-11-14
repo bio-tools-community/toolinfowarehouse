@@ -1,0 +1,719 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>melting</name>
+    <version>4.2g</version>
+    <doc>
+      <title>MELTING</title>
+      <description>
+        <text lang="en">enthalpy, entropy and melting temperature</text>
+      </description>
+      <authors>N. Le Novere</authors>
+      <reference>Nicolas Le Novere (2001), MELTING, computing the melting temperature of nucleic acid duplex. Bioinformatics 17(12), 1226-1227</reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/melting/melting.pdf</doclink>
+      <homepagelink>http://www.ebi.ac.uk/~lenov/meltinghome.html</homepagelink>
+      <sourcelink>http://www.ebi.ac.uk/~lenov/SOFTWARES/</sourcelink>
+    </doc>
+    <category>sequence:nucleic:composition</category>
+    <interface type="form" generated="true">
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hybridation_type">Hybridisation type (-H)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="hybridation_type">
+          <xhtml:option value="null" selected="selected">Choose an hybidation type</xhtml:option>
+          <xhtml:option value="dnadna">Dna/Dna</xhtml:option>
+          <xhtml:option value="dnarna">Dna/Rna</xhtml:option>
+          <xhtml:option value="rnarna">Rna/Rna</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="default" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nnfile">Nearest Neighbor parameters set (-A)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723007584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nnfile">
+          <xhtml:option value="default" selected="selected">Default</xhtml:option>
+          <xhtml:option value="all97a.nn">DNA/DNA hybridisation of Allawi et al 1997</xhtml:option>
+          <xhtml:option value="bre86a.nn">DNA/DNA hybridisation of Breslauer et al 1986</xhtml:option>
+          <xhtml:option value="san96a.nn">DNA/DNA hybridisation of SantaLucia et al 1996</xhtml:option>
+          <xhtml:option value="sug96a.nn">DNA/DNA hybridisation of Sugimoto et al 1996</xhtml:option>
+          <xhtml:option value="fre86a.nn">RNA/RNA hybridisation of Freier et al 1986</xhtml:option>
+          <xhtml:option value="xia98a.nn">RNA/RNA hybridisation of Xia et al 1998</xhtml:option>
+          <xhtml:option value="sug95a.nn">DNA/RNA hybridisation of Sugimoto et al 1995</xhtml:option>
+        </xhtml:select>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723007584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+            Informs the program to use file.nn as an alternative set of nearest-neighbor parameters, 
+            rather than the default for the specified hybridisation type (option -H).
+            melting provides some files ready-to-use:
+            <ul>
+              <li>all97a.nn (DNA/DNA hybridisation of Allawi and SantaLucia(1997). Biochemistry 36 : 10581-10594)</li>
+              <li>bre86a.nn (DNA/DNA hybridisation of Breslauer et al. (1986). Proc Natl Acad Sci USA 83 : 3746-3750)</li>
+              <li>san96a.nn (DNA/DNA hybridisation of SantaLucia et al.(1996). Biochemistry 35 : 3555-3562)</li>
+              <li>sug96a.nn (DNA/DNA hybridisation of Sugimoto et al.(1996). Nuc Acids Res 24 : 4501-4505)</li>
+              <li>fre86a.nn (RNA/RNA hybridisation of Freier et al (1986) Proc Natl Acad Sci USA 83: 9373-9377)</li>
+              <li>xia98a.nn (RNA/RNA hybridisation of Xia et al (1998) Biochemistry 37: 14719-14735)</li>
+              <li>sug95a.nn (DNA/RNA hybridisation of Sugimoto et al. (1995). Biochemistry 34 : 11211-11216)</li>
+            </ul>
+            Be careful, the option -A changes the default parameter set defined by the option -H.
+        </div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sequence">Sequence string (-S)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sequence" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="complement_string">Complementary sequence (-C)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722205328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="complement_string" type="text" value=""/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722205328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+          Enters the complementary sequence, from 3’ to 5’. 
+          This option is mandatory if there are mismatches between the two strands. 
+          If it is not used, the program will compute it as the complement of the
+          sequence entered with the option -S.
+          <pre>
+            5' GTGAGCTCAT 3'
+            3' CACTCGAGTA 5'
+         </pre>
+          </div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="salt_concentration">Salt concentration (-N)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723018896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="salt_concentration" type="text" value=""/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723018896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Value must be greater than 0.0 and lower than 10.0</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nucacid_concentration">Nucleic acid concentration in excess (-P)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721970928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nucacid_concentration" type="text" value=""/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721970928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Value must be greater than 0.0 and lower than 0.1</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="correction_factor">Nucleic acid correction factor (-F)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="correction_factor" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="salt_correction">Salt correction (-K)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="salt_correction">
+          <xhtml:option value="null" selected="selected"/>
+          <xhtml:option value="wet91a">Wetmur 1991</xhtml:option>
+          <xhtml:option value="san96a">SantaLucia et al. 1996</xhtml:option>
+          <xhtml:option value="san98a">SantaLucia 1998</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="approx">Force approximative temperature computation (-x)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="approx">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dangling_ends">Use parameters for dangling ends (dnadnade.nn) (-D)?<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dangling_ends">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mismatches">Use parameters for mismatches (dnadnamm.nn) (-M)?<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="mismatches">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="melting" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hybridation_type" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nnfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="default" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723007584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723007584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+            Informs the program to use file.nn as an alternative set of nearest-neighbor parameters, 
+            rather than the default for the specified hybridisation type (option -H).
+            melting provides some files ready-to-use:
+            <ul>
+              <li>all97a.nn (DNA/DNA hybridisation of Allawi and SantaLucia(1997). Biochemistry 36 : 10581-10594)</li>
+              <li>bre86a.nn (DNA/DNA hybridisation of Breslauer et al. (1986). Proc Natl Acad Sci USA 83 : 3746-3750)</li>
+              <li>san96a.nn (DNA/DNA hybridisation of SantaLucia et al.(1996). Biochemistry 35 : 3555-3562)</li>
+              <li>sug96a.nn (DNA/DNA hybridisation of Sugimoto et al.(1996). Nuc Acids Res 24 : 4501-4505)</li>
+              <li>fre86a.nn (RNA/RNA hybridisation of Freier et al (1986) Proc Natl Acad Sci USA 83: 9373-9377)</li>
+              <li>xia98a.nn (RNA/RNA hybridisation of Xia et al (1998) Biochemistry 37: 14719-14735)</li>
+              <li>sug95a.nn (DNA/RNA hybridisation of Sugimoto et al. (1995). Biochemistry 34 : 11211-11216)</li>
+            </ul>
+            Be careful, the option -A changes the default parameter set defined by the option -H.
+        </div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="complement_string" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722205328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722205328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+          Enters the complementary sequence, from 3’ to 5’. 
+          This option is mandatory if there are mismatches between the two strands. 
+          If it is not used, the program will compute it as the complement of the
+          sequence entered with the option -S.
+          <pre>
+            5' GTGAGCTCAT 3'
+            3' CACTCGAGTA 5'
+         </pre>
+          </div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="salt_concentration" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723018896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723018896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Value must be greater than 0.0 and lower than 10.0</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nucacid_concentration" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721970928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721970928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Value must be greater than 0.0 and lower than 0.1</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="correction_factor" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="salt_correction" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="approx" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dangling_ends" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mismatches" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter iscommand="1" ishidden="1">
+      <name>melting</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"melting -q -v"</code>
+        <code proglang="python">"melting -q -v"</code>
+      </format>
+      <argpos>0</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="melting"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>hybridation_type</name>
+      <prompt lang="en">Hybridisation type (-H)</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>null</value>
+          <label>Choose an hybidation type</label>
+        </velem>
+        <velem>
+          <value>dnadna</value>
+          <label>Dna/Dna</label>
+        </velem>
+        <velem>
+          <value>dnarna</value>
+          <label>Dna/Rna</label>
+        </velem>
+        <velem>
+          <value>rnarna</value>
+          <label>Rna/Rna</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">" -H$value"</code>
+        <code proglang="python">" -H" + str(value)</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Hybridisation type (-H)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="hybridation_type">
+            <xhtml:option value="null" selected="selected">Choose an hybidation type</xhtml:option>
+            <xhtml:option value="dnadna">Dna/Dna</xhtml:option>
+            <xhtml:option value="dnarna">Dna/Rna</xhtml:option>
+            <xhtml:option value="rnarna">Rna/Rna</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hybridation_type"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>nnfile</name>
+      <prompt lang="en">Nearest Neighbor parameters set (-A)</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>default</value>
+      </vdef>
+      <vlist>
+        <velem>
+          <value>default</value>
+          <label>Default</label>
+        </velem>
+        <velem>
+          <value>all97a.nn</value>
+          <label>DNA/DNA hybridisation of Allawi et al 1997</label>
+        </velem>
+        <velem>
+          <value>bre86a.nn</value>
+          <label>DNA/DNA hybridisation of Breslauer et al 1986</label>
+        </velem>
+        <velem>
+          <value>san96a.nn</value>
+          <label>DNA/DNA hybridisation of SantaLucia et al 1996</label>
+        </velem>
+        <velem>
+          <value>sug96a.nn</value>
+          <label>DNA/DNA hybridisation of Sugimoto et al 1996</label>
+        </velem>
+        <velem>
+          <value>fre86a.nn</value>
+          <label>RNA/RNA hybridisation of Freier et al 1986</label>
+        </velem>
+        <velem>
+          <value>xia98a.nn</value>
+          <label>RNA/RNA hybridisation of Xia et al 1998</label>
+        </velem>
+        <velem>
+          <value>sug95a.nn</value>
+          <label>DNA/RNA hybridisation of Sugimoto et al 1995</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">(defined $value and $value ne $vdef) ? " -A$value" : ""</code>
+        <code proglang="python">( "" , " -A" + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            Informs the program to use file.nn as an alternative set of nearest-neighbor parameters, 
+            rather than the default for the specified hybridisation type (option -H).
+            melting provides some files ready-to-use:
+            <ul>
+            <li>all97a.nn (DNA/DNA hybridisation of Allawi and SantaLucia(1997). Biochemistry 36 : 10581-10594)</li>
+            <li>bre86a.nn (DNA/DNA hybridisation of Breslauer et al. (1986). Proc Natl Acad Sci USA 83 : 3746-3750)</li>
+            <li>san96a.nn (DNA/DNA hybridisation of SantaLucia et al.(1996). Biochemistry 35 : 3555-3562)</li>
+            <li>sug96a.nn (DNA/DNA hybridisation of Sugimoto et al.(1996). Nuc Acids Res 24 : 4501-4505)</li>
+            <li>fre86a.nn (RNA/RNA hybridisation of Freier et al (1986) Proc Natl Acad Sci USA 83: 9373-9377)</li>
+            <li>xia98a.nn (RNA/RNA hybridisation of Xia et al (1998) Biochemistry 37: 14719-14735)</li>
+            <li>sug95a.nn (DNA/RNA hybridisation of Sugimoto et al. (1995). Biochemistry 34 : 11211-11216)</li>
+          </ul>
+            Be careful, the option -A changes the default parameter set defined by the option -H.
+        </div>
+      </comment>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Nearest Neighbor parameters set (-A)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723007584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nnfile">
+            <xhtml:option value="default" selected="selected">Default</xhtml:option>
+            <xhtml:option value="all97a.nn">DNA/DNA hybridisation of Allawi et al 1997</xhtml:option>
+            <xhtml:option value="bre86a.nn">DNA/DNA hybridisation of Breslauer et al 1986</xhtml:option>
+            <xhtml:option value="san96a.nn">DNA/DNA hybridisation of SantaLucia et al 1996</xhtml:option>
+            <xhtml:option value="sug96a.nn">DNA/DNA hybridisation of Sugimoto et al 1996</xhtml:option>
+            <xhtml:option value="fre86a.nn">RNA/RNA hybridisation of Freier et al 1986</xhtml:option>
+            <xhtml:option value="xia98a.nn">RNA/RNA hybridisation of Xia et al 1998</xhtml:option>
+            <xhtml:option value="sug95a.nn">DNA/RNA hybridisation of Sugimoto et al 1995</xhtml:option>
+          </xhtml:select>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723007584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+            Informs the program to use file.nn as an alternative set of nearest-neighbor parameters, 
+            rather than the default for the specified hybridisation type (option -H).
+            melting provides some files ready-to-use:
+            <ul>
+                <li>all97a.nn (DNA/DNA hybridisation of Allawi and SantaLucia(1997). Biochemistry 36 : 10581-10594)</li>
+                <li>bre86a.nn (DNA/DNA hybridisation of Breslauer et al. (1986). Proc Natl Acad Sci USA 83 : 3746-3750)</li>
+                <li>san96a.nn (DNA/DNA hybridisation of SantaLucia et al.(1996). Biochemistry 35 : 3555-3562)</li>
+                <li>sug96a.nn (DNA/DNA hybridisation of Sugimoto et al.(1996). Nuc Acids Res 24 : 4501-4505)</li>
+                <li>fre86a.nn (RNA/RNA hybridisation of Freier et al (1986) Proc Natl Acad Sci USA 83: 9373-9377)</li>
+                <li>xia98a.nn (RNA/RNA hybridisation of Xia et al (1998) Biochemistry 37: 14719-14735)</li>
+                <li>sug95a.nn (DNA/RNA hybridisation of Sugimoto et al. (1995). Biochemistry 34 : 11211-11216)</li>
+              </ul>
+            Be careful, the option -A changes the default parameter set defined by the option -H.
+        </div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="default" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nnfile">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723007584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723007584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+            Informs the program to use file.nn as an alternative set of nearest-neighbor parameters, 
+            rather than the default for the specified hybridisation type (option -H).
+            melting provides some files ready-to-use:
+            <ul>
+                <li>all97a.nn (DNA/DNA hybridisation of Allawi and SantaLucia(1997). Biochemistry 36 : 10581-10594)</li>
+                <li>bre86a.nn (DNA/DNA hybridisation of Breslauer et al. (1986). Proc Natl Acad Sci USA 83 : 3746-3750)</li>
+                <li>san96a.nn (DNA/DNA hybridisation of SantaLucia et al.(1996). Biochemistry 35 : 3555-3562)</li>
+                <li>sug96a.nn (DNA/DNA hybridisation of Sugimoto et al.(1996). Nuc Acids Res 24 : 4501-4505)</li>
+                <li>fre86a.nn (RNA/RNA hybridisation of Freier et al (1986) Proc Natl Acad Sci USA 83: 9373-9377)</li>
+                <li>xia98a.nn (RNA/RNA hybridisation of Xia et al (1998) Biochemistry 37: 14719-14735)</li>
+                <li>sug95a.nn (DNA/RNA hybridisation of Sugimoto et al. (1995). Biochemistry 34 : 11211-11216)</li>
+              </ul>
+            Be careful, the option -A changes the default parameter set defined by the option -H.
+        </div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>sequence</name>
+      <prompt lang="en">Sequence string (-S)</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" -S$value"</code>
+        <code proglang="python">" -S" + str(value)</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Sequence string (-S)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sequence" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sequence"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>complement_string</name>
+      <prompt lang="en">Complementary sequence (-C)</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -C$value" : ""</code>
+        <code proglang="python">( "" , " -C" + str(value) )[ value is not None ]</code>
+      </format>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          Enters the complementary sequence, from 3’ to 5’. 
+          This option is mandatory if there are mismatches between the two strands. 
+          If it is not used, the program will compute it as the complement of the
+          sequence entered with the option -S.
+          <pre>
+            5' GTGAGCTCAT 3'
+            3' CACTCGAGTA 5'
+         </pre>
+        </div>
+      </comment>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Complementary sequence (-C)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722205328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="complement_string" type="text" value=""/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722205328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+          Enters the complementary sequence, from 3’ to 5’. 
+          This option is mandatory if there are mismatches between the two strands. 
+          If it is not used, the program will compute it as the complement of the
+          sequence entered with the option -S.
+          <pre>
+            5' GTGAGCTCAT 3'
+            3' CACTCGAGTA 5'
+         </pre>
+            </div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="complement_string">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722205328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722205328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+          Enters the complementary sequence, from 3’ to 5’. 
+          This option is mandatory if there are mismatches between the two strands. 
+          If it is not used, the program will compute it as the complement of the
+          sequence entered with the option -S.
+          <pre>
+            5' GTGAGCTCAT 3'
+            3' CACTCGAGTA 5'
+         </pre>
+            </div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>salt_concentration</name>
+      <prompt lang="en">Salt concentration (-N)</prompt>
+      <type>
+        <datatype>
+          <class>Float</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" -N$value"</code>
+        <code proglang="python">" -N" + str(value)</code>
+      </format>
+      <ctrl>
+        <message>
+          <text lang="en">Must be greater than 0.0 and lower than 10.0</text>
+        </message>
+        <code proglang="perl">$value &gt; 0.0 and $value &lt; 10.0</code>
+        <code proglang="python">value &gt; 0.0 and value &lt; 10.0</code>
+      </ctrl>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">Value must be greater than 0.0 and lower than 10.0</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Salt concentration (-N)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723018896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="salt_concentration" type="text" value=""/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723018896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Value must be greater than 0.0 and lower than 10.0</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="salt_concentration">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723018896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723018896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Value must be greater than 0.0 and lower than 10.0</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>nucacid_concentration</name>
+      <prompt lang="en">Nucleic acid concentration in excess (-P)</prompt>
+      <type>
+        <datatype>
+          <class>Float</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -P$value" : ""</code>
+        <code proglang="python">("", " -P" + str(value))[value is not None]</code>
+      </format>
+      <ctrl>
+        <message>
+          <text lang="en">Must be greater than 0.0 and lower than 0.1</text>
+        </message>
+        <code proglang="perl">$value &gt; 0.0 and $value &lt; 0.1</code>
+        <code proglang="python">value &gt; 0.0 and value &lt; 0.1</code>
+      </ctrl>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">Value must be greater than 0.0 and lower than 0.1</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Nucleic acid concentration in excess (-P)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721970928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nucacid_concentration" type="text" value=""/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721970928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Value must be greater than 0.0 and lower than 0.1</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nucacid_concentration">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721970928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721970928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Value must be greater than 0.0 and lower than 0.1</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>correction_factor</name>
+      <prompt lang="en">Nucleic acid correction factor (-F)</prompt>
+      <type>
+        <datatype>
+          <class>Float</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -F$value" : ""</code>
+        <code proglang="python">( "" , " -F" + str(value) )[ value is not None ]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Nucleic acid correction factor (-F)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="correction_factor" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="correction_factor"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>salt_correction</name>
+      <prompt lang="en">Salt correction (-K)</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>null</value>
+          <label/>
+        </velem>
+        <velem>
+          <value>wet91a</value>
+          <label>Wetmur 1991</label>
+        </velem>
+        <velem>
+          <value>san96a</value>
+          <label>SantaLucia et al. 1996</label>
+        </velem>
+        <velem>
+          <value>san98a</value>
+          <label>SantaLucia 1998</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">(defined $value) ? " -K$value" : ""</code>
+        <code proglang="python">( "" , " -K" + str(value) )[ value is not None ]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Salt correction (-K)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="salt_correction">
+            <xhtml:option value="null" selected="selected"/>
+            <xhtml:option value="wet91a">Wetmur 1991</xhtml:option>
+            <xhtml:option value="san96a">SantaLucia et al. 1996</xhtml:option>
+            <xhtml:option value="san98a">SantaLucia 1998</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="salt_correction"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>approx</name>
+      <prompt lang="en">Force approximative temperature computation (-x)</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -x" : ""</code>
+        <code proglang="python">( "" , " -x" )[ value ]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Force approximative temperature computation (-x)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="approx">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="approx"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>dangling_ends</name>
+      <prompt lang="en">Use parameters for dangling ends (dnadnade.nn) (-D)?</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -Ddnadnade.nn " : ""</code>
+        <code proglang="python">( "" , " -Ddnadnade.nn " )[ value ]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use parameters for dangling ends (dnadnade.nn) (-D)?<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dangling_ends">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dangling_ends"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>mismatches</name>
+      <prompt lang="en">Use parameters for mismatches (dnadnamm.nn) (-M)?</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -Mdnadnamm.nn " : ""</code>
+        <code proglang="python">( "" , " -Mdnadnamm.nn " )[ value ]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use parameters for mismatches (dnadnamm.nn) (-M)?<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="mismatches">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mismatches"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"melting.out"</code>
+        <code proglang="python">"melting.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"melting.err"</code>
+        <code proglang="python">"melting.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

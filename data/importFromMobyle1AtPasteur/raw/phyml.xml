@@ -1,0 +1,1799 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>phyml</name>
+    <version>20130219.patch</version>
+    <doc>
+      <title>PHYML</title>
+      <description>
+        <text lang="en">A simple, fast, and accurate algorithm to estimate large phylogenies by maximum likelihood</text>
+      </description>
+      <authors>S. Guindon and O. Gascuel</authors>
+      <reference>Guindon, S. and Gascuel, O. (2003) A simple, fast and accurate algorithm to estimate large phylogenies by maximum likelihood Systematic Biology, 52(5), 696-704</reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/phyml/phyml-manual-20122408.pdf</doclink>
+      <homepagelink>http://code.google.com/p/phyml</homepagelink>
+      <sourcelink>http://code.google.com/p/phyml</sourcelink>
+    </doc>
+    <command>phyml</command>
+    <category>phylogeny:likelihood</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="PHYLIP-RELAXED " data-parametername="alignment">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequence Alignment</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alignment" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="nt" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqtype">Data type (-d)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqtype">
+          <xhtml:option value="nt" selected="selected">DNA (nt)</xhtml:option>
+          <xhtml:option value="aa">Amino-Acids (aa)</xhtml:option>
+        </xhtml:select>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="inputopt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="datasets">Number of data sets to analyse (-n)<xhtml:input name="datasets" type="text" value="1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bootstrap_sets">Number of bootstraps sets to generate (only works with one data set to analyse) (-b)<xhtml:a href="#idm140117707314864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="bootstrap_sets" type="text" value=""/>
+            <xhtml:div id="idm140117707314864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <div>
+                <ul>
+                  <li>b &gt;  0: int is the number of bootstrap replicates.</li>
+                  <li>b =  0: neither approximate likelihood ratio test nor bootstrap values are computed.</li>
+                  <li>b = -1: approximate likelihood ratio test returning aLRT statistics.</li>
+                  <li>b = -2: approximate likelihood ratio test returning Chi2-based parametric branch supports.</li>
+                  <li>b = -4: (default) SH-like branch supports alone.</li>
+                  <li>b = -5: approximate Bayes branch supports.</li>
+                </ul>
+              </div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="HKY85" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ntmodel">Nucleotide substitution model (-m)<xhtml:select name="ntmodel">
+              <xhtml:option value="HKY85" selected="selected">HKY85</xhtml:option>
+              <xhtml:option value="JC69">JC69</xhtml:option>
+              <xhtml:option value="K80">K80</xhtml:option>
+              <xhtml:option value="F81">F81</xhtml:option>
+              <xhtml:option value="F84">F84</xhtml:option>
+              <xhtml:option value="TN93">TN93</xhtml:option>
+              <xhtml:option value="GTR">GTR</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="LG" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="aamodel">Amino-acid substitution model (-m)<xhtml:select name="aamodel">
+              <xhtml:option value="LG" selected="selected">LG</xhtml:option>
+              <xhtml:option value="WAG">WAG</xhtml:option>
+              <xhtml:option value="JTT">JTT</xhtml:option>
+              <xhtml:option value="MtREV">MtREV</xhtml:option>
+              <xhtml:option value="Dayhoff">Dayhoff</xhtml:option>
+              <xhtml:option value="DCMut">DCMut</xhtml:option>
+              <xhtml:option value="RtREV">RtREV</xhtml:option>
+              <xhtml:option value="CpREV">CpREV</xhtml:option>
+              <xhtml:option value="VT">VT</xhtml:option>
+              <xhtml:option value="Blosum62">Blosum62</xhtml:option>
+              <xhtml:option value="MtMam">MtMam</xhtml:option>
+              <xhtml:option value="MtArt">MtArt</xhtml:option>
+              <xhtml:option value="HIVw">HIVw</xhtml:option>
+              <xhtml:option value="HIVb">HIVb</xhtml:option>
+            </xhtml:select>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="character_frequencies">
+            <legend>character frequencies</legend>
+            <xhtml:div>
+              <xhtml:table>
+                <xhtml:tr>
+                  <xhtml:td>
+                    <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="predef_char_freq">predefined character frequencies<xhtml:a href="#idm140117705902432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                      <xhtml:select name="predef_char_freq">
+                        <xhtml:option value="null" selected="selected">Choose a character frequencies</xhtml:option>
+                        <xhtml:option value="e">e</xhtml:option>
+                        <xhtml:option value="m">m</xhtml:option>
+                      </xhtml:select>
+                      <xhtml:div id="idm140117705902432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                        <div>
+                          <ul>
+                            <li>e:<ul>
+                                <li>
+                                  <span style="font-weight:bold">Nucleotide sequences</span>: (Empirical) the equilibrium base frequencies 
+                         are estimated by counting the occurence of the different bases in the alignment (default).</li>
+                                <li>
+                                  <span style="font-weight:bold">Amino-acid sequences</span>: (Empirical) the equilibrium amino-acid frequencies are estimated by counting
+                 the occurence of the different amino-acids in the alignment.</li>
+                              </ul>
+                            </li>
+                            <li>m:<ul>
+                                <li>
+                                  <span style="font-weight:bold">Nucleotide sequences</span>: (ML) the equilibrium base frequencies are estimated using maximum likelihood.</li>
+                                <li>
+                                  <span style="font-weight:bold">Amino-acid sequences</span>: (Model) the equilibrium amino-acid frequencies are estimated using 
+                         the frequencies defined by the substitution model (default).</li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </xhtml:div>
+                    </label>
+                  </xhtml:td>
+                </xhtml:tr>
+                <xhtml:tr>
+                  <xhtml:td>
+                    <div class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="user_character_frequencies">
+                      <label class="parameter" title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">User character frequencies</label>
+                      <a class="blindLink commentToggle" title="click to expand/collapse contextual help" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1));                    target.style.display=(target.style.display=='none') ? '':'none';}" href="#phyml_fake_comment::comment">?</a>
+                      <div id="phyml_fake_comment::comment" class="commentText closed" mode="ajaxTarget" style="overflow: visible; display: none; visibility: hidden;">
+                  only valid for nucleotide-based models. fA, fC, fG and fT are floating numbers that 
+                 correspond to the frequencies of A, C, G and T respectively.</div>
+                    </div>
+                  </xhtml:td>
+                </xhtml:tr>
+                <xhtml:tr>
+                  <xhtml:td>
+                    <xhtml:table>
+                      <xhtml:tr>
+                        <xhtml:td>
+                          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="a_freq">A frequencies<xhtml:input name="a_freq" type="text" value=""/>
+                          </label>
+                        </xhtml:td>
+                        <xhtml:td>
+                          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="c_freq">C frequencies<xhtml:input name="c_freq" type="text" value=""/>
+                          </label>
+                        </xhtml:td>
+                        <xhtml:td>
+                          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="g_freq">G frequencies<xhtml:input name="g_freq" type="text" value=""/>
+                          </label>
+                        </xhtml:td>
+                        <xhtml:td>
+                          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="t_freq">T frequencies<xhtml:input name="t_freq" type="text" value=""/>
+                          </label>
+                        </xhtml:td>
+                      </xhtml:tr>
+                    </xhtml:table>
+                  </xhtml:td>
+                </xhtml:tr>
+              </xhtml:table>
+            </xhtml:div>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tstvratio1">set transition/transversion ratio to get the maximum likelihood estimate (DNA sequences only)<xhtml:select name="tstvratio1">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tstvratio2">User transition/transversion ratio for DNA sequences? (-t)<xhtml:input name="tstvratio2" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="propinvar1">set proportion of invariable sites to get the maximum likelihood estimate. (-v)<xhtml:select name="propinvar1">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="propinvar2">User proportion of invariable sites? (-v)<xhtml:a href="#idm140117704928880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="propinvar2" type="text" value=""/>
+            <xhtml:div id="idm140117704928880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+            This option will not be took in account if 
+            "set proportion of invariable sites to get the maximum likelihood estimate"
+            is switch on.
+            </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nbsubstcat">Number of relative substitution rate categories (-c)<xhtml:input name="nbsubstcat" type="text" value="1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gamma1">set distribution of the gamma distribution shape parameter to get the maximum likelihood estimate<xhtml:select name="gamma1">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gamma2">distribution of the gamma distribution shape parameter. (-a)<xhtml:a href="#idm140117704626480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="gamma2" type="text" value=""/>
+            <xhtml:div id="idm140117704626480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Can be a fixed positive value.</xhtml:div>
+              <xhtml:div>This option will not be took into account if 
+            "set distribution of the gamma distribution shape parameter to get the maximum likelihood estimate"
+            is switch on.
+            </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="NNI" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="move">Tree topology search operation (-s)<xhtml:a href="#idm140117704612160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="move">
+              <xhtml:option value="NNI" selected="selected">NNI</xhtml:option>
+              <xhtml:option value="SPR">SPR (a bit slower than NNI)</xhtml:option>
+              <xhtml:option value="BEST">BEST (best of NNI and SPR search)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704612160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+              PhyML proposes three different methods to estimate tree topologies. The default
+approach is to use simultaneous NNI. This option corresponds to the original PhyML
+algorithm. The second approach relies on subtree pruning and regrafting (SPR).
+It generally finds better tree topologies compared to NNI but is also significantly
+slower. The third approach, termed BEST, simply estimates the phylogeny using
+both methods and returns the best solution among the two.
+            </xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="usertreefile">
+            <legend>Starting tree filename (u)<xhtml:a href="#idm140117704595584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117704595584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The tree must be in Newick format.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="usertreefile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tlr" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="optimisation">parameter optimisation<xhtml:a href="#idm140117704585568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="optimisation">
+              <xhtml:option value="tlr" selected="selected">tree topology (t), branch length (l) and rate parameters (r) are optimised.</xhtml:option>
+              <xhtml:option value="tl">tree topology and branch length are optimised.</xhtml:option>
+              <xhtml:option value="lr">branch length and rate parameters are optimised.</xhtml:option>
+              <xhtml:option value="l">branch length are optimised.</xhtml:option>
+              <xhtml:option value="r">rate parameters are optimised.</xhtml:option>
+              <xhtml:option value="n">no parameter is optimised.</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704585568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option focuses on specific parameter optimisation.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rand_start">sets the initial tree to random.<xhtml:a href="#idm140117704564432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="rand_start">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704564432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>It is only valid if SPR searches are to be performed.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="n_rand_starts">the number of initial random trees to be used.<xhtml:a href="#idm140117704552976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="n_rand_starts" type="text" value=""/>
+            <xhtml:div id="idm140117704552976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>It is only valid if SPR searches are to be performed.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="r_seed">the seed used to initiate the random number generator (must be an integer)<xhtml:input name="r_seed" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_site_lnl">Print the likelihood for each site in file.<xhtml:select name="print_site_lnl">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_trace">Print each phylogeny explored during the tree search process in file.<xhtml:select name="print_trace">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alignment" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="PHYLIP-RELAXED ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqtype" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="nt" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="inputopt">
+        <xhtml:legend>Input Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="datasets" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bootstrap_sets" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117707314864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117707314864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <div>
+                <ul>
+                  <li>b &gt;  0: int is the number of bootstrap replicates.</li>
+                  <li>b =  0: neither approximate likelihood ratio test nor bootstrap values are computed.</li>
+                  <li>b = -1: approximate likelihood ratio test returning aLRT statistics.</li>
+                  <li>b = -2: approximate likelihood ratio test returning Chi2-based parametric branch supports.</li>
+                  <li>b = -4: (default) SH-like branch supports alone.</li>
+                  <li>b = -5: approximate Bayes branch supports.</li>
+                </ul>
+              </div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control_opt">
+        <xhtml:legend>Control Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ntmodel" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="HKY85" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="aamodel" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="LG" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <xhtml:fieldset class="minimizable" data-paragraphname="character_frequencies">
+            <xhtml:legend>character frequencies</xhtml:legend>
+            <xhtml:div>
+              <xhtml:table>
+                <xhtml:tr>
+                  <xhtml:td>
+                    <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="predef_char_freq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                      <xhtml:a href="#idm140117705902432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                      <xhtml:div id="idm140117705902432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                        <div>
+                          <ul>
+                            <li>e:<ul>
+                                <li>
+                                  <span style="font-weight:bold">Nucleotide sequences</span>: (Empirical) the equilibrium base frequencies 
+                         are estimated by counting the occurence of the different bases in the alignment (default).</li>
+                                <li>
+                                  <span style="font-weight:bold">Amino-acid sequences</span>: (Empirical) the equilibrium amino-acid frequencies are estimated by counting
+                 the occurence of the different amino-acids in the alignment.</li>
+                              </ul>
+                            </li>
+                            <li>m:<ul>
+                                <li>
+                                  <span style="font-weight:bold">Nucleotide sequences</span>: (ML) the equilibrium base frequencies are estimated using maximum likelihood.</li>
+                                <li>
+                                  <span style="font-weight:bold">Amino-acid sequences</span>: (Model) the equilibrium amino-acid frequencies are estimated using 
+                         the frequencies defined by the substitution model (default).</li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </xhtml:div>
+                    </div>
+                  </xhtml:td>
+                </xhtml:tr>
+                <xhtml:tr>
+                  <xhtml:td>
+                    <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="user_character_frequencies" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                  </xhtml:td>
+                </xhtml:tr>
+                <xhtml:tr>
+                  <xhtml:td>
+                    <xhtml:table>
+                      <xhtml:tr>
+                        <xhtml:td>
+                          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="a_freq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                        </xhtml:td>
+                        <xhtml:td>
+                          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="c_freq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                        </xhtml:td>
+                        <xhtml:td>
+                          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="g_freq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                        </xhtml:td>
+                        <xhtml:td>
+                          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="t_freq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                        </xhtml:td>
+                      </xhtml:tr>
+                    </xhtml:table>
+                  </xhtml:td>
+                </xhtml:tr>
+              </xhtml:table>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tstvratio1" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tstvratio2" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="propinvar1" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="propinvar2" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704928880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704928880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+            This option will not be took in account if 
+            "set proportion of invariable sites to get the maximum likelihood estimate"
+            is switch on.
+            </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nbsubstcat" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gamma1" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gamma2" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704626480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704626480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Can be a fixed positive value.</xhtml:div>
+              <xhtml:div>This option will not be took into account if 
+            "set distribution of the gamma distribution shape parameter to get the maximum likelihood estimate"
+            is switch on.
+            </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="move" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="NNI" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704612160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704612160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+              PhyML proposes three different methods to estimate tree topologies. The default
+approach is to use simultaneous NNI. This option corresponds to the original PhyML
+algorithm. The second approach relies on subtree pruning and regrafting (SPR).
+It generally finds better tree topologies compared to NNI but is also significantly
+slower. The third approach, termed BEST, simply estimates the phylogeny using
+both methods and returns the best solution among the two.
+            </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="usertreefile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+            <xhtml:i>
+				(Tree)
+			</xhtml:i>
+            <xhtml:a href="#idm140117704595584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704595584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The tree must be in Newick format.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="optimisation" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tlr" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704585568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704585568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option focuses on specific parameter optimisation.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="rand_start" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704564432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704564432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>It is only valid if SPR searches are to be performed.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="n_rand_starts" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704552976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704552976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>It is only valid if SPR searches are to be performed.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="r_seed" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="print_site_lnl" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="print_trace" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outtree" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="boot_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="boot_outtree" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="site_lnl_output" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="trace_output" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>alignment</name>
+      <prompt lang="en">Sequence Alignment</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>PHYLIP-RELAXED</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">"-i $value"</code>
+        <code proglang="python">" -i "+str(value)</code>
+      </format>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequence Alignment</xhtml:legend>
+          <xhtml:textarea name="alignment" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="PHYLIP-RELAXED " data-parametername="alignment">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>seqtype</name>
+      <prompt lang="en">Data type (-d)</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>nt</value>
+      </vdef>
+      <vlist>
+        <velem>
+          <value>nt</value>
+          <label>DNA (nt)</label>
+        </velem>
+        <velem>
+          <value>aa</value>
+          <label>Amino-Acids (aa)</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">(defined $value) ? " -d $value" : ""</code>
+        <code proglang="python">( "" , " -d " + str(value) )[ value is not None ]</code>
+      </format>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Data type (-d)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqtype">
+            <xhtml:option value="nt" selected="selected">DNA (nt)</xhtml:option>
+            <xhtml:option value="aa">Amino-Acids (aa)</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="nt" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqtype"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>inputopt</name>
+      <prompt lang="en">Input Options</prompt>
+      <parameters>
+        <parameter>
+          <name>datasets</name>
+          <prompt lang="en">Number of data sets to analyse (-n)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -n $value" : ""</code>
+            <code proglang="python">("", " -n "+str(value))[value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of data sets to analyse (-n)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="datasets" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="datasets"/>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>bootstrap_sets</name>
+          <prompt lang="en">Number of bootstraps sets to generate (only works with one data set to analyse) (-b)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$datasets == 1</code>
+            <code proglang="python">datasets == 1</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " -b $value" : ""</code>
+            <code proglang="python">( "" , " -b " + str(value) )[ value is not None]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">must be an integer &gt;= -5</text>
+            </message>
+            <code proglang="python">value &gt;= -5</code>
+          </ctrl>
+          <comment>
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <ul>
+                <li>b &gt;  0: int is the number of bootstrap replicates.</li>
+                <li>b =  0: neither approximate likelihood ratio test nor bootstrap values are computed.</li>
+                <li>b = -1: approximate likelihood ratio test returning aLRT statistics.</li>
+                <li>b = -2: approximate likelihood ratio test returning Chi2-based parametric branch supports.</li>
+                <li>b = -4: (default) SH-like branch supports alone.</li>
+                <li>b = -5: approximate Bayes branch supports.</li>
+              </ul>
+            </div>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of bootstraps sets to generate (only works with one data set to analyse) (-b)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117707314864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bootstrap_sets" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117707314864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                  <ul>
+                    <li>b &gt;  0: int is the number of bootstrap replicates.</li>
+                    <li>b =  0: neither approximate likelihood ratio test nor bootstrap values are computed.</li>
+                    <li>b = -1: approximate likelihood ratio test returning aLRT statistics.</li>
+                    <li>b = -2: approximate likelihood ratio test returning Chi2-based parametric branch supports.</li>
+                    <li>b = -4: (default) SH-like branch supports alone.</li>
+                    <li>b = -5: approximate Bayes branch supports.</li>
+                  </ul>
+                </div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bootstrap_sets">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117707314864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117707314864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                  <ul>
+                    <li>b &gt;  0: int is the number of bootstrap replicates.</li>
+                    <li>b =  0: neither approximate likelihood ratio test nor bootstrap values are computed.</li>
+                    <li>b = -1: approximate likelihood ratio test returning aLRT statistics.</li>
+                    <li>b = -2: approximate likelihood ratio test returning Chi2-based parametric branch supports.</li>
+                    <li>b = -4: (default) SH-like branch supports alone.</li>
+                    <li>b = -5: approximate Bayes branch supports.</li>
+                  </ul>
+                </div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>control_opt</name>
+      <prompt lang="en">Control Options</prompt>
+      <parameters>
+        <parameter>
+          <name>ntmodel</name>
+          <prompt lang="en">Nucleotide substitution model (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$seqtype eq "nt"</code>
+            <code proglang="python">seqtype == "nt"</code>
+          </precond>
+          <vdef>
+            <value>HKY85</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>HKY85</value>
+              <label>HKY85</label>
+            </velem>
+            <velem>
+              <value>JC69</value>
+              <label>JC69</label>
+            </velem>
+            <velem>
+              <value>K80</value>
+              <label>K80</label>
+            </velem>
+            <velem>
+              <value>F81</value>
+              <label>F81</label>
+            </velem>
+            <velem>
+              <value>F84</value>
+              <label>F84</label>
+            </velem>
+            <velem>
+              <value>TN93</value>
+              <label>TN93</label>
+            </velem>
+            <velem>
+              <value>GTR</value>
+              <label>GTR</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value ne $vdef) ? " -m $value" : ""</code>
+            <code proglang="python">("", " -m "+str(value))[value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Nucleotide substitution model (-m)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ntmodel">
+                <xhtml:option value="HKY85" selected="selected">HKY85</xhtml:option>
+                <xhtml:option value="JC69">JC69</xhtml:option>
+                <xhtml:option value="K80">K80</xhtml:option>
+                <xhtml:option value="F81">F81</xhtml:option>
+                <xhtml:option value="F84">F84</xhtml:option>
+                <xhtml:option value="TN93">TN93</xhtml:option>
+                <xhtml:option value="GTR">GTR</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="HKY85" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ntmodel"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>aamodel</name>
+          <prompt lang="en">Amino-acid substitution model (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$seqtype eq "aa"</code>
+            <code proglang="python">seqtype == "aa"</code>
+          </precond>
+          <vdef>
+            <value>LG</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>LG</value>
+              <label>LG</label>
+            </velem>
+            <velem>
+              <value>WAG</value>
+              <label>WAG</label>
+            </velem>
+            <velem>
+              <value>JTT</value>
+              <label>JTT</label>
+            </velem>
+            <velem>
+              <value>MtREV</value>
+              <label>MtREV</label>
+            </velem>
+            <velem>
+              <value>Dayhoff</value>
+              <label>Dayhoff</label>
+            </velem>
+            <velem>
+              <value>DCMut</value>
+              <label>DCMut</label>
+            </velem>
+            <velem>
+              <value>RtREV</value>
+              <label>RtREV</label>
+            </velem>
+            <velem>
+              <value>CpREV</value>
+              <label>CpREV</label>
+            </velem>
+            <velem>
+              <value>VT</value>
+              <label>VT</label>
+            </velem>
+            <velem>
+              <value>Blosum62</value>
+              <label>Blosum62</label>
+            </velem>
+            <velem>
+              <value>MtMam</value>
+              <label>MtMam</label>
+            </velem>
+            <velem>
+              <value>MtArt</value>
+              <label>MtArt</label>
+            </velem>
+            <velem>
+              <value>HIVw</value>
+              <label>HIVw</label>
+            </velem>
+            <velem>
+              <value>HIVb</value>
+              <label>HIVb</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value ne $vdef) ? " -m $value" : ""</code>
+            <code proglang="python">("", " -m "+str(value))[value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Amino-acid substitution model (-m)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="aamodel">
+                <xhtml:option value="LG" selected="selected">LG</xhtml:option>
+                <xhtml:option value="WAG">WAG</xhtml:option>
+                <xhtml:option value="JTT">JTT</xhtml:option>
+                <xhtml:option value="MtREV">MtREV</xhtml:option>
+                <xhtml:option value="Dayhoff">Dayhoff</xhtml:option>
+                <xhtml:option value="DCMut">DCMut</xhtml:option>
+                <xhtml:option value="RtREV">RtREV</xhtml:option>
+                <xhtml:option value="CpREV">CpREV</xhtml:option>
+                <xhtml:option value="VT">VT</xhtml:option>
+                <xhtml:option value="Blosum62">Blosum62</xhtml:option>
+                <xhtml:option value="MtMam">MtMam</xhtml:option>
+                <xhtml:option value="MtArt">MtArt</xhtml:option>
+                <xhtml:option value="HIVw">HIVw</xhtml:option>
+                <xhtml:option value="HIVb">HIVb</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="LG" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="aamodel"/>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>character_frequencies</name>
+          <prompt>character frequencies</prompt>
+          <parameters>
+            <parameter>
+              <name>predef_char_freq</name>
+              <prompt lang="en">predefined character frequencies</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>null</value>
+              </vdef>
+              <vlist>
+                <velem undef="1">
+                  <value>null</value>
+                  <label>Choose a character frequencies</label>
+                </velem>
+                <velem>
+                  <value>e</value>
+                  <label>e</label>
+                </velem>
+                <velem>
+                  <value>m</value>
+                  <label>m</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="python">("" , " -f " + str(value))[value is not None and value != vdef]</code>
+              </format>
+              <comment>
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <ul>
+                    <li>e:<ul>
+                        <li>
+                          <span style="font-weight:bold">Nucleotide sequences</span>: (Empirical) the equilibrium base frequencies 
+                         are estimated by counting the occurence of the different bases in the alignment (default).</li>
+                        <li>
+                          <span style="font-weight:bold">Amino-acid sequences</span>: (Empirical) the equilibrium amino-acid frequencies are estimated by counting
+                 the occurence of the different amino-acids in the alignment.</li>
+                      </ul>
+                    </li>
+                    <li>m:<ul>
+                        <li>
+                          <span style="font-weight:bold">Nucleotide sequences</span>: (ML) the equilibrium base frequencies are estimated using maximum likelihood.</li>
+                        <li>
+                          <span style="font-weight:bold">Amino-acid sequences</span>: (Model) the equilibrium amino-acid frequencies are estimated using 
+                         the frequencies defined by the substitution model (default).</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">predefined character frequencies<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705902432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="predef_char_freq">
+                    <xhtml:option value="null" selected="selected">Choose a character frequencies</xhtml:option>
+                    <xhtml:option value="e">e</xhtml:option>
+                    <xhtml:option value="m">m</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705902432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                      <ul>
+                        <li>e:<ul>
+                            <li>
+                              <span style="font-weight:bold">Nucleotide sequences</span>: (Empirical) the equilibrium base frequencies 
+                         are estimated by counting the occurence of the different bases in the alignment (default).</li>
+                            <li>
+                              <span style="font-weight:bold">Amino-acid sequences</span>: (Empirical) the equilibrium amino-acid frequencies are estimated by counting
+                 the occurence of the different amino-acids in the alignment.</li>
+                          </ul>
+                        </li>
+                        <li>m:<ul>
+                            <li>
+                              <span style="font-weight:bold">Nucleotide sequences</span>: (ML) the equilibrium base frequencies are estimated using maximum likelihood.</li>
+                            <li>
+                              <span style="font-weight:bold">Amino-acid sequences</span>: (Model) the equilibrium amino-acid frequencies are estimated using 
+                         the frequencies defined by the substitution model (default).</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="predef_char_freq">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705902432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705902432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                      <ul>
+                        <li>e:<ul>
+                            <li>
+                              <span style="font-weight:bold">Nucleotide sequences</span>: (Empirical) the equilibrium base frequencies 
+                         are estimated by counting the occurence of the different bases in the alignment (default).</li>
+                            <li>
+                              <span style="font-weight:bold">Amino-acid sequences</span>: (Empirical) the equilibrium amino-acid frequencies are estimated by counting
+                 the occurence of the different amino-acids in the alignment.</li>
+                          </ul>
+                        </li>
+                        <li>m:<ul>
+                            <li>
+                              <span style="font-weight:bold">Nucleotide sequences</span>: (ML) the equilibrium base frequencies are estimated using maximum likelihood.</li>
+                            <li>
+                              <span style="font-weight:bold">Amino-acid sequences</span>: (Model) the equilibrium amino-acid frequencies are estimated using 
+                         the frequencies defined by the substitution model (default).</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>user_character_frequencies</name>
+              <type>
+                <datatype>
+                  <class>String</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="python">predef_char_freq is None and seqtype == "nt" and (a_freq is not None and c_freq is not None and g_freq is not None and t_freq is not None)</code>
+              </precond>
+              <format>
+                <code proglang="python">("", " -f %f,%f,%f,%f" % (a_freq, c_freq, g_freq, t_freq) )[a_freq is not None or c_freq is not None]</code>
+              </format>
+              <interface type="form">
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <label class="parameter" title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">User character frequencies</label>
+                  <a class="blindLink commentToggle" title="click to expand/collapse contextual help" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1));                    target.style.display=(target.style.display=='none') ? '':'none';}" href="#phyml_fake_comment::comment">?</a>
+                  <div id="phyml_fake_comment::comment" class="commentText closed" mode="ajaxTarget" style="overflow: visible; display: none; visibility: hidden;">
+                  only valid for nucleotide-based models. fA, fC, fG and fT are floating numbers that 
+                 correspond to the frequencies of A, C, G and T respectively.</div>
+                </div>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="user_character_frequencies"/>
+              </interface>
+            </parameter>
+            <!-- if a value is None the ctrl is not evaluated so I can't display error above the unset frequencies -->
+            <parameter>
+              <name>a_freq</name>
+              <prompt lang="en">A frequencies</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <ctrl>
+                <message>
+                  <text lang="en">frequencies for a, c, g ,t must be set</text>
+                </message>
+                <code proglang="python">a_freq is not None and c_freq is not None and g_freq is not None and t_freq is not None</code>
+              </ctrl>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">A frequencies<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="a_freq" type="text" value=""/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="a_freq"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>c_freq</name>
+              <prompt lang="en">C frequencies</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <ctrl>
+                <message>
+                  <text lang="en">frequencies for a, c, g ,t must be set</text>
+                </message>
+                <code proglang="python">a_freq is not None and c_freq is not None and g_freq is not None and t_freq is not None</code>
+              </ctrl>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">C frequencies<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="c_freq" type="text" value=""/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="c_freq"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>g_freq</name>
+              <prompt lang="en">G frequencies</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <ctrl>
+                <message>
+                  <text lang="en">frequencies for a, c, g ,t must be set</text>
+                </message>
+                <code proglang="python">a_freq is not None and c_freq is not None and g_freq is not None and t_freq is not None</code>
+              </ctrl>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">G frequencies<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="g_freq" type="text" value=""/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="g_freq"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>t_freq</name>
+              <prompt lang="en">T frequencies</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <ctrl>
+                <message>
+                  <text lang="en">frequencies for a, c, g ,t must be set</text>
+                </message>
+                <code proglang="python">a_freq is not None and c_freq is not None and g_freq is not None and t_freq is not None</code>
+              </ctrl>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">T frequencies<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="t_freq" type="text" value=""/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="t_freq"/>
+              </interface>
+            </parameter>
+          </parameters>
+          <layout>
+            <vbox>
+              <box>predef_char_freq</box>
+              <box>user_character_frequencies</box>
+              <layout>
+                <hbox>
+                  <box>a_freq</box>
+                  <box>c_freq</box>
+                  <box>g_freq</box>
+                  <box>t_freq</box>
+                </hbox>
+              </layout>
+            </vbox>
+          </layout>
+        </paragraph>
+        <parameter>
+          <name>tstvratio1</name>
+          <prompt lang="en">set transition/transversion ratio to get the maximum likelihood estimate (DNA sequences only)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$seqtype eq "nt"</code>
+            <code proglang="python">seqtype == "nt"</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -t e" : ""</code>
+            <code proglang="python">( ""  , " -t e")[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">set transition/transversion ratio to get the maximum likelihood estimate (DNA sequences only)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tstvratio1">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tstvratio1"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tstvratio2</name>
+          <prompt lang="en">User transition/transversion ratio for DNA sequences? (-t)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$seqtype eq "nt" and not $tstvratio1</code>
+            <code proglang="python">seqtype == "nt" and not tstvratio1</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " -t $value" : ""</code>
+            <code proglang="python">( ""  , " -t "+str(value))[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">User transition/transversion ratio for DNA sequences? (-t)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tstvratio2" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tstvratio2"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>propinvar1</name>
+          <prompt lang="en">set proportion of invariable sites to get the maximum likelihood estimate. (-v)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <!--
+	    option plante avec -b sur raclette. A fixer avec l'auteur.
+
+	  <precond>
+	    <code proglang="perl">not $bootstrap_sets</code>
+	    <code proglang="python">bootstrap_sets is None</code>
+	  </precond>
+	  -->
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -v e" : ""</code>
+            <code proglang="python">( ""  , " -v e")[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">set proportion of invariable sites to get the maximum likelihood estimate. (-v)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="propinvar1">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="propinvar1"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>propinvar2</name>
+          <prompt lang="en">User proportion of invariable sites? (-v)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <!--
+	    option plante avec -b sur raclette. A fixer avec l'auteur.
+	  <precond>
+	    <code proglang="perl">not $bootstrap_sets and not $propinvar1</code>
+	    <code proglang="python">bootstrap_sets is None and propinvar1</code>
+	  </precond>
+	  -->
+          <precond>
+            <code proglang="perl">not $propinvar1</code>
+            <code proglang="python">not propinvar1</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " -v $value" : ""</code>
+            <code proglang="python">( ""  , " -v "+str(value))[value is not None]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt;= 0 and &lt; 1</text>
+            </message>
+            <code proglang="perl">$value &gt;= 0 and $value &lt; 1</code>
+            <code proglang="python">value &gt;= 0 and value &lt; 1</code>
+          </ctrl>
+          <comment>
+            <text lang="en">
+            This option will not be took in account if 
+            "set proportion of invariable sites to get the maximum likelihood estimate"
+            is switch on.
+            </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">User proportion of invariable sites? (-v)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704928880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="propinvar2" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704928880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+            This option will not be took in account if 
+            "set proportion of invariable sites to get the maximum likelihood estimate"
+            is switch on.
+            </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="propinvar2">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704928880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704928880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+            This option will not be took in account if 
+            "set proportion of invariable sites to get the maximum likelihood estimate"
+            is switch on.
+            </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nbsubstcat</name>
+          <prompt lang="en">Number of relative substitution rate categories (-c)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -c $value" : ""</code>
+            <code proglang="python">("", " -c "+str(value))[value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of relative substitution rate categories (-c)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nbsubstcat" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nbsubstcat"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gamma1</name>
+          <prompt lang="en">set distribution of the gamma distribution shape parameter to get the maximum likelihood estimate</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -a e" : ""</code>
+            <code proglang="python">("", " -a e")[value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">set distribution of the gamma distribution shape parameter to get the maximum likelihood estimate<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gamma1">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gamma1"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gamma2</name>
+          <prompt lang="en">distribution of the gamma distribution shape parameter. (-a)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not $gamma1</code>
+            <code proglang="python">not gamma1</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " -a $value" : ""</code>
+            <code proglang="python">("", " -a "+str(value))[value is not None]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Must be a positive value</text>
+            </message>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <comment>
+            <text lang="en">Can be a fixed positive value.</text>
+            <text lang="en">This option will not be took into account if 
+            "set distribution of the gamma distribution shape parameter to get the maximum likelihood estimate"
+            is switch on.
+            </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">distribution of the gamma distribution shape parameter. (-a)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704626480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gamma2" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704626480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Can be a fixed positive value.</xhtml:div>
+                <xhtml:div>This option will not be took into account if 
+            "set distribution of the gamma distribution shape parameter to get the maximum likelihood estimate"
+            is switch on.
+            </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gamma2">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704626480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704626480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Can be a fixed positive value.</xhtml:div>
+                <xhtml:div>This option will not be took into account if 
+            "set distribution of the gamma distribution shape parameter to get the maximum likelihood estimate"
+            is switch on.
+            </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>move</name>
+          <prompt lang="en">Tree topology search operation (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>NNI</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>NNI</value>
+              <label>NNI</label>
+            </velem>
+            <velem>
+              <value>SPR</value>
+              <label>SPR (a bit slower than NNI)</label>
+            </velem>
+            <velem>
+              <value>BEST</value>
+              <label>BEST (best of NNI and SPR search)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value ne $vdef) ? " -s $value" : ""</code>
+            <code proglang="python">("", " -s "+str(value))[value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">
+              PhyML proposes three different methods to estimate tree topologies. The default
+approach is to use simultaneous NNI. This option corresponds to the original PhyML
+algorithm. The second approach relies on subtree pruning and regrafting (SPR).
+It generally finds better tree topologies compared to NNI but is also significantly
+slower. The third approach, termed BEST, simply estimates the phylogeny using
+both methods and returns the best solution among the two.
+            </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Tree topology search operation (-s)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704612160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="move">
+                <xhtml:option value="NNI" selected="selected">NNI</xhtml:option>
+                <xhtml:option value="SPR">SPR (a bit slower than NNI)</xhtml:option>
+                <xhtml:option value="BEST">BEST (best of NNI and SPR search)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704612160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              PhyML proposes three different methods to estimate tree topologies. The default
+approach is to use simultaneous NNI. This option corresponds to the original PhyML
+algorithm. The second approach relies on subtree pruning and regrafting (SPR).
+It generally finds better tree topologies compared to NNI but is also significantly
+slower. The third approach, termed BEST, simply estimates the phylogeny using
+both methods and returns the best solution among the two.
+            </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="NNI" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="move">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704612160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704612160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              PhyML proposes three different methods to estimate tree topologies. The default
+approach is to use simultaneous NNI. This option corresponds to the original PhyML
+algorithm. The second approach relies on subtree pruning and regrafting (SPR).
+It generally finds better tree topologies compared to NNI but is also significantly
+slower. The third approach, termed BEST, simply estimates the phylogeny using
+both methods and returns the best solution among the two.
+            </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>usertreefile</name>
+          <prompt lang="en">Starting tree filename (u)</prompt>
+          <type>
+            <datatype>
+              <class>Tree</class>
+            </datatype>
+            <dataFormat>NEWICK</dataFormat>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -u $value" : ""</code>
+            <code proglang="python">("", " -u "+str(value))[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">The tree must be in Newick format.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Starting tree filename (u)</xhtml:legend>
+              <xhtml:textarea name="usertreefile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="usertreefile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704595584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704595584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The tree must be in Newick format.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>optimisation</name>
+          <prompt lang="en">parameter optimisation</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>tlr</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>tlr</value>
+              <label>tree topology (t), branch length (l) and rate parameters (r) are optimised.</label>
+            </velem>
+            <velem>
+              <value>tl</value>
+              <label>tree topology and branch length are optimised.</label>
+            </velem>
+            <velem>
+              <value>lr</value>
+              <label>branch length and rate parameters are optimised.</label>
+            </velem>
+            <velem>
+              <value>l</value>
+              <label>branch length are optimised.</label>
+            </velem>
+            <velem>
+              <value>r</value>
+              <label>rate parameters are optimised.</label>
+            </velem>
+            <velem>
+              <value>n</value>
+              <label>no parameter is optimised.</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -o " + str(value))[value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">This option focuses on specific parameter optimisation.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">parameter optimisation<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704585568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="optimisation">
+                <xhtml:option value="tlr" selected="selected">tree topology (t), branch length (l) and rate parameters (r) are optimised.</xhtml:option>
+                <xhtml:option value="tl">tree topology and branch length are optimised.</xhtml:option>
+                <xhtml:option value="lr">branch length and rate parameters are optimised.</xhtml:option>
+                <xhtml:option value="l">branch length are optimised.</xhtml:option>
+                <xhtml:option value="r">rate parameters are optimised.</xhtml:option>
+                <xhtml:option value="n">no parameter is optimised.</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704585568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option focuses on specific parameter optimisation.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tlr" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="optimisation">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704585568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704585568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option focuses on specific parameter optimisation.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>rand_start</name>
+          <prompt lang="en">sets the initial tree to random.</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">move in ('SPR', 'BEST')</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " --rand_start ")[bool(value)]</code>
+          </format>
+          <comment>
+            <text lang="en">It is only valid if SPR searches are to be performed.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">sets the initial tree to random.<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704564432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="rand_start">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704564432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>It is only valid if SPR searches are to be performed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rand_start">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704564432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704564432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>It is only valid if SPR searches are to be performed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>n_rand_starts</name>
+          <prompt>the number of initial random trees to be used.</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">move in ('SPR', 'BEST')</code>
+          </precond>
+          <format>
+            <code proglang="python">("", " --n_rand_starts " + str(value))[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">It is only valid if SPR searches are to be performed.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">the number of initial random trees to be used.<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704552976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="n_rand_starts" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704552976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>It is only valid if SPR searches are to be performed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="n_rand_starts">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704552976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704552976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>It is only valid if SPR searches are to be performed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>r_seed</name>
+          <prompt>the seed used to initiate the random number generator (must be an integer)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">( "", " --r_seed " + str(value))[value is not None]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">the seed used to initiate the random number generator (must be an integer)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="r_seed" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="r_seed"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>print_site_lnl</name>
+          <prompt>Print the likelihood for each site in file.</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">(""," --print_site_lnl ")[bool(value)]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print the likelihood for each site in file.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="print_site_lnl">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_site_lnl"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>print_trace</name>
+          <prompt>Print each phylogeny explored during the tree search process in file.</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">(""," --print_trace ")[bool(value)]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print each phylogeny explored during the tree search process in file.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="print_trace">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_trace"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>outfile</name>
+      <prompt lang="en">Output file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*_phyml_stats.txt"</code>
+        <code proglang="python">"*_phyml_stats.txt"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>outtree</name>
+      <prompt lang="en">Output tree</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+        <dataFormat>NEWICK</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"*_phyml_tree.txt"</code>
+        <code proglang="python">"*_phyml_tree.txt"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="outtree">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>boot_outfile</name>
+      <prompt lang="en">Bootstrap output file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*_phyml_boot_stats.txt"</code>
+        <code proglang="python">"*_phyml_boot_stats.txt"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="boot_outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>boot_outtree</name>
+      <prompt lang="en">Bootstrap output trees</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+        <dataFormat>NEWICK</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"*_phyml_boot_trees.txt"</code>
+        <code proglang="python">"*_phyml_boot_trees.txt"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="boot_outtree">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>site_lnl_output</name>
+      <prompt lang="en">The likelihood for each site.</prompt>
+      <precond>
+        <code proglang="perl">$print_site_lnl</code>
+        <code proglang="python">bool(print_site_lnl)</code>
+      </precond>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*_phyml_lk.txt"</code>
+        <code proglang="python">"*_phyml_lk.txt"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="site_lnl_output">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>trace_output</name>
+      <prompt lang="en">trace of each phylogeny explored during the tree search process.</prompt>
+      <precond>
+        <code proglang="perl">$print_trace</code>
+        <code proglang="python">bool(print_trace)</code>
+      </precond>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*_phyml_trace.txt"</code>
+        <code proglang="python">"*_phyml_trace.txt"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="trace_output">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"phyml.out"</code>
+        <code proglang="python">"phyml.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"phyml.err"</code>
+        <code proglang="python">"phyml.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

@@ -1,0 +1,1518 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>bl2seq</name>
+    <package xml:base="Entities/blast_package.xml">
+      <name>blast</name>
+      <version>2.2.26</version>
+      <doc>
+        <title>blast</title>
+        <description>
+          <text lang="en">The Basic Local Alignment Search Tool (BLAST) finds regions of local similarity between sequences.
+      </text>
+        </description>
+        <homepagelink>http://www.ncbi.nlm.nih.gov/BLAST/</homepagelink>
+        <sourcelink>http://www.ncbi.nlm.nih.gov/BLAST/download.shtml</sourcelink>
+        <authors>Altschul, Madden, Schaeffer, Zhang, Miller, Lipman</authors>
+      </doc>
+    </package>
+    <doc>
+      <title>BL2SEQ</title>
+      <description>
+        <text lang="en">Comparison between two sequences with Blast (NCBI)</text>
+      </description>
+    </doc>
+    <category>alignment:pairwise</category>
+    <interface type="form" generated="true">
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bl2seq">Blast program (-p)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696001712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bl2seq">
+          <xhtml:option value="null" selected="selected">Choose a program</xhtml:option>
+          <xhtml:option value="blastp">Blastp (protein/protein)</xhtml:option>
+          <xhtml:option value="blastn">Blastn (nucleotide/nucleotide)</xhtml:option>
+          <xhtml:option value="blastx">Blastx (translated nucleotide/ protein)</xhtml:option>
+          <xhtml:option value="tblastn">tBlastn (protein/translated nucleotide)</xhtml:option>
+          <xhtml:option value="tblastx">tBlastx (translated nucleotide/translated nucleotide)</xhtml:option>
+        </xhtml:select>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696001712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>- Blastp compares amino acid query sequences</xhtml:div>
+          <xhtml:div>- Blastn compares nucleotide query sequences</xhtml:div>
+          <xhtml:div>- tBlastx compares translated a nucleotide sequence and an amino acid sequence</xhtml:div>
+          <xhtml:div>- tBlastn compares an amino acid sequence translated and a nucleotide sequence</xhtml:div>
+          <xhtml:div>- tBlastx compares translated nucleotide sequences</xhtml:div>
+        </xhtml:div>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA " data-parametername="first_sequence">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">First sequence (-i)</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="first_sequence" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="first_start_region">Start of required region in first query sequence (-I)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696496928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="first_start_region" type="text" value=""/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696496928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Location on query sequence</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="first_end_region">End of required region in first sequence (-I)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="first_end_region" type="text" value=""/>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA " data-parametername="second_sequence">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Second sequence (-j)</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="second_sequence" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="second_start_region">Start of required region in second sequence (-J)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="second_start_region" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="second_end_region">End of required region in second sequence (-J)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="second_end_region" type="text" value=""/>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="scoring_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Scoring options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="open_a_gap">Cost to open a gap (-G)<xhtml:a href="#idm140117696125264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="open_a_gap" type="text" value=""/>
+            <xhtml:div id="idm140117696125264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default: 5 for blastn; 10 for blastp, blastx and 11 for tblastn</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend_a_gap">Cost to extend a gap (-E)<xhtml:a href="#idm140117695803744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="extend_a_gap" type="text" value=""/>
+            <xhtml:div id="idm140117695803744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default: 2 for blastn; 1 for blastp, blastx and tblastn</xhtml:div>
+              <xhtml:div>Limited values for gap existence and extension are supported for these programs.</xhtml:div>
+              <xhtml:div>Existence -- Extension:</xhtml:div>
+              <xhtml:div>BLOSUM90</xhtml:div>
+              <xhtml:div>9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+              <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+              <xhtml:div>BLOSUM80</xhtml:div>
+              <xhtml:div>25 -- 2, 13 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+              <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+              <xhtml:div>BLOSUM62</xhtml:div>
+              <xhtml:div>11 -- 2, 10 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+              <xhtml:div>13 -- 1, 12 -- 1, 11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+              <xhtml:div>BLOSUM45</xhtml:div>
+              <xhtml:div>13 -- 3, 12 -- 3, 11 -- 3, 10 -- 3</xhtml:div>
+              <xhtml:div>16 -- 2, 15 -- 2, 14 -- 2, 13 -- 2, 12 -- 2</xhtml:div>
+              <xhtml:div>19 -- 1, 18 -- 1, 17 -- 1, 16 -- 1</xhtml:div>
+              <xhtml:div>PAM30</xhtml:div>
+              <xhtml:div>7 -- 2, 6 -- 2, 5 -- 2</xhtml:div>
+              <xhtml:div>10 -- 1, 9 -- 1, 8 -- 1</xhtml:div>
+              <xhtml:div>PAM70</xhtml:div>
+              <xhtml:div>8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+              <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="scoring_blast">
+            <legend>Protein penalty (not for blastn)</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix">Similarity matrix (-M)<xhtml:select name="matrix">
+                  <xhtml:option value="BLOSUM90">BLOSUM90</xhtml:option>
+                  <xhtml:option value="BLOSUM80">BLOSUM80</xhtml:option>
+                  <xhtml:option value="BLOSUM62" selected="selected">BLOSUM62</xhtml:option>
+                  <xhtml:option value="BLOSUM50">BLOSUM50</xhtml:option>
+                  <xhtml:option value="BLOSUM45">BLOSUM45</xhtml:option>
+                  <xhtml:option value="PAM30">PAM30</xhtml:option>
+                  <xhtml:option value="PAM70">PAM70</xhtml:option>
+                  <xhtml:option value="PAM250">PAM250</xhtml:option>
+                </xhtml:select>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="scoring_blastn">
+            <legend>Blastn penalty</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mismatch">Penalty for a nucleotide mismatch (-q)<xhtml:input name="mismatch" type="text" value="-3"/>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="match">Reward for a nucleotide match (-r)<xhtml:input name="match" type="text" value="1"/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="filter_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Filtering and masking options<xhtml:a href="#idm140117695601232::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695601232::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>
+          Mask off segments of the query sequence that have low compositional complexity, as determined by the SEG program of Wootton &amp; Federhen (Computers and Chemistry, 1993) or, for BLASTN, by the DUST program of Tatusov and Lipman (in preparation). Filtering can eliminate statistically significant but biologically uninteresting reports from the blast output (e.g., hits against common acidic-, basic- or proline-rich regions), leaving the more biologically interesting regions of the query
+          sequence available for specific matching against database sequences.
+        </xhtml:div>
+          <xhtml:div>
+          Filtering is only applied to the query sequence (or its translation products), not to database sequences. Default filtering is DUST for BLASTN, SEG for other programs. It is not unusual for nothing at all to be masked by SEG, when applied to sequences in SWISS-PROT, so filtering should not be expected to always yield an effect. Furthermore, in some cases, sequences are masked in their entirety, indicating that the statistical significance of any matches reported against the unfiltered
+          query sequence should be suspect.
+        </xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="filter">Filter or Masking query sequence (DUST with blastn, SEG with others) (-F)<xhtml:select name="filter">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="other_filters">Filtering options (Filter must be true)<xhtml:a href="#idm140117695014000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="other_filters">
+              <xhtml:option value="null" selected="selected"/>
+              <xhtml:option value="coil">Coiled-coiled filter ("C")</xhtml:option>
+              <xhtml:option value="seg+coil">Both SEG and coiled-coiled filters ("C;S")</xhtml:option>
+              <xhtml:option value="dust">DUST filter for DNA ("D")</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117695014000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995))</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="other_masking">Masking options (Filter must be true)<xhtml:a href="#idm140117694978592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="other_masking">
+              <xhtml:option value="null" selected="selected"/>
+              <xhtml:option value="maskSEG">Masking with SEG should only be done during the building of initial words ("m S")</xhtml:option>
+              <xhtml:option value="maskCoil">Masking with coiled-coil should only be done during the building of initial words ("m D")</xhtml:option>
+              <xhtml:option value="maskDust">Masking with DUST should only be done during the building of initial words ("m C")</xhtml:option>
+              <xhtml:option value="lowerMask">Lower-case masking (-U must be true) ("m")</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117694978592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995)).</xhtml:div>
+              <xhtml:div>It is possible to specify that the masking should only be done during the process of building the initial words .</xhtml:div>
+              <xhtml:div>If the -U option (to mask any lower-case sequence in the input FASTA file) is used and one does not wish any other filtering, but does wish to mask when building the lookup tables then one should specify: -F 'm'</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lower_case">Use lower case filtering (-U)<xhtml:a href="#idm140117695054160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="lower_case">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117695054160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies that any lower-case letters in the input FASTA file should be masked.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="selectivity_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Selectivity options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Expect">Expected value (-e)<xhtml:a href="#idm140117695234928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="Expect" type="text" value="10"/>
+            <xhtml:div id="idm140117695234928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+              The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are
+              acceptable.
+            </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="word_size">Word Size (-W)<xhtml:a href="#idm140117695224112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="word_size" type="text" value=""/>
+            <xhtml:div id="idm140117695224112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use words of size N.</xhtml:div>
+              <xhtml:div>Zero invokes default behavior</xhtml:div>
+              <xhtml:div>Default values:</xhtml:div>
+              <xhtml:div>- 11 for blastn</xhtml:div>
+              <xhtml:div>- 3 for others</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dropoff_extent">X dropoff value for gapped alignment (-X)<xhtml:a href="#idm140117695211984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="dropoff_extent" type="text" value=""/>
+            <xhtml:div id="idm140117695211984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper) (default for blastp is 15).</xhtml:div>
+              <xhtml:div>Default values:</xhtml:div>
+              <xhtml:div>- 30 for blastn</xhtml:div>
+              <xhtml:div>- 0 for tblastx</xhtml:div>
+              <xhtml:div>- 15 for others</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eff_len">Effective length of the search space (-Y)<xhtml:a href="#idm140117695001456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="eff_len" type="text" value=""/>
+            <xhtml:div id="idm140117695001456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use zero for the real size</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapped_alig">Perform or not gapped alignment (not available with tblastx) (-g)<xhtml:select name="gapped_alig">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="translation_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Translation options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="3" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="strand">Query strand to search against second sequence (for blastx, tblastx or tblastn) (-S)<xhtml:select name="strand">
+              <xhtml:option value="1">Top (1)</xhtml:option>
+              <xhtml:option value="2">Bottom (2)</xhtml:option>
+              <xhtml:option value="3" selected="selected">Both (3)</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outformat">Output format (-D)<xhtml:select name="outformat">
+              <xhtml:option value="0" selected="selected">Traditional (0)</xhtml:option>
+              <xhtml:option value="1">Tabulated (1)</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="blast_init" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bl2seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696001712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696001712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>- Blastp compares amino acid query sequences</xhtml:div>
+          <xhtml:div>- Blastn compares nucleotide query sequences</xhtml:div>
+          <xhtml:div>- tBlastx compares translated a nucleotide sequence and an amino acid sequence</xhtml:div>
+          <xhtml:div>- tBlastn compares an amino acid sequence translated and a nucleotide sequence</xhtml:div>
+          <xhtml:div>- tBlastx compares translated nucleotide sequences</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="first_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein or DNA Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="first_start_region" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696496928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696496928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Location on query sequence</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="first_end_region" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="second_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein or DNA Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="second_start_region" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="second_end_region" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="scoring_opt">
+        <xhtml:legend>Scoring options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="open_a_gap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117696125264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117696125264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default: 5 for blastn; 10 for blastp, blastx and 11 for tblastn</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="extend_a_gap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117695803744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117695803744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default: 2 for blastn; 1 for blastp, blastx and tblastn</xhtml:div>
+              <xhtml:div>Limited values for gap existence and extension are supported for these programs.</xhtml:div>
+              <xhtml:div>Existence -- Extension:</xhtml:div>
+              <xhtml:div>BLOSUM90</xhtml:div>
+              <xhtml:div>9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+              <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+              <xhtml:div>BLOSUM80</xhtml:div>
+              <xhtml:div>25 -- 2, 13 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+              <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+              <xhtml:div>BLOSUM62</xhtml:div>
+              <xhtml:div>11 -- 2, 10 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+              <xhtml:div>13 -- 1, 12 -- 1, 11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+              <xhtml:div>BLOSUM45</xhtml:div>
+              <xhtml:div>13 -- 3, 12 -- 3, 11 -- 3, 10 -- 3</xhtml:div>
+              <xhtml:div>16 -- 2, 15 -- 2, 14 -- 2, 13 -- 2, 12 -- 2</xhtml:div>
+              <xhtml:div>19 -- 1, 18 -- 1, 17 -- 1, 16 -- 1</xhtml:div>
+              <xhtml:div>PAM30</xhtml:div>
+              <xhtml:div>7 -- 2, 6 -- 2, 5 -- 2</xhtml:div>
+              <xhtml:div>10 -- 1, 9 -- 1, 8 -- 1</xhtml:div>
+              <xhtml:div>PAM70</xhtml:div>
+              <xhtml:div>8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+              <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+            </xhtml:div>
+          </div>
+          <xhtml:fieldset class="minimizable" data-paragraphname="scoring_blast">
+            <xhtml:legend>Protein penalty (not for blastn)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="matrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="scoring_blastn">
+            <xhtml:legend>Blastn penalty</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mismatch" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="match" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="filter_opt">
+        <xhtml:legend>Filtering and masking options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="filter" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="other_filters" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117695014000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117695014000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995))</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="other_masking" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117694978592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117694978592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995)).</xhtml:div>
+              <xhtml:div>It is possible to specify that the masking should only be done during the process of building the initial words .</xhtml:div>
+              <xhtml:div>If the -U option (to mask any lower-case sequence in the input FASTA file) is used and one does not wish any other filtering, but does wish to mask when building the lookup tables then one should specify: -F 'm'</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="lower_case" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117695054160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117695054160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies that any lower-case letters in the input FASTA file should be masked.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="selectivity_opt">
+        <xhtml:legend>Selectivity options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Expect" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117695234928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117695234928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+              The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are
+              acceptable.
+            </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="word_size" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117695224112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117695224112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use words of size N.</xhtml:div>
+              <xhtml:div>Zero invokes default behavior</xhtml:div>
+              <xhtml:div>Default values:</xhtml:div>
+              <xhtml:div>- 11 for blastn</xhtml:div>
+              <xhtml:div>- 3 for others</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dropoff_extent" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117695211984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117695211984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper) (default for blastp is 15).</xhtml:div>
+              <xhtml:div>Default values:</xhtml:div>
+              <xhtml:div>- 30 for blastn</xhtml:div>
+              <xhtml:div>- 0 for tblastx</xhtml:div>
+              <xhtml:div>- 15 for others</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="eff_len" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117695001456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117695001456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use zero for the real size</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gapped_alig" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="translation_opt">
+        <xhtml:legend>Translation options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="strand" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="3" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_opt">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outformat" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ishidden="1" iscommand="1">
+      <name>blast_init</name>
+      <prompt lang="en">Blast initiation</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"bl2seq"</code>
+        <code proglang="python">"bl2seq"</code>
+      </format>
+      <argpos>1</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="blast_init"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>bl2seq</name>
+      <prompt lang="en">Blast program (-p)</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>null</value>
+          <label>Choose a program</label>
+        </velem>
+        <velem>
+          <value>blastp</value>
+          <label>Blastp (protein/protein)</label>
+        </velem>
+        <velem>
+          <value>blastn</value>
+          <label>Blastn (nucleotide/nucleotide)</label>
+        </velem>
+        <velem>
+          <value>blastx</value>
+          <label>Blastx (translated nucleotide/ protein)</label>
+        </velem>
+        <velem>
+          <value>tblastn</value>
+          <label>tBlastn (protein/translated nucleotide)</label>
+        </velem>
+        <velem>
+          <value>tblastx</value>
+          <label>tBlastx (translated nucleotide/translated nucleotide)</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">" -p $value"</code>
+        <code proglang="python">" -p " + str(value)</code>
+      </format>
+      <argpos>2</argpos>
+      <comment>
+        <text lang="en">- Blastp compares amino acid query sequences</text>
+        <text lang="en">- Blastn compares nucleotide query sequences</text>
+        <text lang="en">- tBlastx compares translated a nucleotide sequence and an amino acid sequence</text>
+        <text lang="en">- tBlastn compares an amino acid sequence translated and a nucleotide sequence</text>
+        <text lang="en">- tBlastx compares translated nucleotide sequences</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Blast program (-p)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696001712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bl2seq">
+            <xhtml:option value="null" selected="selected">Choose a program</xhtml:option>
+            <xhtml:option value="blastp">Blastp (protein/protein)</xhtml:option>
+            <xhtml:option value="blastn">Blastn (nucleotide/nucleotide)</xhtml:option>
+            <xhtml:option value="blastx">Blastx (translated nucleotide/ protein)</xhtml:option>
+            <xhtml:option value="tblastn">tBlastn (protein/translated nucleotide)</xhtml:option>
+            <xhtml:option value="tblastx">tBlastx (translated nucleotide/translated nucleotide)</xhtml:option>
+          </xhtml:select>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696001712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>- Blastp compares amino acid query sequences</xhtml:div>
+            <xhtml:div>- Blastn compares nucleotide query sequences</xhtml:div>
+            <xhtml:div>- tBlastx compares translated a nucleotide sequence and an amino acid sequence</xhtml:div>
+            <xhtml:div>- tBlastn compares an amino acid sequence translated and a nucleotide sequence</xhtml:div>
+            <xhtml:div>- tBlastx compares translated nucleotide sequences</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bl2seq">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696001712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696001712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>- Blastp compares amino acid query sequences</xhtml:div>
+            <xhtml:div>- Blastn compares nucleotide query sequences</xhtml:div>
+            <xhtml:div>- tBlastx compares translated a nucleotide sequence and an amino acid sequence</xhtml:div>
+            <xhtml:div>- tBlastn compares an amino acid sequence translated and a nucleotide sequence</xhtml:div>
+            <xhtml:div>- tBlastx compares translated nucleotide sequences</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1" ismaininput="1">
+      <name>first_sequence</name>
+      <prompt lang="en">First sequence (-i)</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" -i $value"</code>
+        <code proglang="python">" -i " + str( value )</code>
+      </format>
+      <argpos>3</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>First sequence (-i)</xhtml:legend>
+          <xhtml:textarea name="first_sequence" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA " data-parametername="first_sequence">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein or DNA Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>first_start_region</name>
+      <prompt lang="en">Start of required region in first query sequence (-I)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <comment>
+        <text lang="en">Location on query sequence</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Start of required region in first query sequence (-I)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696496928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="first_start_region" type="text" value=""/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696496928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Location on query sequence</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="first_start_region">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696496928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696496928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Location on query sequence</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>first_end_region</name>
+      <prompt lang="en">End of required region in first sequence (-I)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">defined $first_start_region</code>
+        <code proglang="python">first_start_region is not None</code>
+      </precond>
+      <format>
+        <code proglang="perl">(defined $value) ? " -I \"$first_start_region $value\"" : " -I \"$first_start_region\""</code>
+        <code proglang="python">( ' -I "%s "' % (str(first_start_region)), ' -I "%s %s"' % (str(first_start_region), str(value)))[value is not None]</code>
+      </format>
+      <argpos>3</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">End of required region in first sequence (-I)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="first_end_region" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="first_end_region"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1" ismaininput="1">
+      <name>second_sequence</name>
+      <prompt lang="en">Second sequence (-j)</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" -j $value"</code>
+        <code proglang="python">" -j " + str(value)</code>
+      </format>
+      <argpos>4</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Second sequence (-j)</xhtml:legend>
+          <xhtml:textarea name="second_sequence" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA " data-parametername="second_sequence">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein or DNA Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>second_start_region</name>
+      <prompt lang="en">Start of required region in second sequence (-J)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <argpos>4</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Start of required region in second sequence (-J)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="second_start_region" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="second_start_region"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>second_end_region</name>
+      <prompt lang="en">End of required region in second sequence (-J)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">defined $second_start_region</code>
+        <code proglang="python">second_start_region is not None</code>
+      </precond>
+      <format>
+        <code proglang="perl">(defined $value) ? " -J \"$second_start_region $value\"" : " -J \"$second_region\""</code>
+        <code proglang="python">( ' -J "%s "' % (str(second_start_region)), ' -J "%s %s"' % (str(second_start_region), str(value)))[value is not None]</code>
+      </format>
+      <argpos>4</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">End of required region in second sequence (-J)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="second_end_region" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="second_end_region"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>scoring_opt</name>
+      <prompt lang="en">Scoring options</prompt>
+      <argpos>5</argpos>
+      <parameters>
+        <parameter>
+          <name>open_a_gap</name>
+          <prompt lang="en">Cost to open a gap (-G)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -G $value" : ""</code>
+            <code proglang="python">("" , " -G "+str(value) )[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Default: 5 for blastn; 10 for blastp, blastx and 11 for tblastn</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cost to open a gap (-G)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696125264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="open_a_gap" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696125264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default: 5 for blastn; 10 for blastp, blastx and 11 for tblastn</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="open_a_gap">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117696125264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117696125264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default: 5 for blastn; 10 for blastp, blastx and 11 for tblastn</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>extend_a_gap</name>
+          <prompt lang="en">Cost to extend a gap (-E)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -E $value" : ""</code>
+            <code proglang="python">("" , " -E "+str(value) )[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Default: 2 for blastn; 1 for blastp, blastx and tblastn</text>
+            <text lang="en">Limited values for gap existence and extension are supported for these programs.</text>
+            <text lang="en">Existence -- Extension:</text>
+            <text lang="en">BLOSUM90</text>
+            <text lang="en">9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</text>
+            <text lang="en">11 -- 1, 10 -- 1, 9 -- 1</text>
+            <text lang="en">BLOSUM80</text>
+            <text lang="en">25 -- 2, 13 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</text>
+            <text lang="en">11 -- 1, 10 -- 1, 9 -- 1</text>
+            <text lang="en">BLOSUM62</text>
+            <text lang="en">11 -- 2, 10 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</text>
+            <text lang="en">13 -- 1, 12 -- 1, 11 -- 1, 10 -- 1, 9 -- 1</text>
+            <text lang="en">BLOSUM45</text>
+            <text lang="en">13 -- 3, 12 -- 3, 11 -- 3, 10 -- 3</text>
+            <text lang="en">16 -- 2, 15 -- 2, 14 -- 2, 13 -- 2, 12 -- 2</text>
+            <text lang="en">19 -- 1, 18 -- 1, 17 -- 1, 16 -- 1</text>
+            <text lang="en">PAM30</text>
+            <text lang="en">7 -- 2, 6 -- 2, 5 -- 2</text>
+            <text lang="en">10 -- 1, 9 -- 1, 8 -- 1</text>
+            <text lang="en">PAM70</text>
+            <text lang="en">8 -- 2, 7 -- 2, 6 -- 2</text>
+            <text lang="en">11 -- 1, 10 -- 1, 9 -- 1</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cost to extend a gap (-E)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695803744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="extend_a_gap" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695803744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default: 2 for blastn; 1 for blastp, blastx and tblastn</xhtml:div>
+                <xhtml:div>Limited values for gap existence and extension are supported for these programs.</xhtml:div>
+                <xhtml:div>Existence -- Extension:</xhtml:div>
+                <xhtml:div>BLOSUM90</xhtml:div>
+                <xhtml:div>9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+                <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+                <xhtml:div>BLOSUM80</xhtml:div>
+                <xhtml:div>25 -- 2, 13 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+                <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+                <xhtml:div>BLOSUM62</xhtml:div>
+                <xhtml:div>11 -- 2, 10 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+                <xhtml:div>13 -- 1, 12 -- 1, 11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+                <xhtml:div>BLOSUM45</xhtml:div>
+                <xhtml:div>13 -- 3, 12 -- 3, 11 -- 3, 10 -- 3</xhtml:div>
+                <xhtml:div>16 -- 2, 15 -- 2, 14 -- 2, 13 -- 2, 12 -- 2</xhtml:div>
+                <xhtml:div>19 -- 1, 18 -- 1, 17 -- 1, 16 -- 1</xhtml:div>
+                <xhtml:div>PAM30</xhtml:div>
+                <xhtml:div>7 -- 2, 6 -- 2, 5 -- 2</xhtml:div>
+                <xhtml:div>10 -- 1, 9 -- 1, 8 -- 1</xhtml:div>
+                <xhtml:div>PAM70</xhtml:div>
+                <xhtml:div>8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+                <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend_a_gap">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695803744::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695803744::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default: 2 for blastn; 1 for blastp, blastx and tblastn</xhtml:div>
+                <xhtml:div>Limited values for gap existence and extension are supported for these programs.</xhtml:div>
+                <xhtml:div>Existence -- Extension:</xhtml:div>
+                <xhtml:div>BLOSUM90</xhtml:div>
+                <xhtml:div>9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+                <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+                <xhtml:div>BLOSUM80</xhtml:div>
+                <xhtml:div>25 -- 2, 13 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+                <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+                <xhtml:div>BLOSUM62</xhtml:div>
+                <xhtml:div>11 -- 2, 10 -- 2, 9 -- 2, 8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+                <xhtml:div>13 -- 1, 12 -- 1, 11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+                <xhtml:div>BLOSUM45</xhtml:div>
+                <xhtml:div>13 -- 3, 12 -- 3, 11 -- 3, 10 -- 3</xhtml:div>
+                <xhtml:div>16 -- 2, 15 -- 2, 14 -- 2, 13 -- 2, 12 -- 2</xhtml:div>
+                <xhtml:div>19 -- 1, 18 -- 1, 17 -- 1, 16 -- 1</xhtml:div>
+                <xhtml:div>PAM30</xhtml:div>
+                <xhtml:div>7 -- 2, 6 -- 2, 5 -- 2</xhtml:div>
+                <xhtml:div>10 -- 1, 9 -- 1, 8 -- 1</xhtml:div>
+                <xhtml:div>PAM70</xhtml:div>
+                <xhtml:div>8 -- 2, 7 -- 2, 6 -- 2</xhtml:div>
+                <xhtml:div>11 -- 1, 10 -- 1, 9 -- 1</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>scoring_blast</name>
+          <prompt lang="en">Protein penalty (not for blastn)</prompt>
+          <precond>
+            <code proglang="perl">$bl2seq ne "blastn"</code>
+            <code proglang="python">bl2seq != "blastn"</code>
+          </precond>
+          <parameters>
+            <parameter>
+              <name>matrix</name>
+              <prompt lang="en">Similarity matrix (-M)</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>BLOSUM62</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <value>BLOSUM90</value>
+                  <label>BLOSUM90</label>
+                </velem>
+                <velem>
+                  <value>BLOSUM80</value>
+                  <label>BLOSUM80</label>
+                </velem>
+                <velem>
+                  <value>BLOSUM62</value>
+                  <label>BLOSUM62</label>
+                </velem>
+                <velem>
+                  <value>BLOSUM50</value>
+                  <label>BLOSUM50</label>
+                </velem>
+                <velem>
+                  <value>BLOSUM45</value>
+                  <label>BLOSUM45</label>
+                </velem>
+                <velem>
+                  <value>PAM30</value>
+                  <label>PAM30</label>
+                </velem>
+                <velem>
+                  <value>PAM70</value>
+                  <label>PAM70</label>
+                </velem>
+                <velem>
+                  <value>PAM250</value>
+                  <label>PAM250</label>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef) ? " -M $value" : ""</code>
+                <code proglang="python">("" , " -M "+str(value) )[value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Similarity matrix (-M)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="matrix">
+                    <xhtml:option value="BLOSUM90">BLOSUM90</xhtml:option>
+                    <xhtml:option value="BLOSUM80">BLOSUM80</xhtml:option>
+                    <xhtml:option value="BLOSUM62" selected="selected">BLOSUM62</xhtml:option>
+                    <xhtml:option value="BLOSUM50">BLOSUM50</xhtml:option>
+                    <xhtml:option value="BLOSUM45">BLOSUM45</xhtml:option>
+                    <xhtml:option value="PAM30">PAM30</xhtml:option>
+                    <xhtml:option value="PAM70">PAM70</xhtml:option>
+                    <xhtml:option value="PAM250">PAM250</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+        <paragraph>
+          <name>scoring_blastn</name>
+          <prompt lang="en">Blastn penalty</prompt>
+          <precond>
+            <code proglang="perl">$bl2seq eq "blastn"</code>
+            <code proglang="python">bl2seq == "blastn"</code>
+          </precond>
+          <parameters>
+            <parameter>
+              <name>mismatch</name>
+              <prompt lang="en">Penalty for a nucleotide mismatch (-q)</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>-3</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef) ? " -q $value" : ""</code>
+                <code proglang="python">("" , " -q "+str(value) )[value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Penalty for a nucleotide mismatch (-q)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="mismatch" type="text" value="-3"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mismatch"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>match</name>
+              <prompt lang="en">Reward for a nucleotide match (-r)</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef) ? " -r $value" : ""</code>
+                <code proglang="python">("" , " -r "+str(value) )[value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Reward for a nucleotide match (-r)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="match" type="text" value="1"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="match"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>filter_opt</name>
+      <prompt lang="en">Filtering and masking options</prompt>
+      <argpos>6</argpos>
+      <comment>
+        <text lang="en">
+          Mask off segments of the query sequence that have low compositional complexity, as determined by the SEG program of Wootton &amp; Federhen (Computers and Chemistry, 1993) or, for BLASTN, by the DUST program of Tatusov and Lipman (in preparation). Filtering can eliminate statistically significant but biologically uninteresting reports from the blast output (e.g., hits against common acidic-, basic- or proline-rich regions), leaving the more biologically interesting regions of the query
+          sequence available for specific matching against database sequences.
+        </text>
+        <text lang="en">
+          Filtering is only applied to the query sequence (or its translation products), not to database sequences. Default filtering is DUST for BLASTN, SEG for other programs. It is not unusual for nothing at all to be masked by SEG, when applied to sequences in SWISS-PROT, so filtering should not be expected to always yield an effect. Furthermore, in some cases, sequences are masked in their entirety, indicating that the statistical significance of any matches reported against the unfiltered
+          query sequence should be suspect.
+        </text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>filter</name>
+          <prompt lang="en">Filter or Masking query sequence (DUST with blastn, SEG with others) (-F)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" : " -F F"</code>
+            <code proglang="python">(" -F F" , "")[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Filter or Masking query sequence (DUST with blastn, SEG with others) (-F)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="filter">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="filter"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>other_filters</name>
+          <prompt lang="en">Filtering options (Filter must be true)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$filter and not defined $other_masking</code>
+            <code proglang="python">filter and other_masking is None</code>
+          </precond>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <flist>
+            <felem undef="1">
+              <value>null</value>
+              <label/>
+              <code proglang="perl">""</code>
+              <code proglang="python">""</code>
+            </felem>
+            <felem>
+              <value>coil</value>
+              <label>Coiled-coiled filter ("C")</label>
+              <code proglang="perl">" -F C"</code>
+              <code proglang="python">" -F C"</code>
+            </felem>
+            <felem>
+              <value>seg+coil</value>
+              <label>Both SEG and coiled-coiled filters ("C;S")</label>
+              <code proglang="perl">" -F \"C;S\""</code>
+              <code proglang="python">" -F \"C;S\""</code>
+            </felem>
+            <felem>
+              <value>dust</value>
+              <label>DUST filter for DNA ("D")</label>
+              <code proglang="perl">" -F D"</code>
+              <code proglang="python">" -F D"</code>
+            </felem>
+          </flist>
+          <comment>
+            <text lang="en">A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995))</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Filtering options (Filter must be true)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695014000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="other_filters">
+                <xhtml:option value="null" selected="selected"/>
+                <xhtml:option value="coil">Coiled-coiled filter ("C")</xhtml:option>
+                <xhtml:option value="seg+coil">Both SEG and coiled-coiled filters ("C;S")</xhtml:option>
+                <xhtml:option value="dust">DUST filter for DNA ("D")</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695014000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995))</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="other_filters">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695014000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695014000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995))</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>other_masking</name>
+          <prompt lang="en">Masking options (Filter must be true)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$filter == 1 and not defined $other_filters</code>
+            <code proglang="python">filter == 1 and other_filters is None</code>
+          </precond>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <flist>
+            <felem undef="1">
+              <value>null</value>
+              <label/>
+              <code proglang="perl">""</code>
+              <code proglang="python">""</code>
+            </felem>
+            <felem>
+              <value>maskSEG</value>
+              <label>Masking with SEG should only be done during the building of initial words ("m S")</label>
+              <code proglang="perl">" -F \"m S\""</code>
+              <code proglang="python">" -F \"m S\""</code>
+            </felem>
+            <felem>
+              <value>maskCoil</value>
+              <label>Masking with coiled-coil should only be done during the building of initial words ("m D")</label>
+              <code proglang="perl">" -F \"m D\""</code>
+              <code proglang="python">" -F \"m D\""</code>
+            </felem>
+            <felem>
+              <value>maskDust</value>
+              <label>Masking with DUST should only be done during the building of initial words ("m C")</label>
+              <code proglang="perl">" -F \"m C\""</code>
+              <code proglang="python">" -F \"m C\""</code>
+            </felem>
+            <felem>
+              <value>lowerMask</value>
+              <label>Lower-case masking (-U must be true) ("m")</label>
+              <code proglang="perl">" -F m"</code>
+              <code proglang="python">" -F m"</code>
+            </felem>
+          </flist>
+          <ctrl>
+            <message>
+              <text lang="en">For Lower-case masking the lower case filtering must be select.</text>
+            </message>
+            <code proglang="perl">($value eq 'null' or $value eq 'maskSEG' or $value eq 'maskCoil' or $value eq 'maskDust']) or ($value eq 'lowerMask' and $lower_case)</code>
+            <code proglang="python">value in ['null', 'maskSEG', 'maskCoil', 'maskDust'] or (value == 'lowerMask' and lower_case)</code>
+          </ctrl>
+          <comment>
+            <text lang="en">A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995)).</text>
+            <text lang="en">It is possible to specify that the masking should only be done during the process of building the initial words .</text>
+            <text lang="en">If the -U option (to mask any lower-case sequence in the input FASTA file) is used and one does not wish any other filtering, but does wish to mask when building the lookup tables then one should specify: -F 'm'</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Masking options (Filter must be true)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117694978592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="other_masking">
+                <xhtml:option value="null" selected="selected"/>
+                <xhtml:option value="maskSEG">Masking with SEG should only be done during the building of initial words ("m S")</xhtml:option>
+                <xhtml:option value="maskCoil">Masking with coiled-coil should only be done during the building of initial words ("m D")</xhtml:option>
+                <xhtml:option value="maskDust">Masking with DUST should only be done during the building of initial words ("m C")</xhtml:option>
+                <xhtml:option value="lowerMask">Lower-case masking (-U must be true) ("m")</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117694978592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995)).</xhtml:div>
+                <xhtml:div>It is possible to specify that the masking should only be done during the process of building the initial words .</xhtml:div>
+                <xhtml:div>If the -U option (to mask any lower-case sequence in the input FASTA file) is used and one does not wish any other filtering, but does wish to mask when building the lookup tables then one should specify: -F 'm'</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="other_masking">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117694978592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117694978592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>A coiled-coiled filter, based on the work of Lupas et al. (Science, vol 252, pp. 1162-4 (1991)) written by John Kuzio (Wilson et al., J Gen Virol, vol. 76, pp. 2923-32 (1995)).</xhtml:div>
+                <xhtml:div>It is possible to specify that the masking should only be done during the process of building the initial words .</xhtml:div>
+                <xhtml:div>If the -U option (to mask any lower-case sequence in the input FASTA file) is used and one does not wish any other filtering, but does wish to mask when building the lookup tables then one should specify: -F 'm'</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>lower_case</name>
+          <prompt lang="en">Use lower case filtering (-U)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -U T" : ""</code>
+            <code proglang="python">("", " -U T")[value]</code>
+          </format>
+          <comment>
+            <text lang="en">This option specifies that any lower-case letters in the input FASTA file should be masked.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use lower case filtering (-U)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695054160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="lower_case">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695054160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies that any lower-case letters in the input FASTA file should be masked.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lower_case">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695054160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695054160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies that any lower-case letters in the input FASTA file should be masked.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>selectivity_opt</name>
+      <prompt lang="en">Selectivity options</prompt>
+      <argpos>7</argpos>
+      <parameters>
+        <parameter issimple="1">
+          <name>Expect</name>
+          <prompt lang="en">Expected value (-e)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -e $value" : ""</code>
+            <code proglang="python">("" , " -e "+str(value) )[value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">
+              The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are
+              acceptable.
+            </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Expected value (-e)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695234928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Expect" type="text" value="10"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695234928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are
+              acceptable.
+            </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Expect">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695234928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695234928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are
+              acceptable.
+            </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>word_size</name>
+          <prompt lang="en">Word Size (-W)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -W $value" : ""</code>
+            <code proglang="python">("" , " -W "+str(value) )[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Use words of size N.</text>
+            <text lang="en">Zero invokes default behavior</text>
+            <text lang="en">Default values:</text>
+            <text lang="en">- 11 for blastn</text>
+            <text lang="en">- 3 for others</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Word Size (-W)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695224112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="word_size" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695224112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use words of size N.</xhtml:div>
+                <xhtml:div>Zero invokes default behavior</xhtml:div>
+                <xhtml:div>Default values:</xhtml:div>
+                <xhtml:div>- 11 for blastn</xhtml:div>
+                <xhtml:div>- 3 for others</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="word_size">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695224112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695224112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use words of size N.</xhtml:div>
+                <xhtml:div>Zero invokes default behavior</xhtml:div>
+                <xhtml:div>Default values:</xhtml:div>
+                <xhtml:div>- 11 for blastn</xhtml:div>
+                <xhtml:div>- 3 for others</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dropoff_extent</name>
+          <prompt lang="en">X dropoff value for gapped alignment (-X)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -X $value" : ""</code>
+            <code proglang="python">("" , " -X "+str(value))[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper) (default for blastp is 15).</text>
+            <text lang="en">Default values:</text>
+            <text lang="en">- 30 for blastn</text>
+            <text lang="en">- 0 for tblastx</text>
+            <text lang="en">- 15 for others</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">X dropoff value for gapped alignment (-X)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695211984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dropoff_extent" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695211984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper) (default for blastp is 15).</xhtml:div>
+                <xhtml:div>Default values:</xhtml:div>
+                <xhtml:div>- 30 for blastn</xhtml:div>
+                <xhtml:div>- 0 for tblastx</xhtml:div>
+                <xhtml:div>- 15 for others</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dropoff_extent">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695211984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695211984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper) (default for blastp is 15).</xhtml:div>
+                <xhtml:div>Default values:</xhtml:div>
+                <xhtml:div>- 30 for blastn</xhtml:div>
+                <xhtml:div>- 0 for tblastx</xhtml:div>
+                <xhtml:div>- 15 for others</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>eff_len</name>
+          <prompt lang="en">Effective length of the search space (-Y)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) " -Y $value" : ""</code>
+            <code proglang="python">("" , " -Y "+str(value) )[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Use zero for the real size</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Effective length of the search space (-Y)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695001456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="eff_len" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695001456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use zero for the real size</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eff_len">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117695001456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117695001456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use zero for the real size</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gapped_alig</name>
+          <prompt lang="en">Perform or not gapped alignment (not available with tblastx) (-g)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$bl2seq ne "tblastx"</code>
+            <code proglang="python">bl2seq != "tblastx"</code>
+          </precond>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" : " -g F "</code>
+            <code proglang="python">(" -g F " , "")[value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Perform or not gapped alignment (not available with tblastx) (-g)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gapped_alig">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gapped_alig"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>translation_opt</name>
+      <prompt lang="en">Translation options</prompt>
+      <precond>
+        <code proglang="perl">$bl2seq =~ /^(blastx|tblast[nx])$/</code>
+        <code proglang="python">bl2seq in [ "blastx", "tblastx", "tblastn" ]</code>
+      </precond>
+      <argpos>8</argpos>
+      <parameters>
+        <parameter ismandatory="1" issimple="1">
+          <name>strand</name>
+          <prompt lang="en">Query strand to search against second sequence (for blastx, tblastx or tblastn) (-S)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>3</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>1</value>
+              <label>Top (1)</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>Bottom (2)</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>Both (3)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -S $value" : ""</code>
+            <code proglang="python">( "" , " -S " + str(value) )[ value is not None and value!= vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Query strand to search against second sequence (for blastx, tblastx or tblastn) (-S)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="strand">
+                <xhtml:option value="1">Top (1)</xhtml:option>
+                <xhtml:option value="2">Bottom (2)</xhtml:option>
+                <xhtml:option value="3" selected="selected">Both (3)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="3" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="strand"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_opt</name>
+      <prompt lang="en">Output options</prompt>
+      <argpos>10</argpos>
+      <parameters>
+        <parameter>
+          <name>outformat</name>
+          <prompt lang="en">Output format (-D)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>0</value>
+              <label>Traditional (0)</label>
+            </velem>
+            <velem>
+              <value>1</value>
+              <label>Tabulated (1)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? "" : "-D $value"</code>
+            <code proglang="python">( "" , " -D " + str( value ) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output format (-D)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outformat">
+                <xhtml:option value="0" selected="selected">Traditional (0)</xhtml:option>
+                <xhtml:option value="1">Tabulated (1)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outformat"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"bl2seq.out"</code>
+        <code proglang="python">"bl2seq.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"bl2seq.err"</code>
+        <code proglang="python">"bl2seq.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

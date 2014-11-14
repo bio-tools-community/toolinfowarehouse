@@ -1,0 +1,823 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>predator</name>
+    <version>2.1.2</version>
+    <doc>
+      <title>PREDATOR</title>
+      <description>
+        <text lang="en">Protein secondary structure prediction from a single sequence or a set of sequences</text>
+      </description>
+      <authors>D. Frishman &amp; P. Argos</authors>
+      <reference>Frishman, D. and Argos, P. (1996) Incorporation of long-distance interactions into a secondary structure prediction algorithm. Protein Engineering, 9, 133-142.</reference>
+      <reference>Frishman, D. and Argos, P. (1997) 75% accuracy in protein secondary structure prediction. Proteins, 27, 329-335.</reference>
+      <reference>Frishman,D and Argos,P. (1995) Knowledge-based secondary structure assignment. Proteins: structure, function and genetics, 23, 566-579.</reference>
+      <reference>Kabsch,W. and Sander,C. (1983) Dictionary of protein secondary structure: pattern recognition of hydrogen-bonded and geometrical features. Biopolymers, 22: 2577-2637.</reference>
+      <sourcelink>ftp://ftp.ebi.ac.uk/pub/software/unix/predator/</sourcelink>
+    </doc>
+    <command>predator</command>
+    <category>sequence:protein:2D_structure</category>
+    <category>structure:2D_structure</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="inputfile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input file<xhtml:a href="#idm140117723007200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723007200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>You must enter either a protein sequences or alignment file</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA " data-parametername="sequences">
+            <legend>Protein sequence(s) File</legend>
+            <xhtml:textarea name="sequences" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA CLUSTAL MSF " data-parametername="alignment">
+            <legend>Protein Alignment File</legend>
+            <xhtml:textarea name="alignment" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="prediction">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Prediction options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="single">Perform single sequence prediction. Ignore other sequences in the set for computing the prediction (-s)<xhtml:select name="single">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dont_copy">Do not copy assignment directly from the PDB database (-u)<xhtml:a href="#idm140117723897680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="dont_copy">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723897680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Do not copy assignment directly from the PDB database if query sequence is found in PDB. By default, the known conformation of 7-residue segments will be used if they are identical to a 7-residue fragment in the query sequence.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dssp">Use DSSP target assignment (-d)<xhtml:a href="#idm140117723496896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="dssp">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723496896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use DSSP target assignment (default is STRIDE). The predictions made with DSSP and STRIDE target assignments are optimized to reproduce these assignments as well as possible.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="percentid">Find a subset of sequences with no more than this identity between any pair of sequences (-n)<xhtml:input name="percentid" type="text" value=""/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="all">Make prediction for All sequences in the input file (-a)<xhtml:select name="all">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqid">Make prediction for this sequence (give its id) (-i)<xhtml:a href="#idm140117722993792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="seqid" type="text" value=""/>
+            <xhtml:div id="idm140117722993792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option is case sensitive!</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="StrideReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="stride_file">
+            <legend>STRIDE file (-x)</legend>
+            <xhtml:textarea name="stride_file" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="DsspOutput" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="dssp_file">
+            <legend>DSSP file (-y)</legend>
+            <xhtml:textarea name="dssp_file" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pdb_chain">PDB Chain (-z)<xhtml:input name="pdb_chain" type="text" value=""/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="long">Long output form (-l)<xhtml:a href="#idm140117722815808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="long">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117722815808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Every output line contains residue number, three-letter residue name, one-letter residue name, predicted secondary structural state and reliability estimate. If a STRIDE or DSSP secondary structure assignment has been read (see other options), the known assignment will also be shown in the output for comparison. By default the short output form is used.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="other_info">Output other additional information if available (-h)<xhtml:select name="other_info">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="inputfile">
+        <xhtml:legend>Input file</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sequences" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alignment" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA CLUSTAL MSF ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="prediction">
+        <xhtml:legend>Prediction options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="single" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dont_copy" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723897680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723897680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Do not copy assignment directly from the PDB database if query sequence is found in PDB. By default, the known conformation of 7-residue segments will be used if they are identical to a 7-residue fragment in the query sequence.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dssp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723496896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723496896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use DSSP target assignment (default is STRIDE). The predictions made with DSSP and STRIDE target assignments are optimized to reproduce these assignments as well as possible.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="percentid" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <xhtml:legend>Input parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="all" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqid" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117722993792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117722993792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option is case sensitive!</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stride_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="StrideReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(StrideReport)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dssp_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="DsspOutput" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(DsspOutput)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pdb_chain" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="long" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117722815808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117722815808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Every output line contains residue number, three-letter residue name, one-letter residue name, predicted secondary structural state and reliability estimate. If a STRIDE or DSSP secondary structure assignment has been read (see other options), the known assignment will also be shown in the output for comparison. By default the short output form is used.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="other_info" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="predator_output" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+            <xhtml:a href="#idm140117722748864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117722748864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+        		Short output form: 
+        		</xhtml:div>
+              <xhtml:div>
+        		Secondary structure states of amino acids are indicated by the letters
+                "H" (helix), "E" (extended or sheet), and "_" (coil).</xhtml:div>
+              <xhtml:div>
+                Long output form ( option -L selected ):
+                </xhtml:div>
+              <xhtml:div>
+       Secondary structure states of amino acids are indicated by letters "H"
+       or   "h" (helix),  "E"  or  "e" (extended), and "C" or "c" (coil). The
+       prediction is shown in lower case except for those residues for  which
+       the assignment was directly copied from the PDB database. This feature
+       is added so that you can distinguish between the predictions  actually
+       made by PREDATOR and those taken from known structures.
+       The  prediction is  contained  in  the records  beginning   with   the
+       identifier PRED in the first columns. For each amino acid site of your
+       sequence,  residue  number,  three-  and   one-letter   residue  code,
+       prediction,  reliability  estimate,  and  the  number of residues from
+       related sequences  projected  onto  this  residue  through  the  local
+       alignment  procedure are shown in subsequent columns. Additionally, if
+       the STRIDE or DSSP assignments have been read using the options -x  or
+       -y  (and  -z), the last column of the PREDATOR output will contain the
+       actual  secondary  structural  assignment  for  your  sequence  if  it
+       corresponds  exactly  to  the  one  in  the  STRIDE  or DSSP file (for
+       comparison). If the known assignment is not available,  i.e.,  if  you
+       did not use the -x or -y options, question signs will be output.</xhtml:div>
+              <xhtml:div>
+               Both output forms:
+               </xhtml:div>
+              <xhtml:div>
+       If option -h has been used, PREDATOR will show  progress  by  printing
+       dots  on  the  standard output. If your sequence has related sequences
+       with known 3D structure, PDB identifiers of these  sequences  will  be
+       printed.
+        		</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>inputfile</name>
+      <prompt>Input file</prompt>
+      <comment>
+        <text lang="en">You must enter either a protein sequences or alignment file</text>
+      </comment>
+      <parameters>
+        <parameter ismandatory="1" issimple="1">
+          <name>sequences</name>
+          <prompt lang="en">Protein sequence(s) File</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <card>1,n</card>
+          </type>
+          <precond>
+            <code proglang="perl">defined $sequences and not defined $alignment</code>
+            <code proglang="python">sequences is not None and alignment is None</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " $value" : ""</code>
+            <code proglang="python">("" , " " + str(value) )[ value is not None ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">You must fill either sequences or alignment not both</text>
+            </message>
+            <code proglang="perl">not defined $alignment</code>
+            <code proglang="python">alignment is None</code>
+          </ctrl>
+          <argpos>100</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Protein sequence(s) File</xhtml:legend>
+              <xhtml:textarea name="sequences" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA " data-parametername="sequences">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>alignment</name>
+          <prompt lang="en">Protein Alignment File</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>CLUSTAL</dataFormat>
+            <dataFormat>MSF</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">defined $alignment and not defined $sequences</code>
+            <code proglang="python">alignment is not None and sequences is None</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " $value" : ""</code>
+            <code proglang="python">("" , " " + str(value))[ value is not None ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">You must fill either alignment or sequences not both</text>
+            </message>
+            <code proglang="perl">not defined sequences</code>
+            <code proglang="python">sequences is None</code>
+          </ctrl>
+          <argpos>101</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Protein Alignment File</xhtml:legend>
+              <xhtml:textarea name="alignment" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA CLUSTAL MSF " data-parametername="alignment">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>prediction</name>
+      <prompt lang="en">Prediction options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>single</name>
+          <prompt lang="en">Perform single sequence prediction. Ignore other sequences in the set for computing the prediction (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not $all </code>
+            <code proglang="python">not all </code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -s" : ""</code>
+            <code proglang="python">( "" , " -s" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Perform single sequence prediction. Ignore other sequences in the set for computing the prediction (-s)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="single">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="single"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dont_copy</name>
+          <prompt lang="en">Do not copy assignment directly from the PDB database (-u)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -u" : ""</code>
+            <code proglang="python">( "" , " -u" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Do not copy assignment directly from the PDB database if query sequence is found in PDB. By default, the known conformation of 7-residue segments will be used if they are identical to a 7-residue fragment in the query sequence.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Do not copy assignment directly from the PDB database (-u)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723897680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dont_copy">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723897680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Do not copy assignment directly from the PDB database if query sequence is found in PDB. By default, the known conformation of 7-residue segments will be used if they are identical to a 7-residue fragment in the query sequence.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dont_copy">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723897680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723897680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Do not copy assignment directly from the PDB database if query sequence is found in PDB. By default, the known conformation of 7-residue segments will be used if they are identical to a 7-residue fragment in the query sequence.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dssp</name>
+          <prompt lang="en">Use DSSP target assignment (-d)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $dssp_file</code>
+            <code proglang="python">dssp_file is not None</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -d" : ""</code>
+            <code proglang="python">( "" , " -d" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Use DSSP target assignment (default is STRIDE). The predictions made with DSSP and STRIDE target assignments are optimized to reproduce these assignments as well as possible.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use DSSP target assignment (-d)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723496896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dssp">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723496896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use DSSP target assignment (default is STRIDE). The predictions made with DSSP and STRIDE target assignments are optimized to reproduce these assignments as well as possible.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dssp">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723496896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723496896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use DSSP target assignment (default is STRIDE). The predictions made with DSSP and STRIDE target assignments are optimized to reproduce these assignments as well as possible.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>percentid</name>
+          <prompt lang="en">Find a subset of sequences with no more than this identity between any pair of sequences (-n)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -n$value" : ""</code>
+            <code proglang="python">( "" , " -n" + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Find a subset of sequences with no more than this identity between any pair of sequences (-n)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="percentid" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="percentid"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>input</name>
+      <prompt lang="en">Input parameters</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>all</name>
+          <prompt lang="en">Make prediction for All sequences in the input file (-a)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not defined $seqid</code>
+            <code proglang="python">seqid is None</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -a" : ""</code>
+            <code proglang="python">( "" , " -a" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Make prediction for All sequences in the input file (-a)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="all">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="all"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>seqid</name>
+          <prompt lang="en">Make prediction for this sequence (give its id) (-i)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -i$value" : ""</code>
+            <code proglang="python">( "" , " -i" + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">This option is case sensitive!</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Make prediction for this sequence (give its id) (-i)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722993792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqid" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722993792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option is case sensitive!</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqid">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722993792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722993792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option is case sensitive!</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>stride_file</name>
+          <prompt lang="en">STRIDE file (-x)</prompt>
+          <type>
+            <datatype>
+              <class>StrideReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -x$value" : ""</code>
+            <code proglang="python">( "" , " -x" + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>STRIDE file (-x)</xhtml:legend>
+              <xhtml:textarea name="stride_file" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="StrideReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="stride_file">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(StrideReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dssp_file</name>
+          <prompt lang="en">DSSP file (-y)</prompt>
+          <type>
+            <datatype>
+              <class>DsspOutput</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -y$value" : ""</code>
+            <code proglang="python">( "" , " -y"+str( value ) )[ value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>DSSP file (-y)</xhtml:legend>
+              <xhtml:textarea name="dssp_file" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="DsspOutput" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="dssp_file">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DsspOutput)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>pdb_chain</name>
+          <prompt lang="en">PDB Chain (-z)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $dssp_file or defined $stride_file</code>
+            <code proglang="python">dssp_file is not None or stride_file is not None</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " -z$value" : " -z-"</code>
+            <code proglang="python">( " -z-" , " -z" + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">PDB Chain (-z)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pdb_chain" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pdb_chain"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output parameters</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>long</name>
+          <prompt lang="en">Long output form (-l)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -l" : ""</code>
+            <code proglang="python">( "" , " -l" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Every output line contains residue number, three-letter residue name, one-letter residue name, predicted secondary structural state and reliability estimate. If a STRIDE or DSSP secondary structure assignment has been read (see other options), the known assignment will also be shown in the output for comparison. By default the short output form is used.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Long output form (-l)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722815808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="long">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722815808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Every output line contains residue number, three-letter residue name, one-letter residue name, predicted secondary structural state and reliability estimate. If a STRIDE or DSSP secondary structure assignment has been read (see other options), the known assignment will also be shown in the output for comparison. By default the short output form is used.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="long">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722815808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722815808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Every output line contains residue number, three-letter residue name, one-letter residue name, predicted secondary structural state and reliability estimate. If a STRIDE or DSSP secondary structure assignment has been read (see other options), the known assignment will also be shown in the output for comparison. By default the short output form is used.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>other_info</name>
+          <prompt lang="en">Output other additional information if available (-h)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -h" : ""</code>
+            <code proglang="python">( "" , " -h" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output other additional information if available (-h)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="other_info">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="other_info"/>
+          </interface>
+        </parameter>
+        <parameter isstdout="1">
+          <name>predator_output</name>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <comment>
+            <text lang="en">
+        		Short output form: 
+        		</text>
+            <text lang="en">
+        		Secondary structure states of amino acids are indicated by the letters
+                "H" (helix), "E" (extended or sheet), and "_" (coil).</text>
+            <text lang="en">
+                Long output form ( option -L selected ):
+                </text>
+            <text lang="en">
+       Secondary structure states of amino acids are indicated by letters "H"
+       or   "h" (helix),  "E"  or  "e" (extended), and "C" or "c" (coil). The
+       prediction is shown in lower case except for those residues for  which
+       the assignment was directly copied from the PDB database. This feature
+       is added so that you can distinguish between the predictions  actually
+       made by PREDATOR and those taken from known structures.
+       The  prediction is  contained  in  the records  beginning   with   the
+       identifier PRED in the first columns. For each amino acid site of your
+       sequence,  residue  number,  three-  and   one-letter   residue  code,
+       prediction,  reliability  estimate,  and  the  number of residues from
+       related sequences  projected  onto  this  residue  through  the  local
+       alignment  procedure are shown in subsequent columns. Additionally, if
+       the STRIDE or DSSP assignments have been read using the options -x  or
+       -y  (and  -z), the last column of the PREDATOR output will contain the
+       actual  secondary  structural  assignment  for  your  sequence  if  it
+       corresponds  exactly  to  the  one  in  the  STRIDE  or DSSP file (for
+       comparison). If the known assignment is not available,  i.e.,  if  you
+       did not use the -x or -y options, question signs will be output.</text>
+            <text lang="en">
+               Both output forms:
+               </text>
+            <text lang="en">
+       If option -h has been used, PREDATOR will show  progress  by  printing
+       dots  on  the  standard output. If your sequence has related sequences
+       with known 3D structure, PDB identifiers of these  sequences  will  be
+       printed.
+        		</text>
+          </comment>
+          <filenames>
+            <code proglang="python">'predator.out'</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="predator_output">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722748864::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722748864::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+        		Short output form: 
+        		</xhtml:div>
+                <xhtml:div>
+        		Secondary structure states of amino acids are indicated by the letters
+                "H" (helix), "E" (extended or sheet), and "_" (coil).</xhtml:div>
+                <xhtml:div>
+                Long output form ( option -L selected ):
+                </xhtml:div>
+                <xhtml:div>
+       Secondary structure states of amino acids are indicated by letters "H"
+       or   "h" (helix),  "E"  or  "e" (extended), and "C" or "c" (coil). The
+       prediction is shown in lower case except for those residues for  which
+       the assignment was directly copied from the PDB database. This feature
+       is added so that you can distinguish between the predictions  actually
+       made by PREDATOR and those taken from known structures.
+       The  prediction is  contained  in  the records  beginning   with   the
+       identifier PRED in the first columns. For each amino acid site of your
+       sequence,  residue  number,  three-  and   one-letter   residue  code,
+       prediction,  reliability  estimate,  and  the  number of residues from
+       related sequences  projected  onto  this  residue  through  the  local
+       alignment  procedure are shown in subsequent columns. Additionally, if
+       the STRIDE or DSSP assignments have been read using the options -x  or
+       -y  (and  -z), the last column of the PREDATOR output will contain the
+       actual  secondary  structural  assignment  for  your  sequence  if  it
+       corresponds  exactly  to  the  one  in  the  STRIDE  or DSSP file (for
+       comparison). If the known assignment is not available,  i.e.,  if  you
+       did not use the -x or -y options, question signs will be output.</xhtml:div>
+                <xhtml:div>
+               Both output forms:
+               </xhtml:div>
+                <xhtml:div>
+       If option -h has been used, PREDATOR will show  progress  by  printing
+       dots  on  the  standard output. If your sequence has related sequences
+       with known 3D structure, PDB identifiers of these  sequences  will  be
+       printed.
+        		</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"predator.err"</code>
+        <code proglang="python">"predator.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

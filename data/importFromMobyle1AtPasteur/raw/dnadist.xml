@@ -1,0 +1,1368 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>dnadist</name>
+    <package xml:base="Entities/phylip_package.xml">
+      <name>phylip</name>
+      <version>3.67</version>
+      <doc>
+        <title>phylip</title>
+        <description>
+          <text lang="en">PHYLIP is a package of programs for inferring phylogenies.</text>
+        </description>
+        <homepagelink>http://evolution.gs.washington.edu/phylip.html</homepagelink>
+        <sourcelink>http://evolution.gs.washington.edu/phylip/getme.html</sourcelink>
+        <authors>Felsenstein Joe</authors>
+        <reference>Felsenstein, J. 1993. PHYLIP (Phylogeny Inference Package) version 3.5c. Distributed by the author. Department of Genetics, University of Washington, Seattle.</reference>
+        <reference>Felsenstein, J. 1989. PHYLIP -- Phylogeny Inference Package (Version 3.2). Cladistics 5: 164-166.</reference>
+        <doclink>http://bioweb2.pasteur.fr/docs/phylip/phylip.html</doclink>
+      </doc>
+    </package>
+    <doc>
+      <title>dnadist</title>
+      <description>
+        <text lang="en">Compute distance matrix from nucleotide sequences</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/phylip/doc/dnadist.html</doclink>
+      <comment>
+        <text lang="en">This program uses nucleotide sequences to compute a distance matrix, under four different models of nucleotide substitution. It can also
+compute a table of similarity between the nucleotide sequences. The distance for each pair of species estimates the total branch length between the two species, and can be used in the distance matrix programs FITCH, KITSCH or NEIGHBOR.</text>
+      </comment>
+    </doc>
+    <category>phylogeny:distance</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="PHYLIPI " data-parametername="infile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Alignment File<xhtml:a href="#idm140117709869248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117709869248::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709869248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The input file must contained aligned sequences in PHYLIP format obtained by sequence alignment programs.</xhtml:div>
+          <div class="example" id="idm140117709869248::example" data-forparameter="infile">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+   5   13
+Alpha     AACGTGGCCACAT
+Beta      AAGGTCGCCACAC
+Gamma     CAGTTCGCCACAA
+Delta     GAGATTTCCGCCT
+Epsilon   GAGATCTCCGCCC
+      </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117709869248::example" data-forparameter="infile" style="display:none">
+          <pre>
+   5   13
+Alpha     AACGTGGCCACAT
+Beta      AAGGTCGCCACAC
+Gamma     CAGTTCGCCACAA
+Delta     GAGATTTCCGCCT
+Epsilon   GAGATCTCCGCCC
+      </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="infile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="dnadist_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Dnadist options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="F84" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="distance">Distance (D)<xhtml:select name="distance">
+              <xhtml:option value="F84" selected="selected">F84</xhtml:option>
+              <xhtml:option value="K">Kimura 2-parameter</xhtml:option>
+              <xhtml:option value="JC">Jukes-Cantor</xhtml:option>
+              <xhtml:option value="LogDet">LogDet</xhtml:option>
+              <xhtml:option value="Similarity">Similarity table</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ratio">Transition/transversion ratio (T)<xhtml:a href="#idm140117711108992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="ratio" type="text" value="2.0"/>
+            <xhtml:div id="idm140117711108992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The T option in this program does not stand for Threshold, but instead is the Transition/transversion option.
+             The user is prompted for a real number greater than 0.0, as the expected ratio of transitions to transversions. 
+             Note that this is not the ratio of the first to the second kinds of events, but the resulting expected ratio of transitions to transversions. 
+             The exact relationship between these two quantities depends on the frequencies in the base pools. 
+             The default value of the T parameter if you do not use the T option is 2.0.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="No" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gamma">Gamma distributed rates across sites (G)<xhtml:select name="gamma">
+              <xhtml:option value="No" selected="selected">No</xhtml:option>
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="GI">Gamma+Invariant</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="variation_coeff">Coefficient of variation of substitution rate among sites (must be positive) (if Gamma)<xhtml:a href="#idm140117710848272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="variation_coeff" type="text" value=""/>
+            <xhtml:div id="idm140117710848272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In gamma distribution parameters, this is 1/(square root of alpha)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="invariant_sites">Fraction of invariant sites (if Gamma)<xhtml:input name="invariant_sites" type="text" value=""/>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="ACGT_frequencies">
+            <legend>Base frequencies for A, C, G, T/U (if not empirical)<xhtml:a href="#idm140117710128048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117710128048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>These must add to 1</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="empirical_frequencies">Use empirical base frequencies (F)<xhtml:select name="empirical_frequencies">
+                  <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                  <xhtml:option value="0">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="A_frequency">Base frequencies for A<xhtml:input name="A_frequency" type="text" value="0.25"/>
+              </label>
+              <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="C_frequency">Base frequencies for C<xhtml:input name="C_frequency" type="text" value="0.25"/>
+              </label>
+              <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="G_frequency">Base frequencies for G<xhtml:input name="G_frequency" type="text" value="0.25"/>
+              </label>
+              <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="T_frequency">Base frequencies for T/U<xhtml:input name="T_frequency" type="text" value="0.25"/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="weight_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Weight options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="weights">Use weights for sites (W)<xhtml:select name="weights">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PhylipWeight" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="weights_file">
+            <legend>Weights file<xhtml:a href="#idm140117709819632::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a href="#idm140117709819632::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            </legend>
+            <xhtml:div id="idm140117709819632::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>It selects a set of sites to be analyzed, ignoring the others. 
+            The sites selected are those with weight 1.
+            The weights in it are a simple string of digits. 
+            Blanks in the weightfile are skipped over and ignored, and the weights can continue to a new line.</xhtml:div>
+              <div class="example" id="idm140117709819632::example" data-forparameter="weights_file">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>1011001001011</pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117709819632::example" data-forparameter="weights_file" style="display:none">
+              <pre>1011001001011</pre>
+            </div>
+            <xhtml:textarea name="weights_file" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="bootstrap">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Bootstrap options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqboot">Perform a bootstrap before analysis<xhtml:a href="#idm140117708209392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="seqboot">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117708209392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By selecting this option, the bootstrap will be performed on your sequence file. So you don't need to perform a separated seqboot before.</xhtml:div>
+              <xhtml:div>Don't give an already bootstrapped file to the program, this won't work!</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="bootstrap" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Method">Resampling methods (J)<xhtml:a href="#idm140117708497392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="Method">
+              <xhtml:option value="bootstrap" selected="selected">Bootstrap</xhtml:option>
+              <xhtml:option value="jackknife">Delete-half jackknife</xhtml:option>
+              <xhtml:option value="permute_species">Permute species for each character</xhtml:option>
+              <xhtml:option value="permute_char">Permute character order</xhtml:option>
+              <xhtml:option value="permute_within_species">Permute within species</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117708497392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+              1. The bootstrap. Bootstrapping was invented by Bradley Efron in 1979, and its use in phylogeny estimation was introduced by me (Felsenstein, 1985b). It involves creating a new data set by sampling N characters randomly with replacement, so that the resulting data set has the same size as the original, but some characters have been left out and others are duplicated. The random variation of the results from analyzing these bootstrapped data sets can be shown statistically to be
+              typical of the variation that you would get from collecting new data sets. The method assumes that the characters evolve independently, an assumption that may not be realistic for many kinds of data.
+            </xhtml:div>
+              <xhtml:div>
+              2. Delete-half-jackknifing. This alternative to the bootstrap involves sampling a random half of the characters, and including them in the data but dropping the others. The resulting data sets are half the size of the original, and no characters are duplicated. The random variation from doing this should be very similar to that obtained from the bootstrap. The method is advocated by Wu (1986).
+            </xhtml:div>
+              <xhtml:div>
+              3. Permuting species for each characters. This method of resampling (well, OK, it may not be best to call it resampling) was introduced by Archie (1989) and Faith (1990; see also Faith and Cranston, 1991). It involves permuting the columns of the data matrix separately. This produces data matrices that have the same number and kinds of characters but no taxonomic structure. It is used for different purposes than the bootstrap, as it tests not the variation around an estimated tree but the hypothesis that there is no taxonomic structure in the data: if a statistic such as number of steps is significantly smaller in the actual data than it is in replicates that are permuted, then we can argue that there is some taxonomic structure in the data (though perhaps it might be just the presence of aa pair of sibling species).
+            </xhtml:div>
+              <xhtml:div>
+              4. Permuting characters order. This simply permutes the order of the characters, the same reordering being applied to all species. For many methods of tree inference this will make no difference to the outcome (unless one has rates of evolution correlated among adjacent sites). It is included as a possible step in carrying out a permutation test of homogeneity of characters (such as the Incongruence Length Difference test).
+            </xhtml:div>
+              <xhtml:div>
+              5. Permuting characters separately for each species. This is a method introduced by Steel, Lockhart, and Penny (1993) to permute data so as to destroy all phylogenetic structure, while keeping the base composition of each species the same as before. It shuffles the character order separately for each species.
+            </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqboot_seed">Random number seed (must be odd)<xhtml:input name="seqboot_seed" type="text" value=""/>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="replicates">How many replicates<xhtml:input name="replicates" type="text" value="100"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dnadist" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="infile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="PHYLIPI ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Alignment)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709869248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709869248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The input file must contained aligned sequences in PHYLIP format obtained by sequence alignment programs.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="dnadist_opt">
+        <xhtml:legend>Dnadist options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="distance" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="F84" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ratio" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117711108992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117711108992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The T option in this program does not stand for Threshold, but instead is the Transition/transversion option.
+             The user is prompted for a real number greater than 0.0, as the expected ratio of transitions to transversions. 
+             Note that this is not the ratio of the first to the second kinds of events, but the resulting expected ratio of transitions to transversions. 
+             The exact relationship between these two quantities depends on the frequencies in the base pools. 
+             The default value of the T parameter if you do not use the T option is 2.0.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gamma" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="No" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="variation_coeff" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117710848272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710848272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In gamma distribution parameters, this is 1/(square root of alpha)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="invariant_sites" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <xhtml:fieldset class="minimizable" data-paragraphname="ACGT_frequencies">
+            <xhtml:legend>Base frequencies for A, C, G, T/U (if not empirical)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="empirical_frequencies" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="A_frequency" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="C_frequency" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="G_frequency" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="T_frequency" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="base_frequencies" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="weight_opt">
+        <xhtml:legend>Weight options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="weights" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="weights_file" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PhylipWeight" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(PhylipWeight)
+			</xhtml:i>
+            <xhtml:a href="#idm140117709819632::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117709819632::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>It selects a set of sites to be analyzed, ignoring the others. 
+            The sites selected are those with weight 1.
+            The weights in it are a simple string of digits. 
+            Blanks in the weightfile are skipped over and ignored, and the weights can continue to a new line.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="bootstrap">
+        <xhtml:legend>Bootstrap options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqboot" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117708209392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117708209392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By selecting this option, the bootstrap will be performed on your sequence file. So you don't need to perform a separated seqboot before.</xhtml:div>
+              <xhtml:div>Don't give an already bootstrapped file to the program, this won't work!</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Method" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="bootstrap" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117708497392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117708497392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+              1. The bootstrap. Bootstrapping was invented by Bradley Efron in 1979, and its use in phylogeny estimation was introduced by me (Felsenstein, 1985b). It involves creating a new data set by sampling N characters randomly with replacement, so that the resulting data set has the same size as the original, but some characters have been left out and others are duplicated. The random variation of the results from analyzing these bootstrapped data sets can be shown statistically to be
+              typical of the variation that you would get from collecting new data sets. The method assumes that the characters evolve independently, an assumption that may not be realistic for many kinds of data.
+            </xhtml:div>
+              <xhtml:div>
+              2. Delete-half-jackknifing. This alternative to the bootstrap involves sampling a random half of the characters, and including them in the data but dropping the others. The resulting data sets are half the size of the original, and no characters are duplicated. The random variation from doing this should be very similar to that obtained from the bootstrap. The method is advocated by Wu (1986).
+            </xhtml:div>
+              <xhtml:div>
+              3. Permuting species for each characters. This method of resampling (well, OK, it may not be best to call it resampling) was introduced by Archie (1989) and Faith (1990; see also Faith and Cranston, 1991). It involves permuting the columns of the data matrix separately. This produces data matrices that have the same number and kinds of characters but no taxonomic structure. It is used for different purposes than the bootstrap, as it tests not the variation around an estimated tree but the hypothesis that there is no taxonomic structure in the data: if a statistic such as number of steps is significantly smaller in the actual data than it is in replicates that are permuted, then we can argue that there is some taxonomic structure in the data (though perhaps it might be just the presence of aa pair of sibling species).
+            </xhtml:div>
+              <xhtml:div>
+              4. Permuting characters order. This simply permutes the order of the characters, the same reordering being applied to all species. For many methods of tree inference this will make no difference to the outcome (unless one has rates of evolution correlated among adjacent sites). It is included as a possible step in carrying out a permutation test of homogeneity of characters (such as the Incongruence Length Difference test).
+            </xhtml:div>
+              <xhtml:div>
+              5. Permuting characters separately for each species. This is a method introduced by Steel, Lockhart, and Penny (1993) to permute data so as to destroy all phylogenetic structure, while keeping the base composition of each species the same as before. It shuffles the character order separately for each species.
+            </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqboot_seed" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="replicates" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="confirm" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="terminal_type" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="multiple_dataset" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqboot_confirm" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqboot_terminal_type" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PhylipDistanceMatrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(PhylipDistanceMatrix)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqboot_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SetOfAlignment" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SetOfAlignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter iscommand="1" ishidden="1">
+      <name>dnadist</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"dnadist &lt;dnadist.params"</code>
+        <code proglang="python">"dnadist &lt;dnadist.params"</code>
+      </format>
+      <argpos>0</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dnadist"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1" ismaininput="1">
+      <name>infile</name>
+      <prompt lang="en">Alignment File</prompt>
+      <type>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>PHYLIPI</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">"ln -s $infile infile &amp;&amp; "</code>
+        <code proglang="python">"ln -s " + str( infile ) + " infile &amp;&amp; "</code>
+      </format>
+      <ctrl>
+        <message>
+          <text lang="en">the name of this data can't be "infile" or "outfile"</text>
+        </message>
+        <code proglang="python">value not in ( "infile" , "outfile" )</code>
+        <code proglang="perl">$value ne "infile" and $value ne "outfile"</code>
+      </ctrl>
+      <argpos>-10</argpos>
+      <comment>
+        <text lang="en">The input file must contained aligned sequences in PHYLIP format obtained by sequence alignment programs.</text>
+      </comment>
+      <example>
+   5   13
+Alpha     AACGTGGCCACAT
+Beta      AAGGTCGCCACAC
+Gamma     CAGTTCGCCACAA
+Delta     GAGATTTCCGCCT
+Epsilon   GAGATCTCCGCCC
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Alignment File</xhtml:legend>
+          <xhtml:textarea name="infile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="PHYLIPI " data-parametername="infile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Alignment)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709869248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709869248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The input file must contained aligned sequences in PHYLIP format obtained by sequence alignment programs.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>dnadist_opt</name>
+      <prompt lang="en">Dnadist options</prompt>
+      <parameters>
+        <parameter>
+          <name>distance</name>
+          <prompt lang="en">Distance (D)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>F84</value>
+          </vdef>
+          <flist>
+            <felem>
+              <value>F84</value>
+              <label>F84</label>
+              <code proglang="perl">""</code>
+              <code proglang="python">""</code>
+            </felem>
+            <felem>
+              <value>K</value>
+              <label>Kimura 2-parameter</label>
+              <code proglang="perl">"D\\n"</code>
+              <code proglang="python">"D\n"</code>
+            </felem>
+            <felem>
+              <value>JC</value>
+              <label>Jukes-Cantor</label>
+              <code proglang="perl">"D\\nD\\n"</code>
+              <code proglang="python">"D\nD\n"</code>
+            </felem>
+            <felem>
+              <value>LogDet</value>
+              <label>LogDet</label>
+              <code proglang="perl">"D\\nD\\nD\\n"</code>
+              <code proglang="python">"D\nD\nD\n"</code>
+            </felem>
+            <felem>
+              <value>Similarity</value>
+              <label>Similarity table</label>
+              <code proglang="perl">"D\\nD\\nD\\nD\\n"</code>
+              <code proglang="python">"D\nD\nD\nD\n"</code>
+            </felem>
+          </flist>
+          <argpos>1</argpos>
+          <paramfile>dnadist.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Distance (D)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="distance">
+                <xhtml:option value="F84" selected="selected">F84</xhtml:option>
+                <xhtml:option value="K">Kimura 2-parameter</xhtml:option>
+                <xhtml:option value="JC">Jukes-Cantor</xhtml:option>
+                <xhtml:option value="LogDet">LogDet</xhtml:option>
+                <xhtml:option value="Similarity">Similarity table</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="F84" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="distance"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ratio</name>
+          <prompt lang="en">Transition/transversion ratio (T)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$distance eq "F84" or $distance eq "K"</code>
+            <code proglang="python">distance == "F84" or distance == "K"</code>
+          </precond>
+          <vdef>
+            <value>2.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? "T\\n$value\\n" : ""</code>
+            <code proglang="python">( "" , "T\n"+ str( value )+"\n" )[value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Transition/transversion ratio (T) must be a real number greater than 0.0</text>
+            </message>
+            <code proglang="python">value &gt;= 0.0</code>
+            <code proglang="perl">$value &gt;= 0.0</code>
+          </ctrl>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">The T option in this program does not stand for Threshold, but instead is the Transition/transversion option.
+             The user is prompted for a real number greater than 0.0, as the expected ratio of transitions to transversions. 
+             Note that this is not the ratio of the first to the second kinds of events, but the resulting expected ratio of transitions to transversions. 
+             The exact relationship between these two quantities depends on the frequencies in the base pools. 
+             The default value of the T parameter if you do not use the T option is 2.0.</text>
+          </comment>
+          <paramfile>dnadist.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Transition/transversion ratio (T)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711108992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ratio" type="text" value="2.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711108992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The T option in this program does not stand for Threshold, but instead is the Transition/transversion option.
+             The user is prompted for a real number greater than 0.0, as the expected ratio of transitions to transversions. 
+             Note that this is not the ratio of the first to the second kinds of events, but the resulting expected ratio of transitions to transversions. 
+             The exact relationship between these two quantities depends on the frequencies in the base pools. 
+             The default value of the T parameter if you do not use the T option is 2.0.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ratio">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711108992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711108992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The T option in this program does not stand for Threshold, but instead is the Transition/transversion option.
+             The user is prompted for a real number greater than 0.0, as the expected ratio of transitions to transversions. 
+             Note that this is not the ratio of the first to the second kinds of events, but the resulting expected ratio of transitions to transversions. 
+             The exact relationship between these two quantities depends on the frequencies in the base pools. 
+             The default value of the T parameter if you do not use the T option is 2.0.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gamma</name>
+          <prompt lang="en">Gamma distributed rates across sites (G)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$distance eq "F84" or $distance eq "K" or $distance eq "JC"</code>
+            <code proglang="python">distance == "F84" or distance == "K" or distance == "JC"</code>
+          </precond>
+          <vdef>
+            <value>No</value>
+          </vdef>
+          <flist>
+            <felem>
+              <value>No</value>
+              <label>No</label>
+              <code proglang="perl">""</code>
+              <code proglang="python">""</code>
+            </felem>
+            <felem>
+              <value>1</value>
+              <label>Yes</label>
+              <code proglang="perl">"G\\n"</code>
+              <code proglang="python">"G\n"</code>
+            </felem>
+            <felem>
+              <value>GI</value>
+              <label>Gamma+Invariant</label>
+              <code proglang="perl">"G\\nG\\n"</code>
+              <code proglang="python">"G\nG\n"</code>
+            </felem>
+          </flist>
+          <argpos>5</argpos>
+          <paramfile>dnadist.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gamma distributed rates across sites (G)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gamma">
+                <xhtml:option value="No" selected="selected">No</xhtml:option>
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="GI">Gamma+Invariant</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="No" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gamma"/>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>variation_coeff</name>
+          <prompt lang="en">Coefficient of variation of substitution rate among sites (must be positive) (if Gamma)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$gamma ne "No"</code>
+            <code proglang="python">gamma != "No"</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? "$value\\n" : ""</code>
+            <code proglang="python">( "" , str( value ) + "\n" )[ value is not None ]</code>
+          </format>
+          <argpos>1010</argpos>
+          <comment>
+            <text lang="en">In gamma distribution parameters, this is 1/(square root of alpha)</text>
+          </comment>
+          <paramfile>dnadist.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Coefficient of variation of substitution rate among sites (must be positive) (if Gamma)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710848272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="variation_coeff" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710848272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In gamma distribution parameters, this is 1/(square root of alpha)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="variation_coeff">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710848272::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710848272::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In gamma distribution parameters, this is 1/(square root of alpha)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>invariant_sites</name>
+          <prompt lang="en">Fraction of invariant sites (if Gamma)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$gamma eq "GI"</code>
+            <code proglang="python">gamma == "GI"</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? "$value\\n" : ""</code>
+            <code proglang="python">( "" , str( value ) + "\n" )[ value is not None ]</code>
+          </format>
+          <argpos>1011</argpos>
+          <paramfile>dnadist.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Fraction of invariant sites (if Gamma)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="invariant_sites" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="invariant_sites"/>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>ACGT_frequencies</name>
+          <prompt lang="en">Base frequencies for A, C, G, T/U (if not empirical)</prompt>
+          <precond>
+            <code proglang="perl">distance eq "F84"</code>
+            <code proglang="python">distance == "F84"</code>
+          </precond>
+          <comment>
+            <text lang="en">These must add to 1</text>
+          </comment>
+          <parameters>
+            <parameter>
+              <name>empirical_frequencies</name>
+              <prompt lang="en">Use empirical base frequencies (F)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1</value>
+              </vdef>
+              <argpos>1</argpos>
+              <paramfile>dnadist.params</paramfile>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use empirical base frequencies (F)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="empirical_frequencies">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="empirical_frequencies"/>
+              </interface>
+            </parameter>
+            <parameter ismandatory="1">
+              <name>A_frequency</name>
+              <prompt lang="en">Base frequencies for A</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">not $empirical_frequencies</code>
+                <code proglang="python">not empirical_frequencies</code>
+              </precond>
+              <vdef>
+                <value>0.25</value>
+              </vdef>
+              <format>
+                <code proglang="perl">""</code>
+                <code proglang="python">""</code>
+              </format>
+              <argpos>2</argpos>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Base frequencies for A<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="A_frequency" type="text" value="0.25"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="A_frequency"/>
+              </interface>
+            </parameter>
+            <parameter ismandatory="1">
+              <name>C_frequency</name>
+              <prompt lang="en">Base frequencies for C</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">not $empirical_frequencies</code>
+                <code proglang="python">not empirical_frequencies</code>
+              </precond>
+              <vdef>
+                <value>0.25</value>
+              </vdef>
+              <format>
+                <code proglang="perl">""</code>
+                <code proglang="python">""</code>
+              </format>
+              <argpos>2</argpos>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Base frequencies for C<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="C_frequency" type="text" value="0.25"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="C_frequency"/>
+              </interface>
+            </parameter>
+            <parameter ismandatory="1">
+              <name>G_frequency</name>
+              <prompt lang="en">Base frequencies for G</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">not $empirical_frequencies</code>
+                <code proglang="python">not empirical_frequencies</code>
+              </precond>
+              <vdef>
+                <value>0.25</value>
+              </vdef>
+              <format>
+                <code proglang="perl">""</code>
+                <code proglang="python">""</code>
+              </format>
+              <argpos>2</argpos>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Base frequencies for G<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="G_frequency" type="text" value="0.25"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="G_frequency"/>
+              </interface>
+            </parameter>
+            <parameter ismandatory="1">
+              <name>T_frequency</name>
+              <prompt lang="en">Base frequencies for T/U</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">not $empirical_frequencies</code>
+                <code proglang="python">not empirical_frequencies</code>
+              </precond>
+              <vdef>
+                <value>0.25</value>
+              </vdef>
+              <format>
+                <code proglang="perl">""</code>
+                <code proglang="python">""</code>
+              </format>
+              <argpos>2</argpos>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Base frequencies for T/U<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="T_frequency" type="text" value="0.25"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="0.25" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="T_frequency"/>
+              </interface>
+            </parameter>
+            <parameter ishidden="1">
+              <name>base_frequencies</name>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">not $empirical_frequencies</code>
+                <code proglang="python">not empirical_frequencies</code>
+              </precond>
+              <format>
+                <code proglang="perl">"F\\n$A_frequency $C_frequency $G_frequency $T_frequency\\n"</code>
+                <code proglang="python">"F\n" + str( A_frequency ) + " " + str( C_frequency ) + " " + str( G_frequency ) + " " + str( T_frequency ) + "\n"</code>
+              </format>
+              <argpos>2</argpos>
+              <paramfile>dnadist.params</paramfile>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="base_frequencies"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>weight_opt</name>
+      <prompt lang="en">Weight options</prompt>
+      <parameters>
+        <parameter>
+          <name>weights</name>
+          <prompt lang="en">Use weights for sites (W)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "W\\n" : ""</code>
+            <code proglang="python">( "" , "W\n" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <paramfile>dnadist.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use weights for sites (W)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="weights">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="weights"/>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>weights_file</name>
+          <prompt lang="en">Weights file</prompt>
+          <type>
+            <datatype>
+              <class>PhylipWeight</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$weights</code>
+            <code proglang="python">weights</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? "ln -s $weights_file weights &amp;&amp; " : ""</code>
+            <code proglang="python">( "" , " ln -s " + str( weights_file ) + " weights &amp;&amp; " )[ value is not None]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">the name of this data can't be "infile" or "outfile"</text>
+            </message>
+            <code proglang="python">value not in ( "infile" , "outfile" )</code>
+            <code proglang="perl">$value ne "infile" and $value ne "outfile"</code>
+          </ctrl>
+          <argpos>-1</argpos>
+          <comment>
+            <text lang="en">It selects a set of sites to be analyzed, ignoring the others. 
+            The sites selected are those with weight 1.
+            The weights in it are a simple string of digits. 
+            Blanks in the weightfile are skipped over and ignored, and the weights can continue to a new line.</text>
+          </comment>
+          <example>1011001001011</example>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Weights file</xhtml:legend>
+              <xhtml:textarea name="weights_file" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PhylipWeight" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="weights_file">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(PhylipWeight)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709819632::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709819632::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>It selects a set of sites to be analyzed, ignoring the others. 
+            The sites selected are those with weight 1.
+            The weights in it are a simple string of digits. 
+            Blanks in the weightfile are skipped over and ignored, and the weights can continue to a new line.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>bootstrap</name>
+      <prompt lang="en">Bootstrap options</prompt>
+      <parameters>
+        <parameter issimple="1">
+          <name>seqboot</name>
+          <prompt lang="en">Perform a bootstrap before analysis</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "seqboot &lt; seqboot.params &amp;&amp; mv outfile seqboot.outfile &amp;&amp; rm infile  &amp;&amp; ln -s seqboot.outfile infile &amp;&amp; " : ""</code>
+            <code proglang="python">( "" , "seqboot &lt; seqboot.params &amp;&amp; mv outfile seqboot.outfile &amp;&amp; rm infile &amp;&amp; ln -s seqboot.outfile infile &amp;&amp; " )[ value ]</code>
+          </format>
+          <argpos>-5</argpos>
+          <comment>
+            <text lang="en">By selecting this option, the bootstrap will be performed on your sequence file. So you don't need to perform a separated seqboot before.</text>
+            <text lang="en">Don't give an already bootstrapped file to the program, this won't work!</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Perform a bootstrap before analysis<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708209392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqboot">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708209392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By selecting this option, the bootstrap will be performed on your sequence file. So you don't need to perform a separated seqboot before.</xhtml:div>
+                <xhtml:div>Don't give an already bootstrapped file to the program, this won't work!</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqboot">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708209392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708209392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By selecting this option, the bootstrap will be performed on your sequence file. So you don't need to perform a separated seqboot before.</xhtml:div>
+                <xhtml:div>Don't give an already bootstrapped file to the program, this won't work!</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1" issimple="1">
+          <name>Method</name>
+          <prompt lang="en">Resampling methods (J)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$seqboot</code>
+            <code proglang="python">seqboot</code>
+          </precond>
+          <vdef>
+            <value>bootstrap</value>
+          </vdef>
+          <flist>
+            <felem>
+              <value>bootstrap</value>
+              <label>Bootstrap</label>
+              <code proglang="perl">""</code>
+              <code proglang="python">""</code>
+            </felem>
+            <felem>
+              <value>jackknife</value>
+              <label>Delete-half jackknife</label>
+              <code proglang="perl">"J\\n"</code>
+              <code proglang="python">""</code>
+            </felem>
+            <felem>
+              <value>permute_species</value>
+              <label>Permute species for each character</label>
+              <code proglang="perl">"J\\nJ\\n"</code>
+              <code proglang="python">"J\nJ\n"</code>
+            </felem>
+            <felem>
+              <value>permute_char</value>
+              <label>Permute character order</label>
+              <code proglang="perl">"J\\nJ\\nJ\\n"</code>
+              <code proglang="python">"J\nJ\nJ\n"</code>
+            </felem>
+            <felem>
+              <value>permute_within_species</value>
+              <label>Permute within species</label>
+              <code proglang="perl">"J\\nJ\\nJ\\nJ\\n"</code>
+              <code proglang="python">"J\nJ\nJ\nJ\n"</code>
+            </felem>
+          </flist>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">
+              1. The bootstrap. Bootstrapping was invented by Bradley Efron in 1979, and its use in phylogeny estimation was introduced by me (Felsenstein, 1985b). It involves creating a new data set by sampling N characters randomly with replacement, so that the resulting data set has the same size as the original, but some characters have been left out and others are duplicated. The random variation of the results from analyzing these bootstrapped data sets can be shown statistically to be
+              typical of the variation that you would get from collecting new data sets. The method assumes that the characters evolve independently, an assumption that may not be realistic for many kinds of data.
+            </text>
+            <text lang="en">
+              2. Delete-half-jackknifing. This alternative to the bootstrap involves sampling a random half of the characters, and including them in the data but dropping the others. The resulting data sets are half the size of the original, and no characters are duplicated. The random variation from doing this should be very similar to that obtained from the bootstrap. The method is advocated by Wu (1986).
+            </text>
+            <text lang="en">
+              3. Permuting species for each characters. This method of resampling (well, OK, it may not be best to call it resampling) was introduced by Archie (1989) and Faith (1990; see also Faith and Cranston, 1991). It involves permuting the columns of the data matrix separately. This produces data matrices that have the same number and kinds of characters but no taxonomic structure. It is used for different purposes than the bootstrap, as it tests not the variation around an estimated tree but the hypothesis that there is no taxonomic structure in the data: if a statistic such as number of steps is significantly smaller in the actual data than it is in replicates that are permuted, then we can argue that there is some taxonomic structure in the data (though perhaps it might be just the presence of aa pair of sibling species).
+            </text>
+            <text lang="en">
+              4. Permuting characters order. This simply permutes the order of the characters, the same reordering being applied to all species. For many methods of tree inference this will make no difference to the outcome (unless one has rates of evolution correlated among adjacent sites). It is included as a possible step in carrying out a permutation test of homogeneity of characters (such as the Incongruence Length Difference test).
+            </text>
+            <text lang="en">
+              5. Permuting characters separately for each species. This is a method introduced by Steel, Lockhart, and Penny (1993) to permute data so as to destroy all phylogenetic structure, while keeping the base composition of each species the same as before. It shuffles the character order separately for each species.
+            </text>
+          </comment>
+          <paramfile>seqboot.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Resampling methods (J)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708497392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Method">
+                <xhtml:option value="bootstrap" selected="selected">Bootstrap</xhtml:option>
+                <xhtml:option value="jackknife">Delete-half jackknife</xhtml:option>
+                <xhtml:option value="permute_species">Permute species for each character</xhtml:option>
+                <xhtml:option value="permute_char">Permute character order</xhtml:option>
+                <xhtml:option value="permute_within_species">Permute within species</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708497392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              1. The bootstrap. Bootstrapping was invented by Bradley Efron in 1979, and its use in phylogeny estimation was introduced by me (Felsenstein, 1985b). It involves creating a new data set by sampling N characters randomly with replacement, so that the resulting data set has the same size as the original, but some characters have been left out and others are duplicated. The random variation of the results from analyzing these bootstrapped data sets can be shown statistically to be
+              typical of the variation that you would get from collecting new data sets. The method assumes that the characters evolve independently, an assumption that may not be realistic for many kinds of data.
+            </xhtml:div>
+                <xhtml:div>
+              2. Delete-half-jackknifing. This alternative to the bootstrap involves sampling a random half of the characters, and including them in the data but dropping the others. The resulting data sets are half the size of the original, and no characters are duplicated. The random variation from doing this should be very similar to that obtained from the bootstrap. The method is advocated by Wu (1986).
+            </xhtml:div>
+                <xhtml:div>
+              3. Permuting species for each characters. This method of resampling (well, OK, it may not be best to call it resampling) was introduced by Archie (1989) and Faith (1990; see also Faith and Cranston, 1991). It involves permuting the columns of the data matrix separately. This produces data matrices that have the same number and kinds of characters but no taxonomic structure. It is used for different purposes than the bootstrap, as it tests not the variation around an estimated tree but the hypothesis that there is no taxonomic structure in the data: if a statistic such as number of steps is significantly smaller in the actual data than it is in replicates that are permuted, then we can argue that there is some taxonomic structure in the data (though perhaps it might be just the presence of aa pair of sibling species).
+            </xhtml:div>
+                <xhtml:div>
+              4. Permuting characters order. This simply permutes the order of the characters, the same reordering being applied to all species. For many methods of tree inference this will make no difference to the outcome (unless one has rates of evolution correlated among adjacent sites). It is included as a possible step in carrying out a permutation test of homogeneity of characters (such as the Incongruence Length Difference test).
+            </xhtml:div>
+                <xhtml:div>
+              5. Permuting characters separately for each species. This is a method introduced by Steel, Lockhart, and Penny (1993) to permute data so as to destroy all phylogenetic structure, while keeping the base composition of each species the same as before. It shuffles the character order separately for each species.
+            </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="bootstrap" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Method">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708497392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708497392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              1. The bootstrap. Bootstrapping was invented by Bradley Efron in 1979, and its use in phylogeny estimation was introduced by me (Felsenstein, 1985b). It involves creating a new data set by sampling N characters randomly with replacement, so that the resulting data set has the same size as the original, but some characters have been left out and others are duplicated. The random variation of the results from analyzing these bootstrapped data sets can be shown statistically to be
+              typical of the variation that you would get from collecting new data sets. The method assumes that the characters evolve independently, an assumption that may not be realistic for many kinds of data.
+            </xhtml:div>
+                <xhtml:div>
+              2. Delete-half-jackknifing. This alternative to the bootstrap involves sampling a random half of the characters, and including them in the data but dropping the others. The resulting data sets are half the size of the original, and no characters are duplicated. The random variation from doing this should be very similar to that obtained from the bootstrap. The method is advocated by Wu (1986).
+            </xhtml:div>
+                <xhtml:div>
+              3. Permuting species for each characters. This method of resampling (well, OK, it may not be best to call it resampling) was introduced by Archie (1989) and Faith (1990; see also Faith and Cranston, 1991). It involves permuting the columns of the data matrix separately. This produces data matrices that have the same number and kinds of characters but no taxonomic structure. It is used for different purposes than the bootstrap, as it tests not the variation around an estimated tree but the hypothesis that there is no taxonomic structure in the data: if a statistic such as number of steps is significantly smaller in the actual data than it is in replicates that are permuted, then we can argue that there is some taxonomic structure in the data (though perhaps it might be just the presence of aa pair of sibling species).
+            </xhtml:div>
+                <xhtml:div>
+              4. Permuting characters order. This simply permutes the order of the characters, the same reordering being applied to all species. For many methods of tree inference this will make no difference to the outcome (unless one has rates of evolution correlated among adjacent sites). It is included as a possible step in carrying out a permutation test of homogeneity of characters (such as the Incongruence Length Difference test).
+            </xhtml:div>
+                <xhtml:div>
+              5. Permuting characters separately for each species. This is a method introduced by Steel, Lockhart, and Penny (1993) to permute data so as to destroy all phylogenetic structure, while keeping the base composition of each species the same as before. It shuffles the character order separately for each species.
+            </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1" issimple="1">
+          <name>seqboot_seed</name>
+          <prompt lang="en">Random number seed (must be odd)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$seqboot</code>
+            <code proglang="python">seqboot</code>
+          </precond>
+          <format>
+            <code proglang="perl">"$value\\n"</code>
+            <code proglang="python">str( value ) +"\n"</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Random number seed must be odd</text>
+            </message>
+            <code proglang="perl">$value &gt;= 0 and (($value % 2) != 0)</code>
+            <code proglang="python">value &gt;= 0 and ( ( value % 2 ) != 0 )</code>
+          </ctrl>
+          <argpos>1000</argpos>
+          <paramfile>seqboot.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Random number seed (must be odd)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqboot_seed" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqboot_seed"/>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1" issimple="1">
+          <name>replicates</name>
+          <prompt lang="en">How many replicates</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$seqboot</code>
+            <code proglang="python">seqboot</code>
+          </precond>
+          <vdef>
+            <value>100</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? "R\\n$value\\n" : ""</code>
+            <code proglang="python">( "" , "R\n" + str( value ) + "\n" )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">This server allows no more than 1000 replicates</text>
+            </message>
+            <code proglang="perl">$value &lt;= 1000</code>
+            <code proglang="python">value &lt;= 1000</code>
+          </ctrl>
+          <ctrl>
+            <message>
+              <text lang="en">Bad data sets number:  it must be greater than 1</text>
+            </message>
+            <code proglang="perl">$value &gt; 1</code>
+            <code proglang="python">value &gt; 1</code>
+          </ctrl>
+          <argpos>1</argpos>
+          <paramfile>seqboot.params</paramfile>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">How many replicates<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="replicates" type="text" value="100"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="true" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="replicates"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <!-- remove this parameter until we upgrade Phylip in ver >= 3.68 (there is a bug in lower triangular matrix)  
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output options</prompt>
+      <parameters>
+        <parameter>
+          <name>matrix_form</name>
+          <prompt lang="en">form of distance matrix (L)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>square</value>
+          </vdef>
+          <flist>
+            <felem>
+              <value>square</value>
+              <label>Square</label>
+              <code proglang="perl">""</code>
+              <code proglang="python">""</code>
+            </felem>
+            <felem>
+              <value>human_redable</value>
+              <label>Human-readable</label>
+              <code proglang="perl">"L\\n"</code>
+              <code proglang="python">"L\n"</code>
+            </felem>
+            <felem>
+              <value>lower_triangular</value>
+              <label>Lower-triangular</label>
+              <code proglang="perl">"L\\nL\\n"</code>
+              <code proglang="python">"L\nL\n"</code>
+            </felem>
+          </flist>
+          <argpos>1</argpos>
+          <paramfile>dnadist.params</paramfile>
+        </parameter>
+      </parameters>
+    </paragraph>
+    -->
+    <parameter isout="1">
+      <name>outfile</name>
+      <prompt lang="en">Outfile</prompt>
+      <type>
+        <datatype>
+          <class>PhylipDistanceMatrix</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" &amp;&amp; mv outfile dnadist.outfile"</code>
+        <code proglang="python">" &amp;&amp; mv outfile dnadist.outfile"</code>
+      </format>
+      <argpos>40</argpos>
+      <filenames>
+        <code proglang="perl">"dnadist.outfile"</code>
+        <code proglang="python">"dnadist.outfile"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PhylipDistanceMatrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(PhylipDistanceMatrix)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>seqboot_out</name>
+      <prompt lang="en">seqboot outfile</prompt>
+      <type>
+        <datatype>
+          <class>SetOfAlignment</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$seqboot</code>
+        <code proglang="python">seqboot</code>
+      </precond>
+      <argpos>40</argpos>
+      <filenames>
+        <code proglang="perl">"seqboot.outfile"</code>
+        <code proglang="python">"seqboot.outfile"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SetOfAlignment" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="seqboot_out">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SetOfAlignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>confirm</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"y\\n"</code>
+        <code proglang="python">"y\n"</code>
+      </format>
+      <argpos>1000</argpos>
+      <paramfile>dnadist.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="confirm"/>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>terminal_type</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"0\\n"</code>
+        <code proglang="python">"0\n"</code>
+      </format>
+      <argpos>-1</argpos>
+      <paramfile>dnadist.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="terminal_type"/>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>multiple_dataset</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$seqboot and $replicates &gt; 1 </code>
+        <code proglang="python">seqboot and replicates &gt; 1</code>
+      </precond>
+      <format>
+        <code proglang="perl">"M\\nD\\n$replicates\\n"</code>
+        <code proglang="python">"M\nD\n" + str( replicates ) + str("\n")</code>
+      </format>
+      <argpos>1</argpos>
+      <paramfile>dnadist.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="multiple_dataset"/>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>seqboot_confirm</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$seqboot</code>
+        <code proglang="python">seqboot</code>
+      </precond>
+      <format>
+        <code proglang="perl">"y\\n"</code>
+        <code proglang="python">"y\n"</code>
+      </format>
+      <argpos>100</argpos>
+      <paramfile>seqboot.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqboot_confirm"/>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>seqboot_terminal_type</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$seqboot</code>
+        <code proglang="python">seqboot</code>
+      </precond>
+      <format>
+        <code proglang="perl">"0\\n"</code>
+        <code proglang="python">"0\n"</code>
+      </format>
+      <argpos>-1</argpos>
+      <paramfile>seqboot.params</paramfile>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqboot_terminal_type"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"dnadist.out"</code>
+        <code proglang="python">"dnadist.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"dnadist.err"</code>
+        <code proglang="python">"dnadist.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

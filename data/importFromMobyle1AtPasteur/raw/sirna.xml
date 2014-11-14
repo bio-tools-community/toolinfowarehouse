@@ -1,0 +1,854 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>sirna</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>sirna</title>
+      <description>
+        <text lang="en">Finds siRNA duplexes in mRNA</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/sirna.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>sirna</command>
+    <category>sequence:nucleic:composition</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+            <legend>sequence option</legend>
+            <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="e_seqinsection">
+            <legend>Sequence input options</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_poliii">Select probes for pol iii expression vectors<xhtml:a href="#idm140117706913248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="e_poliii">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117706913248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>This option allows you to select only the 21 base probes that start with a purine and so can be expressed from Pol III  expression vectors. This is the NARN(17)YNN pattern that has  been suggested by Tuschl et al.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_aa">Select only regions that start with aa<xhtml:a href="#idm140117705768528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="e_aa">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117705768528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>This option allows you to select only those 23 base regions that start with AA. If this option is not selected then  regions that start with AA will be favoured by giving them a  higher score, but regions that do not start with AA will also be  reported.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_tt">Select only regions that end with tt<xhtml:a href="#idm140117704955328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="e_tt">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117704955328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>This option allows you to select only those 23 base regions that end with TT. If this option is not selected then  regions that end with TT will be favoured by giving them a  higher score, but regions that do not end with TT will also be  reported.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_polybase">Allow regions with 4 repeats of a base<xhtml:a href="#idm140117706202016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="e_polybase">
+                  <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                  <xhtml:option value="0">No</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117706202016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>If this option is FALSE then only those 23 base regions that have no repeat of 4 or more of any bases in a row will be  reported. No regions will ever be reported that have 4 or more  G's in a row.</xhtml:div>
+                </xhtml:div>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="sirna.report" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile">Name of the report file<xhtml:a href="#idm140117705271936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_outfile" type="text" value="sirna.report"/>
+            <xhtml:div id="idm140117705271936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The output is a table of the forward and reverse parts of the 21 base siRNA duplex. Both the forward and reverse sequences  are written 5' to 3', ready to be ordered. The last two bases have  been replaced by 'dTdT'. The starting position of the 23 base  region and the %GC content is also given. If you wish to see the  complete 23 base sequence, then either look at the sequence in the  other output file, or use the qualifier '-context' which will  display the 23 bases of the forward sequence in this report  with the first two bases in brackets. These first two bases do not  form part of the siRNA probe to be ordered.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="TABLE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_rformat_outfile">Choose the report output format<xhtml:select name="e_rformat_outfile">
+              <xhtml:option value="DASGFF">Dasgff</xhtml:option>
+              <xhtml:option value="DBMOTIF">Dbmotif</xhtml:option>
+              <xhtml:option value="DIFFSEQ">Diffseq</xhtml:option>
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="EXCEL">Excel</xhtml:option>
+              <xhtml:option value="FEATTABLE">Feattable</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+              <xhtml:option value="LISTFILE">Listfile</xhtml:option>
+              <xhtml:option value="MOTIF">Motif</xhtml:option>
+              <xhtml:option value="NAMETABLE">Nametable</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="REGIONS">Regions</xhtml:option>
+              <xhtml:option value="SEQTABLE">Seqtable</xhtml:option>
+              <xhtml:option value="SIMPLE">Simple</xhtml:option>
+              <xhtml:option value="SRS">Srs</xhtml:option>
+              <xhtml:option value="SWISS">Swiss</xhtml:option>
+              <xhtml:option value="TABLE" selected="selected">Table</xhtml:option>
+              <xhtml:option value="TAGSEQ">Tagseq</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="sirna.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outseq">Name of the output sequence file (e_outseq)<xhtml:a href="#idm140117704403216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_outseq" type="text" value="sirna.e_outseq"/>
+            <xhtml:div id="idm140117704403216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is a file of the sequences of the 23 base regions that the siRNAs are selected from. You may use it to do searches of  mRNA databases (e.g. REFSEQ) to confirm that the probes are unique  to the gene you wish to use it on.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_osformat_outseq">Choose the sequence output format<xhtml:select name="e_osformat_outseq">
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+              <xhtml:option value="GCG">Gcg</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="NBRF">Nbrf</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="RAW">Raw</xhtml:option>
+              <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_context">Show the two bases before the output 21 base probe<xhtml:a href="#idm140117704915632::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_context">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704915632::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The output report file gives the sequences of the 21 base siRNA regions ready to be ordered. This does not give you an  indication of the 2 bases before the 21 bases. It is often  interesting to see which of the suggested possible probe regions  have an 'AA' in front of them (i.e. it is useful to see which of  the 23 base regions start with an 'AA'). This option displays the  whole 23 bases of the region with the first two bases in brackets,  e.g. '(AA)' to give you some context for the probe region. YOU  SHOULD NOT INCLUDE THE TWO BASES IN BRACKETS WHEN YOU PLACE AN  ORDER FOR THE PROBES.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+          <xhtml:fieldset class="minimizable" data-paragraphname="e_seqinsection">
+            <xhtml:legend>Sequence input options</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_poliii" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117706913248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117706913248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>This option allows you to select only the 21 base probes that start with a purine and so can be expressed from Pol III  expression vectors. This is the NARN(17)YNN pattern that has  been suggested by Tuschl et al.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_aa" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117705768528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117705768528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>This option allows you to select only those 23 base regions that start with AA. If this option is not selected then  regions that start with AA will be favoured by giving them a  higher score, but regions that do not start with AA will also be  reported.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_tt" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117704955328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117704955328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>This option allows you to select only those 23 base regions that end with TT. If this option is not selected then  regions that end with TT will be favoured by giving them a  higher score, but regions that do not end with TT will also be  reported.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_polybase" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117706202016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117706202016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>If this option is FALSE then only those 23 base regions that have no repeat of 4 or more of any bases in a row will be  reported. No regions will ever be reported that have 4 or more  G's in a row.</xhtml:div>
+                </xhtml:div>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="sirna.report" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705271936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705271936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The output is a table of the forward and reverse parts of the 21 base siRNA duplex. Both the forward and reverse sequences  are written 5' to 3', ready to be ordered. The last two bases have  been replaced by 'dTdT'. The starting position of the 23 base  region and the %GC content is also given. If you wish to see the  complete 23 base sequence, then either look at the sequence in the  other output file, or use the qualifier '-context' which will  display the 23 bases of the forward sequence in this report  with the first two bases in brackets. These first two bases do not  form part of the siRNA probe to be ordered.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_rformat_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="TABLE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="sirna.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704403216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704403216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is a file of the sequences of the 23 base regions that the siRNAs are selected from. You may use it to do searches of  mRNA databases (e.g. REFSEQ) to confirm that the probes are unique  to the gene you wish to use it on.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_osformat_outseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_context" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704915632::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704915632::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The output report file gives the sequences of the 21 base siRNA regions ready to be ordered. This does not give you an  indication of the 2 bases before the 21 bases. It is often  interesting to see which of the suggested possible probe regions  have an 'AA' in front of them (i.e. it is useful to see which of  the 23 base regions start with an 'AA'). This option displays the  whole 23 bases of the region with the first two bases in brackets,  e.g. '(AA)' to give you some context for the probe region. YOU  SHOULD NOT INCLUDE THE TWO BASES IN BRACKETS WHEN YOU PLACE AN  ORDER FOR THE PROBES.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outseq_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_sequence</name>
+          <prompt lang="en">sequence option</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -sequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>sequence option</xhtml:legend>
+              <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>e_seqinsection</name>
+          <prompt lang="en">Sequence input options</prompt>
+          <parameters>
+            <parameter>
+              <name>e_poliii</name>
+              <prompt lang="en">Select probes for pol iii expression vectors</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="python">("", " -poliii")[ bool(value) ]</code>
+              </format>
+              <argpos>2</argpos>
+              <comment>
+                <text lang="en">This option allows you to select only the 21 base probes that start with a purine and so can be expressed from Pol III  expression vectors. This is the NARN(17)YNN pattern that has  been suggested by Tuschl et al.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Select probes for pol iii expression vectors<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706913248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_poliii">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706913248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>This option allows you to select only the 21 base probes that start with a purine and so can be expressed from Pol III  expression vectors. This is the NARN(17)YNN pattern that has  been suggested by Tuschl et al.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_poliii">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706913248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706913248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>This option allows you to select only the 21 base probes that start with a purine and so can be expressed from Pol III  expression vectors. This is the NARN(17)YNN pattern that has  been suggested by Tuschl et al.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>e_aa</name>
+              <prompt lang="en">Select only regions that start with aa</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="python">("", " -aa")[ bool(value) ]</code>
+              </format>
+              <argpos>3</argpos>
+              <comment>
+                <text lang="en">This option allows you to select only those 23 base regions that start with AA. If this option is not selected then  regions that start with AA will be favoured by giving them a  higher score, but regions that do not start with AA will also be  reported.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Select only regions that start with aa<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705768528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_aa">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705768528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>This option allows you to select only those 23 base regions that start with AA. If this option is not selected then  regions that start with AA will be favoured by giving them a  higher score, but regions that do not start with AA will also be  reported.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_aa">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705768528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705768528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>This option allows you to select only those 23 base regions that start with AA. If this option is not selected then  regions that start with AA will be favoured by giving them a  higher score, but regions that do not start with AA will also be  reported.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>e_tt</name>
+              <prompt lang="en">Select only regions that end with tt</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="python">("", " -tt")[ bool(value) ]</code>
+              </format>
+              <argpos>4</argpos>
+              <comment>
+                <text lang="en">This option allows you to select only those 23 base regions that end with TT. If this option is not selected then  regions that end with TT will be favoured by giving them a  higher score, but regions that do not end with TT will also be  reported.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Select only regions that end with tt<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704955328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_tt">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704955328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>This option allows you to select only those 23 base regions that end with TT. If this option is not selected then  regions that end with TT will be favoured by giving them a  higher score, but regions that do not end with TT will also be  reported.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_tt">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704955328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704955328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>This option allows you to select only those 23 base regions that end with TT. If this option is not selected then  regions that end with TT will be favoured by giving them a  higher score, but regions that do not end with TT will also be  reported.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>e_polybase</name>
+              <prompt lang="en">Allow regions with 4 repeats of a base</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1</value>
+              </vdef>
+              <format>
+                <code proglang="python">(" -nopolybase", "")[ bool(value) ]</code>
+              </format>
+              <argpos>5</argpos>
+              <comment>
+                <text lang="en">If this option is FALSE then only those 23 base regions that have no repeat of 4 or more of any bases in a row will be  reported. No regions will ever be reported that have 4 or more  G's in a row.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Allow regions with 4 repeats of a base<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706202016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_polybase">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706202016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>If this option is FALSE then only those 23 base regions that have no repeat of 4 or more of any bases in a row will be  reported. No regions will ever be reported that have 4 or more  G's in a row.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_polybase">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706202016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706202016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>If this option is FALSE then only those 23 base regions that have no repeat of 4 or more of any bases in a row will be  reported. No regions will ever be reported that have 4 or more  G's in a row.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_outfile</name>
+          <prompt lang="en">Name of the report file</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>sirna.report</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outfile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>6</argpos>
+          <comment>
+            <text lang="en">The output is a table of the forward and reverse parts of the 21 base siRNA duplex. Both the forward and reverse sequences  are written 5' to 3', ready to be ordered. The last two bases have  been replaced by 'dTdT'. The starting position of the 23 base  region and the %GC content is also given. If you wish to see the  complete 23 base sequence, then either look at the sequence in the  other output file, or use the qualifier '-context' which will  display the 23 bases of the forward sequence in this report  with the first two bases in brackets. These first two bases do not  form part of the siRNA probe to be ordered.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the report file<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705271936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outfile" type="text" value="sirna.report"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705271936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The output is a table of the forward and reverse parts of the 21 base siRNA duplex. Both the forward and reverse sequences  are written 5' to 3', ready to be ordered. The last two bases have  been replaced by 'dTdT'. The starting position of the 23 base  region and the %GC content is also given. If you wish to see the  complete 23 base sequence, then either look at the sequence in the  other output file, or use the qualifier '-context' which will  display the 23 bases of the forward sequence in this report  with the first two bases in brackets. These first two bases do not  form part of the siRNA probe to be ordered.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="sirna.report" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705271936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705271936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The output is a table of the forward and reverse parts of the 21 base siRNA duplex. Both the forward and reverse sequences  are written 5' to 3', ready to be ordered. The last two bases have  been replaced by 'dTdT'. The starting position of the 23 base  region and the %GC content is also given. If you wish to see the  complete 23 base sequence, then either look at the sequence in the  other output file, or use the qualifier '-context' which will  display the 23 bases of the forward sequence in this report  with the first two bases in brackets. These first two bases do not  form part of the siRNA probe to be ordered.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_rformat_outfile</name>
+          <prompt lang="en">Choose the report output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>TABLE</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>DASGFF</value>
+              <label>Dasgff</label>
+            </velem>
+            <velem>
+              <value>DBMOTIF</value>
+              <label>Dbmotif</label>
+            </velem>
+            <velem>
+              <value>DIFFSEQ</value>
+              <label>Diffseq</label>
+            </velem>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>EXCEL</value>
+              <label>Excel</label>
+            </velem>
+            <velem>
+              <value>FEATTABLE</value>
+              <label>Feattable</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+            <velem>
+              <value>LISTFILE</value>
+              <label>Listfile</label>
+            </velem>
+            <velem>
+              <value>MOTIF</value>
+              <label>Motif</label>
+            </velem>
+            <velem>
+              <value>NAMETABLE</value>
+              <label>Nametable</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>REGIONS</value>
+              <label>Regions</label>
+            </velem>
+            <velem>
+              <value>SEQTABLE</value>
+              <label>Seqtable</label>
+            </velem>
+            <velem>
+              <value>SIMPLE</value>
+              <label>Simple</label>
+            </velem>
+            <velem>
+              <value>SRS</value>
+              <label>Srs</label>
+            </velem>
+            <velem>
+              <value>SWISS</value>
+              <label>Swiss</label>
+            </velem>
+            <velem>
+              <value>TABLE</value>
+              <label>Table</label>
+            </velem>
+            <velem>
+              <value>TAGSEQ</value>
+              <label>Tagseq</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -rformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>7</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the report output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_rformat_outfile">
+                <xhtml:option value="DASGFF">Dasgff</xhtml:option>
+                <xhtml:option value="DBMOTIF">Dbmotif</xhtml:option>
+                <xhtml:option value="DIFFSEQ">Diffseq</xhtml:option>
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="EXCEL">Excel</xhtml:option>
+                <xhtml:option value="FEATTABLE">Feattable</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+                <xhtml:option value="LISTFILE">Listfile</xhtml:option>
+                <xhtml:option value="MOTIF">Motif</xhtml:option>
+                <xhtml:option value="NAMETABLE">Nametable</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="REGIONS">Regions</xhtml:option>
+                <xhtml:option value="SEQTABLE">Seqtable</xhtml:option>
+                <xhtml:option value="SIMPLE">Simple</xhtml:option>
+                <xhtml:option value="SRS">Srs</xhtml:option>
+                <xhtml:option value="SWISS">Swiss</xhtml:option>
+                <xhtml:option value="TABLE" selected="selected">Table</xhtml:option>
+                <xhtml:option value="TAGSEQ">Tagseq</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="TABLE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_rformat_outfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outfile_out</name>
+          <prompt lang="en">outfile_out option</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_rformat_outfile">
+              </ref>
+            </dataFormat>
+          </type>
+          <precond>
+            <code proglang="python">e_rformat_outfile in ['DASGFF', 'DBMOTIF', 'DIFFSEQ', 'EMBL', 'EXCEL', 'FEATTABLE', 'GENBANK', 'GFF', 'LISTFILE', 'MOTIF', 'NAMETABLE', 'CODATA', 'REGIONS', 'SEQTABLE', 'SIMPLE', 'SRS', 'SWISS', 'TABLE', 'TAGSEQ']</code>
+          </precond>
+          <filenames>
+            <code proglang="python">e_outfile</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="e_outfile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_outseq</name>
+          <prompt lang="en">Name of the output sequence file (e_outseq)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>sirna.e_outseq</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outseq=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>8</argpos>
+          <comment>
+            <text lang="en">This is a file of the sequences of the 23 base regions that the siRNAs are selected from. You may use it to do searches of  mRNA databases (e.g. REFSEQ) to confirm that the probes are unique  to the gene you wish to use it on.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output sequence file (e_outseq)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704403216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outseq" type="text" value="sirna.e_outseq"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704403216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is a file of the sequences of the 23 base regions that the siRNAs are selected from. You may use it to do searches of  mRNA databases (e.g. REFSEQ) to confirm that the probes are unique  to the gene you wish to use it on.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="sirna.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outseq">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704403216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704403216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is a file of the sequences of the 23 base regions that the siRNAs are selected from. You may use it to do searches of  mRNA databases (e.g. REFSEQ) to confirm that the probes are unique  to the gene you wish to use it on.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_osformat_outseq</name>
+          <prompt lang="en">Choose the sequence output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>FASTA</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>FASTA</value>
+              <label>Fasta</label>
+            </velem>
+            <velem>
+              <value>GCG</value>
+              <label>Gcg</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>NBRF</value>
+              <label>Nbrf</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>RAW</value>
+              <label>Raw</label>
+            </velem>
+            <velem>
+              <value>SWISSPROT</value>
+              <label>Swissprot</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -osformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>9</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the sequence output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_osformat_outseq">
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+                <xhtml:option value="GCG">Gcg</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="NBRF">Nbrf</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="RAW">Raw</xhtml:option>
+                <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_osformat_outseq"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outseq_out</name>
+          <prompt lang="en">outseq_out option</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_osformat_outseq">
+              </ref>
+            </dataFormat>
+          </type>
+          <filenames>
+            <code proglang="python">e_outseq</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="e_outseq_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_context</name>
+          <prompt lang="en">Show the two bases before the output 21 base probe</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -context")[ bool(value) ]</code>
+          </format>
+          <argpos>10</argpos>
+          <comment>
+            <text lang="en">The output report file gives the sequences of the 21 base siRNA regions ready to be ordered. This does not give you an  indication of the 2 bases before the 21 bases. It is often  interesting to see which of the suggested possible probe regions  have an 'AA' in front of them (i.e. it is useful to see which of  the 23 base regions start with an 'AA'). This option displays the  whole 23 bases of the region with the first two bases in brackets,  e.g. '(AA)' to give you some context for the probe region. YOU  SHOULD NOT INCLUDE THE TWO BASES IN BRACKETS WHEN YOU PLACE AN  ORDER FOR THE PROBES.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show the two bases before the output 21 base probe<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704915632::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_context">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704915632::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The output report file gives the sequences of the 21 base siRNA regions ready to be ordered. This does not give you an  indication of the 2 bases before the 21 bases. It is often  interesting to see which of the suggested possible probe regions  have an 'AA' in front of them (i.e. it is useful to see which of  the 23 base regions start with an 'AA'). This option displays the  whole 23 bases of the region with the first two bases in brackets,  e.g. '(AA)' to give you some context for the probe region. YOU  SHOULD NOT INCLUDE THE TWO BASES IN BRACKETS WHEN YOU PLACE AN  ORDER FOR THE PROBES.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_context">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704915632::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704915632::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The output report file gives the sequences of the 21 base siRNA regions ready to be ordered. This does not give you an  indication of the 2 bases before the 21 bases. It is often  interesting to see which of the suggested possible probe regions  have an 'AA' in front of them (i.e. it is useful to see which of  the 23 base regions start with an 'AA'). This option displays the  whole 23 bases of the region with the first two bases in brackets,  e.g. '(AA)' to give you some context for the probe region. YOU  SHOULD NOT INCLUDE THE TWO BASES IN BRACKETS WHEN YOU PLACE AN  ORDER FOR THE PROBES.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>11</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"sirna.out"</code>
+        <code proglang="python">"sirna.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"sirna.err"</code>
+        <code proglang="python">"sirna.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

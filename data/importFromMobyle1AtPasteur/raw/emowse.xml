@@ -1,0 +1,634 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>emowse</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>emowse</title>
+      <description>
+        <text lang="en">Search protein sequences by digest fragment molecular weight</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/emowse.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>emowse</command>
+    <category>sequence:protein:composition</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+            <legend>sequence option</legend>
+            <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="PeptideMolweights" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_infile">
+            <legend>Peptide molecular weight values file</legend>
+            <xhtml:textarea name="e_infile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="MolecularWeights" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_mwdata">
+            <legend>Molecular weights data file</legend>
+            <xhtml:textarea name="e_mwdata" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="AminoAcidFrequencies" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_frequencies">
+            <legend>Amino acid frequencies data file</legend>
+            <xhtml:textarea name="e_frequencies" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_required">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Required section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_weight">Whole sequence molwt<xhtml:input name="e_weight" type="text" value="0"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_mono">Use monoisotopic weights<xhtml:select name="e_mono">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Advanced section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_enzyme">Enzymes and reagents<xhtml:select name="e_enzyme">
+              <xhtml:option value="1" selected="selected">Trypsin</xhtml:option>
+              <xhtml:option value="2">Lys-c</xhtml:option>
+              <xhtml:option value="3">Arg-c</xhtml:option>
+              <xhtml:option value="4">Asp-n</xhtml:option>
+              <xhtml:option value="5">V8-bicarb</xhtml:option>
+              <xhtml:option value="6">V8-phosph</xhtml:option>
+              <xhtml:option value="7">Chymotrypsin</xhtml:option>
+              <xhtml:option value="8">Cnbr</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="25" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_pcrange">Allowed whole sequence weight variability (value from 0 to 75)<xhtml:input name="e_pcrange" type="text" value="25"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.1" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_tolerance">Tolerance (value from 0.1 to 1.0)<xhtml:input name="e_tolerance" type="text" value="0.1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.4" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_partials">Partials factor (value from 0.1 to 1.0)<xhtml:input name="e_partials" type="text" value="0.4"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="emowse.e_outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile">Name of the output file (e_outfile)<xhtml:input name="e_outfile" type="text" value="emowse.e_outfile"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(Protein Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_infile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="PeptideMolweights" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(PeptideMolweights)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_mwdata" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="MolecularWeights" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(MolecularWeights)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_frequencies" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="AminoAcidFrequencies" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="">
+            <xhtml:i>
+				(Protein AminoAcidFrequencies)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_required">
+        <xhtml:legend>Required section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_weight" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_mono" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <xhtml:legend>Advanced section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_enzyme" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_pcrange" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="25" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_tolerance" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.1" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_partials" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.4" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="emowse.e_outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EmowseReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(EmowseReport)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_sequence</name>
+          <prompt lang="en">sequence option</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -sequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>sequence option</xhtml:legend>
+              <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_infile</name>
+          <prompt lang="en">Peptide molecular weight values file</prompt>
+          <type>
+            <datatype>
+              <class>PeptideMolweights</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -infile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Peptide molecular weight values file</xhtml:legend>
+              <xhtml:textarea name="e_infile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="PeptideMolweights" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_infile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(PeptideMolweights)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_mwdata</name>
+          <prompt lang="en">Molecular weights data file</prompt>
+          <type>
+            <datatype>
+              <class>MolecularWeights</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -mwdata=" + str(value))[value is not None ]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Molecular weights data file</xhtml:legend>
+              <xhtml:textarea name="e_mwdata" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="MolecularWeights" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_mwdata">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(MolecularWeights)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_frequencies</name>
+          <prompt lang="en">Amino acid frequencies data file</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>AminoAcidFrequencies</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -frequencies=" + str(value))[value is not None ]</code>
+          </format>
+          <argpos>4</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Amino acid frequencies data file</xhtml:legend>
+              <xhtml:textarea name="e_frequencies" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="AminoAcidFrequencies" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_frequencies">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein AminoAcidFrequencies)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_required</name>
+      <prompt lang="en">Required section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_weight</name>
+          <prompt lang="en">Whole sequence molwt</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -weight=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>5</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Whole sequence molwt<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_weight" type="text" value="0"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_weight"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_mono</name>
+          <prompt lang="en">Use monoisotopic weights</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -mono")[ bool(value) ]</code>
+          </format>
+          <argpos>6</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use monoisotopic weights<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_mono">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_mono"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_advanced</name>
+      <prompt lang="en">Advanced section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_enzyme</name>
+          <prompt lang="en">Enzymes and reagents</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>1</value>
+              <label>Trypsin</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>Lys-c</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>Arg-c</label>
+            </velem>
+            <velem>
+              <value>4</value>
+              <label>Asp-n</label>
+            </velem>
+            <velem>
+              <value>5</value>
+              <label>V8-bicarb</label>
+            </velem>
+            <velem>
+              <value>6</value>
+              <label>V8-phosph</label>
+            </velem>
+            <velem>
+              <value>7</value>
+              <label>Chymotrypsin</label>
+            </velem>
+            <velem>
+              <value>8</value>
+              <label>Cnbr</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -enzyme=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>7</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Enzymes and reagents<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_enzyme">
+                <xhtml:option value="1" selected="selected">Trypsin</xhtml:option>
+                <xhtml:option value="2">Lys-c</xhtml:option>
+                <xhtml:option value="3">Arg-c</xhtml:option>
+                <xhtml:option value="4">Asp-n</xhtml:option>
+                <xhtml:option value="5">V8-bicarb</xhtml:option>
+                <xhtml:option value="6">V8-phosph</xhtml:option>
+                <xhtml:option value="7">Chymotrypsin</xhtml:option>
+                <xhtml:option value="8">Cnbr</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_enzyme"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_pcrange</name>
+          <prompt lang="en">Allowed whole sequence weight variability (value from 0 to 75)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>25</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -pcrange=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 0 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 0</code>
+          </ctrl>
+          <ctrl>
+            <message>
+              <text lang="en">Value less than or equal to 75 is required</text>
+            </message>
+            <code proglang="python">value &lt;= 75</code>
+          </ctrl>
+          <argpos>8</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Allowed whole sequence weight variability (value from 0 to 75)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_pcrange" type="text" value="25"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="25" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_pcrange"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_tolerance</name>
+          <prompt lang="en">Tolerance (value from 0.1 to 1.0)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.1</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -tolerance=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 0.1 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 0.1</code>
+          </ctrl>
+          <ctrl>
+            <message>
+              <text lang="en">Value less than or equal to 1.0 is required</text>
+            </message>
+            <code proglang="python">value &lt;= 1.0</code>
+          </ctrl>
+          <argpos>9</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Tolerance (value from 0.1 to 1.0)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_tolerance" type="text" value="0.1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.1" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_tolerance"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_partials</name>
+          <prompt lang="en">Partials factor (value from 0.1 to 1.0)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.4</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -partials=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 0.1 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 0.1</code>
+          </ctrl>
+          <ctrl>
+            <message>
+              <text lang="en">Value less than or equal to 1.0 is required</text>
+            </message>
+            <code proglang="python">value &lt;= 1.0</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Partials factor (value from 0.1 to 1.0)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_partials" type="text" value="0.4"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.4" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_partials"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_outfile</name>
+          <prompt lang="en">Name of the output file (e_outfile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>emowse.e_outfile</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outfile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>11</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output file (e_outfile)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outfile" type="text" value="emowse.e_outfile"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="emowse.e_outfile" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outfile_out</name>
+          <prompt lang="en">outfile_out option</prompt>
+          <type>
+            <datatype>
+              <class>EmowseReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="python">e_outfile</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="EmowseReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(EmowseReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>12</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"emowse.out"</code>
+        <code proglang="python">"emowse.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"emowse.err"</code>
+        <code proglang="python">"emowse.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

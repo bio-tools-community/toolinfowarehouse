@@ -1,0 +1,377 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>comalign</name>
+    <doc>
+      <title>ComAlign</title>
+      <description>
+        <text lang="en">is a program, that given a number of sequences generates a number of heuristic alignments and combines these best possible.</text>
+      </description>
+      <authors>O. Caprani, K. Bucka-Lassen</authors>
+      <homepagelink>http://www.daimi.au.dk/~ocaprani/ComAlign/ComAlign.html</homepagelink>
+      <sourcelink>http://www.daimi.au.dk/~ocaprani/ComAlign/programs/</sourcelink>
+      <doclink>http://www.daimi.au.dk/~ocaprani/ComAlign/HowTo.html</doclink>
+    </doc>
+    <command>ComAlign</command>
+    <category>alignment:multiple</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="GenAl " data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequences File (-f)<xhtml:a href="#idm140117721770160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117721770160::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721770160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>the sequences must be in the GenAl format</xhtml:div>
+          <div class="example" id="idm140117721770160::example" data-forparameter="seq">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+&amp;gt;Test1
+ATGAAA
+*
+*
+&amp;gt;Test2
+ATCAAA
+*
+*
+      </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117721770160::example" data-forparameter="seq" style="display:none">
+          <pre>
+&amp;gt;Test1
+ATGAAA
+*
+*
+&amp;gt;Test2
+ATCAAA
+*
+*
+      </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed">Random seed number (-s)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seed" type="text" value="1"/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqnb">Number of sequences that are to be aligned (-n)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqnb" type="text" value="2"/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="iterations">Number of iterations (-i)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721104448::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="iterations" type="text" value="10"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721104448::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>On each iteration a new alignment is added to the pool of alignments ComAlign is working on</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="score">Score: ComAlign records the time it took to find a solution as good as this score (-l)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="score" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="time">ComAlign marks the best solution found after this number of 1/100 seconds (-t)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="time" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="last_iterations">Makes ComAlign terminate if the score hasn't changed within the last this number of iterations (-c)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="last_iterations" type="text" value="20"/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_best">Print the best found alignment on termination (-a)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="print_best">
+          <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+          <xhtml:option value="0">No</xhtml:option>
+        </xhtml:select>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="GenAl ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721770160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721770160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>the sequences must be in the GenAl format</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seed" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqnb" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="iterations" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721104448::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721104448::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>On each iteration a new alignment is added to the pool of alignments ComAlign is working on</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="score" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="time" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="last_iterations" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="print_best" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">Sequences File (-f)</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>GenAl</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" -f$value"</code>
+        <code proglang="python">" -f" + str(value)</code>
+      </format>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">the sequences must be in the GenAl format</text>
+      </comment>
+      <example>
+&gt;Test1
+ATGAAA
+*
+*
+&gt;Test2
+ATCAAA
+*
+*
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequences File (-f)</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="GenAl " data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721770160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721770160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>the sequences must be in the GenAl format</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>seed</name>
+      <prompt lang="en">Random seed number (-s)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>1</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value != $vdef) ? " -s$value" : ""</code>
+        <code proglang="python">( "" , " -s" + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Random seed number (-s)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seed" type="text" value="1"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>seqnb</name>
+      <prompt lang="en">Number of sequences that are to be aligned (-n)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>2</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value != $vdef) ? " -n$value" : ""</code>
+        <code proglang="python">( "" , " -n" + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of sequences that are to be aligned (-n)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqnb" type="text" value="2"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqnb"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>iterations</name>
+      <prompt lang="en">Number of iterations (-i)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>10</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value != $vdef) ? " -i$value" : ""</code>
+        <code proglang="python">( "" , " -i" + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">On each iteration a new alignment is added to the pool of alignments ComAlign is working on</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of iterations (-i)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721104448::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="iterations" type="text" value="10"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721104448::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>On each iteration a new alignment is added to the pool of alignments ComAlign is working on</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="iterations">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117721104448::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117721104448::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>On each iteration a new alignment is added to the pool of alignments ComAlign is working on</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>score</name>
+      <prompt lang="en">Score: ComAlign records the time it took to find a solution as good as this score (-l)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -l$value" : ""</code>
+        <code proglang="python">( "" , " -l" + str(value) )[ value is not None]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Score: ComAlign records the time it took to find a solution as good as this score (-l)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="score" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="score"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>time</name>
+      <prompt lang="en">ComAlign marks the best solution found after this number of 1/100 seconds (-t)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -t$value" : ""</code>
+        <code proglang="python">( "" , " -t" + str(value) )[ value is not None ]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">ComAlign marks the best solution found after this number of 1/100 seconds (-t)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="time" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="time"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>last_iterations</name>
+      <prompt lang="en">Makes ComAlign terminate if the score hasn't changed within the last this number of iterations (-c)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>20</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value != $vdef) ? " -c$value" : ""</code>
+        <code proglang="python">( "" , " -c" + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Makes ComAlign terminate if the score hasn't changed within the last this number of iterations (-c)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="last_iterations" type="text" value="20"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="last_iterations"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>print_best</name>
+      <prompt lang="en">Print the best found alignment on termination (-a)</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>1</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -a" : ""</code>
+        <code proglang="python">( "" , " -a" )[ value ]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print the best found alignment on termination (-a)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="print_best">
+            <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+            <xhtml:option value="0">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="print_best"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"comalign.out"</code>
+        <code proglang="python">"comalign.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"comalign.err"</code>
+        <code proglang="python">"comalign.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

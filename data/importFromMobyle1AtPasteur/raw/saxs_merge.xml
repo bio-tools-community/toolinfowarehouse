@@ -1,0 +1,2184 @@
+<?xml version="1.0"?>
+<!-- XML Authors: bertrand Neron -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris. -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>saxs_merge</name>
+    <version>17125</version>
+    <doc>
+      <title>SAXS Merge</title>
+      <description>
+        <text lang="en">Statistical merge of SAXS curves</text>
+      </description>
+      <authors>Yannick G. Spill, Seung Joong Kim, Dina Schneidman-Duhovny, Daniel
+Russel, Ben Webb, Andrej Sali and Michael Nilges</authors>
+    </doc>
+    <command>saxs_merge.py</command>
+    <category>protein:data:processing</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="required">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Required parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="merging" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stop">stop after the given step<xhtml:select name="stop">
+              <xhtml:option value="cleanup">clean up</xhtml:option>
+              <xhtml:option value="fitting">fitting</xhtml:option>
+              <xhtml:option value="rescaling">rescaling</xhtml:option>
+              <xhtml:option value="classification">classification</xhtml:option>
+              <xhtml:option value="merging" selected="selected">merging</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="postpone_cleanup">Cleanup step comes after rescaling step (default is False)<xhtml:select name="postpone_cleanup">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nb_expe">Number of times each profile has been recorded<xhtml:input name="nb_expe" type="text" value="10"/>
+          </label>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="true" data-default-value="" data-datatype="MultipleIntensity" data-datatype-superclass="MultipleAbstractText" data-biotype="" data-card="" data-formats="" data-parametername="SAXS">
+            <legend>SAXS profile</legend>
+            <xhtml:textarea name="SAXS" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="advanced">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Advanced parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="minimizable" data-paragraphname="advanced_general">
+            <legend>General</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="general_header">First line of output files is a header<xhtml:select name="general_header">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="allfiles">Output data files for parsed input files as well.<xhtml:select name="allfiles">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="normal" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outlevel">Set the output level<xhtml:a href="#idm140117712551984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="outlevel">
+                  <xhtml:option value="sparse">sparse</xhtml:option>
+                  <xhtml:option value="normal" selected="selected">normal</xhtml:option>
+                  <xhtml:option value="full">full</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117712551984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                    <ul>
+                      <li>'sparse' is for q,I,err columns</li>
+                      <li>'normal' adds eorigin, eoriname and eextrapol (default)</li>
+                      <li>'full' outputs all flag</li>
+                    </ul>
+                  </div>
+                </xhtml:div>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="advanced_cleanup">
+            <legend>Cleanup (Step 1)<xhtml:a href="#idm140117711880432::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117711880432::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> Discard or keep SAXS curves' points based on their SNR.
+                     Points with an error of zero are discarded as well
+                  </xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1e-4" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="aalpha">type I error (default 1e-4)<xhtml:input name="aalpha" type="text" value="1e-4"/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="advanced_fitting">
+            <legend>Fitting (Step 2)<xhtml:a href="#idm140117712254352::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117712254352::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To save resources, set the maximum number of points
+                        used in the Hessian calculation (model comparison,
+                        options baverage, and berror ). Dataset will be
+                        subsampled if it is bigger than NUM. If NUM=-1
+                        (default), all points will be used.</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="Full" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bmean">bmean<xhtml:a href="#idm140117712307344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="bmean">
+                  <xhtml:option value="Flat">Flat</xhtml:option>
+                  <xhtml:option value="Simple">Simple</xhtml:option>
+                  <xhtml:option value="Generalized">Generalized</xhtml:option>
+                  <xhtml:option value="Full" selected="selected">Full</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117712307344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                     Defines the most complex mean function that will be tried during model comparison. 
+                       <ul>
+                      <li>One of Flat (the offset parameter A is optimized)</li>
+                      <li>Simple (optimizes A, G and Rg)</li>
+                      <li>Generalized (optimizes G, Rg and d)</li>
+                      <li>Full (optimizes G, Rg, d and s) If "Don't perform model comparison" is set,
+                         will try to fit only with this model.</li>
+                    </ul>
+                  </div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bnocomp">perform model comparison<xhtml:select name="bnocomp">
+                  <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                  <xhtml:option value="0">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="berror">berror: Compute error bars on all parameters even in case where model comparison was disabled.<xhtml:select name="berror">
+                  <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                  <xhtml:option value="0">No</xhtml:option>
+                </xhtml:select>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="advanced_rescaling">
+            <legend>Rescaling (Step 3)<xhtml:a href="#idm140117712298224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117712298224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Find the most probable scaling factor of all curves wrt the first curve.</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="normal" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cmodel">Which rescaling model to use to calculate gamma.<xhtml:a href="#idm140117711616208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="cmodel">
+                  <xhtml:option value="normal" selected="selected">normal</xhtml:option>
+                  <xhtml:option value="normal-offset">normal-offset</xhtml:option>
+                  <xhtml:option value="lognormal">lognormal</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117711616208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                    <ul>
+                      <li>'normal-offset' for a normal model with offset,</li>
+                      <li>'normal' (default) for a normal model with zero offset,</li>
+                      <li>and 'lognormal' for a lognormal model.</li>
+                    </ul>
+                  </div>
+                </xhtml:div>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="advanced_classification">
+            <legend>Classification (Step 4)<xhtml:a href="#idm140117712233376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117712233376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Classify the mean curves by comparing them using a two-sided two-sample student t test</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.05" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dalpha">type I error (default 0.05)<xhtml:input name="dalpha" type="text" value="0.05"/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="advanced_merging">
+            <legend>Merging (Step 5)<xhtml:a href="#idm140117712111520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117712111520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Find the most probable scaling factor of all curves wrt the first</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="Full" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="emean">Which most complex mean function to try for model comparison.<xhtml:a href="#idm140117712109520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="emean">
+                  <xhtml:option value="Flat">Flat</xhtml:option>
+                  <xhtml:option value="Simple">Simple</xhtml:option>
+                  <xhtml:option value="Generalized">Generalized</xhtml:option>
+                  <xhtml:option value="Full" selected="selected">Full</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117712109520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                     Which mean parameters are optimized. 
+                       <ul>
+                      <li>One of Flat (the offset parameter A is optimized)</li>
+                      <li>Simple (optimizes A, G and Rg)</li>
+                      <li>Generalized (default, optimizes G, Rg and d)</li>
+                      <li>Full (optimizes G, Rg, d and s)</li>
+                    </ul>
+                  </div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="enocomp">perform model comparison<xhtml:a href="#idm140117710935936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:select name="enocomp">
+                  <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                  <xhtml:option value="0">No</xhtml:option>
+                </xhtml:select>
+                <xhtml:div id="idm140117710935936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Perform model comparison, which allows to choose a
+                         mean function that does not overfit the data. If
+                         ecomp is given, eoptimize is taken to be the most
+                         complex model. (Default: don't perform it.)</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eerror">Compute error bars on all parameters even in case where model comparison was disabled.<xhtml:select name="eerror">
+                  <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                  <xhtml:option value="0">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="enoextrapolate"> Don't extrapolate at all, even at low angle.<xhtml:select name="enoextrapolate">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Expert parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="minimizable" data-paragraphname="advanced_general">
+            <legend>General</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="use_npoints">Skip next option and use q values of the first datafile instead.<xhtml:select name="use_npoints">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="npoints">Number of points to output for the mean function.<xhtml:input name="npoints" type="text" value="200"/>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.005" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lambdamin">lower bound for lambda parameter in steps 2 and 5<xhtml:input name="lambdamin" type="text" value="0.005"/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="expert_cleanup">
+            <legend>Cleanup (Step 1)<xhtml:a href="#idm140117711196256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117711196256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> Discard or keep SAXS curves' points based on their SNR.
+                     Points with an error of zero are discarded as well
+                  </xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.1" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="acutof">when a value after CUT is discarded, the rest of the curve is discarded as well (default is 0.1)<xhtml:input name="acutof" type="text" value="0.1"/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="expert_fitting">
+            <legend>Fitting (Step 2)<xhtml:a href="#idm140117710994816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117710994816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Estimate the mean function and the noise level of each SAXS curve.</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="baverage">baverage: Average over all possible parameters instead of just
+                        taking the most probable set of parameters.
+                     <xhtml:select name="baverage">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bd">Initial value for d<xhtml:input name="bd" type="text" value="4"/>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bs">Initial value for s<xhtml:input name="bs" type="text" value="0"/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="expert_rescaling">
+            <legend>Rescaling (Step 3)<xhtml:a href="#idm140117710957216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117710957216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Find the most probable scaling factor of all curves wrt the first</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="last" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="creference">Define which input curve the other curves will be recaled to.<xhtml:select name="creference">
+                  <xhtml:option value="last" selected="selected">last</xhtml:option>
+                  <xhtml:option value="first">first</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cnpoints">Number of points to use to compute gamma (default 200)<xhtml:input name="cnpoints" type="text" value="200"/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="expert_merging">
+            <legend>Merging (Step 5)<xhtml:a href="#idm140117711109168::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117711109168::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Collect compatible data and produce best estimate of mean function.</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eaverage">Average over all possible parameters instead of just
+                        taking the most probable set of parameters.
+                     <xhtml:select name="eaverage">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eextrapolate">Extrapolate NUM percent outside of the curve's bounds.<xhtml:a href="#idm140117711097200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="eextrapolate" type="text" value="0"/>
+                <xhtml:div id="idm140117711097200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Example: if NUM=50 and the highest acceptable data
+                           point is at q=0.3, the mean will be estimated up to q=0.45.
+                           Default is 0 (just extrapolate at low angle).
+                        </xhtml:div>
+                </xhtml:div>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="verbosity" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="required">
+        <xhtml:legend>Required parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stop" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="merging" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="postpone_cleanup" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nb_expe" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="SAXS" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="true" data-default-value="" data-datatype="MultipleIntensity" data-datatype-superclass="MultipleAbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(MultipleIntensity)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="advanced">
+        <xhtml:legend>Advanced parameters</xhtml:legend>
+        <xhtml:div>
+          <xhtml:fieldset class="minimizable" data-paragraphname="advanced_general">
+            <xhtml:legend>General</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="general_header" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="allfiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outlevel" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="normal" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117712551984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117712551984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                    <ul>
+                      <li>'sparse' is for q,I,err columns</li>
+                      <li>'normal' adds eorigin, eoriname and eextrapol (default)</li>
+                      <li>'full' outputs all flag</li>
+                    </ul>
+                  </div>
+                </xhtml:div>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="advanced_cleanup">
+            <xhtml:legend>Cleanup (Step 1)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="aalpha" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1e-4" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="advanced_fitting">
+            <xhtml:legend>Fitting (Step 2)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bmean" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="Full" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117712307344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117712307344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                     Defines the most complex mean function that will be tried during model comparison. 
+                       <ul>
+                      <li>One of Flat (the offset parameter A is optimized)</li>
+                      <li>Simple (optimizes A, G and Rg)</li>
+                      <li>Generalized (optimizes G, Rg and d)</li>
+                      <li>Full (optimizes G, Rg, d and s) If "Don't perform model comparison" is set,
+                         will try to fit only with this model.</li>
+                    </ul>
+                  </div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bnocomp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="berror" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="blimit_fitting" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="blimit_hessian" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="advanced_rescaling">
+            <xhtml:legend>Rescaling (Step 3)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cmodel" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="normal" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117711616208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117711616208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                    <ul>
+                      <li>'normal-offset' for a normal model with offset,</li>
+                      <li>'normal' (default) for a normal model with zero offset,</li>
+                      <li>and 'lognormal' for a lognormal model.</li>
+                    </ul>
+                  </div>
+                </xhtml:div>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="advanced_classification">
+            <xhtml:legend>Classification (Step 4)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dalpha" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.05" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="advanced_merging">
+            <xhtml:legend>Merging (Step 5)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="emean" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="Full" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117712109520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117712109520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                     Which mean parameters are optimized. 
+                       <ul>
+                      <li>One of Flat (the offset parameter A is optimized)</li>
+                      <li>Simple (optimizes A, G and Rg)</li>
+                      <li>Generalized (default, optimizes G, Rg and d)</li>
+                      <li>Full (optimizes G, Rg, d and s)</li>
+                    </ul>
+                  </div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="enocomp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117710935936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117710935936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Perform model comparison, which allows to choose a
+                         mean function that does not overfit the data. If
+                         ecomp is given, eoptimize is taken to be the most
+                         complex model. (Default: don't perform it.)</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="eerror" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="elimit_fitting" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="elimit_hessian" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="enoextrapolate" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert">
+        <xhtml:legend>Expert parameters</xhtml:legend>
+        <xhtml:div>
+          <xhtml:fieldset class="minimizable" data-paragraphname="advanced_general">
+            <xhtml:legend>General</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="use_npoints" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="npoints" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="lambdamin" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.005" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="expert_cleanup">
+            <xhtml:legend>Cleanup (Step 1)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="acutof" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.1" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="expert_fitting">
+            <xhtml:legend>Fitting (Step 2)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="baverage" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bd" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bs" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="expert_rescaling">
+            <xhtml:legend>Rescaling (Step 3)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="creference" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="last" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cnpoints" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <xhtml:fieldset class="minimizable" data-paragraphname="expert_merging">
+            <xhtml:legend>Merging (Step 5)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="eaverage" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="eextrapolate" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117711097200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117711097200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Example: if NUM=50 and the highest acceptable data
+                           point is at q=0.3, the mean will be estimated up to q=0.45.
+                           Default is 0 (just extrapolate at low angle).
+                        </xhtml:div>
+                </xhtml:div>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="sparse_output">
+        <xhtml:legend>Output</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sparse_summary" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sparse_merge" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSMerge" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(SAXSMerge)
+			</xhtml:i>
+            <xhtml:a href="#idm140117711075424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117711075424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>selection de données d'entrées 3 cols q i err</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sparse_mean" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSIntepolation" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(SAXSIntepolation)
+			</xhtml:i>
+            <xhtml:a href="#idm140117711067536::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117711067536::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>interpolation 3 cols q i err</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="normal_output">
+        <xhtml:legend>Output</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="normal_summary" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="normal_merge" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSMerge" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(SAXSMerge)
+			</xhtml:i>
+            <xhtml:a href="#idm140117710824896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710824896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>selection de données d'entrées q i err eorigin eoriname eextrapol</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="normal_mean" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSIntepolation" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(SAXSIntepolation)
+			</xhtml:i>
+            <xhtml:a href="#idm140117710818000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710818000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>interpolation q i err eorigin eoriname eextrapol</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="full_output">
+        <xhtml:legend>Output</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="full_summary" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="full_merge" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSMerge" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(SAXSMerge)
+			</xhtml:i>
+            <xhtml:a href="#idm140117710802304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710802304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>q i err eorigin eoriname eextrapol</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="full_mean" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSIntepolation" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(SAXSIntepolation)
+			</xhtml:i>
+            <xhtml:a href="#idm140117710795408::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117710795408::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>q i err eorigin eoriname eextrapol</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="all_files_output">
+        <xhtml:legend>Output</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="all_file_data" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSMerge" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(SAXSMerge)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="all_files_mean" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSIntepolation" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(SAXSIntepolation)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ishidden="1">
+      <name>verbosity</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" -v -v -v"</code>
+        <code proglang="python">" -v -v -v "</code>
+      </format>
+      <argpos>1</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="verbosity"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>required</name>
+      <prompt lang="en">Required parameters</prompt>
+      <parameters>
+        <parameter issimple="1">
+          <name>stop</name>
+          <prompt lang="en">stop after the given step</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>merging</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <label>clean up</label>
+              <value>cleanup</value>
+            </velem>
+            <velem>
+              <label>fitting</label>
+              <value>fitting</value>
+            </velem>
+            <velem>
+              <label>rescaling</label>
+              <value>rescaling</value>
+            </velem>
+            <velem>
+              <label>classification</label>
+              <value>classification</value>
+            </velem>
+            <velem>
+              <label>merging</label>
+              <value>merging</value>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " --stop=$value " : ""</code>
+            <code proglang="python">( "" , " --stop="+value )[value is not None and value != vdef ]</code>
+          </format>
+          <argpos>200</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">stop after the given step<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="stop">
+                <xhtml:option value="cleanup">clean up</xhtml:option>
+                <xhtml:option value="fitting">fitting</xhtml:option>
+                <xhtml:option value="rescaling">rescaling</xhtml:option>
+                <xhtml:option value="classification">classification</xhtml:option>
+                <xhtml:option value="merging" selected="selected">merging</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="merging" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stop"/>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>postpone_cleanup</name>
+          <prompt lang="en">Cleanup step comes after rescaling step (default is False)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">( $value)? " --postpone_cleanup ": ""</code>
+            <code proglang="python">( "" , " --postpone_cleanup ")[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cleanup step comes after rescaling step (default is False)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="postpone_cleanup">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="postpone_cleanup"/>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>nb_expe</name>
+          <prompt lang="en">Number of times each profile has been recorded</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10</value>
+          </vdef>
+          <ctrl>
+            <message>
+              <text lang="en">the number of recordings must be &gt; 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <argpos>11</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of times each profile has been recorded<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nb_expe" type="text" value="10"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nb_expe"/>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1" issimple="1">
+          <name>SAXS</name>
+          <prompt lang="en">SAXS profile</prompt>
+          <type>
+            <datatype>
+              <class>MultipleIntensity</class>
+              <superclass>MultipleAbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined value)? "$value=$nb_expe_1" : ""</code>
+            <code proglang="python">" ".join([ "%s=%d"%(v, nb_expe) for v in value.split(" ")])</code>
+          </format>
+          <argpos>10</argpos>
+          <separator> </separator>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>SAXS profile</xhtml:legend>
+              <xhtml:textarea name="SAXS" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="true" data-default-value="" data-datatype="MultipleIntensity" data-datatype-superclass="MultipleAbstractText" data-biotype="" data-card="" data-formats="" data-parametername="SAXS">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(MultipleIntensity)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>advanced</name>
+      <prompt>Advanced parameters</prompt>
+      <parameters>
+        <paragraph>
+          <name>advanced_general</name>
+          <prompt lang="en">General</prompt>
+          <parameters>
+            <parameter>
+              <name>general_header</name>
+              <prompt lang="en">First line of output files is a header</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value)? " --header "":""</code>
+                <code proglang="python">( "" , " --header ")[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">First line of output files is a header<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="general_header">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="general_header"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>allfiles</name>
+              <prompt lang="en">Output data files for parsed input files as well.</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value)? " --allfiles "":""</code>
+                <code proglang="python">( "" , " --allfiles ")[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output data files for parsed input files as well.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="allfiles">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="allfiles"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>outlevel</name>
+              <prompt lang="en">Set the output level</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>normal</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <label>sparse</label>
+                  <value>sparse</value>
+                </velem>
+                <velem>
+                  <label>normal</label>
+                  <value>normal</value>
+                </velem>
+                <velem>
+                  <label>full</label>
+                  <value>full</value>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value neq $vdef) " --outlevel=$value"":""</code>
+                <code proglang="python">( "" , " --outlevel="+value)[ value is not None and value != vdef]</code>
+              </format>
+              <comment>
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <ul>
+                    <li>'sparse' is for q,I,err columns</li>
+                    <li>'normal' adds eorigin, eoriname and eextrapol (default)</li>
+                    <li>'full' outputs all flag</li>
+                  </ul>
+                </div>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set the output level<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712551984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outlevel">
+                    <xhtml:option value="sparse">sparse</xhtml:option>
+                    <xhtml:option value="normal" selected="selected">normal</xhtml:option>
+                    <xhtml:option value="full">full</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712551984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                      <ul>
+                        <li>'sparse' is for q,I,err columns</li>
+                        <li>'normal' adds eorigin, eoriname and eextrapol (default)</li>
+                        <li>'full' outputs all flag</li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="normal" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outlevel">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712551984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712551984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                      <ul>
+                        <li>'sparse' is for q,I,err columns</li>
+                        <li>'normal' adds eorigin, eoriname and eextrapol (default)</li>
+                        <li>'full' outputs all flag</li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+        <paragraph>
+          <name>advanced_cleanup</name>
+          <prompt lang="en">Cleanup (Step 1)</prompt>
+          <parameters>
+            <parameter>
+              <name>aalpha</name>
+              <prompt lang="en">type I error (default 1e-4)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1e-4</value>
+              </vdef>
+              <ctrl>
+                <message>
+                  <text lang="en">must be &gt;= 0 and &lt;=1</text>
+                </message>
+                <code proglang="perl">$value&gt;= 0 &amp;&amp; $value &lt;=1 </code>
+                <code proglang="python">value&gt;= 0 and value &lt;=1 </code>
+              </ctrl>
+              <format>
+                <code proglang="perl">(defined $value and value != $vdef )" --aalpha=$value":""</code>
+                <code proglang="python">( "" , " --aalpha="+str(value))[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">type I error (default 1e-4)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="aalpha" type="text" value="1e-4"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1e-4" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="aalpha"/>
+              </interface>
+            </parameter>
+          </parameters>
+          <comment>
+            <text lang="en"> Discard or keep SAXS curves' points based on their SNR.
+                     Points with an error of zero are discarded as well
+                  </text>
+          </comment>
+        </paragraph>
+        <paragraph>
+          <name>advanced_fitting</name>
+          <prompt lang="en">Fitting (Step 2)</prompt>
+          <parameters>
+            <parameter>
+              <name>bmean</name>
+              <prompt lang="en">bmean</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>Full</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <label>Flat</label>
+                  <value>Flat</value>
+                </velem>
+                <velem>
+                  <label>Simple</label>
+                  <value>Simple</value>
+                </velem>
+                <velem>
+                  <label>Generalized</label>
+                  <value>Generalized</value>
+                </velem>
+                <velem>
+                  <label>Full</label>
+                  <value>Full</value>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and value neq $vdef)? " --bmean=$value ": "" </code>
+                <code proglang="python">("" , " --bmean="+str(value))[value is not None and value != vdef]</code>
+              </format>
+              <comment>
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                     Defines the most complex mean function that will be tried during model comparison. 
+                       <ul>
+                    <li>One of Flat (the offset parameter A is optimized)</li>
+                    <li>Simple (optimizes A, G and Rg)</li>
+                    <li>Generalized (optimizes G, Rg and d)</li>
+                    <li>Full (optimizes G, Rg, d and s) If "Don't perform model comparison" is set,
+                         will try to fit only with this model.</li>
+                  </ul>
+                </div>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">bmean<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712307344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bmean">
+                    <xhtml:option value="Flat">Flat</xhtml:option>
+                    <xhtml:option value="Simple">Simple</xhtml:option>
+                    <xhtml:option value="Generalized">Generalized</xhtml:option>
+                    <xhtml:option value="Full" selected="selected">Full</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712307344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                     Defines the most complex mean function that will be tried during model comparison. 
+                       <ul>
+                        <li>One of Flat (the offset parameter A is optimized)</li>
+                        <li>Simple (optimizes A, G and Rg)</li>
+                        <li>Generalized (optimizes G, Rg and d)</li>
+                        <li>Full (optimizes G, Rg, d and s) If "Don't perform model comparison" is set,
+                         will try to fit only with this model.</li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="Full" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bmean">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712307344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712307344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                     Defines the most complex mean function that will be tried during model comparison. 
+                       <ul>
+                        <li>One of Flat (the offset parameter A is optimized)</li>
+                        <li>Simple (optimizes A, G and Rg)</li>
+                        <li>Generalized (optimizes G, Rg and d)</li>
+                        <li>Full (optimizes G, Rg, d and s) If "Don't perform model comparison" is set,
+                         will try to fit only with this model.</li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>bnocomp</name>
+              <prompt lang="en">perform model comparison</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value)? "": " --bnocomp "</code>
+                <code proglang="python">( " --bnocomp " ,"" )[ value is not None and value != vdef ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">perform model comparison<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bnocomp">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bnocomp"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>berror</name>
+              <prompt lang="en">berror: Compute error bars on all parameters even in case where model comparison was disabled.</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value)? " --berror " : ""</code>
+                <code proglang="python">( "" , " --berror ")[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">berror: Compute error bars on all parameters even in case where model comparison was disabled.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="berror">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="berror"/>
+              </interface>
+            </parameter>
+            <parameter ishidden="1">
+              <name>blimit_fitting</name>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>80</value>
+              </vdef>
+              <format>
+                <code proglang="perl">" --blimit_fitting=$value "</code>
+                <code proglang="python">" --blimit_fitting=%d "%(value)</code>
+              </format>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="blimit_fitting"/>
+              </interface>
+            </parameter>
+            <parameter ishidden="1">
+              <name>blimit_hessian</name>
+              <prompt lang="en">set the maximum number of points used in the Hessian calculation.</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>80</value>
+              </vdef>
+              <format>
+                <code proglang="perl">" --blimit_hessian=$value "</code>
+                <code proglang="python">" --blimit_hessian=%d "%(value)</code>
+              </format>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="blimit_hessian"/>
+              </interface>
+            </parameter>
+          </parameters>
+          <comment>
+            <text lang="en">To save resources, set the maximum number of points
+                        used in the Hessian calculation (model comparison,
+                        options baverage, and berror ). Dataset will be
+                        subsampled if it is bigger than NUM. If NUM=-1
+                        (default), all points will be used.</text>
+          </comment>
+        </paragraph>
+        <paragraph>
+          <name>advanced_rescaling</name>
+          <prompt lang="en">Rescaling (Step 3)</prompt>
+          <parameters>
+            <parameter>
+              <name>cmodel</name>
+              <prompt lang="en">Which rescaling model to use to calculate gamma.</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>normal</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <label>normal</label>
+                  <value>normal</value>
+                </velem>
+                <velem>
+                  <label>normal-offset</label>
+                  <value>normal-offset</value>
+                </velem>
+                <velem>
+                  <label>lognormal</label>
+                  <value>lognormal</value>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value ne $vdef)? " --cmodel=$value ": ""</code>
+                <code proglang="python">( "" , " --cmodel="+str(value))[value is not None and value != vdef]</code>
+              </format>
+              <comment>
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <ul>
+                    <li>'normal-offset' for a normal model with offset,</li>
+                    <li>'normal' (default) for a normal model with zero offset,</li>
+                    <li>and 'lognormal' for a lognormal model.</li>
+                  </ul>
+                </div>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Which rescaling model to use to calculate gamma.<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711616208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cmodel">
+                    <xhtml:option value="normal" selected="selected">normal</xhtml:option>
+                    <xhtml:option value="normal-offset">normal-offset</xhtml:option>
+                    <xhtml:option value="lognormal">lognormal</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711616208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                      <ul>
+                        <li>'normal-offset' for a normal model with offset,</li>
+                        <li>'normal' (default) for a normal model with zero offset,</li>
+                        <li>and 'lognormal' for a lognormal model.</li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="normal" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cmodel">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711616208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711616208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                      <ul>
+                        <li>'normal-offset' for a normal model with offset,</li>
+                        <li>'normal' (default) for a normal model with zero offset,</li>
+                        <li>and 'lognormal' for a lognormal model.</li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+          <comment>
+            <text lang="en">Find the most probable scaling factor of all curves wrt the first curve.</text>
+          </comment>
+        </paragraph>
+        <paragraph>
+          <name>advanced_classification</name>
+          <prompt lang="en">Classification (Step 4)</prompt>
+          <parameters>
+            <parameter>
+              <name>dalpha</name>
+              <prompt lang="en">type I error (default 0.05)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0.05</value>
+              </vdef>
+              <ctrl>
+                <message>
+                  <text lang="en">must be &gt;= 0 and &lt;=1</text>
+                </message>
+                <code proglang="perl">$value&gt;= 0 &amp;&amp; $value &lt;=1 </code>
+                <code proglang="python">value&gt;= 0 and value &lt;=1 </code>
+              </ctrl>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef) " --dalpha=$value " : ""</code>
+                <code proglang="python">( "" , " --dalpha="+str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">type I error (default 0.05)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dalpha" type="text" value="0.05"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.05" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dalpha"/>
+              </interface>
+            </parameter>
+          </parameters>
+          <comment>
+            <text lang="en">Classify the mean curves by comparing them using a two-sided two-sample student t test</text>
+          </comment>
+        </paragraph>
+        <paragraph>
+          <name>advanced_merging</name>
+          <prompt lang="en">Merging (Step 5)</prompt>
+          <parameters>
+            <parameter>
+              <name>emean</name>
+              <prompt lang="en">Which most complex mean function to try for model comparison.</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>Full</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <label>Flat</label>
+                  <value>Flat</value>
+                </velem>
+                <velem>
+                  <label>Simple</label>
+                  <value>Simple</value>
+                </velem>
+                <velem>
+                  <label>Generalized</label>
+                  <value>Generalized</value>
+                </velem>
+                <velem>
+                  <label>Full</label>
+                  <value>Full</value>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and value neq $vdef)? " --emean=$value ": "" </code>
+                <code proglang="python">("" , " --emean="+str(value))[value is not None and value != vdef]</code>
+              </format>
+              <comment>
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                     Which mean parameters are optimized. 
+                       <ul>
+                    <li>One of Flat (the offset parameter A is optimized)</li>
+                    <li>Simple (optimizes A, G and Rg)</li>
+                    <li>Generalized (default, optimizes G, Rg and d)</li>
+                    <li>Full (optimizes G, Rg, d and s)</li>
+                  </ul>
+                </div>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Which most complex mean function to try for model comparison.<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712109520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="emean">
+                    <xhtml:option value="Flat">Flat</xhtml:option>
+                    <xhtml:option value="Simple">Simple</xhtml:option>
+                    <xhtml:option value="Generalized">Generalized</xhtml:option>
+                    <xhtml:option value="Full" selected="selected">Full</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712109520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                     Which mean parameters are optimized. 
+                       <ul>
+                        <li>One of Flat (the offset parameter A is optimized)</li>
+                        <li>Simple (optimizes A, G and Rg)</li>
+                        <li>Generalized (default, optimizes G, Rg and d)</li>
+                        <li>Full (optimizes G, Rg, d and s)</li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="Full" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="emean">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712109520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712109520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <div>
+                     Which mean parameters are optimized. 
+                       <ul>
+                        <li>One of Flat (the offset parameter A is optimized)</li>
+                        <li>Simple (optimizes A, G and Rg)</li>
+                        <li>Generalized (default, optimizes G, Rg and d)</li>
+                        <li>Full (optimizes G, Rg, d and s)</li>
+                      </ul>
+                    </div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>enocomp</name>
+              <prompt lang="en">perform model comparison</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value)? "": " --enocomp "</code>
+                <code proglang="python">( " --enocomp " , "")[ value is not None and value != vdef ]</code>
+              </format>
+              <comment>
+                <text lang="en">Perform model comparison, which allows to choose a
+                         mean function that does not overfit the data. If
+                         ecomp is given, eoptimize is taken to be the most
+                         complex model. (Default: don't perform it.)</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">perform model comparison<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710935936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="enocomp">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710935936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Perform model comparison, which allows to choose a
+                         mean function that does not overfit the data. If
+                         ecomp is given, eoptimize is taken to be the most
+                         complex model. (Default: don't perform it.)</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="enocomp">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710935936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710935936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Perform model comparison, which allows to choose a
+                         mean function that does not overfit the data. If
+                         ecomp is given, eoptimize is taken to be the most
+                         complex model. (Default: don't perform it.)</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>eerror</name>
+              <prompt lang="en">Compute error bars on all parameters even in case where model comparison was disabled.</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>1</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value)? " --eerror " : ""</code>
+                <code proglang="python">( "" , " --eerror ")[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Compute error bars on all parameters even in case where model comparison was disabled.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="eerror">
+                    <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                    <xhtml:option value="0">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eerror"/>
+              </interface>
+            </parameter>
+            <parameter ishidden="1">
+              <name>elimit_fitting</name>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>80</value>
+              </vdef>
+              <format>
+                <code proglang="perl">" --elimit_fitting=$value "</code>
+                <code proglang="python">" --elimit_fitting=%d "%(value)</code>
+              </format>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="elimit_fitting"/>
+              </interface>
+            </parameter>
+            <parameter ishidden="1">
+              <name>elimit_hessian</name>
+              <prompt lang="en">Set the maximum number of points used in the Hessian calculation</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>80</value>
+              </vdef>
+              <format>
+                <code proglang="perl">" --elimit_hessian=$value "</code>
+                <code proglang="python">" --elimit_hessian=%d "% value</code>
+              </format>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="elimit_hessian"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>enoextrapolate</name>
+              <prompt lang="en"> Don't extrapolate at all, even at low angle.</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(value?) " --enoextrapolate ": ""</code>
+                <code proglang="python">( "" , " --enoextrapolate ")[value]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""> Don't extrapolate at all, even at low angle.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="enoextrapolate">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="enoextrapolate"/>
+              </interface>
+            </parameter>
+          </parameters>
+          <comment>
+            <text lang="en">Find the most probable scaling factor of all curves wrt the first</text>
+          </comment>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>expert</name>
+      <prompt lang="en">Expert parameters</prompt>
+      <parameters>
+        <paragraph>
+          <name>advanced_general</name>
+          <prompt lang="en">General</prompt>
+          <parameters>
+            <parameter>
+              <name>use_npoints</name>
+              <prompt lang="en">Skip next option and use q values of the first datafile instead.</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Skip next option and use q values of the first datafile instead.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="use_npoints">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="use_npoints"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>npoints</name>
+              <prompt>Number of points to output for the mean function.</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>200</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($use_npoints and $value &gt; 0)? " --npoints=$value ": " --npoints=-1 "</code>
+                <code proglang="python">( " --npoints=-1 " , " --npoints="+str(value) )[use_npoints and value &gt; 0]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of points to output for the mean function.<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="npoints" type="text" value="200"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="npoints"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>lambdamin</name>
+              <prompt lang="en">lower bound for lambda parameter in steps 2 and 5</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0.005</value>
+              </vdef>
+              <format>
+                <code proglang="python">(defined $value and $value != $vdef)?" --lambdamin=$value ":""</code>
+                <code proglang="python">( "" , " --lambdamin="+str(value))[value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">lower bound for lambda parameter in steps 2 and 5<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="lambdamin" type="text" value="0.005"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.005" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lambdamin"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+        <paragraph>
+          <name>expert_cleanup</name>
+          <prompt lang="en">Cleanup (Step 1)</prompt>
+          <parameters>
+            <parameter>
+              <name>acutof</name>
+              <prompt lang="en">when a value after CUT is discarded, the rest of the curve is discarded as well (default is 0.1)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0.1</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " --acutoff=$value " : ""</code>
+                <code proglang="python">( "" , " --acutoff="+str(value))[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">when a value after CUT is discarded, the rest of the curve is discarded as well (default is 0.1)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="acutof" type="text" value="0.1"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.1" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="acutof"/>
+              </interface>
+            </parameter>
+          </parameters>
+          <comment>
+            <text lang="en"> Discard or keep SAXS curves' points based on their SNR.
+                     Points with an error of zero are discarded as well
+                  </text>
+          </comment>
+        </paragraph>
+        <paragraph>
+          <name>expert_fitting</name>
+          <prompt lang="en">Fitting (Step 2)</prompt>
+          <parameters>
+            <parameter>
+              <name>baverage</name>
+              <prompt lang="en">baverage: Average over all possible parameters instead of just
+                        taking the most probable set of parameters.
+                     </prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " --baverage ": ""</code>
+                <code proglang="python">( "" , " --baverage ")[ value is not None and value!= vdef ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">baverage: Average over all possible parameters instead of just
+                        taking the most probable set of parameters.
+                     <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="baverage">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="baverage"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>bd</name>
+              <prompt lang="en">Initial value for d</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>4</value>
+              </vdef>
+              <ctrl>
+                <message>
+                  <text lang="en">must be greater than 0</text>
+                </message>
+                <code proglang="perl">$value &gt; 0</code>
+                <code proglang="python">value &gt; 0</code>
+              </ctrl>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " --bd=$value":""</code>
+                <code proglang="python">( "", " --bd="+str(value))[ value is not None and value != vdef ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Initial value for d<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bd" type="text" value="4"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bd"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>bs</name>
+              <prompt lang="en">Initial value for s</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <ctrl>
+                <message>
+                  <text lang="en">must be greater or equal than 0</text>
+                </message>
+                <code proglang="perl">$value &gt;= 0</code>
+                <code proglang="python">value &gt;= 0</code>
+              </ctrl>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " --bs=$value":""</code>
+                <code proglang="python">( "", " --bs="+str(value))[ value is not None and value != vdef ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Initial value for s<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bs" type="text" value="0"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bs"/>
+              </interface>
+            </parameter>
+          </parameters>
+          <comment>
+            <text lang="en">Estimate the mean function and the noise level of each SAXS curve.</text>
+          </comment>
+        </paragraph>
+        <paragraph>
+          <name>expert_rescaling</name>
+          <prompt lang="en">Rescaling (Step 3)</prompt>
+          <parameters>
+            <parameter>
+              <name>creference</name>
+              <prompt lang="en">Define which input curve the other curves will be recaled to.</prompt>
+              <type>
+                <datatype>
+                  <class>Choice</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>last</value>
+              </vdef>
+              <vlist>
+                <velem>
+                  <label>last</label>
+                  <value>last</value>
+                </velem>
+                <velem>
+                  <label>first</label>
+                  <value>first</value>
+                </velem>
+              </vlist>
+              <format>
+                <code proglang="perl">(defined $value and $value != vdef) " --creference=$value" : ""</code>
+                <code proglang="python">( "" , " --creference="+str(value))[value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Define which input curve the other curves will be recaled to.<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="creference">
+                    <xhtml:option value="last" selected="selected">last</xhtml:option>
+                    <xhtml:option value="first">first</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="last" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="creference"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>cnpoints</name>
+              <prompt lang="en">Number of points to use to compute gamma (default 200)</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>200</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != vdef)? " --cnpoints=$value ":""</code>
+                <code proglang="python">( "", " --cnpoints="+str(value))[value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of points to use to compute gamma (default 200)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cnpoints" type="text" value="200"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cnpoints"/>
+              </interface>
+            </parameter>
+          </parameters>
+          <comment>
+            <text lang="en">Find the most probable scaling factor of all curves wrt the first</text>
+          </comment>
+        </paragraph>
+        <paragraph>
+          <name>expert_merging</name>
+          <prompt lang="en">Merging (Step 5)</prompt>
+          <parameters>
+            <parameter>
+              <name>eaverage</name>
+              <prompt lang="en">Average over all possible parameters instead of just
+                        taking the most probable set of parameters.
+                     </prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " --eaverage ": ""</code>
+                <code proglang="python">( "" , " --eaverage ")[ value is not None and value!= vdef ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Average over all possible parameters instead of just
+                        taking the most probable set of parameters.
+                     <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="eaverage">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eaverage"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>eextrapolate</name>
+              <prompt lang="en">Extrapolate NUM percent outside of the curve's bounds.</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " --eextrapolate=$value":""</code>
+                <code proglang="python">( "", " --eextrapolate="+str(value))[value is not None and value != vdef]</code>
+              </format>
+              <comment>
+                <text lang="en">Example: if NUM=50 and the highest acceptable data
+                           point is at q=0.3, the mean will be estimated up to q=0.45.
+                           Default is 0 (just extrapolate at low angle).
+                        </text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Extrapolate NUM percent outside of the curve's bounds.<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711097200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="eextrapolate" type="text" value="0"/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711097200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Example: if NUM=50 and the highest acceptable data
+                           point is at q=0.3, the mean will be estimated up to q=0.45.
+                           Default is 0 (just extrapolate at low angle).
+                        </xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eextrapolate">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711097200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711097200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Example: if NUM=50 and the highest acceptable data
+                           point is at q=0.3, the mean will be estimated up to q=0.45.
+                           Default is 0 (just extrapolate at low angle).
+                        </xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+          <comment>
+            <text lang="en">Collect compatible data and produce best estimate of mean function.</text>
+          </comment>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>sparse_output</name>
+      <prompt lang="en">Output</prompt>
+      <precond>
+        <code proglang="perl">outlevel eq "sparse"</code>
+        <code proglang="python">outlevel == "sparse"</code>
+      </precond>
+      <parameters>
+        <parameter isout="1">
+          <name>sparse_summary</name>
+          <prompt lang="en">Report</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"summary.txt"</code>
+            <code proglang="python">"summary.txt"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sparse_summary">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>sparse_merge</name>
+          <prompt lang="en">Merged data</prompt>
+          <type>
+            <datatype>
+              <class>SAXSMerge</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"data_merged.dat"</code>
+            <code proglang="python">"data_merged.dat"</code>
+          </filenames>
+          <comment>
+            <text lang="en">selection de données d'entrées 3 cols q i err</text>
+          </comment>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSMerge" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="sparse_merge">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SAXSMerge)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711075424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711075424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>selection de données d'entrées 3 cols q i err</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>sparse_mean</name>
+          <prompt lang="en">Interpolation</prompt>
+          <type>
+            <datatype>
+              <class>SAXSIntepolation</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"mean_merged.dat"</code>
+            <code proglang="python">"mean_merged.dat"</code>
+          </filenames>
+          <comment>
+            <text lang="en">interpolation 3 cols q i err</text>
+          </comment>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSIntepolation" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="sparse_mean">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SAXSIntepolation)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117711067536::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117711067536::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>interpolation 3 cols q i err</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>normal_output</name>
+      <prompt lang="en">Output</prompt>
+      <precond>
+        <code proglang="perl">outlevel eq "normal"</code>
+        <code proglang="python">outlevel == "normal"</code>
+      </precond>
+      <parameters>
+        <parameter isout="1">
+          <name>normal_summary</name>
+          <prompt lang="en">Report</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"summary.txt"</code>
+            <code proglang="python">"summary.txt"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="normal_summary">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>normal_merge</name>
+          <prompt lang="en">Merged data</prompt>
+          <type>
+            <datatype>
+              <class>SAXSMerge</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"data_merged.dat"</code>
+            <code proglang="python">"data_merged.dat"</code>
+          </filenames>
+          <comment>
+            <text lang="en">selection de données d'entrées q i err eorigin eoriname eextrapol</text>
+          </comment>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSMerge" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="normal_merge">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SAXSMerge)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710824896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710824896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>selection de données d'entrées q i err eorigin eoriname eextrapol</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>normal_mean</name>
+          <prompt lang="en">Interpolation</prompt>
+          <type>
+            <datatype>
+              <class>SAXSIntepolation</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"mean_merged.dat"</code>
+            <code proglang="python">"mean_merged.dat"</code>
+          </filenames>
+          <comment>
+            <text lang="en">interpolation q i err eorigin eoriname eextrapol</text>
+          </comment>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSIntepolation" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="normal_mean">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SAXSIntepolation)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710818000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710818000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>interpolation q i err eorigin eoriname eextrapol</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>full_output</name>
+      <prompt lang="en">Output</prompt>
+      <precond>
+        <code proglang="perl">outlevel eq "full"</code>
+        <code proglang="python">outlevel == "full"</code>
+      </precond>
+      <parameters>
+        <parameter isout="1">
+          <name>full_summary</name>
+          <prompt lang="en">Report</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"summary.txt"</code>
+            <code proglang="python">"summary.txt"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="full_summary">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>full_merge</name>
+          <prompt lang="en">Merged data</prompt>
+          <type>
+            <datatype>
+              <class>SAXSMerge</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"data_merged.dat"</code>
+            <code proglang="python">"data_merged.dat"</code>
+          </filenames>
+          <comment>
+            <text lang="en">q i err eorigin eoriname eextrapol</text>
+          </comment>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSMerge" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="full_merge">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SAXSMerge)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710802304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710802304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>q i err eorigin eoriname eextrapol</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>full_mean</name>
+          <prompt lang="en">Interpolation</prompt>
+          <type>
+            <datatype>
+              <class>SAXSIntepolation</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"mean_merged.dat"</code>
+            <code proglang="python">"mean_merged.dat"</code>
+          </filenames>
+          <comment>
+            <text lang="en">q i err eorigin eoriname eextrapol</text>
+          </comment>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSIntepolation" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="full_mean">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SAXSIntepolation)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117710795408::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117710795408::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>q i err eorigin eoriname eextrapol</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>all_files_output</name>
+      <prompt lang="en">Output</prompt>
+      <precond>
+        <code proglang="perl">allfiles</code>
+        <code proglang="python">allfiles</code>
+      </precond>
+      <parameters>
+        <parameter isout="1">
+          <name>all_file_data</name>
+          <prompt lang="en">Merged data</prompt>
+          <type>
+            <datatype>
+              <class>SAXSMerge</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"data_*"</code>
+            <code proglang="python">"data_*"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSMerge" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="all_file_data">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SAXSMerge)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>all_files_mean</name>
+          <prompt lang="en">Interpolation</prompt>
+          <type>
+            <datatype>
+              <class>SAXSIntepolation</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"mean_*"</code>
+            <code proglang="python">"mean_*"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="SAXSIntepolation" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="all_files_mean">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(SAXSIntepolation)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"saxs_merge.out"</code>
+        <code proglang="python">"saxs_merge.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"saxs_merge.err"</code>
+        <code proglang="python">"saxs_merge.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

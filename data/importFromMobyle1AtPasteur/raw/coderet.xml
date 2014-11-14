@@ -1,0 +1,822 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>coderet</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>coderet</title>
+      <description>
+        <text lang="en">Extract CDS, mRNA and translations from feature tables</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/coderet.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>coderet</command>
+    <category>sequence:nucleic:edit</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_seqall">
+            <legend>seqall option<xhtml:a href="#idm140117727825520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117727825520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>coderet was limited to EMBL/GenBank feature tables</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="e_seqall" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outfile.coderet" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile">Name of the output file (e_outfile)<xhtml:input name="e_outfile" type="text" value="outfile.coderet"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.cds" data-datatype="Filename" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_cdsoutseq">Name of the output sequence file (e_cdsoutseq)<xhtml:input name="e_cdsoutseq" type="text" value="outseq.cds"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_osformat_cdsoutseq">Choose the sequence output format<xhtml:select name="e_osformat_cdsoutseq">
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+              <xhtml:option value="GCG">Gcg</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="NBRF">Nbrf</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="RAW">Raw</xhtml:option>
+              <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.mrna" data-datatype="Filename" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_mrnaoutseq">Name of the output sequence file (e_mrnaoutseq)<xhtml:input name="e_mrnaoutseq" type="text" value="outseq.mrna"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_osformat_mrnaoutseq">Choose the sequence output format<xhtml:select name="e_osformat_mrnaoutseq">
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+              <xhtml:option value="GCG">Gcg</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="NBRF">Nbrf</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="RAW">Raw</xhtml:option>
+              <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.prot" data-datatype="Filename" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_translationoutseq">Name of the output sequence file (e_translationoutseq)<xhtml:input name="e_translationoutseq" type="text" value="outseq.prot"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_osformat_translationoutseq">Choose the sequence output format<xhtml:select name="e_osformat_translationoutseq">
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+              <xhtml:option value="GCG">Gcg</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="NBRF">Nbrf</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="RAW">Raw</xhtml:option>
+              <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.noncoding" data-datatype="Filename" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_restoutseq">Name of the output sequence file (e_restoutseq)<xhtml:input name="e_restoutseq" type="text" value="outseq.noncoding"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_osformat_restoutseq">Choose the sequence output format<xhtml:select name="e_osformat_restoutseq">
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+              <xhtml:option value="GCG">Gcg</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="NBRF">Nbrf</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="RAW">Raw</xhtml:option>
+              <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_seqall" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+            <xhtml:a href="#idm140117727825520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117727825520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>coderet was limited to EMBL/GenBank feature tables</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outfile.coderet" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_cdsoutseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.cds" data-datatype="Filename" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_osformat_cdsoutseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_mrnaoutseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.mrna" data-datatype="Filename" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_osformat_mrnaoutseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_translationoutseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.prot" data-datatype="Filename" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_osformat_translationoutseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_restoutseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.noncoding" data-datatype="Filename" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_osformat_restoutseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CoderetReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(CoderetReport)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_cdsoutseq_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_mrnaoutseq_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_translationoutseq_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Protein Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_restoutseq_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_seqall</name>
+          <prompt lang="en">seqall option</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -seqall=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">coderet was limited to EMBL/GenBank feature tables</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>seqall option</xhtml:legend>
+              <xhtml:textarea name="e_seqall" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_seqall">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727825520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727825520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>coderet was limited to EMBL/GenBank feature tables</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_outfile</name>
+          <prompt lang="en">Name of the output file (e_outfile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>outfile.coderet</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outfile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output file (e_outfile)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outfile" type="text" value="outfile.coderet"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outfile.coderet" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outfile_out</name>
+          <prompt lang="en">outfile_out option</prompt>
+          <type>
+            <datatype>
+              <class>CoderetReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="python">e_outfile</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CoderetReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(CoderetReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_cdsoutseq</name>
+          <prompt lang="en">Name of the output sequence file (e_cdsoutseq)</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>outseq.cds</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -cdsoutseq=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output sequence file (e_cdsoutseq)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_cdsoutseq" type="text" value="outseq.cds"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.cds" data-datatype="Filename" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_cdsoutseq"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_osformat_cdsoutseq</name>
+          <prompt lang="en">Choose the sequence output format</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>FASTA</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>FASTA</value>
+              <label>Fasta</label>
+            </velem>
+            <velem>
+              <value>GCG</value>
+              <label>Gcg</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>NBRF</value>
+              <label>Nbrf</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>RAW</value>
+              <label>Raw</label>
+            </velem>
+            <velem>
+              <value>SWISSPROT</value>
+              <label>Swissprot</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -osformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>4</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the sequence output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_osformat_cdsoutseq">
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+                <xhtml:option value="GCG">Gcg</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="NBRF">Nbrf</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="RAW">Raw</xhtml:option>
+                <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_osformat_cdsoutseq"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_cdsoutseq_out</name>
+          <prompt lang="en">cdsoutseq_out option</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_osformat_cdsoutseq">
+              </ref>
+            </dataFormat>
+          </type>
+          <filenames>
+            <code proglang="python">e_cdsoutseq</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="&#10;               " data-parametername="e_cdsoutseq_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_mrnaoutseq</name>
+          <prompt lang="en">Name of the output sequence file (e_mrnaoutseq)</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>outseq.mrna</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -mrnaoutseq=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>5</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output sequence file (e_mrnaoutseq)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_mrnaoutseq" type="text" value="outseq.mrna"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.mrna" data-datatype="Filename" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_mrnaoutseq"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_osformat_mrnaoutseq</name>
+          <prompt lang="en">Choose the sequence output format</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>FASTA</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>FASTA</value>
+              <label>Fasta</label>
+            </velem>
+            <velem>
+              <value>GCG</value>
+              <label>Gcg</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>NBRF</value>
+              <label>Nbrf</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>RAW</value>
+              <label>Raw</label>
+            </velem>
+            <velem>
+              <value>SWISSPROT</value>
+              <label>Swissprot</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -osformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>6</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the sequence output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_osformat_mrnaoutseq">
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+                <xhtml:option value="GCG">Gcg</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="NBRF">Nbrf</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="RAW">Raw</xhtml:option>
+                <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_osformat_mrnaoutseq"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_mrnaoutseq_out</name>
+          <prompt lang="en">mrnaoutseq_out option</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_osformat_mrnaoutseq">
+              </ref>
+            </dataFormat>
+          </type>
+          <filenames>
+            <code proglang="python">e_mrnaoutseq</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="&#10;               " data-parametername="e_mrnaoutseq_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_translationoutseq</name>
+          <prompt lang="en">Name of the output sequence file (e_translationoutseq)</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>outseq.prot</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -translationoutseq=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>7</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output sequence file (e_translationoutseq)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_translationoutseq" type="text" value="outseq.prot"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.prot" data-datatype="Filename" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_translationoutseq"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_osformat_translationoutseq</name>
+          <prompt lang="en">Choose the sequence output format</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>FASTA</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>FASTA</value>
+              <label>Fasta</label>
+            </velem>
+            <velem>
+              <value>GCG</value>
+              <label>Gcg</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>NBRF</value>
+              <label>Nbrf</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>RAW</value>
+              <label>Raw</label>
+            </velem>
+            <velem>
+              <value>SWISSPROT</value>
+              <label>Swissprot</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -osformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>8</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the sequence output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_osformat_translationoutseq">
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+                <xhtml:option value="GCG">Gcg</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="NBRF">Nbrf</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="RAW">Raw</xhtml:option>
+                <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_osformat_translationoutseq"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_translationoutseq_out</name>
+          <prompt lang="en">translationoutseq_out option</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_osformat_translationoutseq">
+              </ref>
+            </dataFormat>
+          </type>
+          <filenames>
+            <code proglang="python">e_translationoutseq</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="&#10;               " data-parametername="e_translationoutseq_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_restoutseq</name>
+          <prompt lang="en">Name of the output sequence file (e_restoutseq)</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>outseq.noncoding</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -restoutseq=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>9</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output sequence file (e_restoutseq)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_restoutseq" type="text" value="outseq.noncoding"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="outseq.noncoding" data-datatype="Filename" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_restoutseq"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_osformat_restoutseq</name>
+          <prompt lang="en">Choose the sequence output format</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>FASTA</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>FASTA</value>
+              <label>Fasta</label>
+            </velem>
+            <velem>
+              <value>GCG</value>
+              <label>Gcg</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>NBRF</value>
+              <label>Nbrf</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>RAW</value>
+              <label>Raw</label>
+            </velem>
+            <velem>
+              <value>SWISSPROT</value>
+              <label>Swissprot</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -osformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the sequence output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_osformat_restoutseq">
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+                <xhtml:option value="GCG">Gcg</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="NBRF">Nbrf</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="RAW">Raw</xhtml:option>
+                <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="" data-parametername="e_osformat_restoutseq"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_restoutseq_out</name>
+          <prompt lang="en">restoutseq_out option</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_osformat_restoutseq">
+              </ref>
+            </dataFormat>
+          </type>
+          <filenames>
+            <code proglang="python">e_restoutseq</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="" data-formats="&#10;               " data-parametername="e_restoutseq_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>11</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"coderet.out"</code>
+        <code proglang="python">"coderet.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"coderet.err"</code>
+        <code proglang="python">"coderet.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

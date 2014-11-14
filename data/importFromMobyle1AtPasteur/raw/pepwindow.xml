@@ -1,0 +1,514 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>pepwindow</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>pepwindow</title>
+      <description>
+        <text lang="en">Draw a hydropathy plot for a protein sequence</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/pepwindow.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>pepwindow</command>
+    <category>sequence:protein:composition</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,1" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+            <legend>sequence option</legend>
+            <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="AaindexData" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_datafile">
+            <legend>Aaindex entry data file</legend>
+            <xhtml:textarea name="e_datafile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_additional">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Additional section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="19" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_length">Window size (value from 1 to 200)<xhtml:input name="e_length" type="text" value="19"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_normalize">Normalize data values<xhtml:select name="e_normalize">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="png" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_graph">Choose the e_graph output format<xhtml:select name="e_graph">
+              <xhtml:option value="png" selected="selected">Png</xhtml:option>
+              <xhtml:option value="gif">Gif</xhtml:option>
+              <xhtml:option value="cps">Cps</xhtml:option>
+              <xhtml:option value="ps">Ps</xhtml:option>
+              <xhtml:option value="meta">Meta</xhtml:option>
+              <xhtml:option value="data">Data</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="pepwindow_xygraph" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xy_goutfile">Name of the output graph<xhtml:input name="xy_goutfile" type="text" value="pepwindow_xygraph"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,1" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(Protein Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_datafile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="AaindexData" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="">
+            <xhtml:i>
+				(Protein AaindexData)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_additional">
+        <xhtml:legend>Additional section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="19" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_normalize" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_graph" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="png" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_goutfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="pepwindow_xygraph" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_png" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_gif" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_ps" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_meta" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_data" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_sequence</name>
+          <prompt lang="en">sequence option</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,1</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -sequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>sequence option</xhtml:legend>
+              <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,1" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_datafile</name>
+          <prompt lang="en">Aaindex entry data file</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <datatype>
+              <class>AaindexData</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -datafile=" + str(value))[value is not None ]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Aaindex entry data file</xhtml:legend>
+              <xhtml:textarea name="e_datafile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="AaindexData" data-datatype-superclass="AbstractText" data-biotype="Protein " data-card="" data-formats="" data-parametername="e_datafile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein AaindexData)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_additional</name>
+      <prompt lang="en">Additional section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_length</name>
+          <prompt lang="en">Window size (value from 1 to 200)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>19</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -length=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 1 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 1</code>
+          </ctrl>
+          <ctrl>
+            <message>
+              <text lang="en">Value less than or equal to 200 is required</text>
+            </message>
+            <code proglang="python">value &lt;= 200</code>
+          </ctrl>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Window size (value from 1 to 200)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_length" type="text" value="19"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="19" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_length"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_normalize</name>
+          <prompt lang="en">Normalize data values</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -normalize")[ bool(value) ]</code>
+          </format>
+          <argpos>4</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Normalize data values<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_normalize">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_normalize"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_graph</name>
+          <prompt lang="en">Choose the e_graph output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>png</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>png</value>
+              <label>Png</label>
+            </velem>
+            <velem>
+              <value>gif</value>
+              <label>Gif</label>
+            </velem>
+            <velem>
+              <value>cps</value>
+              <label>Cps</label>
+            </velem>
+            <velem>
+              <value>ps</value>
+              <label>Ps</label>
+            </velem>
+            <velem>
+              <value>meta</value>
+              <label>Meta</label>
+            </velem>
+            <velem>
+              <value>data</value>
+              <label>Data</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">(" -graph=" + str(vdef), " -graph=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>5</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the e_graph output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_graph">
+                <xhtml:option value="png" selected="selected">Png</xhtml:option>
+                <xhtml:option value="gif">Gif</xhtml:option>
+                <xhtml:option value="cps">Cps</xhtml:option>
+                <xhtml:option value="ps">Ps</xhtml:option>
+                <xhtml:option value="meta">Meta</xhtml:option>
+                <xhtml:option value="data">Data</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="png" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_graph"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>xy_goutfile</name>
+          <prompt lang="en">Name of the output graph</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>pepwindow_xygraph</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -goutfile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>6</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output graph<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="xy_goutfile" type="text" value="pepwindow_xygraph"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="pepwindow_xygraph" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xy_goutfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_png</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>Picture</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_graph == "png"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.png"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_png"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_gif</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>Picture</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_graph == "gif"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.gif"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_gif"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_ps</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>PostScript</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_graph == "ps" or e_graph == "cps"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.ps"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_ps"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_meta</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>Picture</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_graph == "meta"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.meta"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_meta"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_data</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_graph == "data"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.dat"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_data">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>7</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"pepwindow.out"</code>
+        <code proglang="python">"pepwindow.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"pepwindow.err"</code>
+        <code proglang="python">"pepwindow.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

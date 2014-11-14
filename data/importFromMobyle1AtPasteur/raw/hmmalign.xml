@@ -1,0 +1,758 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>hmmalign</name>
+    <package xml:base="Entities/hmmer_package.xml">
+      <name>hmmer</name>
+      <version>3.0</version>
+      <doc>
+        <title>hmmer</title>
+        <description>
+          <text lang="en">HMMER is an implementation of profile HMM methods for sensitive
+        database searches using multiple sequence alignments as queries.</text>
+        </description>
+        <homepagelink>http://hmmer.janelia.org/</homepagelink>
+        <sourcelink>ftp://selab.janelia.org/pub/software/hmmer3/</sourcelink>
+        <authors>S. Eddy</authors>
+        <reference>Eddy, S. R. (1998). Profile hidden Markov models. Bioinformatics, 14:755-763.</reference>
+        <reference>Eddy, S. R. (2008). A probabilistic model of local sequence alignment that simplifies statistical significance
+estimation. PLoS Comput. Biol., 4:e1000069</reference>
+        <doclink>http://bioweb2.pasteur.fr/docs/hmmer/Userguide.pdf</doclink>
+      </doc>
+    </package>
+    <doc>
+      <title>HMMALIGN</title>
+      <description>
+        <text lang="en">Align sequences to a profile HMM</text>
+      </description>
+    </doc>
+    <category>hmm:alignment:multiple</category>
+    <category>alignment:multiple:hmm</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="infile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input file</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="minimizable" data-paragraphname="file">
+            <legend>Input sequences file<xhtml:a href="#idm140117698171248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117698171248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Input sequence file may  be in  any unaligned  or  aligned file format. If  it is 
+            in  a multiple alignment format  (e.g. Stockholm, MSF,  ClustalW),  the  existing  alignment is  
+            ignored  (i.e.,  the
+	      sequences are read as if they were unaligned).</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="2,n" data-formats="FASTA EMBL Genbank Uniprot " data-parametername="seqfile">
+                <legend>Sequences File</legend>
+                <xhtml:textarea name="seqfile" cols="60" rows="7"> </xhtml:textarea>
+              </fieldset>
+            </xhtml:div>
+          </fieldset>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="hmmfile">
+            <legend>Profile HMM file</legend>
+            <xhtml:textarea name="hmmfile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Expert Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="biotype">Assert sequences and hmm files are both in same type<xhtml:a href="#idm140117699165072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="biotype">
+              <xhtml:option value="null" selected="selected">No Autodetection</xhtml:option>
+              <xhtml:option value="--amino">Protein</xhtml:option>
+              <xhtml:option value="--dna">DNA</xhtml:option>
+              <xhtml:option value="--rna">RNA</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117699165072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</xhtml:div>
+              <xhtml:div>Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</xhtml:div>
+              <xhtml:div>DNA: Specify that all sequences in seqfile are DNAs.</xhtml:div>
+              <xhtml:div>RNA: Specify that all sequences in seqfile are RNAs.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="common_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Common Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="allcol">Include all consensus columns in ali, even if all gaps<xhtml:a href="#idm140117697730144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="allcol">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117697730144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Include columns in the output alignment for every match (consensus) state in
+            the hmmfile, even if it means having all-gap columns. This is useful in analysis
+            pipelines that need to be able to maintain a predetermined profile HMM architecture
+            (with an unchanging number of consensus columns) through an hmmalign
+            step.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="STOCKHOLM " data-parametername="mapali">
+            <legend>Include alignment file<xhtml:a href="#idm140117698366688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117698366688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Merge the existing alignment in file into the result, where the file is exactly the
+            same alignment that was used to build the model in hmmfile. This is done using
+            a 'map' of alignment columns to consensus profile positions that is stored in the
+            hmmfile. The multiple alignment in the file will be exactly reproduced in its consensus
+            columns (as defined by the profile), but the displayed alignment in insert columns
+            may be altered, because insertions relative to a profile are considered by convention
+            to be unaligned data.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="mapali" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="trim">Trim terminal tails of nonaligned residues from alignment<xhtml:a href="#idm140117697690016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="trim">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117697690016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Trim nonhomologous residues (assigned to N and C states in the optimal alignments)
+            from the resulting multiple alignment output.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile_name">Outfile name (-o)<xhtml:input name="outfile_name" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="STOCKHOLM" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outputformat">Output format<xhtml:a href="#idm140117697725360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="outputformat">
+              <xhtml:option value="STOCKHOLM" selected="selected">STOCKHOLM</xhtml:option>
+              <xhtml:option value="Pfam">Pfam</xhtml:option>
+              <xhtml:option value="A2M">A2M</xhtml:option>
+              <xhtml:option value="PSIBLAST">PSIBLAST</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117697725360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Specify that the msafile is in the selected format. Currently the accepted multiple 
+            alignment sequence file formats only include Stockholm and SELEX. Default is to autodetect
+            the format of the file.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmmcmd" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="infile">
+        <xhtml:legend>Input file</xhtml:legend>
+        <xhtml:div>
+          <xhtml:fieldset class="minimizable" data-paragraphname="file">
+            <xhtml:legend>Input sequences file</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="2,n" data-formats="FASTA EMBL Genbank Uniprot ">
+                <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmmfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(HmmProfile)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert_options">
+        <xhtml:legend>Expert Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="biotype" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699165072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699165072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</xhtml:div>
+              <xhtml:div>Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</xhtml:div>
+              <xhtml:div>DNA: Specify that all sequences in seqfile are DNAs.</xhtml:div>
+              <xhtml:div>RNA: Specify that all sequences in seqfile are RNAs.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="common_options">
+        <xhtml:legend>Common Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="allcol" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697730144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697730144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Include columns in the output alignment for every match (consensus) state in
+            the hmmfile, even if it means having all-gap columns. This is useful in analysis
+            pipelines that need to be able to maintain a predetermined profile HMM architecture
+            (with an unchanging number of consensus columns) through an hmmalign
+            step.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mapali" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="STOCKHOLM ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+            <xhtml:a href="#idm140117698366688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698366688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Merge the existing alignment in file into the result, where the file is exactly the
+            same alignment that was used to build the model in hmmfile. This is done using
+            a 'map' of alignment columns to consensus profile positions that is stored in the
+            hmmfile. The multiple alignment in the file will be exactly reproduced in its consensus
+            columns (as defined by the profile), but the displayed alignment in insert columns
+            may be altered, because insertions relative to a profile are considered by convention
+            to be unaligned data.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="trim" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697690016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697690016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Trim nonhomologous residues (assigned to N and C states in the optimal alignments)
+            from the resulting multiple alignment output.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile_name" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outputformat" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="STOCKHOLM" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697725360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697725360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Specify that the msafile is in the selected format. Currently the accepted multiple 
+            alignment sequence file formats only include Stockholm and SELEX. Default is to autodetect
+            the format of the file.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outputfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Alignment)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter iscommand="1" ishidden="1">
+      <name>hmmcmd</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"hmmalign"</code>
+        <code proglang="python">"hmmalign"</code>
+      </format>
+      <argpos>0</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hmmcmd"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>infile</name>
+      <prompt lang="en">Input file</prompt>
+      <parameters>
+        <paragraph>
+          <name>file</name>
+          <prompt lang="en">Input sequences file</prompt>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">Input sequence file may  be in  any unaligned  or  aligned file format. If  it is 
+            in  a multiple alignment format  (e.g. Stockholm, MSF,  ClustalW),  the  existing  alignment is  
+            ignored  (i.e.,  the
+	      sequences are read as if they were unaligned).</text>
+          </comment>
+          <parameters>
+            <parameter ismandatory="1" issimple="1">
+              <name>seqfile</name>
+              <prompt lang="en">Sequences File</prompt>
+              <type>
+                <datatype>
+                  <class>Sequence</class>
+                </datatype>
+                <dataFormat>FASTA</dataFormat>
+                <dataFormat>EMBL</dataFormat>
+                <dataFormat>Genbank</dataFormat>
+                <dataFormat>Uniprot</dataFormat>
+                <card>2,n</card>
+              </type>
+              <format>
+                <code proglang="perl">" $seqfile" </code>
+                <code proglang="python">" " + str(seqfile) </code>
+              </format>
+              <interface type="form" generated="true">
+                <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                  <xhtml:legend>Sequences File</xhtml:legend>
+                  <xhtml:textarea name="seqfile" cols="60" rows="7"> </xhtml:textarea>
+                </xhtml:fieldset>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="2,n" data-formats="FASTA EMBL Genbank Uniprot " data-parametername="seqfile">
+                  <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+        <parameter ismandatory="1" issimple="1">
+          <name>hmmfile</name>
+          <prompt lang="en">Profile HMM file</prompt>
+          <type>
+            <datatype>
+              <class>HmmProfile</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">" $value"</code>
+            <code proglang="python">" "+str(value)</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Profile HMM file</xhtml:legend>
+              <xhtml:textarea name="hmmfile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="hmmfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(HmmProfile)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>expert_options</name>
+      <prompt lang="en">Expert Options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>biotype</name>
+          <prompt lang="en">Assert sequences and hmm files are both in same type</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>null</value>
+              <label>No Autodetection</label>
+            </velem>
+            <velem>
+              <value>--amino</value>
+              <label>Protein</label>
+            </velem>
+            <velem>
+              <value>--dna</value>
+              <label>DNA</label>
+            </velem>
+            <velem>
+              <value>--rna</value>
+              <label>RNA</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " $value" : ""</code>
+            <code proglang="python">("", " " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</text>
+            <text lang="en">Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</text>
+            <text lang="en">DNA: Specify that all sequences in seqfile are DNAs.</text>
+            <text lang="en">RNA: Specify that all sequences in seqfile are RNAs.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Assert sequences and hmm files are both in same type<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699165072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="biotype">
+                <xhtml:option value="null" selected="selected">No Autodetection</xhtml:option>
+                <xhtml:option value="--amino">Protein</xhtml:option>
+                <xhtml:option value="--dna">DNA</xhtml:option>
+                <xhtml:option value="--rna">RNA</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699165072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</xhtml:div>
+                <xhtml:div>Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</xhtml:div>
+                <xhtml:div>DNA: Specify that all sequences in seqfile are DNAs.</xhtml:div>
+                <xhtml:div>RNA: Specify that all sequences in seqfile are RNAs.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="biotype">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699165072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699165072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The alphabet type (amino, DNA, or RNA) is autodetected by default, by looking at the composition of the
+            msafile. Autodetection is normally quite reliable, but occasionally alphabet type may be ambiguous and
+            autodetection can fail (for instance, on tiny toy alignments of just a few residues). To avoid this, or to
+            increase robustness in automated analysis pipelines, you may specify the alphabet type of msafile with
+            these options.</xhtml:div>
+                <xhtml:div>Protein: Specify that all sequences in seqfile are proteins. By default, alphabet type is
+                    autodetected from looking at the residue composition.</xhtml:div>
+                <xhtml:div>DNA: Specify that all sequences in seqfile are DNAs.</xhtml:div>
+                <xhtml:div>RNA: Specify that all sequences in seqfile are RNAs.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>common_options</name>
+      <prompt lang="en">Common Options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>allcol</name>
+          <prompt lang="en">Include all consensus columns in ali, even if all gaps</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --allcol : ""</code>
+            <code proglang="python">( "" , " --allcol " )[ value  ]</code>
+          </format>
+          <comment>
+            <text lang="en">Include columns in the output alignment for every match (consensus) state in
+            the hmmfile, even if it means having all-gap columns. This is useful in analysis
+            pipelines that need to be able to maintain a predetermined profile HMM architecture
+            (with an unchanging number of consensus columns) through an hmmalign
+            step.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Include all consensus columns in ali, even if all gaps<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697730144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="allcol">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697730144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Include columns in the output alignment for every match (consensus) state in
+            the hmmfile, even if it means having all-gap columns. This is useful in analysis
+            pipelines that need to be able to maintain a predetermined profile HMM architecture
+            (with an unchanging number of consensus columns) through an hmmalign
+            step.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="allcol">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697730144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697730144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Include columns in the output alignment for every match (consensus) state in
+            the hmmfile, even if it means having all-gap columns. This is useful in analysis
+            pipelines that need to be able to maintain a predetermined profile HMM architecture
+            (with an unchanging number of consensus columns) through an hmmalign
+            step.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>mapali</name>
+          <prompt lang="en">Include alignment file</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>STOCKHOLM</dataFormat>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " --mapali $value" : ""</code>
+            <code proglang="python">( "" , " --mapali " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Merge the existing alignment in file into the result, where the file is exactly the
+            same alignment that was used to build the model in hmmfile. This is done using
+            a 'map' of alignment columns to consensus profile positions that is stored in the
+            hmmfile. The multiple alignment in the file will be exactly reproduced in its consensus
+            columns (as defined by the profile), but the displayed alignment in insert columns
+            may be altered, because insertions relative to a profile are considered by convention
+            to be unaligned data.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Include alignment file</xhtml:legend>
+              <xhtml:textarea name="mapali" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="STOCKHOLM " data-parametername="mapali">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698366688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698366688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Merge the existing alignment in file into the result, where the file is exactly the
+            same alignment that was used to build the model in hmmfile. This is done using
+            a 'map' of alignment columns to consensus profile positions that is stored in the
+            hmmfile. The multiple alignment in the file will be exactly reproduced in its consensus
+            columns (as defined by the profile), but the displayed alignment in insert columns
+            may be altered, because insertions relative to a profile are considered by convention
+            to be unaligned data.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_options</name>
+      <prompt lang="en">Output Options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>trim</name>
+          <prompt lang="en">Trim terminal tails of nonaligned residues from alignment</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --trim" : ""</code>
+            <code proglang="python">( "", " --trim" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Trim nonhomologous residues (assigned to N and C states in the optimal alignments)
+            from the resulting multiple alignment output.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Trim terminal tails of nonaligned residues from alignment<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697690016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="trim">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697690016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Trim nonhomologous residues (assigned to N and C states in the optimal alignments)
+            from the resulting multiple alignment output.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="trim">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697690016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697690016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Trim nonhomologous residues (assigned to N and C states in the optimal alignments)
+            from the resulting multiple alignment output.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>outfile_name</name>
+          <prompt lang="en">Outfile name (-o)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -o $value" : ""</code>
+            <code proglang="python">("", " -o " + str(value))[value is not None]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Outfile name (-o)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outfile_name" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile_name"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>outputfile</name>
+          <prompt lang="en">Alignment file</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>
+              <ref param="outputformat"/>
+            </dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">defined($outfile_name)</code>
+            <code proglang="python">outfile_name is not None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$outfile_name"</code>
+            <code proglang="python">str(outfile_name)</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="outputfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isstdout="1">
+          <name>outfile</name>
+          <prompt lang="en">Alignment file</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>
+              <ref param="outputformat"/>
+            </dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">not defined($outfile_name)</code>
+            <code proglang="python">outfile_name is None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"hmmalign.out"</code>
+            <code proglang="python">"hmmalign.out"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="outfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>outputformat</name>
+          <prompt lang="en">Output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>STOCKHOLM</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>STOCKHOLM</value>
+              <label>STOCKHOLM</label>
+            </velem>
+            <velem>
+              <value>Pfam</value>
+              <label>Pfam</label>
+            </velem>
+            <velem>
+              <value>A2M</value>
+              <label>A2M</label>
+            </velem>
+            <velem>
+              <value>PSIBLAST</value>
+              <label>PSIBLAST</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " --outformat $value" : ""</code>
+            <code proglang="python">( "" , " --outformat " + str( value) )[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Specify that the msafile is in the selected format. Currently the accepted multiple 
+            alignment sequence file formats only include Stockholm and SELEX. Default is to autodetect
+            the format of the file.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output format<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697725360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outputformat">
+                <xhtml:option value="STOCKHOLM" selected="selected">STOCKHOLM</xhtml:option>
+                <xhtml:option value="Pfam">Pfam</xhtml:option>
+                <xhtml:option value="A2M">A2M</xhtml:option>
+                <xhtml:option value="PSIBLAST">PSIBLAST</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697725360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Specify that the msafile is in the selected format. Currently the accepted multiple 
+            alignment sequence file formats only include Stockholm and SELEX. Default is to autodetect
+            the format of the file.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="STOCKHOLM" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outputformat">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697725360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697725360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Specify that the msafile is in the selected format. Currently the accepted multiple 
+            alignment sequence file formats only include Stockholm and SELEX. Default is to autodetect
+            the format of the file.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"hmmalign.err"</code>
+        <code proglang="python">"hmmalign.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

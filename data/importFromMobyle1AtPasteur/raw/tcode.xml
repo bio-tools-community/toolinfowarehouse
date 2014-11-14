@@ -1,0 +1,846 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>tcode</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>tcode</title>
+      <description>
+        <text lang="en">Identify protein-coding regions using Fickett TESTCODE statistic</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/tcode.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>tcode</command>
+    <category>sequence:nucleic:gene_finding</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+            <legend>sequence option</legend>
+            <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="TestcodeData" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_datafile">
+            <legend>Testcode data file<xhtml:a href="#idm140117703077504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117703077504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The default data file is Etcode.dat and contains coding probabilities for each base. The probabilities are for both  positional and compositional information.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="e_datafile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_required">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Required section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_window">Length of sliding window (value greater than or equal to 200)<xhtml:a href="#idm140117703522096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_window" type="text" value="200"/>
+            <xhtml:div id="idm140117703522096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the number of nucleotide bases over which the TESTCODE statistic will be performed each time. The window will  then slide along the sequence, covering the same number of bases  each time.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Advanced section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_step">Stepping increment for the window (value greater than or equal to 1)<xhtml:a href="#idm140117702986512::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_step" type="text" value="3"/>
+            <xhtml:div id="idm140117702986512::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The selected window will, by default, slide along the nucleotide sequence by three bases at a time, retaining the frame  (although the algorithm is not frame sensitive). This may be  altered to increase or decrease the increment of the slide.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_plot">Graphical display<xhtml:a href="#idm140117702467312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_plot">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117702467312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>On selection a graph of the sequence (X axis) plotted against the coding score (Y axis) will be displayed. Sequence  above the green line is coding, that below the red line is  non-coding.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tcode.report" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile">Name of the report file<xhtml:input name="e_outfile" type="text" value="tcode.report"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="TABLE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_rformat_outfile">Choose the report output format<xhtml:select name="e_rformat_outfile">
+              <xhtml:option value="DASGFF">Dasgff</xhtml:option>
+              <xhtml:option value="DBMOTIF">Dbmotif</xhtml:option>
+              <xhtml:option value="DIFFSEQ">Diffseq</xhtml:option>
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="EXCEL">Excel</xhtml:option>
+              <xhtml:option value="FEATTABLE">Feattable</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+              <xhtml:option value="LISTFILE">Listfile</xhtml:option>
+              <xhtml:option value="MOTIF">Motif</xhtml:option>
+              <xhtml:option value="NAMETABLE">Nametable</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="REGIONS">Regions</xhtml:option>
+              <xhtml:option value="SEQTABLE">Seqtable</xhtml:option>
+              <xhtml:option value="SIMPLE">Simple</xhtml:option>
+              <xhtml:option value="SRS">Srs</xhtml:option>
+              <xhtml:option value="SWISS">Swiss</xhtml:option>
+              <xhtml:option value="TABLE" selected="selected">Table</xhtml:option>
+              <xhtml:option value="TAGSEQ">Tagseq</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="png" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_graph">Choose the e_graph output format<xhtml:select name="e_graph">
+              <xhtml:option value="png" selected="selected">Png</xhtml:option>
+              <xhtml:option value="gif">Gif</xhtml:option>
+              <xhtml:option value="cps">Cps</xhtml:option>
+              <xhtml:option value="ps">Ps</xhtml:option>
+              <xhtml:option value="meta">Meta</xhtml:option>
+              <xhtml:option value="data">Data</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tcode_xygraph" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xy_goutfile">Name of the output graph<xhtml:input name="xy_goutfile" type="text" value="tcode_xygraph"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_datafile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="TestcodeData" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(TestcodeData)
+			</xhtml:i>
+            <xhtml:a href="#idm140117703077504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117703077504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The default data file is Etcode.dat and contains coding probabilities for each base. The probabilities are for both  positional and compositional information.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_required">
+        <xhtml:legend>Required section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_window" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117703522096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117703522096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the number of nucleotide bases over which the TESTCODE statistic will be performed each time. The window will  then slide along the sequence, covering the same number of bases  each time.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_advanced">
+        <xhtml:legend>Advanced section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_step" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702986512::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702986512::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The selected window will, by default, slide along the nucleotide sequence by three bases at a time, retaining the frame  (although the algorithm is not frame sensitive). This may be  altered to increase or decrease the increment of the slide.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_plot" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702467312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702467312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>On selection a graph of the sequence (X axis) plotted against the coding score (Y axis) will be displayed. Sequence  above the green line is coding, that below the red line is  non-coding.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tcode.report" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_rformat_outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="TABLE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_graph" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="png" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_goutfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tcode_xygraph" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outfile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_png" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_gif" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_ps" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_meta" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xy_outgraph_data" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_sequence</name>
+          <prompt lang="en">sequence option</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -sequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>sequence option</xhtml:legend>
+              <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_datafile</name>
+          <prompt lang="en">Testcode data file</prompt>
+          <type>
+            <datatype>
+              <class>TestcodeData</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -datafile=" + str(value))[value is not None ]</code>
+          </format>
+          <argpos>2</argpos>
+          <comment>
+            <text lang="en">The default data file is Etcode.dat and contains coding probabilities for each base. The probabilities are for both  positional and compositional information.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Testcode data file</xhtml:legend>
+              <xhtml:textarea name="e_datafile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="TestcodeData" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="e_datafile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(TestcodeData)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703077504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703077504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The default data file is Etcode.dat and contains coding probabilities for each base. The probabilities are for both  positional and compositional information.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_required</name>
+      <prompt lang="en">Required section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_window</name>
+          <prompt lang="en">Length of sliding window (value greater than or equal to 200)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -window=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 200 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 200</code>
+          </ctrl>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">This is the number of nucleotide bases over which the TESTCODE statistic will be performed each time. The window will  then slide along the sequence, covering the same number of bases  each time.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Length of sliding window (value greater than or equal to 200)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703522096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_window" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703522096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the number of nucleotide bases over which the TESTCODE statistic will be performed each time. The window will  then slide along the sequence, covering the same number of bases  each time.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_window">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703522096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703522096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the number of nucleotide bases over which the TESTCODE statistic will be performed each time. The window will  then slide along the sequence, covering the same number of bases  each time.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_advanced</name>
+      <prompt lang="en">Advanced section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_step</name>
+          <prompt lang="en">Stepping increment for the window (value greater than or equal to 1)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>3</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -step=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value greater than or equal to 1 is required</text>
+            </message>
+            <code proglang="python">value &gt;= 1</code>
+          </ctrl>
+          <argpos>4</argpos>
+          <comment>
+            <text lang="en">The selected window will, by default, slide along the nucleotide sequence by three bases at a time, retaining the frame  (although the algorithm is not frame sensitive). This may be  altered to increase or decrease the increment of the slide.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Stepping increment for the window (value greater than or equal to 1)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702986512::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_step" type="text" value="3"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702986512::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The selected window will, by default, slide along the nucleotide sequence by three bases at a time, retaining the frame  (although the algorithm is not frame sensitive). This may be  altered to increase or decrease the increment of the slide.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_step">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702986512::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702986512::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The selected window will, by default, slide along the nucleotide sequence by three bases at a time, retaining the frame  (although the algorithm is not frame sensitive). This may be  altered to increase or decrease the increment of the slide.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_plot</name>
+          <prompt lang="en">Graphical display</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -plot")[ bool(value) ]</code>
+          </format>
+          <argpos>5</argpos>
+          <comment>
+            <text lang="en">On selection a graph of the sequence (X axis) plotted against the coding score (Y axis) will be displayed. Sequence  above the green line is coding, that below the red line is  non-coding.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Graphical display<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702467312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_plot">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702467312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>On selection a graph of the sequence (X axis) plotted against the coding score (Y axis) will be displayed. Sequence  above the green line is coding, that below the red line is  non-coding.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_plot">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702467312::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702467312::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>On selection a graph of the sequence (X axis) plotted against the coding score (Y axis) will be displayed. Sequence  above the green line is coding, that below the red line is  non-coding.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_outfile</name>
+          <prompt lang="en">Name of the report file</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">not e_plot</code>
+          </precond>
+          <vdef>
+            <value>tcode.report</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outfile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>6</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the report file<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outfile" type="text" value="tcode.report"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tcode.report" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outfile"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_rformat_outfile</name>
+          <prompt lang="en">Choose the report output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">not e_plot</code>
+          </precond>
+          <vdef>
+            <value>TABLE</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>DASGFF</value>
+              <label>Dasgff</label>
+            </velem>
+            <velem>
+              <value>DBMOTIF</value>
+              <label>Dbmotif</label>
+            </velem>
+            <velem>
+              <value>DIFFSEQ</value>
+              <label>Diffseq</label>
+            </velem>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>EXCEL</value>
+              <label>Excel</label>
+            </velem>
+            <velem>
+              <value>FEATTABLE</value>
+              <label>Feattable</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+            <velem>
+              <value>LISTFILE</value>
+              <label>Listfile</label>
+            </velem>
+            <velem>
+              <value>MOTIF</value>
+              <label>Motif</label>
+            </velem>
+            <velem>
+              <value>NAMETABLE</value>
+              <label>Nametable</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>REGIONS</value>
+              <label>Regions</label>
+            </velem>
+            <velem>
+              <value>SEQTABLE</value>
+              <label>Seqtable</label>
+            </velem>
+            <velem>
+              <value>SIMPLE</value>
+              <label>Simple</label>
+            </velem>
+            <velem>
+              <value>SRS</value>
+              <label>Srs</label>
+            </velem>
+            <velem>
+              <value>SWISS</value>
+              <label>Swiss</label>
+            </velem>
+            <velem>
+              <value>TABLE</value>
+              <label>Table</label>
+            </velem>
+            <velem>
+              <value>TAGSEQ</value>
+              <label>Tagseq</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -rformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>7</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the report output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_rformat_outfile">
+                <xhtml:option value="DASGFF">Dasgff</xhtml:option>
+                <xhtml:option value="DBMOTIF">Dbmotif</xhtml:option>
+                <xhtml:option value="DIFFSEQ">Diffseq</xhtml:option>
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="EXCEL">Excel</xhtml:option>
+                <xhtml:option value="FEATTABLE">Feattable</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+                <xhtml:option value="LISTFILE">Listfile</xhtml:option>
+                <xhtml:option value="MOTIF">Motif</xhtml:option>
+                <xhtml:option value="NAMETABLE">Nametable</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="REGIONS">Regions</xhtml:option>
+                <xhtml:option value="SEQTABLE">Seqtable</xhtml:option>
+                <xhtml:option value="SIMPLE">Simple</xhtml:option>
+                <xhtml:option value="SRS">Srs</xhtml:option>
+                <xhtml:option value="SWISS">Swiss</xhtml:option>
+                <xhtml:option value="TABLE" selected="selected">Table</xhtml:option>
+                <xhtml:option value="TAGSEQ">Tagseq</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="TABLE" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_rformat_outfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outfile_out</name>
+          <prompt lang="en">outfile_out option</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_rformat_outfile">
+              </ref>
+            </dataFormat>
+          </type>
+          <precond>
+            <code proglang="python">e_rformat_outfile in ['DASGFF', 'DBMOTIF', 'DIFFSEQ', 'EMBL', 'EXCEL', 'FEATTABLE', 'GENBANK', 'GFF', 'LISTFILE', 'MOTIF', 'NAMETABLE', 'CODATA', 'REGIONS', 'SEQTABLE', 'SIMPLE', 'SRS', 'SWISS', 'TABLE', 'TAGSEQ']</code>
+          </precond>
+          <filenames>
+            <code proglang="python">e_outfile</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="e_outfile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_graph</name>
+          <prompt lang="en">Choose the e_graph output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_plot</code>
+          </precond>
+          <vdef>
+            <value>png</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>png</value>
+              <label>Png</label>
+            </velem>
+            <velem>
+              <value>gif</value>
+              <label>Gif</label>
+            </velem>
+            <velem>
+              <value>cps</value>
+              <label>Cps</label>
+            </velem>
+            <velem>
+              <value>ps</value>
+              <label>Ps</label>
+            </velem>
+            <velem>
+              <value>meta</value>
+              <label>Meta</label>
+            </velem>
+            <velem>
+              <value>data</value>
+              <label>Data</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">(" -graph=" + str(vdef), " -graph=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>8</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the e_graph output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_graph">
+                <xhtml:option value="png" selected="selected">Png</xhtml:option>
+                <xhtml:option value="gif">Gif</xhtml:option>
+                <xhtml:option value="cps">Cps</xhtml:option>
+                <xhtml:option value="ps">Ps</xhtml:option>
+                <xhtml:option value="meta">Meta</xhtml:option>
+                <xhtml:option value="data">Data</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="png" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_graph"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>xy_goutfile</name>
+          <prompt lang="en">Name of the output graph</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_plot</code>
+          </precond>
+          <vdef>
+            <value>tcode_xygraph</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -goutfile=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>9</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output graph<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="xy_goutfile" type="text" value="tcode_xygraph"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="tcode_xygraph" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xy_goutfile"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_png</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>Picture</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_plot and e_graph == "png"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.png"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_png"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_gif</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>Picture</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_plot and e_graph == "gif"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.gif"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_gif"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_ps</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>PostScript</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_plot and e_graph == "ps" or e_graph == "cps"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.ps"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_ps"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_meta</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>Picture</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_plot and e_graph == "meta"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.meta"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_meta"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xy_outgraph_data</name>
+          <prompt lang="en">Graph file</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="python">e_plot and e_graph == "data"</code>
+          </precond>
+          <filenames>
+            <code proglang="python">"*.dat"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xy_outgraph_data">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>10</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"tcode.out"</code>
+        <code proglang="python">"tcode.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"tcode.err"</code>
+        <code proglang="python">"tcode.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

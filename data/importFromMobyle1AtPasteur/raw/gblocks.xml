@@ -1,0 +1,1186 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Sandrine Larroude,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>gblocks</name>
+    <version>0.91b</version>
+    <doc>
+      <title>Gblocks</title>
+      <description>
+        <text lang="en">Selection of conserved blocks from multiple sequence alignment</text>
+      </description>
+      <authors>Jose Castresana</authors>
+      <reference>Castresana, J. (2000). Selection of conserved blocks from multiple alignments for their use in phylogenetic analysis. Molecular Biology and Evolution 17, 540-552</reference>
+      <reference>Talavera, G., and Castresana, J. (2007). Improvement of phylogenies after removing divergent and ambiguously aligned blocks from protein sequence alignments. Systematic Biology 56, 564-577</reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/gblocks/</doclink>
+      <homepagelink>http://molevol.cmima.csic.es/castresana/Gblocks.html</homepagelink>
+      <sourcelink>http://molevol.cmima.csic.es/castresana/Gblocks.html</sourcelink>
+    </doc>
+    <command>gblocks</command>
+    <category>alignment:multiple:information</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA " data-parametername="infile">
+            <legend>Alignment<xhtml:a href="#idm140117698841072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117698841072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>FASTA-formatted alignments are accepted by gblocks. 
+			      	There is no limit for the number of sequences or positions in the alignment
+			      	as long as there is enough memory available for the program.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="infile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="auto" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="input_type">Type of sequence (-t)<xhtml:a href="#idm140117699472112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="input_type">
+              <xhtml:option value="auto" selected="selected">Automatic</xhtml:option>
+              <xhtml:option value="Protein">Protein</xhtml:option>
+              <xhtml:option value="DNA">DNA</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117699472112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> Automatic: For FASTA-formatted alignments, gblocks assigned the type Protein automatically.</xhtml:div>
+              <xhtml:div> In other cases, precise.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="sel_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options for selection</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MNOSFACP">Minimum Number Of Sequences For A Conserved Position(-b1)<xhtml:a href="#idm140117698161808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="MNOSFACP" type="text" value=""/>
+            <xhtml:div id="idm140117698161808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Any integer BIGGER than half the number of sequences 
+            			and SMALLER OR EQUAL than the total number of sequences. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </xhtml:div>
+              <xhtml:div>By default, = 50% of the number of sequences +1.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MNOSFOFP">Minimum Number Of Sequences For A Flank Position(-b2)<xhtml:a href="#idm140117698000096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="MNOSFOFP" type="text" value=""/>
+            <xhtml:div id="idm140117698000096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Any integer EQUAL OR SMALLER than Minimum Number Of Sequences For A Conserved Position. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </xhtml:div>
+              <xhtml:div>By default, = 85% of the number of sequences.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MLOAB">Minimum Length Of A Block(-b4)<xhtml:a href="#idm140117698189920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="MLOAB" type="text" value="10"/>
+            <xhtml:div id="idm140117698189920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Any integer equal or bigger than 2 (= 10 by default).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="n" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap">Allowed Gap Positions (-b5)<xhtml:a href="#idm140117698039424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="gap">
+              <xhtml:option value="n" selected="selected">None</xhtml:option>
+              <xhtml:option value="h">With Half</xhtml:option>
+              <xhtml:option value="a">All</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117698039424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> None(default value): No gap positions are allowed in the final alignment.</xhtml:div>
+              <xhtml:div> With Half: Positions with a gap in less than 50% of the sequences selected in the final alignment (if they're in an appropriate block).</xhtml:div>
+              <xhtml:div> All: Positions with gaps are not treated differently from others positions.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="8" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MNOCNP">Maximum Number Of Contiguous Nonconserved Positions(-b3)<xhtml:a href="#idm140117698387472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="MNOCNP" type="text" value="8"/>
+            <xhtml:div id="idm140117698387472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>All segment with contiguous non-conserved positions bigger than this value is rejected (=8 by default).</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="saving_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Saving options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sb">Selected Blocks (-s)<xhtml:a href="#idm140117697699248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="sb">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117697699248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not the alignment file with the selected blocks.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="y" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Res_Param">Results And Parameters File(-p)<xhtml:a href="#idm140117698373072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="Res_Param">
+              <xhtml:option value="y" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="t">Text</xhtml:option>
+              <xhtml:option value="s">Short Text</xhtml:option>
+              <xhtml:option value="n">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117698373072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving an HTML file (Yes), saving a text file (Text), saving a short text file (Short Text) or not saving any of them (No). </xhtml:div>
+              <xhtml:div>With the first two options the original file is shown with the selected blocks underlined and, in the HTML file, with colored conserved positions.</xhtml:div>
+              <xhtml:div>The parameters used and the flank positions of the selected blocks are written in these files.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="60" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PerLine">Characters Per Line In Results And Parameters File (&gt;50)(-v)<xhtml:a href="#idm140117697995056::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="PerLine" type="text" value="60"/>
+            <xhtml:div id="idm140117697995056::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Number of characters per line in the alignment shown in the Results And Parameters File.</xhtml:div>
+              <xhtml:div>Any integer bigger than 50 is accepted (60 by default).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nc">NonConserved Blocks (-n)<xhtml:a href="#idm140117697578176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="nc">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117697578176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not a the alignment file with the blocks NOT selected (i.e., the complementary of the selected blocks).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ua">Ungapped Alignment (-u)<xhtml:a href="#idm140117697470224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="ua">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117697470224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not the alignment file where only gap positions (i.e. positions with at least one gap) have been removed.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mask">Mask File With The Selected Blocks (-k)<xhtml:a href="#idm140117697459328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="mask">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117697459328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not a file that can be read by the program SeqPup.</xhtml:div>
+              <xhtml:div>In this file, conserved positions as defined by Gblocks are shadowed and selected blocks underlined</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ps">Postscript File With The Selected Blocks (-d)<xhtml:a href="#idm140117697524368::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="ps">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117697524368::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not a Postscript file that shows schematically the selected blocks. You need a postscript viewer or editor to view this file.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <xhtml:legend>Input</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="infile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA ">
+            <xhtml:i>
+				(Protein or DNA Alignment)
+			</xhtml:i>
+            <xhtml:a href="#idm140117698841072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698841072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>FASTA-formatted alignments are accepted by gblocks. 
+			      	There is no limit for the number of sequences or positions in the alignment
+			      	as long as there is enough memory available for the program.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="input_type" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="auto" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699472112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699472112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> Automatic: For FASTA-formatted alignments, gblocks assigned the type Protein automatically.</xhtml:div>
+              <xhtml:div> In other cases, precise.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="sel_options">
+        <xhtml:legend>Options for selection</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="MNOSFACP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698161808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698161808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Any integer BIGGER than half the number of sequences 
+            			and SMALLER OR EQUAL than the total number of sequences. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </xhtml:div>
+              <xhtml:div>By default, = 50% of the number of sequences +1.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="MNOSFOFP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698000096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698000096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Any integer EQUAL OR SMALLER than Minimum Number Of Sequences For A Conserved Position. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </xhtml:div>
+              <xhtml:div>By default, = 85% of the number of sequences.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="MLOAB" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698189920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698189920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Any integer equal or bigger than 2 (= 10 by default).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="n" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698039424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698039424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> None(default value): No gap positions are allowed in the final alignment.</xhtml:div>
+              <xhtml:div> With Half: Positions with a gap in less than 50% of the sequences selected in the final alignment (if they're in an appropriate block).</xhtml:div>
+              <xhtml:div> All: Positions with gaps are not treated differently from others positions.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="MNOCNP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="8" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698387472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698387472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>All segment with contiguous non-conserved positions bigger than this value is rejected (=8 by default).</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="saving_options">
+        <xhtml:legend>Saving options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sb" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697699248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697699248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not the alignment file with the selected blocks.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Res_Param" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="y" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698373072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698373072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving an HTML file (Yes), saving a text file (Text), saving a short text file (Short Text) or not saving any of them (No). </xhtml:div>
+              <xhtml:div>With the first two options the original file is shown with the selected blocks underlined and, in the HTML file, with colored conserved positions.</xhtml:div>
+              <xhtml:div>The parameters used and the flank positions of the selected blocks are written in these files.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="PerLine" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="60" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697995056::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697995056::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Number of characters per line in the alignment shown in the Results And Parameters File.</xhtml:div>
+              <xhtml:div>Any integer bigger than 50 is accepted (60 by default).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nc" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697578176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697578176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not a the alignment file with the blocks NOT selected (i.e., the complementary of the selected blocks).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ua" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697470224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697470224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not the alignment file where only gap positions (i.e. positions with at least one gap) have been removed.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mask" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697459328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697459328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not a file that can be read by the program SeqPup.</xhtml:div>
+              <xhtml:div>In this file, conserved positions as defined by Gblocks are shadowed and selected blocks underlined</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ps" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117697524368::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117697524368::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Saving or Not a Postscript file that shows schematically the selected blocks. You need a postscript viewer or editor to view this file.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Res_Param_HTML" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Res_Param_t" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Res_Param_st" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alignment_result" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nc_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ua_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mask_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ps_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>input</name>
+      <prompt lang="en">Input</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter ismandatory="1" issimple="1">
+          <name>infile</name>
+          <prompt lang="en">Alignment</prompt>
+          <type>
+            <biotype>Protein</biotype>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+          </type>
+          <format>
+            <code proglang="perl">" $value -g"</code>
+            <code proglang="python">" "+str(value)+" -g"</code>
+          </format>
+          <comment>
+            <text lang="en">FASTA-formatted alignments are accepted by gblocks. 
+			      	There is no limit for the number of sequences or positions in the alignment
+			      	as long as there is enough memory available for the program.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Alignment</xhtml:legend>
+              <xhtml:textarea name="infile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein DNA " data-card="" data-formats="FASTA " data-parametername="infile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein or DNA Alignment)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698841072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698841072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>FASTA-formatted alignments are accepted by gblocks. 
+			      	There is no limit for the number of sequences or positions in the alignment
+			      	as long as there is enough memory available for the program.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>input_type</name>
+          <prompt lang="en">Type of sequence (-t)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>auto</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>auto</value>
+              <label>Automatic</label>
+            </velem>
+            <velem>
+              <value>Protein</value>
+              <label>Protein</label>
+            </velem>
+            <velem>
+              <value>DNA</value>
+              <label>DNA</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -t=$value" : ""</code>
+            <code proglang="python">("", " -t="+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en"> Automatic: For FASTA-formatted alignments, gblocks assigned the type Protein automatically.</text>
+            <text lang="en"> In other cases, precise.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Type of sequence (-t)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699472112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="input_type">
+                <xhtml:option value="auto" selected="selected">Automatic</xhtml:option>
+                <xhtml:option value="Protein">Protein</xhtml:option>
+                <xhtml:option value="DNA">DNA</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699472112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> Automatic: For FASTA-formatted alignments, gblocks assigned the type Protein automatically.</xhtml:div>
+                <xhtml:div> In other cases, precise.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="auto" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="input_type">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699472112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699472112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> Automatic: For FASTA-formatted alignments, gblocks assigned the type Protein automatically.</xhtml:div>
+                <xhtml:div> In other cases, precise.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>sel_options</name>
+      <prompt lang="en">Options for selection</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>MNOSFACP</name>
+          <prompt lang="en">Minimum Number Of Sequences For A Conserved Position(-b1)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -b1=$value" : ""</code>
+            <code proglang="python">("" , " -b1="+str(value))[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Any integer BIGGER than half the number of sequences 
+            			and SMALLER OR EQUAL than the total number of sequences. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </text>
+            <text lang="en">By default, = 50% of the number of sequences +1.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum Number Of Sequences For A Conserved Position(-b1)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698161808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="MNOSFACP" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698161808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Any integer BIGGER than half the number of sequences 
+            			and SMALLER OR EQUAL than the total number of sequences. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </xhtml:div>
+                <xhtml:div>By default, = 50% of the number of sequences +1.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MNOSFACP">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698161808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698161808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Any integer BIGGER than half the number of sequences 
+            			and SMALLER OR EQUAL than the total number of sequences. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </xhtml:div>
+                <xhtml:div>By default, = 50% of the number of sequences +1.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>MNOSFOFP</name>
+          <prompt lang="en">Minimum Number Of Sequences For A Flank Position(-b2)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -b2=$value" : ""</code>
+            <code proglang="python">("" , " -b2="+str(value))[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Any integer EQUAL OR SMALLER than Minimum Number Of Sequences For A Conserved Position. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </text>
+            <text lang="en">By default, = 85% of the number of sequences.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum Number Of Sequences For A Flank Position(-b2)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698000096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="MNOSFOFP" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698000096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Any integer EQUAL OR SMALLER than Minimum Number Of Sequences For A Conserved Position. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </xhtml:div>
+                <xhtml:div>By default, = 85% of the number of sequences.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MNOSFOFP">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698000096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698000096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Any integer EQUAL OR SMALLER than Minimum Number Of Sequences For A Conserved Position. If you put an integer not in this interval, gblocks will run the program with default value, check the warning in output. </xhtml:div>
+                <xhtml:div>By default, = 85% of the number of sequences.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>MLOAB</name>
+          <prompt lang="en">Minimum Length Of A Block(-b4)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -b4=$value" : ""</code>
+            <code proglang="python">("" , " -b4="+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Any integer equal or bigger than 2 (= 10 by default).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum Length Of A Block(-b4)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698189920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="MLOAB" type="text" value="10"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698189920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Any integer equal or bigger than 2 (= 10 by default).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MLOAB">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698189920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698189920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Any integer equal or bigger than 2 (= 10 by default).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gap</name>
+          <prompt lang="en">Allowed Gap Positions (-b5)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>n</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>n</value>
+              <label>None</label>
+            </velem>
+            <velem>
+              <value>h</value>
+              <label>With Half</label>
+            </velem>
+            <velem>
+              <value>a</value>
+              <label>All</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -b5=$value" : ""</code>
+            <code proglang="python">("", " -b5="+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en"> None(default value): No gap positions are allowed in the final alignment.</text>
+            <text lang="en"> With Half: Positions with a gap in less than 50% of the sequences selected in the final alignment (if they're in an appropriate block).</text>
+            <text lang="en"> All: Positions with gaps are not treated differently from others positions.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Allowed Gap Positions (-b5)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698039424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gap">
+                <xhtml:option value="n" selected="selected">None</xhtml:option>
+                <xhtml:option value="h">With Half</xhtml:option>
+                <xhtml:option value="a">All</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698039424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> None(default value): No gap positions are allowed in the final alignment.</xhtml:div>
+                <xhtml:div> With Half: Positions with a gap in less than 50% of the sequences selected in the final alignment (if they're in an appropriate block).</xhtml:div>
+                <xhtml:div> All: Positions with gaps are not treated differently from others positions.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="n" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698039424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698039424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> None(default value): No gap positions are allowed in the final alignment.</xhtml:div>
+                <xhtml:div> With Half: Positions with a gap in less than 50% of the sequences selected in the final alignment (if they're in an appropriate block).</xhtml:div>
+                <xhtml:div> All: Positions with gaps are not treated differently from others positions.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>MNOCNP</name>
+          <prompt lang="en">Maximum Number Of Contiguous Nonconserved Positions(-b3)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>8</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -b3=$value" : ""</code>
+            <code proglang="python">("" , " -b3="+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">All segment with contiguous non-conserved positions bigger than this value is rejected (=8 by default).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum Number Of Contiguous Nonconserved Positions(-b3)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698387472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="MNOCNP" type="text" value="8"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698387472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>All segment with contiguous non-conserved positions bigger than this value is rejected (=8 by default).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="8" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MNOCNP">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698387472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698387472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>All segment with contiguous non-conserved positions bigger than this value is rejected (=8 by default).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>saving_options</name>
+      <prompt lang="en">Saving options</prompt>
+      <argpos>4</argpos>
+      <parameters>
+        <parameter>
+          <name>sb</name>
+          <prompt lang="en">Selected Blocks (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "" , " -s=n"</code>
+            <code proglang="python">(" -s=n" , "")[value]</code>
+          </format>
+          <comment>
+            <text lang="en">Saving or Not the alignment file with the selected blocks.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Selected Blocks (-s)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697699248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sb">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697699248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not the alignment file with the selected blocks.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="sb">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697699248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697699248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not the alignment file with the selected blocks.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Res_Param</name>
+          <prompt lang="en">Results And Parameters File(-p)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>y</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>y</value>
+              <label>Yes</label>
+            </velem>
+            <velem>
+              <value>t</value>
+              <label>Text</label>
+            </velem>
+            <velem>
+              <value>s</value>
+              <label>Short Text</label>
+            </velem>
+            <velem>
+              <value>n</value>
+              <label>No</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -p=$value" : ""</code>
+            <code proglang="python">("" , " -p="+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Saving an HTML file (Yes), saving a text file (Text), saving a short text file (Short Text) or not saving any of them (No). </text>
+            <text lang="en">With the first two options the original file is shown with the selected blocks underlined and, in the HTML file, with colored conserved positions.</text>
+            <text lang="en">The parameters used and the flank positions of the selected blocks are written in these files.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Results And Parameters File(-p)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698373072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Res_Param">
+                <xhtml:option value="y" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="t">Text</xhtml:option>
+                <xhtml:option value="s">Short Text</xhtml:option>
+                <xhtml:option value="n">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698373072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving an HTML file (Yes), saving a text file (Text), saving a short text file (Short Text) or not saving any of them (No). </xhtml:div>
+                <xhtml:div>With the first two options the original file is shown with the selected blocks underlined and, in the HTML file, with colored conserved positions.</xhtml:div>
+                <xhtml:div>The parameters used and the flank positions of the selected blocks are written in these files.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="y" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Res_Param">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698373072::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698373072::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving an HTML file (Yes), saving a text file (Text), saving a short text file (Short Text) or not saving any of them (No). </xhtml:div>
+                <xhtml:div>With the first two options the original file is shown with the selected blocks underlined and, in the HTML file, with colored conserved positions.</xhtml:div>
+                <xhtml:div>The parameters used and the flank positions of the selected blocks are written in these files.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>PerLine</name>
+          <prompt lang="en">Characters Per Line In Results And Parameters File (&gt;50)(-v)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>60</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -v=$value" : ""</code>
+            <code proglang="python">("" , " -v="+str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Number of characters per line in the alignment shown in the Results And Parameters File.</text>
+            <text lang="en">Any integer bigger than 50 is accepted (60 by default).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Characters Per Line In Results And Parameters File (&gt;50)(-v)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697995056::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="PerLine" type="text" value="60"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697995056::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Number of characters per line in the alignment shown in the Results And Parameters File.</xhtml:div>
+                <xhtml:div>Any integer bigger than 50 is accepted (60 by default).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="60" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PerLine">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697995056::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697995056::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Number of characters per line in the alignment shown in the Results And Parameters File.</xhtml:div>
+                <xhtml:div>Any integer bigger than 50 is accepted (60 by default).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nc</name>
+          <prompt lang="en">NonConserved Blocks (-n)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "-n=y" , ""</code>
+            <code proglang="python">("" , " -n=y")[value]</code>
+          </format>
+          <comment>
+            <text lang="en">Saving or Not a the alignment file with the blocks NOT selected (i.e., the complementary of the selected blocks).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">NonConserved Blocks (-n)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697578176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nc">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697578176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not a the alignment file with the blocks NOT selected (i.e., the complementary of the selected blocks).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nc">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697578176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697578176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not a the alignment file with the blocks NOT selected (i.e., the complementary of the selected blocks).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ua</name>
+          <prompt lang="en">Ungapped Alignment (-u)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "-u=y" , ""</code>
+            <code proglang="python">("" , " -u=y")[value]</code>
+          </format>
+          <comment>
+            <text lang="en">Saving or Not the alignment file where only gap positions (i.e. positions with at least one gap) have been removed.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ungapped Alignment (-u)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697470224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ua">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697470224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not the alignment file where only gap positions (i.e. positions with at least one gap) have been removed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ua">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697470224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697470224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not the alignment file where only gap positions (i.e. positions with at least one gap) have been removed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>mask</name>
+          <prompt lang="en">Mask File With The Selected Blocks (-k)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "-k=y" , ""</code>
+            <code proglang="python">("" , " -k=y")[value]</code>
+          </format>
+          <comment>
+            <text lang="en">Saving or Not a file that can be read by the program SeqPup.</text>
+            <text lang="en">In this file, conserved positions as defined by Gblocks are shadowed and selected blocks underlined</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Mask File With The Selected Blocks (-k)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697459328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="mask">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697459328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not a file that can be read by the program SeqPup.</xhtml:div>
+                <xhtml:div>In this file, conserved positions as defined by Gblocks are shadowed and selected blocks underlined</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mask">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697459328::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697459328::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not a file that can be read by the program SeqPup.</xhtml:div>
+                <xhtml:div>In this file, conserved positions as defined by Gblocks are shadowed and selected blocks underlined</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ps</name>
+          <prompt lang="en">Postscript File With The Selected Blocks (-d)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? "-d=y" , ""</code>
+            <code proglang="python">("" , " -d=y")[value]</code>
+          </format>
+          <comment>
+            <text lang="en">Saving or Not a Postscript file that shows schematically the selected blocks. You need a postscript viewer or editor to view this file.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Postscript File With The Selected Blocks (-d)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697524368::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ps">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697524368::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not a Postscript file that shows schematically the selected blocks. You need a postscript viewer or editor to view this file.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ps">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117697524368::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117697524368::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Saving or Not a Postscript file that shows schematically the selected blocks. You need a postscript viewer or editor to view this file.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>Res_Param_HTML</name>
+      <prompt lang="en">Results and Params (HTML format)</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$Res_Param ne 't' and $Res_Param ne 's' and $Res_Param ne 'n'</code>
+        <code proglang="python">Res_Param != 't' and Res_Param != 's' and Res_Param != 'n'</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*-gb.htm"</code>
+        <code proglang="python">"*-gb.htm"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Res_Param_HTML">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>Res_Param_t</name>
+      <prompt lang="en">Results and Params (Text format)</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$Res_Param eq 't'</code>
+        <code proglang="python">Res_Param == 't'</code>
+      </precond>
+      <filenames>
+        <code proglang="python">"*-gb.txt"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Res_Param_t">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>Res_Param_st</name>
+      <prompt lang="en">Results and Params (ShortText format)</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$Res_Param eq 's'</code>
+        <code proglang="python">Res_Param == 's'</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*-gb.txts"</code>
+        <code proglang="python">"*-gb.txts"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Res_Param_st">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>alignment_result</name>
+      <prompt lang="en">Alignment file with selected blocks</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$sb</code>
+        <code proglang="python">sb</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*-gb"</code>
+        <code proglang="python">"*-gb"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="alignment_result">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>nc_file</name>
+      <prompt lang="en">NonConserved Blocks File</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$nc</code>
+        <code proglang="python">nc</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*-gbComp"</code>
+        <code proglang="python">"*-gbComp"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="nc_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>ua_file</name>
+      <prompt lang="en">Ungapped Alignment File</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <precond>
+        <code proglang="perl">$ua</code>
+        <code proglang="python">ua</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*--"</code>
+        <code proglang="python">"*--"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="ua_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>mask_file</name>
+      <prompt lang="en">Mask File With The Selected Blocks</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$mask</code>
+        <code proglang="python">mask</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*-gbMask"</code>
+        <code proglang="python">"*-gbMask"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mask_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>ps_file</name>
+      <prompt lang="en">Postscript File</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$ps</code>
+        <code proglang="python">ps</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*-gbPS"</code>
+        <code proglang="python">"*-gbPS"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ps_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"gblocks.out"</code>
+        <code proglang="python">"gblocks.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"gblocks.err"</code>
+        <code proglang="python">"gblocks.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

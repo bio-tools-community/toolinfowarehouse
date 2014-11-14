@@ -1,0 +1,1830 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>psiblast</name>
+    <package xml:base="Entities/blast_package.xml">
+      <name>blast</name>
+      <version>2.2.26</version>
+      <doc>
+        <title>blast</title>
+        <description>
+          <text lang="en">The Basic Local Alignment Search Tool (BLAST) finds regions of local similarity between sequences.
+      </text>
+        </description>
+        <homepagelink>http://www.ncbi.nlm.nih.gov/BLAST/</homepagelink>
+        <sourcelink>http://www.ncbi.nlm.nih.gov/BLAST/download.shtml</sourcelink>
+        <authors>Altschul, Madden, Schaeffer, Zhang, Miller, Lipman</authors>
+      </doc>
+    </package>
+    <doc>
+      <title>PSI-Blast</title>
+      <description>
+        <text lang="en">Position Specific Iterative Blast</text>
+      </description>
+      <reference>Altschul, Stephen F., Thomas L. Madden, Alejandro A. Schaeffer,Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), Gapped BLAST and PSI-BLAST: a new generation of protein database search programs, Nucleic Acids Res. 25:3389-3402.</reference>
+    </doc>
+    <category>database:search:homology</category>
+    <category>database:search:pattern</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="query">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequence File (-i)</legend>
+        <xhtml:textarea xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml" name="query" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="start_region">Start of required region in query (-S)<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml" name="start_region" type="text" value="1"/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="end_region">End of required region in query (-H)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702565360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml" name="end_region" type="text" value="-1"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702565360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Location on query sequence. -1 indicates end of query</xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="protein_db">Protein database (-d )<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703245120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml" name="protein_db">
+          <xhtml:option value="null" selected="selected">Choose a database</xhtml:option>
+          <xhtml:option value="alupro">Select Alu repeats from REPBASE</xhtml:option>
+          <xhtml:option value="nrprot">nrprot: NCBI non-redundant Genbank CDS translations+PDB+Swissprot+PIR</xhtml:option>
+          <xhtml:option value="pdb">Protein Data Bank</xhtml:option>
+          <xhtml:option value="refseqp_release">NCBI Reference Sequence (RefSeq) Database last release</xhtml:option>
+          <xhtml:option value="refseqp_udpate">NCBI Reference Sequence (RefSeq) updates</xhtml:option>
+          <xhtml:option value="refseqp">RefSeq (last release + updates)</xhtml:option>
+          <xhtml:option value="sbase">sbase: annotated domains sequences</xhtml:option>
+          <xhtml:option value="uniprot">uniprot: Universal Protein Resource (sprot+treml)</xhtml:option>
+          <xhtml:option value="uniprot_sprot">uniprot_sprot: Universal Protein Resource (SwissProt part)</xhtml:option>
+          <xhtml:option value="uniprot_trembl">uniprot_trembl: Universal Protein Resource (TrEmbl part)</xhtml:option>
+          <xhtml:option value="uniref90">Clustered sets of sequences from UniProt Knowledgebase (UniRef 90)</xhtml:option>
+          <xhtml:option value="uniref50">Clustered sets of sequences from UniProt Knowledgebase (UniRef 50)</xhtml:option>
+          <xhtml:option value="vipr_aa">Virus Pathogen Resource</xhtml:option>
+          <xhtml:option value="genbank_wgspro">Genbank : Whole Genome Shotgun</xhtml:option>
+        </xhtml:select>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703245120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Choose a protein db for blastp or blastx.</xhtml:div>
+        </xhtml:div>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="scoring">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Scoring option</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="11" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="open_a_gap">Cost to open a gap (-G)<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="open_a_gap" type="text" value="11"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend_a_gap">Cost to extend a gap (-E)<xhtml:a href="#idm140117703015232::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="extend_a_gap" type="text" value="1"/>
+            <xhtml:div id="idm140117703015232::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Limited values for gap existence and extension are supported for these three programs. Some supported and suggested values are:</xhtml:div>
+              <xhtml:div>Existence Extension</xhtml:div>
+              <xhtml:div>10 -- 1</xhtml:div>
+              <xhtml:div>10 -- 2</xhtml:div>
+              <xhtml:div>11 -- 1</xhtml:div>
+              <xhtml:div>8 -- 2</xhtml:div>
+              <xhtml:div>9 -- 2</xhtml:div>
+              <xhtml:div>(source: NCBI Blast page)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix">Similarity matrix (-M)<xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="matrix">
+              <xhtml:option value="BLOSUM45">BLOSUM45</xhtml:option>
+              <xhtml:option value="BLOSUM80">BLOSUM80</xhtml:option>
+              <xhtml:option value="BLOSUM62" selected="selected">BLOSUM62</xhtml:option>
+              <xhtml:option value="PAM30">PAM30</xhtml:option>
+              <xhtml:option value="PAM70">PAM70</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="filter_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Filtering and masking options<xhtml:a href="#idm140117703256176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703256176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>This options also takes a string as an argument.  One may use such a string to change the specific parameters of seg or invoke other filters. Please see the 'Filtering Strings' section (below) for details.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="filter">Filter query sequence with SEG (-F)<xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="filter">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lower_case">Use lower case filtering (-U)<xhtml:a href="#idm140117703327920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="lower_case">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117703327920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies that any lower-case letters in the input FASTA file should be masked.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="selectivity_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Selectivity options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Expect">Expected value (-e)<xhtml:a href="#idm140117703079216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="Expect" type="text" value="10"/>
+            <xhtml:div id="idm140117703079216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are acceptable. </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="word_size">Word Size (-W)<xhtml:a href="#idm140117703508816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="word_size" type="text" value=""/>
+            <xhtml:div id="idm140117703508816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use words of size N.</xhtml:div>
+              <xhtml:div>Zero invokes default behavior</xhtml:div>
+              <xhtml:div>Default value: 3</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="40" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="window">Multiple hits window size (-A)<xhtml:a href="#idm140117703671200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="window" type="text" value="40"/>
+            <xhtml:div id="idm140117703671200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When  multiple   hits  method  is  used,  this parameter defines the distance from last hit on the same diagonal to the new one.</xhtml:div>
+              <xhtml:div>Zero means single hit algorithm.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="11" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend_hit">Threshold for extending hits (-f)<xhtml:a href="#idm140117703678560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="extend_hit" type="text" value="11"/>
+            <xhtml:div id="idm140117703678560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Blast seeks first short word pairs whose aligned score reaches at least this value</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dropoff">X dropoff value for gapped alignment (-X)<xhtml:a href="#idm140117703073120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="dropoff" type="text" value=""/>
+            <xhtml:div id="idm140117703073120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="25" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dropoff_z">X dropoff value for final gapped alignment (-Z)<xhtml:a href="#idm140117703246896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="dropoff_z" type="text" value="25"/>
+            <xhtml:div id="idm140117703246896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This parameter controls the dropoff for the final reported alignment. See also the -X parameter.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="7.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dropoff_y">Dropoff for blast ungapped extensions in bits (-y)<xhtml:a href="#idm140117703724832::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="dropoff_y" type="text" value="7.0"/>
+            <xhtml:div id="idm140117703724832::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This parameter controls the dropoff at ungapped extension stage. See also the -X parameter.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eff_len">Effective length of the search space (-Y)<xhtml:a href="#idm140117702987760::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="eff_len" type="text" value="0"/>
+            <xhtml:div id="idm140117702987760::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use zero for the real size</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="keep_hits">Number of best hits from a region to keep (-K)<xhtml:a href="#idm140117702977712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="keep_hits" type="text" value=""/>
+            <xhtml:div id="idm140117702977712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this option is used, a value of 100 is recommended.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mode">Single-hit or multiple-hit mode (-P)<xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="mode">
+              <xhtml:option value="0" selected="selected">Multiple-hit (0)</xhtml:option>
+              <xhtml:option value="1">Single-hit (1)</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="22" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nb_bits">Number of bits to trigger gapping (-N)<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="nb_bits" type="text" value="22"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="psi_spec_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">PSI-Blast specific selectivity options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_passes">Maximum number of passes to use in  multipass version (-j)<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="max_passes" type="text" value="1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.002" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="expect_in_multipass">e-value threshold for inclusion in multipass model (-h)<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="expect_in_multipass" type="text" value="0.002"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="9" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pseudocounts">Constant in pseudocounts for multipass version (-c)<xhtml:a href="#idm140117702266256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="pseudocounts" type="text" value="9"/>
+            <xhtml:div id="idm140117702266256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This constant is the weight given to a pre-calculated residue target frequency (versus the observed one) in a column of the position specific matrix. The larger its value, the greater the emphasis given to prior knowledge of residue relationships vis a vis observed residue frequencies (beta constant in NAR paper).</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="affichage">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Report options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="500" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Descriptions">Number of one-line descriptions to show? (-v)<xhtml:a href="#idm140117702253200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="Descriptions" type="text" value="500"/>
+            <xhtml:div id="idm140117702253200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Maximum number of database sequences for which one-line descriptions will be reported.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="250" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Alignments">Number of database sequences to show alignments? (-b)<xhtml:a href="#idm140117702243088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="Alignments" type="text" value="250"/>
+            <xhtml:div id="idm140117702243088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Maximum number of database sequences for which high-scoring segment pairs will be reported (-b).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="view_alignments">Alignment view options (-m)<xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="view_alignments">
+              <xhtml:option value="0" selected="selected">Pairwise (0)</xhtml:option>
+              <xhtml:option value="1">Query-anchored showing identities (1)</xhtml:option>
+              <xhtml:option value="2">Query-anchored no identities (2)</xhtml:option>
+              <xhtml:option value="3">Flat query-anchored, show identities (3)</xhtml:option>
+              <xhtml:option value="4">Flat query-anchored, no identities (4)</xhtml:option>
+              <xhtml:option value="5">Query-anchored no identities and blunt ends (5)</xhtml:option>
+              <xhtml:option value="6">Flat query-anchored, no identities and blunt ends (6)</xhtml:option>
+              <xhtml:option value="7">XML Blast output (7)</xhtml:option>
+              <xhtml:option value="8">Tabular output (8)</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="htmloutput">Html output<xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="htmloutput">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="believe">Believe the query defline (-J)<xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="believe">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqalign_file">SeqAlign file (-J option must be true) (-O)<xhtml:a href="#idm140117702167392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="seqalign_file" type="text" value=""/>
+            <xhtml:div id="idm140117702167392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>SeqAlign is in ASN.1 format, so that it can be read with NCBI tools (such as sequin). This allows one to view the results in different formats.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="save_matrix">Save PSI-Blast Matrix to file (-C)<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml" name="save_matrix" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="save_txt_matrix">Save PSI-BLAST Matrix as text to file (-Q)<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml" name="save_txt_matrix" type="text" value=""/>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="psiblast" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117704211280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117704211280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The blastpgp program can do an iterative search in which sequences found in one round of searching are used to build a score model for the next round of searching. In this usage, the program is called Position-Specific Iterated BLAST, or PSI-BLAST. As explained in the accompanying paper, the BLAST algorithm is not tied to a specific score matrix. Traditionally, it has been implemented using an AxA substitution matrix where A is the alphabet size. PSI-BLAST instead uses a QxA matrix, where Q is the length of the query sequence; at each position the cost of a letter depends on the position w.r.t. the query and the letter in the subject sequence.</xhtml:div>
+          <xhtml:div>The position-specific matrix for round i+1 is built from a constrained multiple alignment among the query and the sequences found with sufficiently low e-value in round i. The top part of the output for each round distinguishes the sequences into: sequences found previously and used in the score model, and sequences not used in the score model. The output currently includes lots of diagnostics requested by users at NCBI. To skip quickly from the output of one round to the next, search for the string 'producing', which is part of the header for each round and likely does not appear elsewhere in the output. PSI-BLAST 'converges' and stops if all sequences found at round i+1 below the e-value threshold were already in the model at the beginning of the round.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="query" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="start_region" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="end_region" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117702565360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117702565360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Location on query sequence. -1 indicates end of query</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="protein_db" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703245120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703245120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Choose a protein db for blastp or blastx.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="scoring">
+        <xhtml:legend>Scoring option</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="open_a_gap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="11" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="extend_a_gap" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703015232::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703015232::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Limited values for gap existence and extension are supported for these three programs. Some supported and suggested values are:</xhtml:div>
+              <xhtml:div>Existence Extension</xhtml:div>
+              <xhtml:div>10 -- 1</xhtml:div>
+              <xhtml:div>10 -- 2</xhtml:div>
+              <xhtml:div>11 -- 1</xhtml:div>
+              <xhtml:div>8 -- 2</xhtml:div>
+              <xhtml:div>9 -- 2</xhtml:div>
+              <xhtml:div>(source: NCBI Blast page)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="matrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="filter_opt">
+        <xhtml:legend>Filtering and masking options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="filter" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="lower_case" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703327920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703327920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies that any lower-case letters in the input FASTA file should be masked.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="selectivity_opt">
+        <xhtml:legend>Selectivity options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Expect" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703079216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703079216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are acceptable. </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="word_size" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703508816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703508816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use words of size N.</xhtml:div>
+              <xhtml:div>Zero invokes default behavior</xhtml:div>
+              <xhtml:div>Default value: 3</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="window" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="40" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703671200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703671200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When  multiple   hits  method  is  used,  this parameter defines the distance from last hit on the same diagonal to the new one.</xhtml:div>
+              <xhtml:div>Zero means single hit algorithm.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="extend_hit" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="11" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703678560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703678560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Blast seeks first short word pairs whose aligned score reaches at least this value</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dropoff" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703073120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703073120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dropoff_z" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="25" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703246896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703246896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This parameter controls the dropoff for the final reported alignment. See also the -X parameter.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="dropoff_y" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="7.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117703724832::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117703724832::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This parameter controls the dropoff at ungapped extension stage. See also the -X parameter.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="eff_len" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117702987760::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117702987760::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use zero for the real size</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="keep_hits" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117702977712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117702977712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this option is used, a value of 100 is recommended.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mode" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nb_bits" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="22" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="psi_spec_opt">
+        <xhtml:legend>PSI-Blast specific selectivity options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="max_passes" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="expect_in_multipass" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.002" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pseudocounts" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="9" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117702266256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117702266256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This constant is the weight given to a pre-calculated residue target frequency (versus the observed one) in a column of the position specific matrix. The larger its value, the greater the emphasis given to prior knowledge of residue relationships vis a vis observed residue frequencies (beta constant in NAR paper).</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="affichage">
+        <xhtml:legend>Report options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Descriptions" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="500" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117702253200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117702253200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Maximum number of database sequences for which one-line descriptions will be reported.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Alignments" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="250" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117702243088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117702243088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Maximum number of database sequences for which high-scoring segment pairs will be reported (-b).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="view_alignments" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="txtoutput" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xmloutput" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="htmloutput" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="believe" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqalign_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117702167392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117702167392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>SeqAlign is in ASN.1 format, so that it can be read with NCBI tools (such as sequin). This allows one to view the results in different formats.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="save_matrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="save_txt_matrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="txtfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(BlastTextReport)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xmlfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BlastXmlReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(BlastXmlReport)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="htmlfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BlastHtmlReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(BlastHtmlReport)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="imgfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters xmlns:xi="http://www.w3.org/2001/XInclude">
+    <parameter iscommand="1" ishidden="1">
+      <name>psiblast</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"blastpgp"</code>
+        <code proglang="python">"blastpgp"</code>
+      </format>
+      <argpos>0</argpos>
+      <comment>
+        <text lang="en">The blastpgp program can do an iterative search in which sequences found in one round of searching are used to build a score model for the next round of searching. In this usage, the program is called Position-Specific Iterated BLAST, or PSI-BLAST. As explained in the accompanying paper, the BLAST algorithm is not tied to a specific score matrix. Traditionally, it has been implemented using an AxA substitution matrix where A is the alphabet size. PSI-BLAST instead uses a QxA matrix, where Q is the length of the query sequence; at each position the cost of a letter depends on the position w.r.t. the query and the letter in the subject sequence.</text>
+        <text lang="en">The position-specific matrix for round i+1 is built from a constrained multiple alignment among the query and the sequences found with sufficiently low e-value in round i. The top part of the output for each round distinguishes the sequences into: sequences found previously and used in the score model, and sequences not used in the score model. The output currently includes lots of diagnostics requested by users at NCBI. To skip quickly from the output of one round to the next, search for the string 'producing', which is part of the header for each round and likely does not appear elsewhere in the output. PSI-BLAST 'converges' and stops if all sequences found at round i+1 below the e-value threshold were already in the model at the beginning of the round.</text>
+      </comment>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="psiblast">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704211280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704211280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>The blastpgp program can do an iterative search in which sequences found in one round of searching are used to build a score model for the next round of searching. In this usage, the program is called Position-Specific Iterated BLAST, or PSI-BLAST. As explained in the accompanying paper, the BLAST algorithm is not tied to a specific score matrix. Traditionally, it has been implemented using an AxA substitution matrix where A is the alphabet size. PSI-BLAST instead uses a QxA matrix, where Q is the length of the query sequence; at each position the cost of a letter depends on the position w.r.t. the query and the letter in the subject sequence.</xhtml:div>
+            <xhtml:div>The position-specific matrix for round i+1 is built from a constrained multiple alignment among the query and the sequences found with sufficiently low e-value in round i. The top part of the output for each round distinguishes the sequences into: sequences found previously and used in the score model, and sequences not used in the score model. The output currently includes lots of diagnostics requested by users at NCBI. To skip quickly from the output of one round to the next, search for the string 'producing', which is part of the header for each round and likely does not appear elsewhere in the output. PSI-BLAST 'converges' and stops if all sequences found at round i+1 below the e-value threshold were already in the model at the beginning of the round.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>query</name>
+      <prompt lang="en">Sequence File (-i)</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" -i $query" </code>
+        <code proglang="python">" -i " + str(value)</code>
+      </format>
+      <argpos>3</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequence File (-i)</xhtml:legend>
+          <xhtml:textarea name="query" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="query">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>start_region</name>
+      <prompt lang="en">Start of required region in query (-S)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>1</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value != $vdef) ? " -S $value" : ""</code>
+        <code proglang="python">( "" , " -S " + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Start of required region in query (-S)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="start_region" type="text" value="1"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="start_region"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>end_region</name>
+      <prompt lang="en">End of required region in query (-H)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>-1</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value != $vdef) ? " -H $value" : ""</code>
+        <code proglang="python">( "" , " -H " + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <comment>
+        <text lang="en">Location on query sequence. -1 indicates end of query</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">End of required region in query (-H)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702565360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="end_region" type="text" value="-1"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702565360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Location on query sequence. -1 indicates end of query</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="end_region">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702565360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702565360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Location on query sequence. -1 indicates end of query</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>protein_db</name>
+      <prompt lang="en">Protein database (-d )</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>null</value>
+      </vdef>
+      <vlist xml:base="../../Local/Services/Programs/Env/protdbs.xml">
+        <velem undef="1">
+          <value>null</value>
+          <label>Choose a database</label>
+        </velem>
+        <velem>
+          <value>alupro</value>
+          <label>Select Alu repeats from REPBASE</label>
+        </velem>
+        <velem>
+          <value>nrprot</value>
+          <label>nrprot: NCBI non-redundant Genbank CDS translations+PDB+Swissprot+PIR</label>
+        </velem>
+        <velem>
+          <value>pdb</value>
+          <label>Protein Data Bank</label>
+        </velem>
+        <velem>
+          <value>refseqp_release</value>
+          <label>NCBI Reference Sequence (RefSeq) Database last release</label>
+        </velem>
+        <velem>
+          <value>refseqp_udpate</value>
+          <label>NCBI Reference Sequence (RefSeq) updates</label>
+        </velem>
+        <velem>
+          <value>refseqp</value>
+          <label>RefSeq (last release + updates)</label>
+        </velem>
+        <velem>
+          <value>sbase</value>
+          <label>sbase: annotated domains sequences</label>
+        </velem>
+        <velem>
+          <value>uniprot</value>
+          <label>uniprot: Universal Protein Resource (sprot+treml)</label>
+        </velem>
+        <velem>
+          <value>uniprot_sprot</value>
+          <label>uniprot_sprot: Universal Protein Resource (SwissProt part)</label>
+        </velem>
+        <velem>
+          <value>uniprot_trembl</value>
+          <label>uniprot_trembl: Universal Protein Resource (TrEmbl part)</label>
+        </velem>
+        <velem>
+          <value>uniref90</value>
+          <label>Clustered sets of sequences from UniProt Knowledgebase (UniRef 90)</label>
+        </velem>
+        <velem>
+          <value>uniref50</value>
+          <label>Clustered sets of sequences from UniProt Knowledgebase (UniRef 50)</label>
+        </velem>
+        <velem>
+          <value>vipr_aa</value>
+          <label>Virus Pathogen Resource</label>
+        </velem>
+        <velem>
+          <value>genbank_wgspro</value>
+          <label>Genbank : Whole Genome Shotgun</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl"> " -d $value" </code>
+        <code proglang="python"> " -d " + str(value) </code>
+      </format>
+      <argpos>2</argpos>
+      <comment>
+        <text lang="en">Choose a protein db for blastp or blastx.</text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Protein database (-d )<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703245120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="protein_db">
+            <xhtml:option value="null" selected="selected">Choose a database</xhtml:option>
+            <xhtml:option value="alupro">Select Alu repeats from REPBASE</xhtml:option>
+            <xhtml:option value="nrprot">nrprot: NCBI non-redundant Genbank CDS translations+PDB+Swissprot+PIR</xhtml:option>
+            <xhtml:option value="pdb">Protein Data Bank</xhtml:option>
+            <xhtml:option value="refseqp_release">NCBI Reference Sequence (RefSeq) Database last release</xhtml:option>
+            <xhtml:option value="refseqp_udpate">NCBI Reference Sequence (RefSeq) updates</xhtml:option>
+            <xhtml:option value="refseqp">RefSeq (last release + updates)</xhtml:option>
+            <xhtml:option value="sbase">sbase: annotated domains sequences</xhtml:option>
+            <xhtml:option value="uniprot">uniprot: Universal Protein Resource (sprot+treml)</xhtml:option>
+            <xhtml:option value="uniprot_sprot">uniprot_sprot: Universal Protein Resource (SwissProt part)</xhtml:option>
+            <xhtml:option value="uniprot_trembl">uniprot_trembl: Universal Protein Resource (TrEmbl part)</xhtml:option>
+            <xhtml:option value="uniref90">Clustered sets of sequences from UniProt Knowledgebase (UniRef 90)</xhtml:option>
+            <xhtml:option value="uniref50">Clustered sets of sequences from UniProt Knowledgebase (UniRef 50)</xhtml:option>
+            <xhtml:option value="vipr_aa">Virus Pathogen Resource</xhtml:option>
+            <xhtml:option value="genbank_wgspro">Genbank : Whole Genome Shotgun</xhtml:option>
+          </xhtml:select>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703245120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Choose a protein db for blastp or blastx.</xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="protein_db">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703245120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703245120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Choose a protein db for blastp or blastx.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>scoring</name>
+      <prompt lang="en">Scoring option</prompt>
+      <argpos>4</argpos>
+      <parameters>
+        <parameter>
+          <name>open_a_gap</name>
+          <prompt lang="en">Cost to open a gap (-G)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>11</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -G $value" : ""</code>
+            <code proglang="python">( "" , " -G " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cost to open a gap (-G)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="open_a_gap" type="text" value="11"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="11" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="open_a_gap"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>extend_a_gap</name>
+          <prompt lang="en">Cost to extend a gap (-E)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -E $value" : ""</code>
+            <code proglang="python">( "" , " -E " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Limited values for gap existence and extension are supported for these three programs. Some supported and suggested values are:</text>
+            <text lang="en">Existence Extension</text>
+            <text lang="en">10 -- 1</text>
+            <text lang="en">10 -- 2</text>
+            <text lang="en">11 -- 1</text>
+            <text lang="en">8 -- 2</text>
+            <text lang="en">9 -- 2</text>
+            <text lang="en">(source: NCBI Blast page)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cost to extend a gap (-E)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703015232::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="extend_a_gap" type="text" value="1"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703015232::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Limited values for gap existence and extension are supported for these three programs. Some supported and suggested values are:</xhtml:div>
+                <xhtml:div>Existence Extension</xhtml:div>
+                <xhtml:div>10 -- 1</xhtml:div>
+                <xhtml:div>10 -- 2</xhtml:div>
+                <xhtml:div>11 -- 1</xhtml:div>
+                <xhtml:div>8 -- 2</xhtml:div>
+                <xhtml:div>9 -- 2</xhtml:div>
+                <xhtml:div>(source: NCBI Blast page)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend_a_gap">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703015232::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703015232::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Limited values for gap existence and extension are supported for these three programs. Some supported and suggested values are:</xhtml:div>
+                <xhtml:div>Existence Extension</xhtml:div>
+                <xhtml:div>10 -- 1</xhtml:div>
+                <xhtml:div>10 -- 2</xhtml:div>
+                <xhtml:div>11 -- 1</xhtml:div>
+                <xhtml:div>8 -- 2</xhtml:div>
+                <xhtml:div>9 -- 2</xhtml:div>
+                <xhtml:div>(source: NCBI Blast page)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>matrix</name>
+          <prompt lang="en">Similarity matrix (-M)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>BLOSUM62</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>BLOSUM45</value>
+              <label>BLOSUM45</label>
+            </velem>
+            <velem>
+              <value>BLOSUM80</value>
+              <label>BLOSUM80</label>
+            </velem>
+            <velem>
+              <value>BLOSUM62</value>
+              <label>BLOSUM62</label>
+            </velem>
+            <velem>
+              <value>PAM30</value>
+              <label>PAM30</label>
+            </velem>
+            <velem>
+              <value>PAM70</value>
+              <label>PAM70</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " -M $value" : ""</code>
+            <code proglang="python">( "" , " -M " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Similarity matrix (-M)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="matrix">
+                <xhtml:option value="BLOSUM45">BLOSUM45</xhtml:option>
+                <xhtml:option value="BLOSUM80">BLOSUM80</xhtml:option>
+                <xhtml:option value="BLOSUM62" selected="selected">BLOSUM62</xhtml:option>
+                <xhtml:option value="PAM30">PAM30</xhtml:option>
+                <xhtml:option value="PAM70">PAM70</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="BLOSUM62" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="matrix"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>filter_opt</name>
+      <prompt lang="en">Filtering and masking options</prompt>
+      <argpos>5</argpos>
+      <comment>
+        <text lang="en">This options also takes a string as an argument.  One may use such a string to change the specific parameters of seg or invoke other filters. Please see the 'Filtering Strings' section (below) for details.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>filter</name>
+          <prompt lang="en">Filter query sequence with SEG (-F)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -F T" : ""</code>
+            <code proglang="python">( "" , " -F T" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Filter query sequence with SEG (-F)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="filter">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="filter"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>lower_case</name>
+          <prompt lang="en">Use lower case filtering (-U)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -U T" : ""</code>
+            <code proglang="python">("", " -U T")[value]</code>
+          </format>
+          <comment>
+            <text lang="en">This option specifies that any lower-case letters in the input FASTA file should be masked.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use lower case filtering (-U)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703327920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="lower_case">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703327920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies that any lower-case letters in the input FASTA file should be masked.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lower_case">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703327920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703327920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies that any lower-case letters in the input FASTA file should be masked.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>selectivity_opt</name>
+      <prompt lang="en">Selectivity options</prompt>
+      <argpos>5</argpos>
+      <parameters>
+        <parameter issimple="1">
+          <name>Expect</name>
+          <prompt lang="en">Expected value (-e)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -e $value":""</code>
+            <code proglang="python">("" , " -e " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are acceptable. </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Expected value (-e)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703079216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Expect" type="text" value="10"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703079216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are acceptable. </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Expect">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703079216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703079216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The statistical significance threshold for reporting matches against database sequences; the default value is 10, such that 10 matches are expected to be found merely by chance, according to the stochastic model of Karlin and Altschul (1990). If the statistical significance ascribed to a match is greater than the EXPECT threshold, the match will not be reported. Lower EXPECT thresholds are more stringent, leading to fewer chance matches being reported. Fractional values are acceptable. </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>word_size</name>
+          <prompt lang="en">Word Size (-W)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -W $value" : ""</code>
+            <code proglang="python">("" , " -W "+str(value))[value is not None]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Valid wordsize range is 2 to 3</text>
+            </message>
+            <code proglang="perl">$value &gt;= 2 and $value &lt;=3</code>
+            <code proglang="python">value &gt;= 2 and value &lt;=3</code>
+          </ctrl>
+          <comment>
+            <text lang="en">Use words of size N.</text>
+            <text lang="en">Zero invokes default behavior</text>
+            <text lang="en">Default value: 3</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Word Size (-W)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703508816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="word_size" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703508816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use words of size N.</xhtml:div>
+                <xhtml:div>Zero invokes default behavior</xhtml:div>
+                <xhtml:div>Default value: 3</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="word_size">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703508816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703508816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use words of size N.</xhtml:div>
+                <xhtml:div>Zero invokes default behavior</xhtml:div>
+                <xhtml:div>Default value: 3</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>window</name>
+          <prompt lang="en">Multiple hits window size (-A)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>40</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -A $value" : ""</code>
+            <code proglang="python">( "" , " -A " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">When  multiple   hits  method  is  used,  this parameter defines the distance from last hit on the same diagonal to the new one.</text>
+            <text lang="en">Zero means single hit algorithm.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Multiple hits window size (-A)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703671200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="window" type="text" value="40"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703671200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When  multiple   hits  method  is  used,  this parameter defines the distance from last hit on the same diagonal to the new one.</xhtml:div>
+                <xhtml:div>Zero means single hit algorithm.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="40" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="window">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703671200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703671200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When  multiple   hits  method  is  used,  this parameter defines the distance from last hit on the same diagonal to the new one.</xhtml:div>
+                <xhtml:div>Zero means single hit algorithm.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>extend_hit</name>
+          <prompt lang="en">Threshold for extending hits (-f)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>11</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -f $value" : ""</code>
+            <code proglang="python">( "" , " -f " + str(value) )[ value is not None and value !=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Blast seeks first short word pairs whose aligned score reaches at least this value</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Threshold for extending hits (-f)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703678560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="extend_hit" type="text" value="11"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703678560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Blast seeks first short word pairs whose aligned score reaches at least this value</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="11" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend_hit">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703678560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703678560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Blast seeks first short word pairs whose aligned score reaches at least this value</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dropoff</name>
+          <prompt lang="en">X dropoff value for gapped alignment (-X)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -X $value":""</code>
+            <code proglang="python">("" , " -X " + str(value))[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">X dropoff value for gapped alignment (-X)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703073120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dropoff" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703073120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dropoff">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703073120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703073120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This is the value that control the path graph region explored by Blast during a gapped extension (Xg in the NAR paper).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dropoff_z</name>
+          <prompt lang="en">X dropoff value for final gapped alignment (-Z)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>25</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -Z $value" : ""</code>
+            <code proglang="python">( "" , " -Z " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">This parameter controls the dropoff for the final reported alignment. See also the -X parameter.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">X dropoff value for final gapped alignment (-Z)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703246896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dropoff_z" type="text" value="25"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703246896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This parameter controls the dropoff for the final reported alignment. See also the -X parameter.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="25" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dropoff_z">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703246896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703246896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This parameter controls the dropoff for the final reported alignment. See also the -X parameter.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>dropoff_y</name>
+          <prompt lang="en">Dropoff for blast ungapped extensions in bits (-y)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>7.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -y $value" : ""</code>
+            <code proglang="python">( "" , " -y " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">This parameter controls the dropoff at ungapped extension stage. See also the -X parameter.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Dropoff for blast ungapped extensions in bits (-y)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703724832::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="dropoff_y" type="text" value="7.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703724832::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This parameter controls the dropoff at ungapped extension stage. See also the -X parameter.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="7.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="dropoff_y">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117703724832::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117703724832::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This parameter controls the dropoff at ungapped extension stage. See also the -X parameter.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>eff_len</name>
+          <prompt lang="en">Effective length of the search space (-Y)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -Y $value" : ""</code>
+            <code proglang="python">("" , " -Y "+str(value))[value is not None and value !=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Use zero for the real size</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Effective length of the search space (-Y)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702987760::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="eff_len" type="text" value="0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702987760::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use zero for the real size</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="eff_len">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702987760::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702987760::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use zero for the real size</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>keep_hits</name>
+          <prompt lang="en">Number of best hits from a region to keep (-K)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -K $value" : ""</code>
+            <code proglang="python">("" , " -K "+str(value))[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">If this option is used, a value of 100 is recommended.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of best hits from a region to keep (-K)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702977712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="keep_hits" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702977712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this option is used, a value of 100 is recommended.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="keep_hits">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702977712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702977712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this option is used, a value of 100 is recommended.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>mode</name>
+          <prompt lang="en">Single-hit or multiple-hit mode (-P)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>0</value>
+              <label>Multiple-hit (0)</label>
+            </velem>
+            <velem>
+              <value>1</value>
+              <label>Single-hit (1)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value eq "0") ? " -P $value" : ""</code>
+            <code proglang="python">("" , " -P "+str(value))[value != "0"]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Single-hit or multiple-hit mode (-P)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="mode">
+                <xhtml:option value="0" selected="selected">Multiple-hit (0)</xhtml:option>
+                <xhtml:option value="1">Single-hit (1)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mode"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nb_bits</name>
+          <prompt lang="en">Number of bits to trigger gapping (-N)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>22</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -N $value" : ""</code>
+            <code proglang="python">("" , " -N "+str(value))[value is not None and value !=vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of bits to trigger gapping (-N)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nb_bits" type="text" value="22"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="22" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nb_bits"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>psi_spec_opt</name>
+      <prompt lang="en">PSI-Blast specific selectivity options</prompt>
+      <argpos>5</argpos>
+      <parameters>
+        <parameter>
+          <name>max_passes</name>
+          <prompt lang="en">Maximum number of passes to use in  multipass version (-j)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -j $value" : ""</code>
+            <code proglang="python">( "" , " -j " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number of passes to use in  multipass version (-j)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="max_passes" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_passes"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>expect_in_multipass</name>
+          <prompt lang="en">e-value threshold for inclusion in multipass model (-h)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.002</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -h $value" : ""</code>
+            <code proglang="python">( "" , " -h " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">e-value threshold for inclusion in multipass model (-h)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="expect_in_multipass" type="text" value="0.002"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.002" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="expect_in_multipass"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>pseudocounts</name>
+          <prompt lang="en">Constant in pseudocounts for multipass version (-c)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>9</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -c $value" : ""</code>
+            <code proglang="python">( "" , " -c " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">This constant is the weight given to a pre-calculated residue target frequency (versus the observed one) in a column of the position specific matrix. The larger its value, the greater the emphasis given to prior knowledge of residue relationships vis a vis observed residue frequencies (beta constant in NAR paper).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Constant in pseudocounts for multipass version (-c)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702266256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pseudocounts" type="text" value="9"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702266256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This constant is the weight given to a pre-calculated residue target frequency (versus the observed one) in a column of the position specific matrix. The larger its value, the greater the emphasis given to prior knowledge of residue relationships vis a vis observed residue frequencies (beta constant in NAR paper).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="9" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pseudocounts">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702266256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702266256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This constant is the weight given to a pre-calculated residue target frequency (versus the observed one) in a column of the position specific matrix. The larger its value, the greater the emphasis given to prior knowledge of residue relationships vis a vis observed residue frequencies (beta constant in NAR paper).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>affichage</name>
+      <prompt lang="en">Report options</prompt>
+      <argpos>5</argpos>
+      <parameters>
+        <parameter>
+          <name>Descriptions</name>
+          <prompt lang="en">Number of one-line descriptions to show? (-v)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>500</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -v $value" : ""</code>
+            <code proglang="python">( "" , " -v " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Maximum number of database sequences for which one-line descriptions will be reported.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of one-line descriptions to show? (-v)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702253200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Descriptions" type="text" value="500"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702253200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Maximum number of database sequences for which one-line descriptions will be reported.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="500" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Descriptions">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702253200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702253200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Maximum number of database sequences for which one-line descriptions will be reported.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Alignments</name>
+          <prompt lang="en">Number of database sequences to show alignments? (-b)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>250</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -b $value" : ""</code>
+            <code proglang="python">( "" , " -b " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Maximum number of database sequences for which high-scoring segment pairs will be reported (-b).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of database sequences to show alignments? (-b)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702243088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Alignments" type="text" value="250"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702243088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Maximum number of database sequences for which high-scoring segment pairs will be reported (-b).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="250" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Alignments">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702243088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702243088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Maximum number of database sequences for which high-scoring segment pairs will be reported (-b).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>view_alignments</name>
+          <prompt lang="en">Alignment view options (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>0</value>
+              <label>Pairwise (0)</label>
+            </velem>
+            <velem>
+              <value>1</value>
+              <label>Query-anchored showing identities (1)</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>Query-anchored no identities (2)</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>Flat query-anchored, show identities (3)</label>
+            </velem>
+            <velem>
+              <value>4</value>
+              <label>Flat query-anchored, no identities (4)</label>
+            </velem>
+            <velem>
+              <value>5</value>
+              <label>Query-anchored no identities and blunt ends (5)</label>
+            </velem>
+            <velem>
+              <value>6</value>
+              <label>Flat query-anchored, no identities and blunt ends (6)</label>
+            </velem>
+            <velem>
+              <value>7</value>
+              <label>XML Blast output (7)</label>
+            </velem>
+            <velem>
+              <value>8</value>
+              <label>Tabular output (8)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " -m $value" : "" </code>
+            <code proglang="python">( ""  , " -m " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alignment view options (-m)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="view_alignments">
+                <xhtml:option value="0" selected="selected">Pairwise (0)</xhtml:option>
+                <xhtml:option value="1">Query-anchored showing identities (1)</xhtml:option>
+                <xhtml:option value="2">Query-anchored no identities (2)</xhtml:option>
+                <xhtml:option value="3">Flat query-anchored, show identities (3)</xhtml:option>
+                <xhtml:option value="4">Flat query-anchored, no identities (4)</xhtml:option>
+                <xhtml:option value="5">Query-anchored no identities and blunt ends (5)</xhtml:option>
+                <xhtml:option value="6">Flat query-anchored, no identities and blunt ends (6)</xhtml:option>
+                <xhtml:option value="7">XML Blast output (7)</xhtml:option>
+                <xhtml:option value="8">Tabular output (8)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="view_alignments"/>
+          </interface>
+        </parameter>
+        <parameter ishidden="1">
+          <name>txtoutput</name>
+          <prompt lang="en">Text output file</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$view_alignments ne "7"</code>
+            <code proglang="python">view_alignments != "7"</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -o psiblast.txt"</code>
+            <code proglang="python">" -o psiblast.txt"</code>
+          </format>
+          <argpos>10</argpos>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="txtoutput"/>
+          </interface>
+        </parameter>
+        <parameter ishidden="1">
+          <name>xmloutput</name>
+          <prompt lang="en">XML output file</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$view_alignments eq "7"</code>
+            <code proglang="python">view_alignments == "7"</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -o psiblast.xml"</code>
+            <code proglang="python">" -o psiblast.xml"</code>
+          </format>
+          <argpos>10</argpos>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xmloutput"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>htmloutput</name>
+          <prompt lang="en">Html output</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$view_alignments !~ /^[78]$/</code>
+            <code proglang="python">view_alignments not in [ "7" , "8" ]</code>
+          </precond>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " &amp;&amp; html4blast -g -o psiblast.html psiblast.txt" : ""</code>
+            <code proglang="python">("" , " &amp;&amp; html4blast -g -o psiblast.html psiblast.txt")[value]</code>
+          </format>
+          <argpos>11</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Html output<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="htmloutput">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="htmloutput"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>believe</name>
+          <prompt lang="en">Believe the query defline (-J)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -J":""</code>
+            <code proglang="python">("" , " -J")[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Believe the query defline (-J)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="believe">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="believe"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>seqalign_file</name>
+          <prompt lang="en">SeqAlign file (-J option must be true) (-O)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$believe</code>
+            <code proglang="python">believe</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value)? " -O $value" : ""</code>
+            <code proglang="python">( "" , " -O " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">SeqAlign is in ASN.1 format, so that it can be read with NCBI tools (such as sequin). This allows one to view the results in different formats.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">SeqAlign file (-J option must be true) (-O)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702167392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqalign_file" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702167392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>SeqAlign is in ASN.1 format, so that it can be read with NCBI tools (such as sequin). This allows one to view the results in different formats.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seqalign_file">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702167392::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702167392::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>SeqAlign is in ASN.1 format, so that it can be read with NCBI tools (such as sequin). This allows one to view the results in different formats.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>txtfile</name>
+      <prompt lang="en">Blast text report</prompt>
+      <type>
+        <datatype>
+          <class>BlastTextReport</class>
+          <superclass>Report</superclass>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$view_alignments ne "7"</code>
+        <code proglang="python">view_alignments != "7"</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"psiblast.txt"</code>
+        <code proglang="python">"psiblast.txt"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="txtfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BlastTextReport)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>xmlfile</name>
+      <prompt lang="en">Blast xml report</prompt>
+      <type>
+        <datatype>
+          <class>BlastXmlReport</class>
+          <superclass>Report</superclass>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$view_alignments eq "7"</code>
+        <code proglang="python">view_alignments == "7"</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"psiblast.xml"</code>
+        <code proglang="python">"psiblast.xml"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BlastXmlReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="xmlfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BlastXmlReport)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>htmlfile</name>
+      <prompt lang="en">Blast html report</prompt>
+      <type>
+        <datatype>
+          <class>BlastHtmlReport</class>
+          <superclass>Report</superclass>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$view_alignments !~ /^[78]$/</code>
+        <code proglang="python">view_alignments not in ["7", "8"]</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"psiblast.html"</code>
+        <code proglang="python">"psiblast.html"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BlastHtmlReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="htmlfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BlastHtmlReport)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1" ishidden="1">
+      <name>imgfile</name>
+      <type>
+        <datatype>
+          <class>Picture</class>
+          <superclass>Binary</superclass>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$view_alignments !~ /^[78]$/</code>
+        <code proglang="python">view_alignments not in ["7", "8"]</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">"*.png"</code>
+        <code proglang="perl">"*.gif"</code>
+        <code proglang="python">"*.png"</code>
+        <code proglang="python">"*.gif"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="imgfile"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>save_matrix</name>
+      <prompt lang="en">Save PSI-Blast Matrix to file (-C)</prompt>
+      <type>
+        <datatype>
+          <class>Filename</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$max_passes &gt; 1</code>
+        <code proglang="python">max_passes &gt; 1</code>
+      </precond>
+      <format>
+        <code proglang="perl">(defined $value) ? " -C $save_matrix" : ""</code>
+        <code proglang="python">( "" , " -C "+ str(value) )[ value is not None ]</code>
+      </format>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Save PSI-Blast Matrix to file (-C)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="save_matrix" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="save_matrix"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>save_txt_matrix</name>
+      <prompt lang="en">Save PSI-BLAST Matrix as text to file (-Q)</prompt>
+      <type>
+        <datatype>
+          <class>Filename</class>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">$max_passes &gt; 1</code>
+        <code proglang="python">max_passes &gt; 1</code>
+      </precond>
+      <format>
+        <code proglang="perl">(defined $value)? " -Q $save_txt_matrix" : ""</code>
+        <code proglang="python">( "" , " -Q " + str(value) )[ value is not None ]</code>
+      </format>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Save PSI-BLAST Matrix as text to file (-Q)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="save_txt_matrix" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="save_txt_matrix"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"psiblast.out"</code>
+        <code proglang="python">"psiblast.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"psiblast.err"</code>
+        <code proglang="python">"psiblast.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

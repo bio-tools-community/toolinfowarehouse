@@ -1,0 +1,1738 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>cap3</name>
+    <version>04-15-05</version>
+    <doc>
+      <title>CAP3</title>
+      <description>
+        <text lang="en">Contig Assembly Program</text>
+      </description>
+      <authors>Huang, X. and Madan, A. (1999)</authors>
+      <reference>Huang, X. and Madan, A. (1999) CAP3: A DNA Sequence Assembly Program. Genome Research, 9: 868-877.</reference>
+      <homepagelink>http://seq.cs.iastate.edu/</homepagelink>
+      <sourcelink>http://seq.cs.iastate.edu/cap3.html</sourcelink>
+    </doc>
+    <command>cap3</command>
+    <category>assembly:assembly</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="2,n" data-formats="FASTA " data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">File of reads</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BaseQuality" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="PhrapQuality " data-parametername="qual_file">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Quality value file<xhtml:a href="#idm140117728618720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117728618720::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728618720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>CAP3 uses the same format of a quality file as Phrap. 
+          The sequence file and the corresponding quality file must be arranged 
+          in the same order in terms of reads, where for each read, 
+          the same name must be used in both files and the number of bases must 
+          be equal to the number of quality values. 
+          </xhtml:div>
+          <div class="example" id="idm140117728618720::example" data-forparameter="qual_file">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+       </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117728618720::example" data-forparameter="qual_file" style="display:none">
+          <pre>
+       </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="qual_file" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CapConstraint" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="con_file">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Constraint file<xhtml:a href="#idm140117730938080::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117730938080::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117730938080::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Each line of the constraint file specifies one forward-reverse constraint of the form:</xhtml:div>
+          <xhtml:div>ReadA   ReadB    MinDistance    MaxDistance</xhtml:div>
+          <xhtml:div>where ReadA and ReadB are names of two reads, and MinDistance and MaxDistance are 
+          distances (integers) in base pairs. The constraint is satisfied if ReadA in forward orientation 
+          occurs in a contig before ReadB in reverse orientation, or ReadB in forward orientation occurs in 
+          a contig before ReadA in reverse orientation, and their distance is between MinDistance and 
+          MaxDistance. CAP3 works better if a lot more constraints are used.</xhtml:div>
+          <div class="example" id="idm140117730938080::example" data-forparameter="con_file">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+       </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117730938080::example" data-forparameter="con_file" style="display:none">
+          <pre>
+       </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="con_file" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="clipping_poor_regions">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Clipping of poor regions<xhtml:a href="#idm140117728551216::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728551216::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+            <p>CAP3 computes clipping 
+    positions of each read using both base quality values and similarity 
+    information. Clipping of a poor end region of a read f is controlled by 
+    three parameters: quality value cutoff qualcut, clipping range crange, 
+    and depth of good coverage gdepth. The value for qualcut can specified 
+    with the "-c" option, the value for crange with the "-y" option, and the 
+    value for gdepth with the "-z" option.
+    </p>
+            <p>
+    If there are quality values, CAP3 computes two positions qualpos5 and 
+    qualpos3 of read f such that the region of read f from position qualpos5 
+    to position qualpos3 consists mostly of quality values greater than 
+    qualcut. If there are no quality values, then qualpos5 is set to 1 and 
+    qualpos3 is set the length of read f. The range for the left clipping 
+    position of read f is from 1 to qualpos5 + crange. The range for the 
+    right clipping position of read f is from qualpos3 - crange to the end 
+    of read f. The minimum depth of good coverage at the left and right 
+    clipping positions of read f is expected to be gdepth.
+    </p>
+            <p>
+    Let realdepth5 be the maximum real depth of coverage for the initial 
+    region of read f ending at position qualpos5 + crange. Let depth5 be the 
+    smaller of realdepth5 and gdepth. If depth5 is 0, then left clipping 
+    position of read f is set to qualpos5 by CAP3. The given value for the 
+    parameter crange may be too small for read f. CAP3 reports at the start 
+    of a .info file that "No overlap is found in the given 5' clipping range 
+    for read f." If there are overlaps beyond the given 5' clipping range 
+    for read f, CAP3 reports a new clipping range for each overlap. One of 
+    the reported range values can be used as a new value for the parameter 
+    crange for read f.
+    </p>
+            <p>
+    If depth5 is greater than 0, the left clipping position of read f is the 
+    smallest position x such that x is less than qualpos5 + crange and the 
+    region of read f beginning at position x is similar to depth5 other 
+    reads. The right clipping position of read f is computed similarly by 
+    CAP3. Larger values for the parameters crange and gdepth result in more 
+    aggressive clipping of poor end regions. A larger value for crange 
+    allows CAP3 to search for the left clipping position in a larger area. A 
+    larger value for gdepth may cause CAP3 to clip more bases so that the 
+    resulting good portion of read f is similar to more reads. 
+    </p>
+            <p>
+    The user may provide specific values for the parameters crange and 
+    gdepth for individual reads in a file. Each line in the file has the 
+    following format: file has the following format:</p>
+            <pre>
+              <font style="font-size: 9pt;" face="Verdana">ReadName     crange5     gdepth5      crange3     gdepth3</font>
+            </pre>
+            <p>where ReadName is the name 
+    of a read, crange5 &amp; gdepth5 are values for the 5' end, and crange3 &amp; 
+    gdepth3 are for the 3' end. </p>
+          </div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="12" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="base_qual_cutoff_clipping">Base quality cutoff for clipping (-c)<xhtml:a href="#idm140117727362528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="base_qual_cutoff_clipping" type="text" value="12"/>
+            <xhtml:div id="idm140117727362528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default value: 12</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="250" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="clipping_range">Clipping range (-y)<xhtml:a href="#idm140117727603376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="clipping_range" type="text" value="250"/>
+            <xhtml:div id="idm140117727603376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default value: 250</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="good_reads">Minimum number of good reads at clip pos (-z)<xhtml:a href="#idm140117727539136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="good_reads" type="text" value="3"/>
+            <xhtml:div id="idm140117727539136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default value: 3</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ClippingParameters" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="clipping_file">
+            <legend>File for clipping information (-w)<xhtml:a href="#idm140117730958912::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117730958912::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The user may provide specific values for the parameters crange and gdepth or individual reads in a file.</xhtml:div>
+              <xhtml:div>Each line in the file has the following format:</xhtml:div>
+              <xhtml:div>ReadName crange5 gdepth5 crange3 gdepth3</xhtml:div>
+              <xhtml:div>where ReadName is the name of a read, crange5 and gdepth5 are values for the 5' end, and crange3 and gdepth3 are for the 3' end.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea name="clipping_file" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="band_diagonals">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Band of diagonals<xhtml:a href="#idm140117726943984::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726943984::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The program determines a minimum band of diagonals for an overlapping alignment between two sequence reads.</xhtml:div>
+          <xhtml:div>The band is expanded by a number of bases specified by the user with option "-a".</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="band_expansion">Band expansion size (-a)<xhtml:a href="#idm140117727395904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="band_expansion" type="text" value="20"/>
+            <xhtml:div id="idm140117727395904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The program determines a minimum band of diagonals for an overlapping alignment between two sequence reads.</xhtml:div>
+              <xhtml:div>The band is expanded by a number of bases specified by the user with option "-a".</xhtml:div>
+              <xhtml:div>Default value: 20</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="overlap_score">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Quality difference score of an overlap<xhtml:a href="#idm140117727474560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727474560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Overlaps between reads are evaluated by many measures.</xhtml:div>
+          <xhtml:div>The first measure is based on base quality.</xhtml:div>
+          <xhtml:div>If an overlap contains lots of differences at bases of high quality, then the overlap is removed.</xhtml:div>
+          <xhtml:div>Specifically,let b be the base quality cutoff value and let d be the maximum difference score.</xhtml:div>
+          <xhtml:div>The values for the two parameters can be set using the "-b" and "-d" options.</xhtml:div>
+          <xhtml:div>If the overlap contains a difference at bases of quality values q1 and q2, then the score at the difference is max(0, min(q1, q2) - b).</xhtml:div>
+          <xhtml:div>The difference score of an overlap is the sum of scores at each difference.</xhtml:div>
+          <xhtml:div>For example, an overlap contains two differences,</xhtml:div>
+          <xhtml:div>one at bases of quality values 15 and 30 and the other at bases of quality values 40 and 50.</xhtml:div>
+          <xhtml:div>With b = 20, the difference score of the overlap is 0 + 20 = 20.</xhtml:div>
+          <xhtml:div>If the difference score of an overlap exceeds d, then the overlap is removed. With b = 20,</xhtml:div>
+          <xhtml:div>an overlap with 15 differences at bases of quality values 40 or higher has a difference score of at least 300 and is removed if d = 250.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="base_qual_cutoff">Base quality cutoff for differences (-b)<xhtml:input name="base_qual_cutoff" type="text" value="20"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_qscore">Maximum qscore sum at differences (-d)<xhtml:input name="max_qscore" type="text" value="200"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="nb_diff_overlap">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Number of differences in an overlap<xhtml:a href="#idm140117730944672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117730944672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The second measure looks at the number of differences in an overlap.</xhtml:div>
+          <xhtml:div>If the number of differences in an overlap is higher than expected, than the overlap is removed.</xhtml:div>
+          <xhtml:div>Let an integer e be the maximum number of extra differences.</xhtml:div>
+          <xhtml:div>Consider an overlap between reads f and g.</xhtml:div>
+          <xhtml:div>Let d1 be the estimated number of sequencing errors for the region of f involved in the overlap and let r2 be that for</xhtml:div>
+          <xhtml:div>the region of g involved in the overlap.</xhtml:div>
+          <xhtml:div>If the observed number of differences in the overlap is greater than r1 + r2 + e, then the overlap is removed.</xhtml:div>
+          <xhtml:div>The value for the parameter e can be changed using the "-e" option.</xhtml:div>
+          <xhtml:div>The expected number of differences in the overlap is about r1 + r2.</xhtml:div>
+          <xhtml:div>Giving a smaller value to e causes more overlaps to be removed.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="clearance">Clearance between number of diff (-e)<xhtml:input name="clearance" type="text" value="30"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="sim_score_overlap">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Similarity score of an overlap<xhtml:a href="#idm140117726971440::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726971440::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The third measure is based on overlap similarity score.</xhtml:div>
+          <xhtml:div>The similarity score of an overlapping alignment is defined using base quality values.</xhtml:div>
+          <xhtml:div>Let m be the match score factor, let n be the mismatch score factor, and let g be the gap penalty factor.</xhtml:div>
+          <xhtml:div>Values for these parameters can be set with the "-m", "-n", and "-g" options.</xhtml:div>
+          <xhtml:div>A match at bases of quality values q1 and q2 is given a score of m * min(q1,q2).</xhtml:div>
+          <xhtml:div>A mismatch at bases of quality values q1 and q2 is given a score of n * min(q1,q2).</xhtml:div>
+          <xhtml:div>A base of quality value q1 in a gap is given a score of -g * min(q1,q2),</xhtml:div>
+          <xhtml:div>where q2 is the quality value of the base in the other sequence right before the gap.</xhtml:div>
+          <xhtml:div>The score of a gap is the sum of scores of each base in the gap minus a gap open penalty.</xhtml:div>
+          <xhtml:div>The similarity score of an overlapping alignment is the sum of scores of each match, each mismatch, and each gap.</xhtml:div>
+          <xhtml:div>With m = 2, an overlap that consists of 25 matches at bases of quality value 10 has a score of 500.</xhtml:div>
+          <xhtml:div>If the similarity score of an overlap is less than the overlap similarity score cutoff s, then the overlap is removed.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="match_score">Match score factor (-m)<xhtml:input name="match_score" type="text" value="2"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mismatch_score">Mismatch score factor (-n)<xhtml:input name="mismatch_score" type="text" value="-5"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="6" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap_penalty">Gap penalty factor (-g)<xhtml:input name="gap_penalty" type="text" value="6"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="percent_id_overlap">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Length and percent identity of an overlap<xhtml:a href="#idm140117726996816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726996816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The fourth requirement for an overlap is that the length in bp of the overlap is no less than the value of the minimum overlap length cutoff parameter.</xhtml:div>
+          <xhtml:div>The value for this parameter can be changed with the "-o" option.</xhtml:div>
+          <xhtml:div>The fifth requirement for an overlap is that the percent identity of the overlap is no less than the minimum percent identity cutoff.</xhtml:div>
+          <xhtml:div>The value for this parameter can be changed with the "-p" option.</xhtml:div>
+          <xhtml:div>A value of 75 for p means 0.75 or 75%.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="40" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="overlap_length">Overlap length cutoff (-o)<xhtml:input name="overlap_length" type="text" value="40"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="overlap_identity">Overlap percent identity cutoff (-p)<xhtml:input name="overlap_identity" type="text" value="80"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="max_len_gaps_overlap">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Maximum length of gaps in an overlap<xhtml:a href="#idm140117728633792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728633792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The program provides a parameter (-f option) for the user to reject overlaps with a long gap.</xhtml:div>
+          <xhtml:div>Let an integer f be the maximum length of gaps allowed in any overlap. Then any overlap with a gap longer than f is rejected by the program.</xhtml:div>
+          <xhtml:div>The value for this parameter can be changed using the "-f" option.</xhtml:div>
+          <xhtml:div>Note that a small value for this parameter may cause the program to remove true overlaps and to produce incorrect results.</xhtml:div>
+          <xhtml:div>The "-f" option may be used by the user to split reads from alternative splicing forms into separate contigs.</xhtml:div>
+          <xhtml:div>Geo Pertea at TIGR suggested that this option be added to the program.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_gap_length">Maximum gap length in any overlap (-f)<xhtml:input name="max_gap_length" type="text" value="20"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="overhang_pcent_len_overlap">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Overhang percent length of an overlap<xhtml:a href="#idm140117726100816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726100816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The total length of the different overhang regions in an overlap is controlled with the -h option.</xhtml:div>
+          <xhtml:div>TAn overhang region in an overlap is a different terminal region before or after the overlap.</xhtml:div>
+          <xhtml:div>TThe overhang percent length of an overlap is 100 times the total length of the different overhang regions in the overlap divided by the length of the overlap.</xhtml:div>
+          <xhtml:div>TOverlaps with an overhang percent length greater than the maximum cutoff are rejected.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_overhang">Maximum overhang percent length (-h)<xhtml:input name="max_overhang" type="text" value="20"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="900" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="overlap_similarity">Overlap similarity score cutoff (-s)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="overlap_similarity" type="text" value="900"/>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="assembly_fwd">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Assembly of reads in forward orientation only<xhtml:a href="#idm140117726038144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726038144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>The "-r" option is used to let CAP3 know whether to consider reads in reverse orientation for assembly.</xhtml:div>
+          <xhtml:div>The default value for the option is 1, meaning that reads in reverse orientation are also considered for assembly.</xhtml:div>
+          <xhtml:div>Specifying zero as "-r 0" instructs CAP3 to perform assembly of reads in forward orientation only.</xhtml:div>
+          <xhtml:div>This option was suggested by Patrick Schnable's lab.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="reverse_orientation">Reverse orientation value (-r)<xhtml:input name="reverse_orientation" type="text" value="1"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="max_num_word_matches">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Maximum number of word matches<xhtml:a href="#idm140117726078832::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726078832::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>This parameter (option -t) allows the user to trade off the efficiency of the program for its accuracy.</xhtml:div>
+          <xhtml:div>For a read f, the program computes overlaps between read f and other reads by considering short word matches between read f and other reads.</xhtml:div>
+          <xhtml:div>A word match is examined to see if it can be extended into a long overlap.</xhtml:div>
+          <xhtml:div>If read f has overlaps with many other reads, then read f has many short word matches with many other reads.</xhtml:div>
+          <xhtml:div>This parameter gives an upper limit, for any word, on the number of word matches between read f and other reads that are considered by the program.</xhtml:div>
+          <xhtml:div>Using a large value for this parameter allows the program to consider more word matches between read f and other reads, which can find more overlaps for read f, but slows down the program.</xhtml:div>
+          <xhtml:div>Using a small vlaue for this parameter has the opposite effect.</xhtml:div>
+          <xhtml:div>A large value may be used if the depth of coverage is high for the data set.</xhtml:div>
+          <xhtml:div>For example, a value of 150 is used for a data set with a maximum depth of coverage of 30, and a value of 500 for a data set with a maximum depth of coverage of 100. Using a very large value may cause the program to run forever or run out of memory.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="300" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="word_matches">Maximum number of word matches (-t)<xhtml:input name="word_matches" type="text" value="300"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="fwd_rev_const">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Forward-reverse constraints<xhtml:a href="#idm140117726018048::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117726018048::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Corrections to an assembly are made using forward-reverse constraints.</xhtml:div>
+          <xhtml:div>Let an integer u be the minimum number of constraints for correction.</xhtml:div>
+          <xhtml:div>Consider an alternative overlap between two reads f and g.</xhtml:div>
+          <xhtml:div>Assume that f is in contig C1 and that g is in contig C2.</xhtml:div>
+          <xhtml:div>If the number of unsatisfied constraints that support the overlap between f and g is greater than the value of the u parameter plus the number of satisfied constraints that support the current joins involving f and g, then the current joins involving f and g are disconnected and the overlap between f and g is implemented.</xhtml:div>
+          <xhtml:div>The value for this parameter can be changed with the "-u" option.</xhtml:div>
+          <xhtml:div>Contigs that are linked by forward-reverse constraints are reported.</xhtml:div>
+          <xhtml:div>The minimum number of constraints for reporting a link between two contigs is specified with the "-v" option.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="min_constraints_corr">Minimum number of constraints for correction (-u)<xhtml:input name="min_constraints_corr" type="text" value="3"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="min_constraints_linking">Minimum number of constraints for linking (-v)<xhtml:input name="min_constraints_linking" type="text" value="2"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="2,n" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="qual_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BaseQuality" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="PhrapQuality ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BaseQuality)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117728618720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728618720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>CAP3 uses the same format of a quality file as Phrap. 
+          The sequence file and the corresponding quality file must be arranged 
+          in the same order in terms of reads, where for each read, 
+          the same name must be used in both files and the number of bases must 
+          be equal to the number of quality values. 
+          </xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="con_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CapConstraint" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(CapConstraint)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117730938080::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117730938080::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Each line of the constraint file specifies one forward-reverse constraint of the form:</xhtml:div>
+          <xhtml:div>ReadA   ReadB    MinDistance    MaxDistance</xhtml:div>
+          <xhtml:div>where ReadA and ReadB are names of two reads, and MinDistance and MaxDistance are 
+          distances (integers) in base pairs. The constraint is satisfied if ReadA in forward orientation 
+          occurs in a contig before ReadB in reverse orientation, or ReadB in forward orientation occurs in 
+          a contig before ReadA in reverse orientation, and their distance is between MinDistance and 
+          MaxDistance. CAP3 works better if a lot more constraints are used.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="clipping_poor_regions">
+        <xhtml:legend>Clipping of poor regions</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="base_qual_cutoff_clipping" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="12" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117727362528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117727362528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default value: 12</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="clipping_range" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="250" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117727603376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117727603376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default value: 250</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="good_reads" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117727539136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117727539136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default value: 3</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="clipping_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ClippingParameters" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(ClippingParameters)
+			</xhtml:i>
+            <xhtml:a href="#idm140117730958912::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117730958912::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The user may provide specific values for the parameters crange and gdepth or individual reads in a file.</xhtml:div>
+              <xhtml:div>Each line in the file has the following format:</xhtml:div>
+              <xhtml:div>ReadName crange5 gdepth5 crange3 gdepth3</xhtml:div>
+              <xhtml:div>where ReadName is the name of a read, crange5 and gdepth5 are values for the 5' end, and crange3 and gdepth3 are for the 3' end.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="band_diagonals">
+        <xhtml:legend>Band of diagonals</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="band_expansion" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117727395904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117727395904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The program determines a minimum band of diagonals for an overlapping alignment between two sequence reads.</xhtml:div>
+              <xhtml:div>The band is expanded by a number of bases specified by the user with option "-a".</xhtml:div>
+              <xhtml:div>Default value: 20</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="overlap_score">
+        <xhtml:legend>Quality difference score of an overlap</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="base_qual_cutoff" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="max_qscore" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="nb_diff_overlap">
+        <xhtml:legend>Number of differences in an overlap</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="clearance" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="sim_score_overlap">
+        <xhtml:legend>Similarity score of an overlap</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="match_score" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mismatch_score" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gap_penalty" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="6" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="percent_id_overlap">
+        <xhtml:legend>Length and percent identity of an overlap</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="overlap_length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="40" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="overlap_identity" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="max_len_gaps_overlap">
+        <xhtml:legend>Maximum length of gaps in an overlap</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="max_gap_length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="overhang_pcent_len_overlap">
+        <xhtml:legend>Overhang percent length of an overlap</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="max_overhang" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="overlap_similarity" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="900" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="assembly_fwd">
+        <xhtml:legend>Assembly of reads in forward orientation only</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="reverse_orientation" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="max_num_word_matches">
+        <xhtml:legend>Maximum number of word matches</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="word_matches" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="300" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="fwd_rev_const">
+        <xhtml:legend>Forward-reverse constraints</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="min_constraints_corr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="min_constraints_linking" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ace" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="AceAssembly" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="ACE ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(AceAssembly)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="contig" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="0,n" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="contig_link" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="contig_qual" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="info" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="singlet" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="0,n" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">File of reads</prompt>
+      <type>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+        <card>2,n</card>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str( value )</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>File of reads</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="2,n" data-formats="FASTA " data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>qual_file</name>
+      <prompt lang="en">Quality value file</prompt>
+      <type>
+        <datatype>
+          <class>BaseQuality</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+        <dataFormat>PhrapQuality</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value?)"ln -sf $value $seq.qual" : ""</code>
+        <code proglang="python">("" , "ln -sf %s %s.qual &amp;&amp; " %( value , seq ) )[value is not None and value != seq + ".qual" ]</code>
+      </format>
+      <comment>
+        <text lang="en">CAP3 uses the same format of a quality file as Phrap. 
+          The sequence file and the corresponding quality file must be arranged 
+          in the same order in terms of reads, where for each read, 
+          the same name must be used in both files and the number of bases must 
+          be equal to the number of quality values. 
+          </text>
+      </comment>
+      <example>
+       </example>
+      <argpos>-10</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Quality value file</xhtml:legend>
+          <xhtml:textarea name="qual_file" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BaseQuality" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="PhrapQuality " data-parametername="qual_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BaseQuality)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117728618720::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117728618720::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>CAP3 uses the same format of a quality file as Phrap. 
+          The sequence file and the corresponding quality file must be arranged 
+          in the same order in terms of reads, where for each read, 
+          the same name must be used in both files and the number of bases must 
+          be equal to the number of quality values. 
+          </xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>con_file</name>
+      <prompt lang="en">Constraint file</prompt>
+      <type>
+        <datatype>
+          <class>CapConstraint</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value?)"ln -sf $value $seq.con" : ""</code>
+        <code proglang="python">( "" , "ln -sf %s %s.con &amp;&amp; " %( value , seq ) )[value is not None ]</code>
+      </format>
+      <comment>
+        <text lang="en">Each line of the constraint file specifies one forward-reverse constraint of the form:</text>
+        <text lang="en">ReadA   ReadB    MinDistance    MaxDistance</text>
+        <text lang="en">where ReadA and ReadB are names of two reads, and MinDistance and MaxDistance are 
+          distances (integers) in base pairs. The constraint is satisfied if ReadA in forward orientation 
+          occurs in a contig before ReadB in reverse orientation, or ReadB in forward orientation occurs in 
+          a contig before ReadA in reverse orientation, and their distance is between MinDistance and 
+          MaxDistance. CAP3 works better if a lot more constraints are used.</text>
+      </comment>
+      <example>
+       </example>
+      <argpos>-5</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Constraint file</xhtml:legend>
+          <xhtml:textarea name="con_file" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CapConstraint" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="con_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(CapConstraint)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117730938080::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117730938080::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Each line of the constraint file specifies one forward-reverse constraint of the form:</xhtml:div>
+            <xhtml:div>ReadA   ReadB    MinDistance    MaxDistance</xhtml:div>
+            <xhtml:div>where ReadA and ReadB are names of two reads, and MinDistance and MaxDistance are 
+          distances (integers) in base pairs. The constraint is satisfied if ReadA in forward orientation 
+          occurs in a contig before ReadB in reverse orientation, or ReadB in forward orientation occurs in 
+          a contig before ReadA in reverse orientation, and their distance is between MinDistance and 
+          MaxDistance. CAP3 works better if a lot more constraints are used.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>clipping_poor_regions</name>
+      <prompt lang="en">Clipping of poor regions</prompt>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <p>CAP3 computes clipping 
+    positions of each read using both base quality values and similarity 
+    information. Clipping of a poor end region of a read f is controlled by 
+    three parameters: quality value cutoff qualcut, clipping range crange, 
+    and depth of good coverage gdepth. The value for qualcut can specified 
+    with the "-c" option, the value for crange with the "-y" option, and the 
+    value for gdepth with the "-z" option.
+    </p>
+          <p>
+    If there are quality values, CAP3 computes two positions qualpos5 and 
+    qualpos3 of read f such that the region of read f from position qualpos5 
+    to position qualpos3 consists mostly of quality values greater than 
+    qualcut. If there are no quality values, then qualpos5 is set to 1 and 
+    qualpos3 is set the length of read f. The range for the left clipping 
+    position of read f is from 1 to qualpos5 + crange. The range for the 
+    right clipping position of read f is from qualpos3 - crange to the end 
+    of read f. The minimum depth of good coverage at the left and right 
+    clipping positions of read f is expected to be gdepth.
+    </p>
+          <p>
+    Let realdepth5 be the maximum real depth of coverage for the initial 
+    region of read f ending at position qualpos5 + crange. Let depth5 be the 
+    smaller of realdepth5 and gdepth. If depth5 is 0, then left clipping 
+    position of read f is set to qualpos5 by CAP3. The given value for the 
+    parameter crange may be too small for read f. CAP3 reports at the start 
+    of a .info file that "No overlap is found in the given 5' clipping range 
+    for read f." If there are overlaps beyond the given 5' clipping range 
+    for read f, CAP3 reports a new clipping range for each overlap. One of 
+    the reported range values can be used as a new value for the parameter 
+    crange for read f.
+    </p>
+          <p>
+    If depth5 is greater than 0, the left clipping position of read f is the 
+    smallest position x such that x is less than qualpos5 + crange and the 
+    region of read f beginning at position x is similar to depth5 other 
+    reads. The right clipping position of read f is computed similarly by 
+    CAP3. Larger values for the parameters crange and gdepth result in more 
+    aggressive clipping of poor end regions. A larger value for crange 
+    allows CAP3 to search for the left clipping position in a larger area. A 
+    larger value for gdepth may cause CAP3 to clip more bases so that the 
+    resulting good portion of read f is similar to more reads. 
+    </p>
+          <p>
+    The user may provide specific values for the parameters crange and 
+    gdepth for individual reads in a file. Each line in the file has the 
+    following format: file has the following format:</p>
+          <pre>
+            <font style="font-size: 9pt;" face="Verdana">ReadName     crange5     gdepth5      crange3     gdepth3</font>
+          </pre>
+          <p>where ReadName is the name 
+    of a read, crange5 &amp; gdepth5 are values for the 5' end, and crange3 &amp; 
+    gdepth3 are for the 3' end. </p>
+        </div>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>base_qual_cutoff_clipping</name>
+          <prompt lang="en">Base quality cutoff for clipping (-c)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>12</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -c $value" : ""</code>
+            <code proglang="python">( "" , " -c "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Base quality cutoff must be &gt; 5</text>
+            </message>
+            <code proglang="perl">$value &gt; 5</code>
+            <code proglang="python">value &gt; 5</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <comment>
+            <text lang="en">Default value: 12</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Base quality cutoff for clipping (-c)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727362528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="base_qual_cutoff_clipping" type="text" value="12"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727362528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default value: 12</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="12" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="base_qual_cutoff_clipping">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727362528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727362528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default value: 12</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>clipping_range</name>
+          <prompt lang="en">Clipping range (-y)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>250</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -y $value" : ""</code>
+            <code proglang="python">( "" , " -y "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 5</text>
+            </message>
+            <code proglang="perl">$value &gt; 5</code>
+            <code proglang="python">value &gt; 5</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <comment>
+            <text lang="en">Default value: 250</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Clipping range (-y)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727603376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="clipping_range" type="text" value="250"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727603376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default value: 250</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="250" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="clipping_range">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727603376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727603376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default value: 250</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>good_reads</name>
+          <prompt lang="en">Minimum number of good reads at clip pos (-z)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>3</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -z $value" : ""</code>
+            <code proglang="python">( "" , " -z "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <comment>
+            <text lang="en">Default value: 3</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum number of good reads at clip pos (-z)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727539136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="good_reads" type="text" value="3"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727539136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default value: 3</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="good_reads">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727539136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727539136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default value: 3</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>clipping_file</name>
+          <prompt lang="en">File for clipping information (-w)</prompt>
+          <type>
+            <datatype>
+              <class>ClippingParameters</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -w $value" : ""</code>
+            <code proglang="python">( "" , " -w "+ str( value ) )[ value is not None ]</code>
+          </format>
+          <argpos>10</argpos>
+          <comment>
+            <text lang="en">The user may provide specific values for the parameters crange and gdepth or individual reads in a file.</text>
+            <text lang="en">Each line in the file has the following format:</text>
+            <text lang="en">ReadName crange5 gdepth5 crange3 gdepth3</text>
+            <text lang="en">where ReadName is the name of a read, crange5 and gdepth5 are values for the 5' end, and crange3 and gdepth3 are for the 3' end.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>File for clipping information (-w)</xhtml:legend>
+              <xhtml:textarea name="clipping_file" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ClippingParameters" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="clipping_file">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ClippingParameters)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117730958912::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117730958912::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The user may provide specific values for the parameters crange and gdepth or individual reads in a file.</xhtml:div>
+                <xhtml:div>Each line in the file has the following format:</xhtml:div>
+                <xhtml:div>ReadName crange5 gdepth5 crange3 gdepth3</xhtml:div>
+                <xhtml:div>where ReadName is the name of a read, crange5 and gdepth5 are values for the 5' end, and crange3 and gdepth3 are for the 3' end.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>band_diagonals</name>
+      <prompt lang="en">Band of diagonals</prompt>
+      <comment>
+        <text lang="en">The program determines a minimum band of diagonals for an overlapping alignment between two sequence reads.</text>
+        <text lang="en">The band is expanded by a number of bases specified by the user with option "-a".</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>band_expansion</name>
+          <prompt lang="en">Band expansion size (-a)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>20</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -a $value" : ""</code>
+            <code proglang="python">( "" , " -a "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Band expansion size must be &gt; 10</text>
+            </message>
+            <code proglang="perl">$value &gt; 10</code>
+            <code proglang="python">value &gt; 10</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <comment>
+            <text lang="en">The program determines a minimum band of diagonals for an overlapping alignment between two sequence reads.</text>
+            <text lang="en">The band is expanded by a number of bases specified by the user with option "-a".</text>
+            <text lang="en">Default value: 20</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Band expansion size (-a)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727395904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="band_expansion" type="text" value="20"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727395904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The program determines a minimum band of diagonals for an overlapping alignment between two sequence reads.</xhtml:div>
+                <xhtml:div>The band is expanded by a number of bases specified by the user with option "-a".</xhtml:div>
+                <xhtml:div>Default value: 20</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="band_expansion">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117727395904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117727395904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The program determines a minimum band of diagonals for an overlapping alignment between two sequence reads.</xhtml:div>
+                <xhtml:div>The band is expanded by a number of bases specified by the user with option "-a".</xhtml:div>
+                <xhtml:div>Default value: 20</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>overlap_score</name>
+      <prompt lang="en">Quality difference score of an overlap</prompt>
+      <comment>
+        <text lang="en">Overlaps between reads are evaluated by many measures.</text>
+        <text lang="en">The first measure is based on base quality.</text>
+        <text lang="en">If an overlap contains lots of differences at bases of high quality, then the overlap is removed.</text>
+        <text lang="en">Specifically,let b be the base quality cutoff value and let d be the maximum difference score.</text>
+        <text lang="en">The values for the two parameters can be set using the "-b" and "-d" options.</text>
+        <text lang="en">If the overlap contains a difference at bases of quality values q1 and q2, then the score at the difference is max(0, min(q1, q2) - b).</text>
+        <text lang="en">The difference score of an overlap is the sum of scores at each difference.</text>
+        <text lang="en">For example, an overlap contains two differences,</text>
+        <text lang="en">one at bases of quality values 15 and 30 and the other at bases of quality values 40 and 50.</text>
+        <text lang="en">With b = 20, the difference score of the overlap is 0 + 20 = 20.</text>
+        <text lang="en">If the difference score of an overlap exceeds d, then the overlap is removed. With b = 20,</text>
+        <text lang="en">an overlap with 15 differences at bases of quality values 40 or higher has a difference score of at least 300 and is removed if d = 250.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>base_qual_cutoff</name>
+          <prompt lang="en">Base quality cutoff for differences (-b)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>20</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? "-b $value" : ""</code>
+            <code proglang="python">( "" , " -b "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Base quality cutoff must be &gt; 15</text>
+            </message>
+            <code proglang="perl">$value &gt; 15</code>
+            <code proglang="python">value &gt; 15</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Base quality cutoff for differences (-b)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="base_qual_cutoff" type="text" value="20"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="base_qual_cutoff"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>max_qscore</name>
+          <prompt lang="en">Maximum qscore sum at differences (-d)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -d $value" : ""</code>
+            <code proglang="python">( "" , " -d "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 20</text>
+            </message>
+            <code proglang="perl">$value &gt; 20</code>
+            <code proglang="python">value &gt; 20</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum qscore sum at differences (-d)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="max_qscore" type="text" value="200"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_qscore"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>nb_diff_overlap</name>
+      <prompt lang="en">Number of differences in an overlap</prompt>
+      <comment>
+        <text lang="en">The second measure looks at the number of differences in an overlap.</text>
+        <text lang="en">If the number of differences in an overlap is higher than expected, than the overlap is removed.</text>
+        <text lang="en">Let an integer e be the maximum number of extra differences.</text>
+        <text lang="en">Consider an overlap between reads f and g.</text>
+        <text lang="en">Let d1 be the estimated number of sequencing errors for the region of f involved in the overlap and let r2 be that for</text>
+        <text lang="en">the region of g involved in the overlap.</text>
+        <text lang="en">If the observed number of differences in the overlap is greater than r1 + r2 + e, then the overlap is removed.</text>
+        <text lang="en">The value for the parameter e can be changed using the "-e" option.</text>
+        <text lang="en">The expected number of differences in the overlap is about r1 + r2.</text>
+        <text lang="en">Giving a smaller value to e causes more overlaps to be removed.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>clearance</name>
+          <prompt lang="en">Clearance between number of diff (-e)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>30</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -e $value" : ""</code>
+            <code proglang="python">( "" , " -e "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 10</text>
+            </message>
+            <code proglang="perl">$value &gt; 10</code>
+            <code proglang="python">value &gt; 10</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Clearance between number of diff (-e)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="clearance" type="text" value="30"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="30" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="clearance"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>sim_score_overlap</name>
+      <prompt lang="en">Similarity score of an overlap</prompt>
+      <comment>
+        <text lang="en">The third measure is based on overlap similarity score.</text>
+        <text lang="en">The similarity score of an overlapping alignment is defined using base quality values.</text>
+        <text lang="en">Let m be the match score factor, let n be the mismatch score factor, and let g be the gap penalty factor.</text>
+        <text lang="en">Values for these parameters can be set with the "-m", "-n", and "-g" options.</text>
+        <text lang="en">A match at bases of quality values q1 and q2 is given a score of m * min(q1,q2).</text>
+        <text lang="en">A mismatch at bases of quality values q1 and q2 is given a score of n * min(q1,q2).</text>
+        <text lang="en">A base of quality value q1 in a gap is given a score of -g * min(q1,q2),</text>
+        <text lang="en">where q2 is the quality value of the base in the other sequence right before the gap.</text>
+        <text lang="en">The score of a gap is the sum of scores of each base in the gap minus a gap open penalty.</text>
+        <text lang="en">The similarity score of an overlapping alignment is the sum of scores of each match, each mismatch, and each gap.</text>
+        <text lang="en">With m = 2, an overlap that consists of 25 matches at bases of quality value 10 has a score of 500.</text>
+        <text lang="en">If the similarity score of an overlap is less than the overlap similarity score cutoff s, then the overlap is removed.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>match_score</name>
+          <prompt lang="en">Match score factor (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -m $value" : ""</code>
+            <code proglang="python">( "" , " -m "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Match score factor (-m)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="match_score" type="text" value="2"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="match_score"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>mismatch_score</name>
+          <prompt lang="en">Mismatch score factor (-n)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>-5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -n $value" : ""</code>
+            <code proglang="python">( "" , " -n "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &lt; 0</text>
+            </message>
+            <code proglang="perl">$value &lt; 0</code>
+            <code proglang="python">value &lt; 0</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Mismatch score factor (-n)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="mismatch_score" type="text" value="-5"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mismatch_score"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gap_penalty</name>
+          <prompt lang="en">Gap penalty factor (-g)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>6</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -g $value" : ""</code>
+            <code proglang="python">( "" , " -g "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gap penalty factor (-g)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gap_penalty" type="text" value="6"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="6" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gap_penalty"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>percent_id_overlap</name>
+      <prompt lang="en">Length and percent identity of an overlap</prompt>
+      <comment>
+        <text lang="en">The fourth requirement for an overlap is that the length in bp of the overlap is no less than the value of the minimum overlap length cutoff parameter.</text>
+        <text lang="en">The value for this parameter can be changed with the "-o" option.</text>
+        <text lang="en">The fifth requirement for an overlap is that the percent identity of the overlap is no less than the minimum percent identity cutoff.</text>
+        <text lang="en">The value for this parameter can be changed with the "-p" option.</text>
+        <text lang="en">A value of 75 for p means 0.75 or 75%.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>overlap_length</name>
+          <prompt lang="en">Overlap length cutoff (-o)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>40</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -o $value" : ""</code>
+            <code proglang="python">( "" , " -o "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 20</text>
+            </message>
+            <code proglang="perl">$value &gt; 20</code>
+            <code proglang="python">value &gt; 20</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Overlap length cutoff (-o)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="overlap_length" type="text" value="40"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="40" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="overlap_length"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>overlap_identity</name>
+          <prompt lang="en">Overlap percent identity cutoff (-p)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>80</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -p $value" : ""</code>
+            <code proglang="python">( "" , " -p "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 65</text>
+            </message>
+            <code proglang="perl">$value &gt; 65</code>
+            <code proglang="python">value &gt; 65</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Overlap percent identity cutoff (-p)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="overlap_identity" type="text" value="80"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="80" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="overlap_identity"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>max_len_gaps_overlap</name>
+      <prompt lang="en">Maximum length of gaps in an overlap</prompt>
+      <comment>
+        <text lang="en">The program provides a parameter (-f option) for the user to reject overlaps with a long gap.</text>
+        <text lang="en">Let an integer f be the maximum length of gaps allowed in any overlap. Then any overlap with a gap longer than f is rejected by the program.</text>
+        <text lang="en">The value for this parameter can be changed using the "-f" option.</text>
+        <text lang="en">Note that a small value for this parameter may cause the program to remove true overlaps and to produce incorrect results.</text>
+        <text lang="en">The "-f" option may be used by the user to split reads from alternative splicing forms into separate contigs.</text>
+        <text lang="en">Geo Pertea at TIGR suggested that this option be added to the program.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>max_gap_length</name>
+          <prompt lang="en">Maximum gap length in any overlap (-f)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>20</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -f $value" : ""</code>
+            <code proglang="python">( "" , " -f "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 1</text>
+            </message>
+            <code proglang="perl">$value &gt; 1</code>
+            <code proglang="python">value &gt; 1</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum gap length in any overlap (-f)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="max_gap_length" type="text" value="20"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_gap_length"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>overhang_pcent_len_overlap</name>
+      <prompt lang="en">Overhang percent length of an overlap</prompt>
+      <comment>
+        <text lang="en">The total length of the different overhang regions in an overlap is controlled with the -h option.</text>
+        <text lang="en">TAn overhang region in an overlap is a different terminal region before or after the overlap.</text>
+        <text lang="en">TThe overhang percent length of an overlap is 100 times the total length of the different overhang regions in the overlap divided by the length of the overlap.</text>
+        <text lang="en">TOverlaps with an overhang percent length greater than the maximum cutoff are rejected.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>max_overhang</name>
+          <prompt lang="en">Maximum overhang percent length (-h)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>20</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -h $value" : ""</code>
+            <code proglang="python">( "" , " -h "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 2</text>
+            </message>
+            <code proglang="perl">$value &gt; 2</code>
+            <code proglang="python">value &gt; 2</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum overhang percent length (-h)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="max_overhang" type="text" value="20"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max_overhang"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter>
+      <name>overlap_similarity</name>
+      <prompt lang="en">Overlap similarity score cutoff (-s)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>900</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value and $value != $vdef) ? " -s $value" : ""</code>
+        <code proglang="python">( "" , " -s "+ str( value ) )[ value is not None and value != vdef ]</code>
+      </format>
+      <ctrl>
+        <message>
+          <text lang="en">Value must be &gt; 400</text>
+        </message>
+        <code proglang="perl">$value &gt; 400</code>
+        <code proglang="python">value &gt; 400</code>
+      </ctrl>
+      <argpos>10</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Overlap similarity score cutoff (-s)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="overlap_similarity" type="text" value="900"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="900" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="overlap_similarity"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>assembly_fwd</name>
+      <prompt lang="en">Assembly of reads in forward orientation only</prompt>
+      <comment>
+        <text lang="en">The "-r" option is used to let CAP3 know whether to consider reads in reverse orientation for assembly.</text>
+        <text lang="en">The default value for the option is 1, meaning that reads in reverse orientation are also considered for assembly.</text>
+        <text lang="en">Specifying zero as "-r 0" instructs CAP3 to perform assembly of reads in forward orientation only.</text>
+        <text lang="en">This option was suggested by Patrick Schnable's lab.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>reverse_orientation</name>
+          <prompt lang="en">Reverse orientation value (-r)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -r $value" : ""</code>
+            <code proglang="python">( "" , " -r "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt;= 0</text>
+            </message>
+            <code proglang="perl">$value &gt;= 0</code>
+            <code proglang="python">value &gt;= 0</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Reverse orientation value (-r)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="reverse_orientation" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="reverse_orientation"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>max_num_word_matches</name>
+      <prompt lang="en">Maximum number of word matches</prompt>
+      <comment>
+        <text lang="en">This parameter (option -t) allows the user to trade off the efficiency of the program for its accuracy.</text>
+        <text lang="en">For a read f, the program computes overlaps between read f and other reads by considering short word matches between read f and other reads.</text>
+        <text lang="en">A word match is examined to see if it can be extended into a long overlap.</text>
+        <text lang="en">If read f has overlaps with many other reads, then read f has many short word matches with many other reads.</text>
+        <text lang="en">This parameter gives an upper limit, for any word, on the number of word matches between read f and other reads that are considered by the program.</text>
+        <text lang="en">Using a large value for this parameter allows the program to consider more word matches between read f and other reads, which can find more overlaps for read f, but slows down the program.</text>
+        <text lang="en">Using a small vlaue for this parameter has the opposite effect.</text>
+        <text lang="en">A large value may be used if the depth of coverage is high for the data set.</text>
+        <text lang="en">For example, a value of 150 is used for a data set with a maximum depth of coverage of 30, and a value of 500 for a data set with a maximum depth of coverage of 100. Using a very large value may cause the program to run forever or run out of memory.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>word_matches</name>
+          <prompt lang="en">Maximum number of word matches (-t)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>300</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -t $value" : ""</code>
+            <code proglang="python">( "" , " -t "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 30</text>
+            </message>
+            <code proglang="perl">$value &gt; 30</code>
+            <code proglang="python">value &gt; 30</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number of word matches (-t)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="word_matches" type="text" value="300"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="300" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="word_matches"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>fwd_rev_const</name>
+      <prompt lang="en">Forward-reverse constraints</prompt>
+      <comment>
+        <text lang="en">Corrections to an assembly are made using forward-reverse constraints.</text>
+        <text lang="en">Let an integer u be the minimum number of constraints for correction.</text>
+        <text lang="en">Consider an alternative overlap between two reads f and g.</text>
+        <text lang="en">Assume that f is in contig C1 and that g is in contig C2.</text>
+        <text lang="en">If the number of unsatisfied constraints that support the overlap between f and g is greater than the value of the u parameter plus the number of satisfied constraints that support the current joins involving f and g, then the current joins involving f and g are disconnected and the overlap between f and g is implemented.</text>
+        <text lang="en">The value for this parameter can be changed with the "-u" option.</text>
+        <text lang="en">Contigs that are linked by forward-reverse constraints are reported.</text>
+        <text lang="en">The minimum number of constraints for reporting a link between two contigs is specified with the "-v" option.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>min_constraints_corr</name>
+          <prompt lang="en">Minimum number of constraints for correction (-u)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>3</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -u $value" : ""</code>
+            <code proglang="python">( "" , " -u "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum number of constraints for correction (-u)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="min_constraints_corr" type="text" value="3"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="min_constraints_corr"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>min_constraints_linking</name>
+          <prompt lang="en">Minimum number of constraints for linking (-v)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -v $value" : ""</code>
+            <code proglang="python">( "" , " -v "+ str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be &gt; 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <argpos>10</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum number of constraints for linking (-v)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="min_constraints_linking" type="text" value="2"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="min_constraints_linking"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <!--  output parameters -->
+    <parameter isout="1">
+      <name>ace</name>
+      <prompt lang="en">Assembly in ace format</prompt>
+      <type>
+        <datatype>
+          <class>AceAssembly</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+        <dataFormat>ACE</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.cap.ace"</code>
+        <code proglang="python">"*.cap.ace"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="AceAssembly" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="ACE " data-parametername="ace">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(AceAssembly)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>contig</name>
+      <prompt lang="en">Contigs</prompt>
+      <type>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <!--  a file inputFileName.cap. is always generated but it could contain 0 to n sequences -->
+        <card>0,n</card>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.cap.contigs"</code>
+        <code proglang="python">"*.cap.contigs"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="0,n" data-formats="FASTA " data-parametername="contig">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>contig_link</name>
+      <prompt lang="en">Contig links</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.cap.contigs.links"</code>
+        <code proglang="python">"*.cap.contigs.links"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="contig_link">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>contig_qual</name>
+      <prompt lang="en">Quality of contigs</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.cap.contigs.qual"</code>
+        <code proglang="python">"*.cap.contigs.qual"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="contig_qual">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>info</name>
+      <prompt lang="en">Assembly informations</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.cap.info"</code>
+        <code proglang="python">"*.cap.info"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="info">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>singlet</name>
+      <prompt lang="en">Singlets</prompt>
+      <type>
+        <biotype>DNA</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <!--  a file inputFileName.cap.singlets is always generated but it could contain 0 to n sequences -->
+        <card>0,n</card>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.cap.singlets"</code>
+        <code proglang="python">"*.cap.singlets"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="0,n" data-formats="" data-parametername="singlet">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"cap3.out"</code>
+        <code proglang="python">"cap3.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"cap3.err"</code>
+        <code proglang="python">"cap3.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

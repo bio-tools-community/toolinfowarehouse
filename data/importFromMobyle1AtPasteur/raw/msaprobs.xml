@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron, -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris. -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>msaprobs</name>
+    <version>0.9.4</version>
+    <doc>
+      <title>MSAProbs</title>
+      <description>
+        <text lang="en">is a protein multiple sequence alignment algorithm based on pair hidden Markov models and partition function posterior probabilities</text>
+      </description>
+      <authors>Yongchao Liu, Bertil Schmidt and Douglas L. Maskell</authors>
+      <reference doi="doi:10.1093/bioinformatics/btq338">
+          Yongchao Liu, Bertil Schmidt and Douglas L. Maskell (Bioinformatics 2010 26(16): 1958-1964)
+         MSAProbs: multiple sequence alignment based on pair hidden Markov models and 
+         partition function posterior probabilities.
+      </reference>
+      <sourcelink>http://sourceforge.net/projects/msaprobs/files/MSAProbs-0.9.4.tar.gz/download</sourcelink>
+      <homepagelink>http://sourceforge.net/projects/msaprobs/</homepagelink>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <p>MSAProbs is an open-source protein multiple sequence ailgnment algorithm, 
+           achieving the stastistically highest alignment accuracy on popular benchmarks: 
+          <a href="http://www-bio3d-igbmc.u-strasbg.fr/balibase/">BALIBASE</a>,  
+          <a href="http://www.drive5.com/muscle/prefab.htm">PREFAB</a>, 
+          <a href="http://bioinformatics.vub.ac.be/databases/databases.html">SABMARK</a>,  
+          <a href="http://www.compbio.dundee.ac.uk/Software/Oxbench/oxbench.html">OXBENCH</a>,  
+           compared to ClustalW, MAFFT, MUSCLE, ProbCons and Probalign.</p>
+        </div>
+      </comment>
+    </doc>
+    <command>msaprobs</command>
+    <category>alignment:multiple</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="sequences">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequences File ( a file containing several sequences ).</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sequences" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="accuracy">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Accuracy Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consitency">passes of consistency transformation( 0 &gt;= REPS &gt;= 5 default: 2 )<xhtml:a href="#idm140117709546592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="consitency" type="text" value="2"/>
+            <xhtml:div id="idm140117709546592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A probabilistic consistency transformation is used to re-estimate more
+              accurate posterior probabilities of each sequence pair x and y by introducing
+              another sequence z. Instead of re-computing the posterior probabilities
+              based on three-sequence alignments, the transformation is performed
+              based on the already computed probability matrices estimated from
+              pairwise alignments. 
+              To avoid a biased sampling of sequences, we therefore derive a weighed 
+              probabilistic consistency transformation approach
+              This motivation of the weighted approach is to obtain more accurate
+              alignments than the non-weighted one. The transformations are further
+              performed for a fixed number of iterations to refine the probabilities. In
+              MSAProbs, two iterations (the default value) are used. This default value
+              offers a good trade-off between alignment accuracy and execution time.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="iterative_refinement">passes of iterative-refinement ( use 0 &gt;= REPS &gt;= 1000 default: 10 )<xhtml:a href="#idm140117709499808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="iterative_refinement" type="text" value="10"/>
+            <xhtml:div id="idm140117709499808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+              As a post-processing step, a randomized iterative alignment is employed
+              to further improve alignment accuracy. This refinement randomly partitions
+              S into two non-overlapped subsets, and then performs a profile–profile
+              alignment of the two subsets. MSAProbs designs its own pseudo random
+              number generator based on the linear congruential method for the random
+              partition of S. The iterative refinement is designed to complete after a fixed
+              number of iterations (10 iterations, by default).
+            </xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_opt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="annotation">write annotation for multiple alignment to FILENAME<xhtml:a href="#idm140117708796608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="annotation" type="text" value=""/>
+            <xhtml:div id="idm140117708796608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The score of each column of the final alignment, from the leftmost to the right most, will be report on this annotation file.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sequences" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="accuracy">
+        <xhtml:legend>Accuracy Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="consitency" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117709546592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117709546592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A probabilistic consistency transformation is used to re-estimate more
+              accurate posterior probabilities of each sequence pair x and y by introducing
+              another sequence z. Instead of re-computing the posterior probabilities
+              based on three-sequence alignments, the transformation is performed
+              based on the already computed probability matrices estimated from
+              pairwise alignments. 
+              To avoid a biased sampling of sequences, we therefore derive a weighed 
+              probabilistic consistency transformation approach
+              This motivation of the weighted approach is to obtain more accurate
+              alignments than the non-weighted one. The transformations are further
+              performed for a fixed number of iterations to refine the probabilities. In
+              MSAProbs, two iterations (the default value) are used. This default value
+              offers a good trade-off between alignment accuracy and execution time.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="iterative_refinement" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117709499808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117709499808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>
+              As a post-processing step, a randomized iterative alignment is employed
+              to further improve alignment accuracy. This refinement randomly partitions
+              S into two non-overlapped subsets, and then performs a profile–profile
+              alignment of the two subsets. MSAProbs designs its own pseudo random
+              number generator based on the linear congruential method for the random
+              partition of S. The iterative refinement is designed to complete after a fixed
+              number of iterations (10 iterations, by default).
+            </xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_opt">
+        <xhtml:legend>Output Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="annotation" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117708796608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117708796608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The score of each column of the final alignment, from the leftmost to the right most, will be report on this annotation file.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alignment" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="annotation_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="MSAProbsAnnotation" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(MSAProbsAnnotation)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708794096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708794096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Each line represents the score of each column of the final alignment from the leftmost to the right most.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>sequences</name>
+      <prompt lang="en">Sequences File ( a file containing several sequences ).</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $sequences"</code>
+        <code proglang="python">" " + str( sequences )</code>
+      </format>
+      <argpos>1000</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequences File ( a file containing several sequences ).</xhtml:legend>
+          <xhtml:textarea name="sequences" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="sequences">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>accuracy</name>
+      <prompt lang="en">Accuracy Options</prompt>
+      <parameters>
+        <parameter>
+          <name>consitency</name>
+          <prompt lang="en">passes of consistency transformation( 0 &gt;= REPS &gt;= 5 default: 2 )</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)" -c $value " : ""</code>
+            <code proglang="python">("" , " -c "+str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">use 0 &gt;= REPS &gt;= 5</text>
+            </message>
+            <code proglang="perl">$value &gt;=0 and $value&lt;=5</code>
+            <code proglang="python">value &gt;=0 and value&lt;=5</code>
+          </ctrl>
+          <comment>
+            <text lang="en">A probabilistic consistency transformation is used to re-estimate more
+              accurate posterior probabilities of each sequence pair x and y by introducing
+              another sequence z. Instead of re-computing the posterior probabilities
+              based on three-sequence alignments, the transformation is performed
+              based on the already computed probability matrices estimated from
+              pairwise alignments. 
+              To avoid a biased sampling of sequences, we therefore derive a weighed 
+              probabilistic consistency transformation approach
+              This motivation of the weighted approach is to obtain more accurate
+              alignments than the non-weighted one. The transformations are further
+              performed for a fixed number of iterations to refine the probabilities. In
+              MSAProbs, two iterations (the default value) are used. This default value
+              offers a good trade-off between alignment accuracy and execution time.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">passes of consistency transformation( 0 &gt;= REPS &gt;= 5 default: 2 )<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709546592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="consitency" type="text" value="2"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709546592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>A probabilistic consistency transformation is used to re-estimate more
+              accurate posterior probabilities of each sequence pair x and y by introducing
+              another sequence z. Instead of re-computing the posterior probabilities
+              based on three-sequence alignments, the transformation is performed
+              based on the already computed probability matrices estimated from
+              pairwise alignments. 
+              To avoid a biased sampling of sequences, we therefore derive a weighed 
+              probabilistic consistency transformation approach
+              This motivation of the weighted approach is to obtain more accurate
+              alignments than the non-weighted one. The transformations are further
+              performed for a fixed number of iterations to refine the probabilities. In
+              MSAProbs, two iterations (the default value) are used. This default value
+              offers a good trade-off between alignment accuracy and execution time.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="consitency">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709546592::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709546592::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>A probabilistic consistency transformation is used to re-estimate more
+              accurate posterior probabilities of each sequence pair x and y by introducing
+              another sequence z. Instead of re-computing the posterior probabilities
+              based on three-sequence alignments, the transformation is performed
+              based on the already computed probability matrices estimated from
+              pairwise alignments. 
+              To avoid a biased sampling of sequences, we therefore derive a weighed 
+              probabilistic consistency transformation approach
+              This motivation of the weighted approach is to obtain more accurate
+              alignments than the non-weighted one. The transformations are further
+              performed for a fixed number of iterations to refine the probabilities. In
+              MSAProbs, two iterations (the default value) are used. This default value
+              offers a good trade-off between alignment accuracy and execution time.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>iterative_refinement</name>
+          <prompt lang="en">passes of iterative-refinement ( use 0 &gt;= REPS &gt;= 1000 default: 10 )</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)" -ir $value " : ""</code>
+            <code proglang="python">("" , " -ir "+str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">use 0 &gt;= REPS &gt;= 1000</text>
+            </message>
+            <code proglang="perl">$value &gt;=0 and $value&lt;=100</code>
+            <code proglang="python">value &gt;=0 and value&lt;=100</code>
+          </ctrl>
+          <comment>
+            <text lang="en">
+              As a post-processing step, a randomized iterative alignment is employed
+              to further improve alignment accuracy. This refinement randomly partitions
+              S into two non-overlapped subsets, and then performs a profile–profile
+              alignment of the two subsets. MSAProbs designs its own pseudo random
+              number generator based on the linear congruential method for the random
+              partition of S. The iterative refinement is designed to complete after a fixed
+              number of iterations (10 iterations, by default).
+            </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">passes of iterative-refinement ( use 0 &gt;= REPS &gt;= 1000 default: 10 )<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709499808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="iterative_refinement" type="text" value="10"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709499808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              As a post-processing step, a randomized iterative alignment is employed
+              to further improve alignment accuracy. This refinement randomly partitions
+              S into two non-overlapped subsets, and then performs a profile–profile
+              alignment of the two subsets. MSAProbs designs its own pseudo random
+              number generator based on the linear congruential method for the random
+              partition of S. The iterative refinement is designed to complete after a fixed
+              number of iterations (10 iterations, by default).
+            </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="iterative_refinement">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117709499808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117709499808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+              As a post-processing step, a randomized iterative alignment is employed
+              to further improve alignment accuracy. This refinement randomly partitions
+              S into two non-overlapped subsets, and then performs a profile–profile
+              alignment of the two subsets. MSAProbs designs its own pseudo random
+              number generator based on the linear congruential method for the random
+              partition of S. The iterative refinement is designed to complete after a fixed
+              number of iterations (10 iterations, by default).
+            </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_opt</name>
+      <prompt lang="en">Output Options</prompt>
+      <parameters>
+        <parameter>
+          <name>annotation</name>
+          <prompt lang="en">write annotation for multiple alignment to FILENAME</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)" -annot $value " : ""</code>
+            <code proglang="python">("" , " -annot " + str(value))[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">The score of each column of the final alignment, from the leftmost to the right most, will be report on this annotation file.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">write annotation for multiple alignment to FILENAME<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708796608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="annotation" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708796608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The score of each column of the final alignment, from the leftmost to the right most, will be report on this annotation file.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="annotation">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708796608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708796608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The score of each column of the final alignment, from the leftmost to the right most, will be report on this annotation file.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="1">
+      <name>alignment</name>
+      <prompt lang="en">Alignment file</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"msaprobs.out"</code>
+        <code proglang="python">"msaprobs.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="alignment">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>annotation_file</name>
+      <prompt lang="en">Annotation file</prompt>
+      <precond>
+        <code proglang="perl">defined $annotation</code>
+        <code proglang="python">annotation is not None</code>
+      </precond>
+      <type>
+        <datatype>
+          <class>MSAProbsAnnotation</class>
+          <superclass>Report</superclass>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">$annotation</code>
+        <code proglang="python">annotation</code>
+      </filenames>
+      <comment>
+        <text lang="en">Each line represents the score of each column of the final alignment from the leftmost to the right most.</text>
+      </comment>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="MSAProbsAnnotation" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="annotation_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(MSAProbsAnnotation)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708794096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708794096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Each line represents the score of each column of the final alignment from the leftmost to the right most.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"msaprobs.err"</code>
+        <code proglang="python">"msaprobs.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

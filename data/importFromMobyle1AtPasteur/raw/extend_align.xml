@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Herve Menager  Bertrand Neron                                  -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 Licence. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>extend_align</name>
+    <version>1.0</version>
+    <doc>
+      <title>concatenate several alignments from several files</title>
+      <description>
+        <text lang="en">This tool concatenates multiple MSAs.</text>
+      </description>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <p>for instance</p>
+            fisrt alignment
+            <pre>
+            &gt;seq1
+            aaaaggg
+            &gt;seq2
+            aaaa--g
+            &gt;seq3
+            aa--ggg
+            </pre>
+            second alignment
+            <pre>
+            &gt;seq1
+            ccccttt
+            &gt;seq2
+            cccc--t
+            &gt;seq3
+            cc--ttt
+            </pre>
+            the resulting alignment if the linker is "---" will be:
+            <pre>
+            &gt;seq1
+            aaaaggg---ccccttt
+            &gt;seq2
+            aaaa--g---cccc--t
+            &gt;seq3
+            aa--ggg---cc--ttt
+            </pre>
+            two methods can be used to extend the aligenmt:
+             <ol>
+            <li>by sequence order: in this case the ids of sequences could be different.
+             and the id of each sequence in the resulting alignment is the concatenation of the respective sequence id 
+             (All Alignments MUST have the same number of sequences)</li>
+            <li>by sequence id: in this case the extension is made based on the sequence ids.</li>
+          </ol>
+        </div>
+      </comment>
+      <authors>Néron, B.</authors>
+    </doc>
+    <command>extend_align</command>
+    <category>alignment:multiple</category>
+    <interface type="form" generated="true">
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend_method">method to extend the alignment<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712548640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="extend_method">
+          <xhtml:option value="null" selected="selected">by order</xhtml:option>
+          <xhtml:option value="id">by id</xhtml:option>
+        </xhtml:select>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712548640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+            <ol>
+              <li>by sequence order: in this case the ids of sequences could be different.
+             and the id of each sequence in the resulting alignment is the concatenation of the respective sequence id 
+             (All Alignments MUST have the same number of sequences)</li>
+              <li>by sequence id: in this case the extension is made based on the sequence ids.</li>
+            </ol>
+          </div>
+        </xhtml:div>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="true" data-default-value="" data-datatype="MultipleAlignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="fasta_align">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">alignment</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="fasta_align" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="linker">sequence linker<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="linker" type="text" value=""/>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="extend_method" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712548640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712548640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div>
+            <ol>
+              <li>by sequence order: in this case the ids of sequences could be different.
+             and the id of each sequence in the resulting alignment is the concatenation of the respective sequence id 
+             (All Alignments MUST have the same number of sequences)</li>
+              <li>by sequence id: in this case the extension is made based on the sequence ids.</li>
+            </ol>
+          </div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fasta_align" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="true" data-default-value="" data-datatype="MultipleAlignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(MultipleAlignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="linker" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="concatenated_alignment" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter>
+      <name>extend_method</name>
+      <prompt>method to extend the alignment</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>null</value>
+          <label>by order</label>
+        </velem>
+        <velem>
+          <value>id</value>
+          <label>by id</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">( defined $value and value != $vdef)? " --id ":"" </code>
+        <code proglang="python">( "" , " --id ")[value is not None and value != vdef]</code>
+      </format>
+      <argpos>5</argpos>
+      <comment>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <ol>
+            <li>by sequence order: in this case the ids of sequences could be different.
+             and the id of each sequence in the resulting alignment is the concatenation of the respective sequence id 
+             (All Alignments MUST have the same number of sequences)</li>
+            <li>by sequence id: in this case the extension is made based on the sequence ids.</li>
+          </ol>
+        </div>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">method to extend the alignment<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712548640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="extend_method">
+            <xhtml:option value="null" selected="selected">by order</xhtml:option>
+            <xhtml:option value="id">by id</xhtml:option>
+          </xhtml:select>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712548640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+              <ol>
+                <li>by sequence order: in this case the ids of sequences could be different.
+             and the id of each sequence in the resulting alignment is the concatenation of the respective sequence id 
+             (All Alignments MUST have the same number of sequences)</li>
+                <li>by sequence id: in this case the extension is made based on the sequence ids.</li>
+              </ol>
+            </div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="extend_method">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712548640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712548640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <div>
+              <ol>
+                <li>by sequence order: in this case the ids of sequences could be different.
+             and the id of each sequence in the resulting alignment is the concatenation of the respective sequence id 
+             (All Alignments MUST have the same number of sequences)</li>
+                <li>by sequence id: in this case the extension is made based on the sequence ids.</li>
+              </ol>
+            </div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>fasta_align</name>
+      <prompt lang="en">alignment</prompt>
+      <type>
+        <datatype>
+          <!-- MultipleAlignment Datatype is a "Multiple type, meaning it accepts multiple alignment files" -->
+          <class>MultipleAlignment</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" -i $value fasta"</code>
+        <code proglang="python">" -i " + value + " fasta"</code>
+      </format>
+      <argpos>10</argpos>
+      <separator> FASTA -i </separator>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>alignment</xhtml:legend>
+          <xhtml:textarea name="fasta_align" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="true" data-default-value="" data-datatype="MultipleAlignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="fasta_align">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(MultipleAlignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>linker</name>
+      <prompt lang="en">sequence linker</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value)?"": " -l $value"</code>
+        <code proglang="python">("", " -l " + str( value ) )[value is not None]</code>
+      </format>
+      <argpos>100</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">sequence linker<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="linker" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="linker"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="1">
+      <name>concatenated_alignment</name>
+      <prompt lang="en">concatenated alignment</prompt>
+      <type>
+        <datatype>
+          <class>Alignment</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"extend_align.out"</code>
+        <code proglang="python">"extend_align.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="concatenated_alignment">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"extend_align.err"</code>
+        <code proglang="python">"extend_align.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

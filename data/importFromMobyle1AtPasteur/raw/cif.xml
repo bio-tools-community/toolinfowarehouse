@@ -1,0 +1,1132 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Sandrine Larroude                                              -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>cif</name>
+    <version>0.2.2</version>
+    <doc>
+      <title>CIF</title>
+      <description>
+        <text lang="en">Cut DNA regions in frame</text>
+      </description>
+      <authors>E. Quevillon, B. Boeda</authors>
+      <doclink>http://bioweb2.pasteur.fr/docs/cif/cif.html</doclink>
+      <doclink>http://bioweb2.pasteur.fr/docs/cif/compatible_cohesive_ends.txt</doclink>
+      <doclink>http://bioweb2.pasteur.fr/docs/cif/paillasse_liste.txt</doclink>
+      <comment>
+        <text lang="en">cif (for Cut In Frame) is a tool that works with DNA sequences. It is used to digest
+      your sequences with a pool of restriction enzymes and to search which enzymes cut your
+      sequence keeping your reading frame after ligation without any frame shift produced
+      due to the digestion.</text>
+        <text lang="en">This helps users to work with a gene of interest to localize potential region(s) that
+      could be removed from the final protein to check if regions have an impact or not on
+      the final gene product. It can also allow to identify vital region(s) for the gene.</text>
+      </comment>
+    </doc>
+    <command>cif</command>
+    <category>sequence:enzyme:analysis</category>
+    <category>sequence:nucleic:restriction</category>
+    <category>display:nucleic:restriction</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="FASTA " data-parametername="sequence">
+            <legend>Sequence</legend>
+            <xhtml:textarea name="sequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="enztype">Type of enzymes (-T)<xhtml:a href="#idm140117707388416::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="enztype">
+              <xhtml:option value="0" selected="selected">blunt + cohesive + klenow</xhtml:option>
+              <xhtml:option value="blunt">blunt</xhtml:option>
+              <xhtml:option value="cohesive">cohesive</xhtml:option>
+              <xhtml:option value="klenow">klenow</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117707388416::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You can choose between:</xhtml:div>
+              <xhtml:div>- blunt : Use blunt cutters</xhtml:div>
+              <xhtml:div>- cohesive : Use cohesive cutters</xhtml:div>
+              <xhtml:div>- klenow  : Use only 5' enzymes for Klenow fill-in.</xhtml:div>
+              <xhtml:div>[Default all three]</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="strand">Cohesive enzyme strand (-S)<xhtml:a href="#idm140117708108848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="strand">
+              <xhtml:option value="0" selected="selected">5' + 3'</xhtml:option>
+              <xhtml:option value="5">5'</xhtml:option>
+              <xhtml:option value="3">3'</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117708108848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Cohesive enzyme strand to use: </xhtml:div>
+              <xhtml:div> - 5' </xhtml:div>
+              <xhtml:div> - 3' </xhtml:div>
+              <xhtml:div> - both : 5' and 3' (Default value).</xhtml:div>
+              <xhtml:div>(No effect if you choose to use blunt enzymes)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="digestionmod"> Digestion mode (-D)<xhtml:a href="#idm140117708130064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="digestionmod">
+              <xhtml:option value="0" selected="selected">simple + double</xhtml:option>
+              <xhtml:option value="double">double</xhtml:option>
+              <xhtml:option value="simple">simple</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117708130064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Digestion mode:</xhtml:div>
+              <xhtml:div>- double: Report couple of enzymes that digest sequence</xhtml:div>
+              <xhtml:div>- simple: Report enzyme name that cut more than one time</xhtml:div>
+              <xhtml:div>- both: simple + double (Default value).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="6" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Length">Minimum length of recognition site (-L)<xhtml:a href="#idm140117706792144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="Length" type="text" value="6"/>
+            <xhtml:div id="idm140117706792144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use enzymes with minimum length for DNA recognition site.</xhtml:div>
+              <xhtml:div>By default, 6.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="variant">Use enzymes with variant recognition site (-V)<xhtml:a href="#idm140117706491280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="variant">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117706491280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</xhtml:div>
+              <xhtml:div>  D = not C (A or G or T) </xhtml:div>
+              <xhtml:div>  H = not G (A or C or T)</xhtml:div>
+              <xhtml:div>This option, when set, use of these type of enzymes..</xhtml:div>
+              <xhtml:div>By default, this option is off.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="exotic">Report digestions in frame without ends compatibilities (-X)<xhtml:a href="#idm140117708167696::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="exotic">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117708167696::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</xhtml:div>
+              <xhtml:div>  D = not C (A or G or T) </xhtml:div>
+              <xhtml:div>  H = not G (A or C or T)</xhtml:div>
+              <xhtml:div>Thus, using thoses enzymes may produce a cut in frame but the produced ends may not be 
+                compatible together regarding DNA sequence.</xhtml:div>
+              <xhtml:div>Requires the '[-V | --variant]' option to work. By default, this option is off.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="compat">
+            <legend>List of compatible cohesive ends (-C)<xhtml:a href="#idm140117706386816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a href="#idm140117706386816::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            </legend>
+            <xhtml:div id="idm140117706386816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>File with list of compatible cohesive ends.</xhtml:div>
+              <xhtml:div>The default list used is given in the program help pages (compatible_cohesive_ends.txt).</xhtml:div>
+              <xhtml:div>If you want to give your own list, the format must be as follow:</xhtml:div>
+              <xhtml:div>"Enzyme_name:compatEnz1_name,compatEnz2_name,..."</xhtml:div>
+              <div class="example" id="idm140117706386816::example" data-forparameter="compat">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+Acc65I:BanI,BsiWI,BsrGI
+AccI:AciI,AclI,BsaHI,HinP1I,HpaII,NarI,ClaI,BstBI,TaqI          	
+          	</pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117706386816::example" data-forparameter="compat" style="display:none">
+              <pre>
+Acc65I:BanI,BsiWI,BsrGI
+AccI:AciI,AclI,BsaHI,HinP1I,HpaII,NarI,ClaI,BstBI,TaqI          	
+          	</pre>
+            </div>
+            <xhtml:textarea name="compat" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="enzlist">
+            <legend>Enzyme list to work with (-E)<xhtml:a href="#idm140117706210304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a href="#idm140117706210304::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            </legend>
+            <xhtml:div id="idm140117706210304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default, the program works with a list of enzymes commonly used in laboratory 
+          		given in the program help pages (paillasse_liste.txt).</xhtml:div>
+              <xhtml:div>If you want to give your own list, the format is one enzyme per line.</xhtml:div>
+              <div class="example" id="idm140117706210304::example" data-forparameter="enzlist">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+AatII
+Acc651
+...
+          	</pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117706210304::example" data-forparameter="enzlist" style="display:none">
+              <pre>
+AatII
+Acc651
+...
+          	</pre>
+            </div>
+            <xhtml:textarea name="enzlist" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="outputopt">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stop">Show stop codon (-P)<xhtml:a href="#idm140117706127424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="stop">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117706127424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sometimes, blunt digestion, after linkage, can produce new codon around the cutting site 
+            that leads to stop codon.</xhtml:div>
+              <xhtml:div>This option displays such digestions with a tag 'stopCodon' in the output line results.</xhtml:div>
+              <xhtml:div>NOTE: This option only works if 'blunt' type is set. By default this option is off, thus 
+            if such case happened no results are reported for enzymes digestion.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cut_pos">Show cut positions (-N)<xhtml:a href="#idm140117706113120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="cut_pos">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117706113120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> Enzymes may cut your sequence more than once.This option 
+            reports the number of time enzyme(s) cut your sequence. [Default off]</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mod_aa">Show new generated amino acid (-A)<xhtml:a href="#idm140117706101952::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="mod_aa">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117706101952::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Experimental option. [Default off]</xhtml:div>
+              <xhtml:div>This option allows, for 'blunt' or 'klenow' analysis to
+            show, in such case, the Amino acid that have been changed due to the ligation between 
+            the 2 parts of the DNA after the digestion.</xhtml:div>
+              <xhtml:div>It will be shown as OldAA&gt;NewAA (e.g.: G&gt;N).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="text" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outputstyle">Output style format (-F)<xhtml:a href="#idm140117706087568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="outputstyle">
+              <xhtml:option value="text" selected="selected">Text output</xhtml:option>
+              <xhtml:option value="gff">GFF3 output</xhtml:option>
+              <xhtml:option value="image">Image (png)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117706087568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Choose the output type that you prefer.</xhtml:div>
+              <xhtml:div>- Text output (Default value)</xhtml:div>
+              <xhtml:div>- GFF3 output</xhtml:div>
+              <xhtml:div>- Image (png): Creates image (png).</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="FASTA ">
+            <xhtml:i>
+				(DNA Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="options">
+        <xhtml:legend>Options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="enztype" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117707388416::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117707388416::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You can choose between:</xhtml:div>
+              <xhtml:div>- blunt : Use blunt cutters</xhtml:div>
+              <xhtml:div>- cohesive : Use cohesive cutters</xhtml:div>
+              <xhtml:div>- klenow  : Use only 5' enzymes for Klenow fill-in.</xhtml:div>
+              <xhtml:div>[Default all three]</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="strand" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117708108848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117708108848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Cohesive enzyme strand to use: </xhtml:div>
+              <xhtml:div> - 5' </xhtml:div>
+              <xhtml:div> - 3' </xhtml:div>
+              <xhtml:div> - both : 5' and 3' (Default value).</xhtml:div>
+              <xhtml:div>(No effect if you choose to use blunt enzymes)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="digestionmod" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117708130064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117708130064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Digestion mode:</xhtml:div>
+              <xhtml:div>- double: Report couple of enzymes that digest sequence</xhtml:div>
+              <xhtml:div>- simple: Report enzyme name that cut more than one time</xhtml:div>
+              <xhtml:div>- both: simple + double (Default value).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="6" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706792144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706792144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use enzymes with minimum length for DNA recognition site.</xhtml:div>
+              <xhtml:div>By default, 6.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="variant" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706491280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706491280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</xhtml:div>
+              <xhtml:div>  D = not C (A or G or T) </xhtml:div>
+              <xhtml:div>  H = not G (A or C or T)</xhtml:div>
+              <xhtml:div>This option, when set, use of these type of enzymes..</xhtml:div>
+              <xhtml:div>By default, this option is off.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="exotic" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117708167696::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117708167696::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</xhtml:div>
+              <xhtml:div>  D = not C (A or G or T) </xhtml:div>
+              <xhtml:div>  H = not G (A or C or T)</xhtml:div>
+              <xhtml:div>Thus, using thoses enzymes may produce a cut in frame but the produced ends may not be 
+                compatible together regarding DNA sequence.</xhtml:div>
+              <xhtml:div>Requires the '[-V | --variant]' option to work. By default, this option is off.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="compat" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+            <xhtml:a href="#idm140117706386816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706386816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>File with list of compatible cohesive ends.</xhtml:div>
+              <xhtml:div>The default list used is given in the program help pages (compatible_cohesive_ends.txt).</xhtml:div>
+              <xhtml:div>If you want to give your own list, the format must be as follow:</xhtml:div>
+              <xhtml:div>"Enzyme_name:compatEnz1_name,compatEnz2_name,..."</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="enzlist" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+            <xhtml:a href="#idm140117706210304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706210304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default, the program works with a list of enzymes commonly used in laboratory 
+          		given in the program help pages (paillasse_liste.txt).</xhtml:div>
+              <xhtml:div>If you want to give your own list, the format is one enzyme per line.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="outputopt">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stop" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706127424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706127424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sometimes, blunt digestion, after linkage, can produce new codon around the cutting site 
+            that leads to stop codon.</xhtml:div>
+              <xhtml:div>This option displays such digestions with a tag 'stopCodon' in the output line results.</xhtml:div>
+              <xhtml:div>NOTE: This option only works if 'blunt' type is set. By default this option is off, thus 
+            if such case happened no results are reported for enzymes digestion.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cut_pos" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706113120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706113120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> Enzymes may cut your sequence more than once.This option 
+            reports the number of time enzyme(s) cut your sequence. [Default off]</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="mod_aa" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706101952::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706101952::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Experimental option. [Default off]</xhtml:div>
+              <xhtml:div>This option allows, for 'blunt' or 'klenow' analysis to
+            show, in such case, the Amino acid that have been changed due to the ligation between 
+            the 2 parts of the DNA after the digestion.</xhtml:div>
+              <xhtml:div>It will be shown as OldAA&gt;NewAA (e.g.: G&gt;N).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outputstyle" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="text" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706087568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706087568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Choose the output type that you prefer.</xhtml:div>
+              <xhtml:div>- Text output (Default value)</xhtml:div>
+              <xhtml:div>- GFF3 output</xhtml:div>
+              <xhtml:div>- Image (png): Creates image (png).</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="img" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="1,n" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter ismandatory="1" issimple="1">
+          <name>sequence</name>
+          <prompt lang="en">Sequence</prompt>
+          <type>
+            <biotype>DNA</biotype>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="perl">" -i $value "</code>
+            <code proglang="python">( "" , " -i " + str( value ) + " " )[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Sequence</xhtml:legend>
+              <xhtml:textarea name="sequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="DNA " data-card="1,n" data-formats="FASTA " data-parametername="sequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(DNA Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>options</name>
+      <prompt lang="en">Options</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter issimple="1">
+          <name>enztype</name>
+          <prompt lang="en">Type of enzymes (-T)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>0</value>
+              <label>blunt + cohesive + klenow</label>
+            </velem>
+            <velem>
+              <value>blunt</value>
+              <label>blunt</label>
+            </velem>
+            <velem>
+              <value>cohesive</value>
+              <label>cohesive</label>
+            </velem>
+            <velem>
+              <value>klenow</value>
+              <label>klenow</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value) ?"-T $value ": ""</code>
+            <code proglang="python">( "" , " -T " + str( value ) )[value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">You can choose between:</text>
+            <text lang="en">- blunt : Use blunt cutters</text>
+            <text lang="en">- cohesive : Use cohesive cutters</text>
+            <text lang="en">- klenow  : Use only 5' enzymes for Klenow fill-in.</text>
+            <text lang="en">[Default all three]</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Type of enzymes (-T)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117707388416::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="enztype">
+                <xhtml:option value="0" selected="selected">blunt + cohesive + klenow</xhtml:option>
+                <xhtml:option value="blunt">blunt</xhtml:option>
+                <xhtml:option value="cohesive">cohesive</xhtml:option>
+                <xhtml:option value="klenow">klenow</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117707388416::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You can choose between:</xhtml:div>
+                <xhtml:div>- blunt : Use blunt cutters</xhtml:div>
+                <xhtml:div>- cohesive : Use cohesive cutters</xhtml:div>
+                <xhtml:div>- klenow  : Use only 5' enzymes for Klenow fill-in.</xhtml:div>
+                <xhtml:div>[Default all three]</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="enztype">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117707388416::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117707388416::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You can choose between:</xhtml:div>
+                <xhtml:div>- blunt : Use blunt cutters</xhtml:div>
+                <xhtml:div>- cohesive : Use cohesive cutters</xhtml:div>
+                <xhtml:div>- klenow  : Use only 5' enzymes for Klenow fill-in.</xhtml:div>
+                <xhtml:div>[Default all three]</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>strand</name>
+          <prompt lang="en">Cohesive enzyme strand (-S)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>0</value>
+              <label>5' + 3'</label>
+            </velem>
+            <velem>
+              <value>5</value>
+              <label>5'</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>3'</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value) ?"-S $value ": ""</code>
+            <code proglang="python">( "" , " -S " + str( value ) )[value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Cohesive enzyme strand to use: </text>
+            <text lang="en"> - 5' </text>
+            <text lang="en"> - 3' </text>
+            <text lang="en"> - both : 5' and 3' (Default value).</text>
+            <text lang="en">(No effect if you choose to use blunt enzymes)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Cohesive enzyme strand (-S)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708108848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="strand">
+                <xhtml:option value="0" selected="selected">5' + 3'</xhtml:option>
+                <xhtml:option value="5">5'</xhtml:option>
+                <xhtml:option value="3">3'</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708108848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Cohesive enzyme strand to use: </xhtml:div>
+                <xhtml:div> - 5' </xhtml:div>
+                <xhtml:div> - 3' </xhtml:div>
+                <xhtml:div> - both : 5' and 3' (Default value).</xhtml:div>
+                <xhtml:div>(No effect if you choose to use blunt enzymes)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="strand">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708108848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708108848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Cohesive enzyme strand to use: </xhtml:div>
+                <xhtml:div> - 5' </xhtml:div>
+                <xhtml:div> - 3' </xhtml:div>
+                <xhtml:div> - both : 5' and 3' (Default value).</xhtml:div>
+                <xhtml:div>(No effect if you choose to use blunt enzymes)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>digestionmod</name>
+          <prompt lang="en"> Digestion mode (-D)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>0</value>
+              <label>simple + double</label>
+            </velem>
+            <velem>
+              <value>double</value>
+              <label>double</label>
+            </velem>
+            <velem>
+              <value>simple</value>
+              <label>simple</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value) ?"-D $value ": ""</code>
+            <code proglang="python">( "" , " -D " + str( value ) )[value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Digestion mode:</text>
+            <text lang="en">- double: Report couple of enzymes that digest sequence</text>
+            <text lang="en">- simple: Report enzyme name that cut more than one time</text>
+            <text lang="en">- both: simple + double (Default value).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""> Digestion mode (-D)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708130064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="digestionmod">
+                <xhtml:option value="0" selected="selected">simple + double</xhtml:option>
+                <xhtml:option value="double">double</xhtml:option>
+                <xhtml:option value="simple">simple</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708130064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Digestion mode:</xhtml:div>
+                <xhtml:div>- double: Report couple of enzymes that digest sequence</xhtml:div>
+                <xhtml:div>- simple: Report enzyme name that cut more than one time</xhtml:div>
+                <xhtml:div>- both: simple + double (Default value).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="digestionmod">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708130064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708130064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Digestion mode:</xhtml:div>
+                <xhtml:div>- double: Report couple of enzymes that digest sequence</xhtml:div>
+                <xhtml:div>- simple: Report enzyme name that cut more than one time</xhtml:div>
+                <xhtml:div>- both: simple + double (Default value).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Length</name>
+          <prompt lang="en">Minimum length of recognition site (-L)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>6</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ?"-L $value ": ""</code>
+            <code proglang="python">( "" , " -L " + str( value ) )[value is not None and value!=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Use enzymes with minimum length for DNA recognition site.</text>
+            <text lang="en">By default, 6.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum length of recognition site (-L)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706792144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Length" type="text" value="6"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706792144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use enzymes with minimum length for DNA recognition site.</xhtml:div>
+                <xhtml:div>By default, 6.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="6" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Length">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706792144::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706792144::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use enzymes with minimum length for DNA recognition site.</xhtml:div>
+                <xhtml:div>By default, 6.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>variant</name>
+          <prompt lang="en">Use enzymes with variant recognition site (-V)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ?"-V": ""</code>
+            <code proglang="python">( "" , " -V " )[value]</code>
+          </format>
+          <comment>
+            <text lang="en">Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</text>
+            <text lang="en">  D = not C (A or G or T) </text>
+            <text lang="en">  H = not G (A or C or T)</text>
+            <text lang="en">This option, when set, use of these type of enzymes..</text>
+            <text lang="en">By default, this option is off.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use enzymes with variant recognition site (-V)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706491280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="variant">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706491280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</xhtml:div>
+                <xhtml:div>  D = not C (A or G or T) </xhtml:div>
+                <xhtml:div>  H = not G (A or C or T)</xhtml:div>
+                <xhtml:div>This option, when set, use of these type of enzymes..</xhtml:div>
+                <xhtml:div>By default, this option is off.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="variant">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706491280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706491280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</xhtml:div>
+                <xhtml:div>  D = not C (A or G or T) </xhtml:div>
+                <xhtml:div>  H = not G (A or C or T)</xhtml:div>
+                <xhtml:div>This option, when set, use of these type of enzymes..</xhtml:div>
+                <xhtml:div>By default, this option is off.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>exotic</name>
+          <prompt lang="en">Report digestions in frame without ends compatibilities (-X)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <precond>
+            <code proglang="perl">$variant == 1</code>
+            <code proglang="python">variant == 1</code>
+          </precond>
+          <format>
+            <code proglang="perl">($value) ?"-X": ""</code>
+            <code proglang="python">( "" , " -X " )[value]</code>
+          </format>
+          <comment>
+            <text lang="en">Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</text>
+            <text lang="en">  D = not C (A or G or T) </text>
+            <text lang="en">  H = not G (A or C or T)</text>
+            <text lang="en">Thus, using thoses enzymes may produce a cut in frame but the produced ends may not be 
+                compatible together regarding DNA sequence.</text>
+            <text lang="en">Requires the '[-V | --variant]' option to work. By default, this option is off.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Report digestions in frame without ends compatibilities (-X)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708167696::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="exotic">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708167696::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</xhtml:div>
+                <xhtml:div>  D = not C (A or G or T) </xhtml:div>
+                <xhtml:div>  H = not G (A or C or T)</xhtml:div>
+                <xhtml:div>Thus, using thoses enzymes may produce a cut in frame but the produced ends may not be 
+                compatible together regarding DNA sequence.</xhtml:div>
+                <xhtml:div>Requires the '[-V | --variant]' option to work. By default, this option is off.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="exotic">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117708167696::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117708167696::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Some cohesive enzymes have variant recognition site like 'GDGCH^C' for Bsp1286I, where:</xhtml:div>
+                <xhtml:div>  D = not C (A or G or T) </xhtml:div>
+                <xhtml:div>  H = not G (A or C or T)</xhtml:div>
+                <xhtml:div>Thus, using thoses enzymes may produce a cut in frame but the produced ends may not be 
+                compatible together regarding DNA sequence.</xhtml:div>
+                <xhtml:div>Requires the '[-V | --variant]' option to work. By default, this option is off.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>compat</name>
+          <prompt lang="en">List of compatible cohesive ends (-C)</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">($value) ?"-C $value ": ""</code>
+            <code proglang="python">( "" , " -C " + str( value ) )[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">File with list of compatible cohesive ends.</text>
+            <text lang="en">The default list used is given in the program help pages (compatible_cohesive_ends.txt).</text>
+            <text lang="en">If you want to give your own list, the format must be as follow:</text>
+            <text lang="en">"Enzyme_name:compatEnz1_name,compatEnz2_name,..."</text>
+          </comment>
+          <example>
+Acc65I:BanI,BsiWI,BsrGI
+AccI:AciI,AclI,BsaHI,HinP1I,HpaII,NarI,ClaI,BstBI,TaqI          	
+          	</example>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>List of compatible cohesive ends (-C)</xhtml:legend>
+              <xhtml:textarea name="compat" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="compat">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706386816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706386816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>File with list of compatible cohesive ends.</xhtml:div>
+                <xhtml:div>The default list used is given in the program help pages (compatible_cohesive_ends.txt).</xhtml:div>
+                <xhtml:div>If you want to give your own list, the format must be as follow:</xhtml:div>
+                <xhtml:div>"Enzyme_name:compatEnz1_name,compatEnz2_name,..."</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>enzlist</name>
+          <prompt lang="en">Enzyme list to work with (-E)</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">($value) ?"-E $value ": ""</code>
+            <code proglang="python">( "" , " -E " + str( value ) )[value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">By default, the program works with a list of enzymes commonly used in laboratory 
+          		given in the program help pages (paillasse_liste.txt).</text>
+            <text lang="en">If you want to give your own list, the format is one enzyme per line.</text>
+          </comment>
+          <example>
+AatII
+Acc651
+...
+          	</example>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Enzyme list to work with (-E)</xhtml:legend>
+              <xhtml:textarea name="enzlist" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="enzlist">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706210304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706210304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By default, the program works with a list of enzymes commonly used in laboratory 
+          		given in the program help pages (paillasse_liste.txt).</xhtml:div>
+                <xhtml:div>If you want to give your own list, the format is one enzyme per line.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>outputopt</name>
+      <prompt lang="en">Output parameters</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>stop</name>
+          <prompt lang="en">Show stop codon (-P)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <precond>
+            <code proglang="perl">$enztype == 0 or $enztype eq 'blunt'</code>
+            <code proglang="python">enztype == 0 or enztype == 'blunt'</code>
+          </precond>
+          <format>
+            <code proglang="perl">($value) ?"-P": ""</code>
+            <code proglang="python">( "" , " -P " )[value]</code>
+          </format>
+          <comment>
+            <text lang="en">Sometimes, blunt digestion, after linkage, can produce new codon around the cutting site 
+            that leads to stop codon.</text>
+            <text lang="en">This option displays such digestions with a tag 'stopCodon' in the output line results.</text>
+            <text lang="en">NOTE: This option only works if 'blunt' type is set. By default this option is off, thus 
+            if such case happened no results are reported for enzymes digestion.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show stop codon (-P)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706127424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="stop">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706127424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sometimes, blunt digestion, after linkage, can produce new codon around the cutting site 
+            that leads to stop codon.</xhtml:div>
+                <xhtml:div>This option displays such digestions with a tag 'stopCodon' in the output line results.</xhtml:div>
+                <xhtml:div>NOTE: This option only works if 'blunt' type is set. By default this option is off, thus 
+            if such case happened no results are reported for enzymes digestion.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stop">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706127424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706127424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sometimes, blunt digestion, after linkage, can produce new codon around the cutting site 
+            that leads to stop codon.</xhtml:div>
+                <xhtml:div>This option displays such digestions with a tag 'stopCodon' in the output line results.</xhtml:div>
+                <xhtml:div>NOTE: This option only works if 'blunt' type is set. By default this option is off, thus 
+            if such case happened no results are reported for enzymes digestion.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>cut_pos</name>
+          <prompt lang="en">Show cut positions (-N)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ?"-N": ""</code>
+            <code proglang="python">( "" , " -N " )[value]</code>
+          </format>
+          <comment>
+            <text lang="en"> Enzymes may cut your sequence more than once.This option 
+            reports the number of time enzyme(s) cut your sequence. [Default off]</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show cut positions (-N)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706113120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cut_pos">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706113120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> Enzymes may cut your sequence more than once.This option 
+            reports the number of time enzyme(s) cut your sequence. [Default off]</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cut_pos">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706113120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706113120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> Enzymes may cut your sequence more than once.This option 
+            reports the number of time enzyme(s) cut your sequence. [Default off]</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>mod_aa</name>
+          <prompt lang="en">Show new generated amino acid (-A)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <precond>
+            <code proglang="perl">$enztype ne 'cohesive'</code>
+            <code proglang="python">enztype != 'cohesive'</code>
+          </precond>
+          <format>
+            <code proglang="perl">($value) ?"-A": ""</code>
+            <code proglang="python">( "" , " -A " )[value]</code>
+          </format>
+          <comment>
+            <text lang="en">Experimental option. [Default off]</text>
+            <text lang="en">This option allows, for 'blunt' or 'klenow' analysis to
+            show, in such case, the Amino acid that have been changed due to the ligation between 
+            the 2 parts of the DNA after the digestion.</text>
+            <text lang="en">It will be shown as OldAA&gt;NewAA (e.g.: G&gt;N).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show new generated amino acid (-A)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706101952::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="mod_aa">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706101952::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Experimental option. [Default off]</xhtml:div>
+                <xhtml:div>This option allows, for 'blunt' or 'klenow' analysis to
+            show, in such case, the Amino acid that have been changed due to the ligation between 
+            the 2 parts of the DNA after the digestion.</xhtml:div>
+                <xhtml:div>It will be shown as OldAA&gt;NewAA (e.g.: G&gt;N).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mod_aa">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706101952::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706101952::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Experimental option. [Default off]</xhtml:div>
+                <xhtml:div>This option allows, for 'blunt' or 'klenow' analysis to
+            show, in such case, the Amino acid that have been changed due to the ligation between 
+            the 2 parts of the DNA after the digestion.</xhtml:div>
+                <xhtml:div>It will be shown as OldAA&gt;NewAA (e.g.: G&gt;N).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>outputstyle</name>
+          <prompt lang="en">Output style format (-F)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>text</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>text</value>
+              <label>Text output</label>
+            </velem>
+            <velem>
+              <value>gff</value>
+              <label>GFF3 output</label>
+            </velem>
+            <velem>
+              <value>image</value>
+              <label>Image (png)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value) ?"-F $value ": ""</code>
+            <code proglang="python">( "" , " -F " + str( value ) )[value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Choose the output type that you prefer.</text>
+            <text lang="en">- Text output (Default value)</text>
+            <text lang="en">- GFF3 output</text>
+            <text lang="en">- Image (png): Creates image (png).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output style format (-F)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706087568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outputstyle">
+                <xhtml:option value="text" selected="selected">Text output</xhtml:option>
+                <xhtml:option value="gff">GFF3 output</xhtml:option>
+                <xhtml:option value="image">Image (png)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706087568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Choose the output type that you prefer.</xhtml:div>
+                <xhtml:div>- Text output (Default value)</xhtml:div>
+                <xhtml:div>- GFF3 output</xhtml:div>
+                <xhtml:div>- Image (png): Creates image (png).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="text" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outputstyle">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706087568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706087568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Choose the output type that you prefer.</xhtml:div>
+                <xhtml:div>- Text output (Default value)</xhtml:div>
+                <xhtml:div>- GFF3 output</xhtml:div>
+                <xhtml:div>- Image (png): Creates image (png).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>img</name>
+      <prompt>Output image</prompt>
+      <type>
+        <datatype>
+          <class>Picture</class>
+          <superclass>Binary</superclass>
+        </datatype>
+        <card>1,n</card>
+      </type>
+      <precond>
+        <code proglang="perl">$outputstyle eq 'image'</code>
+        <code proglang="python">outputstyle == 'image'</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">*.png</code>
+        <code proglang="python">"*.png"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="1,n" data-formats="" data-parametername="img"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"cif.out"</code>
+        <code proglang="python">"cif.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"cif.err"</code>
+        <code proglang="python">"cif.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

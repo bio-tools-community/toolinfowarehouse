@@ -1,0 +1,1345 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>CodonW</name>
+    <version>1.4.4</version>
+    <doc>
+      <title>codonw</title>
+      <description>
+        <text lang="en">Correspondence Analysis of Codon Usage</text>
+      </description>
+      <authors>J. Peden</authors>
+      <doclink>http://codonw.sourceforge.net/Readme.html</doclink>
+      <doclink>http://codonw.sourceforge.net/Tutorial.html</doclink>
+      <homepagelink>http://codonw.sourceforge.net/</homepagelink>
+      <sourcelink>http://sourceforge.net/projects/codonw/files/</sourcelink>
+    </doc>
+    <category>sequence:nucleic:codon_usage</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seqfile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequences File</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqfile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="defaults">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Defaults settings</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gc">Genetic codes (-code)<xhtml:select name="gc">
+              <xhtml:option value="0" selected="selected">Universal Genetic code [TGA=* TAA=* TAG=*] (0)</xhtml:option>
+              <xhtml:option value="1">Vertebrate Mitochondrial code [AGR=* ATA=M TGA=W] (1)</xhtml:option>
+              <xhtml:option value="2">Yeast Mitochondrial code [CTN=* ATA=M TGA=W] (2)</xhtml:option>
+              <xhtml:option value="3">Filamentous fungi Mitochondrial code [TGA=W] (3)</xhtml:option>
+              <xhtml:option value="4">Insects and Plathyhelminthes Mitochondrial co [ATA=M TGA=W AGR=S] (4)</xhtml:option>
+              <xhtml:option value="5">Nuclear code of Cilitia [UAA=Q=Gln UAG=Q] (5)</xhtml:option>
+              <xhtml:option value="6">Nuclear code of Euplotes [UGA=C] (6)</xhtml:option>
+              <xhtml:option value="7">Mitochondrial code of Echinoderms UGA=W AGR=S AAA=N (7)</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fop_values">Fop/CBI codons (-f_type)<xhtml:select name="fop_values">
+              <xhtml:option value="0" selected="selected">Escherichia coli (0)</xhtml:option>
+              <xhtml:option value="1">Bacillus subtilis (1)</xhtml:option>
+              <xhtml:option value="2">Dictyostelium discoideum (2)</xhtml:option>
+              <xhtml:option value="3">Aspergillus nidulans (3)</xhtml:option>
+              <xhtml:option value="4">Saccharomyces cerevisiae (4)</xhtml:option>
+              <xhtml:option value="5">Drosophila melanogaster (5)</xhtml:option>
+              <xhtml:option value="6">Caenorhabditis elegans (6)</xhtml:option>
+              <xhtml:option value="7">Neurospora crassa (7)</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cai_values">CAI fitness values (-c_type)<xhtml:select name="cai_values">
+              <xhtml:option value="0" selected="selected">Escherichia coli (0)</xhtml:option>
+              <xhtml:option value="1">Bacillus subtilis (1)</xhtml:option>
+              <xhtml:option value="2">Saccharomyces cerevisiae (2)</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_type">Output Computer readable (-machine)<xhtml:select name="output_type">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="genes">Concatenate all genes instead of individual genes (-totals)<xhtml:select name="genes">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="CU_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Codon usage indices</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="all_indices">All indices (-all_indices)<xhtml:select name="all_indices">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="sp_indices">
+            <legend>Special indices</legend>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="CAI">Codon Adaptation Index (-cai)<xhtml:select name="CAI">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CaiValues" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="cai_file">
+                <legend>User input file of CAI values (-cai_file)</legend>
+                <xhtml:textarea name="cai_file" cols="60" rows="7"> </xhtml:textarea>
+              </fieldset>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Fop">Frequency of OPtimal codons index (-fop)<xhtml:select name="Fop">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="FopValues" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="fop_file">
+                <legend>User input file of Fop values (-fop_file)</legend>
+                <xhtml:textarea name="fop_file" cols="60" rows="7"> </xhtml:textarea>
+              </fieldset>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="CBI">Codon bias index (-cbi)<xhtml:select name="CBI">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CbiValues" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="cbi_file">
+                <legend>User input file of CBI values (-cbi_file)</legend>
+                <xhtml:textarea name="cbi_file" cols="60" rows="7"> </xhtml:textarea>
+              </fieldset>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ENc">Effective Number of Codons (-enc)<xhtml:select name="ENc">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="GC">GC content of gene (-gc)<xhtml:select name="GC">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="GC3s">GC of silent 3rd codon posit. (-gc3s)<xhtml:select name="GC3s">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="silent_bc">Base composition at synonymous third codon positions (-sil_base)<xhtml:select name="silent_bc">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="L_sym">Number of synonymous codons (-L_sym)<xhtml:select name="L_sym">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="L_aa">Total Number of synonymous and non-synonymous codons (-L_aa)<xhtml:select name="L_aa">
+                  <xhtml:option value="1">Yes</xhtml:option>
+                  <xhtml:option value="0" selected="selected">No</xhtml:option>
+                </xhtml:select>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="AA_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Amino acid indices</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Hydro">Hydrophobicity of protein (-hyd)<xhtml:select name="Hydro">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Aromo">Aromaticity of protein (-aro)<xhtml:select name="Aromo">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-cu" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bulk_output_option">Bulk output option<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bulk_output_option">
+          <xhtml:option value="-cu" selected="selected">Codon Usage (-cu)</xhtml:option>
+          <xhtml:option value="-aau">Amino Acid Usage (-aau)</xhtml:option>
+          <xhtml:option value="-raau">Relative Amino Acid Usage (-raau)</xhtml:option>
+          <xhtml:option value="-cutab">Tabulation of codon usage (-cutab)</xhtml:option>
+          <xhtml:option value="-cutot">Tabulation of dataset's codon usage (-cutot)</xhtml:option>
+          <xhtml:option value="-rscu">Relative Synonymous Codon Usage (-rscu)</xhtml:option>
+          <xhtml:option value="-fasta">Fasta format (-fasta)</xhtml:option>
+          <xhtml:option value="-reader">Reader format with codons are seperated by spaces (-reader)</xhtml:option>
+          <xhtml:option value="-transl">Conceptual translation of DNA to amino acid (-transl)</xhtml:option>
+          <xhtml:option value="-base">Detailed report of codon G+C composition (-base)</xhtml:option>
+          <xhtml:option value="-dinuc">Dinucleotide usage of the three codon position (-dinuc)</xhtml:option>
+          <xhtml:option value="-noblk">No bulk output to be written to file (-noblk)</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="Null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="COA_option">Correspondence analysis options (available for several sequences)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="COA_option">
+          <xhtml:option value="Null" selected="selected">Do not perform a COA</xhtml:option>
+          <xhtml:option value="-coa_cu">COA of codon usage frequencies (-coa_cu)</xhtml:option>
+          <xhtml:option value="-coa_rscu">COA of Relative Synonymous Codon Usage (-coa_rscu)</xhtml:option>
+          <xhtml:option value="-coa_aa">COA on Amino Acid usage frequencies (-coa_aa)</xhtml:option>
+        </xhtml:select>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="coa_advanced">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Advanced COA options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="coa_expert">Generate detailed (expert) statistics on COA (-coa_expert)<xhtml:select name="coa_expert">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="coa_axes">Select number of axis to record (-coa_axes)<xhtml:input name="coa_axes" type="text" value="4"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="coa_num">Select number of genes to use to identify optimal codons (-coa_num)<xhtml:a href="#idm140117699994816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="coa_num" type="text" value=""/>
+            <xhtml:div id="idm140117699994816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Values can be whole numbers or a percentage (5 or 10%).</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="codonw" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="defaults">
+        <xhtml:legend>Defaults settings</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gc" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fop_values" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cai_values" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_type" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="genes" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="CU_options">
+        <xhtml:legend>Codon usage indices</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="all_indices" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <xhtml:fieldset class="minimizable" data-paragraphname="sp_indices">
+            <xhtml:legend>Special indices</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="CAI" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cai_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CaiValues" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+                <xhtml:i>
+				(CaiValues)
+			</xhtml:i>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Fop" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fop_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="FopValues" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+                <xhtml:i>
+				(FopValues)
+			</xhtml:i>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="CBI" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="cbi_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CbiValues" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+                <xhtml:i>
+				(CbiValues)
+			</xhtml:i>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ENc" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="GC" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="GC3s" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="silent_bc" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="L_sym" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="L_aa" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="AA_options">
+        <xhtml:legend>Amino acid indices</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Hydro" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Aromo" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bulk_output_option" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-cu" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="COA_option" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="Null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="coa_advanced">
+        <xhtml:legend>Advanced COA options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="coa_expert" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="coa_axes" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="coa_num" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699994816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699994816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Values can be whole numbers or a percentage (5 or 10%).</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="results_files" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="coa_advanced">
+        <xhtml:legend>Advanced COA options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="coa_files" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter iscommand="1" ishidden="1">
+      <name>codonw</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"codonw -silent -nomenu -nowarn"</code>
+        <code proglang="python">"codonw -silent -nomenu -nowarn"</code>
+      </format>
+      <argpos>0</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="codonw"/>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>outfiles</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $seqfile.indices $seqfile.bulk"</code>
+        <code proglang="python">" " + str(seqfile) + ".indices " + str(seqfile) + ".bulk"</code>
+      </format>
+      <argpos>2000</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfiles"/>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>results_files</name>
+      <prompt>Results files</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.indices"</code>
+        <code proglang="perl">"*.bulk"</code>
+        <code proglang="python">"*.indices"</code>
+        <code proglang="python">"*.bulk"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="results_files">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>seqfile</name>
+      <prompt lang="en">Sequences File</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat force="1">FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str(value)</code>
+      </format>
+      <argpos>1000</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequences File</xhtml:legend>
+          <xhtml:textarea name="seqfile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seqfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>defaults</name>
+      <prompt lang="en">Defaults settings</prompt>
+      <parameters>
+        <parameter>
+          <name>gc</name>
+          <prompt lang="en">Genetic codes (-code)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>0</value>
+              <label>Universal Genetic code [TGA=* TAA=* TAG=*] (0)</label>
+            </velem>
+            <velem>
+              <value>1</value>
+              <label>Vertebrate Mitochondrial code [AGR=* ATA=M TGA=W] (1)</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>Yeast Mitochondrial code [CTN=* ATA=M TGA=W] (2)</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>Filamentous fungi Mitochondrial code [TGA=W] (3)</label>
+            </velem>
+            <velem>
+              <value>4</value>
+              <label>Insects and Plathyhelminthes Mitochondrial co [ATA=M TGA=W AGR=S] (4)</label>
+            </velem>
+            <velem>
+              <value>5</value>
+              <label>Nuclear code of Cilitia [UAA=Q=Gln UAG=Q] (5)</label>
+            </velem>
+            <velem>
+              <value>6</value>
+              <label>Nuclear code of Euplotes [UGA=C] (6)</label>
+            </velem>
+            <velem>
+              <value>7</value>
+              <label>Mitochondrial code of Echinoderms UGA=W AGR=S AAA=N (7)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -code $value" : ""</code>
+            <code proglang="python">( ""  , " -code " + str(value) )[value is not None and value != vdef]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Genetic codes (-code)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gc">
+                <xhtml:option value="0" selected="selected">Universal Genetic code [TGA=* TAA=* TAG=*] (0)</xhtml:option>
+                <xhtml:option value="1">Vertebrate Mitochondrial code [AGR=* ATA=M TGA=W] (1)</xhtml:option>
+                <xhtml:option value="2">Yeast Mitochondrial code [CTN=* ATA=M TGA=W] (2)</xhtml:option>
+                <xhtml:option value="3">Filamentous fungi Mitochondrial code [TGA=W] (3)</xhtml:option>
+                <xhtml:option value="4">Insects and Plathyhelminthes Mitochondrial co [ATA=M TGA=W AGR=S] (4)</xhtml:option>
+                <xhtml:option value="5">Nuclear code of Cilitia [UAA=Q=Gln UAG=Q] (5)</xhtml:option>
+                <xhtml:option value="6">Nuclear code of Euplotes [UGA=C] (6)</xhtml:option>
+                <xhtml:option value="7">Mitochondrial code of Echinoderms UGA=W AGR=S AAA=N (7)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gc"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>fop_values</name>
+          <prompt lang="en">Fop/CBI codons (-f_type)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>0</value>
+              <label>Escherichia coli (0)</label>
+            </velem>
+            <velem>
+              <value>1</value>
+              <label>Bacillus subtilis (1)</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>Dictyostelium discoideum (2)</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>Aspergillus nidulans (3)</label>
+            </velem>
+            <velem>
+              <value>4</value>
+              <label>Saccharomyces cerevisiae (4)</label>
+            </velem>
+            <velem>
+              <value>5</value>
+              <label>Drosophila melanogaster (5)</label>
+            </velem>
+            <velem>
+              <value>6</value>
+              <label>Caenorhabditis elegans (6)</label>
+            </velem>
+            <velem>
+              <value>7</value>
+              <label>Neurospora crassa (7)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -f_type $value" : ""</code>
+            <code proglang="python">( ""  , " -f_type " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Fop/CBI codons (-f_type)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="fop_values">
+                <xhtml:option value="0" selected="selected">Escherichia coli (0)</xhtml:option>
+                <xhtml:option value="1">Bacillus subtilis (1)</xhtml:option>
+                <xhtml:option value="2">Dictyostelium discoideum (2)</xhtml:option>
+                <xhtml:option value="3">Aspergillus nidulans (3)</xhtml:option>
+                <xhtml:option value="4">Saccharomyces cerevisiae (4)</xhtml:option>
+                <xhtml:option value="5">Drosophila melanogaster (5)</xhtml:option>
+                <xhtml:option value="6">Caenorhabditis elegans (6)</xhtml:option>
+                <xhtml:option value="7">Neurospora crassa (7)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fop_values"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>cai_values</name>
+          <prompt lang="en">CAI fitness values (-c_type)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>0</value>
+              <label>Escherichia coli (0)</label>
+            </velem>
+            <velem>
+              <value>1</value>
+              <label>Bacillus subtilis (1)</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>Saccharomyces cerevisiae (2)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -c_type $value" : ""</code>
+            <code proglang="python">( ""  , " -c_type " + str(value) )[value is not None and value != vdef]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">CAI fitness values (-c_type)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="cai_values">
+                <xhtml:option value="0" selected="selected">Escherichia coli (0)</xhtml:option>
+                <xhtml:option value="1">Bacillus subtilis (1)</xhtml:option>
+                <xhtml:option value="2">Saccharomyces cerevisiae (2)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="cai_values"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>output_type</name>
+          <prompt lang="en">Output Computer readable (-machine)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -machine" : ""</code>
+            <code proglang="python">( ""  , " -machine" )[ value ]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output Computer readable (-machine)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="output_type">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_type"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>genes</name>
+          <prompt lang="en">Concatenate all genes instead of individual genes (-totals)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -totals" : ""</code>
+            <code proglang="python">( ""  , " -totals" )[ value ]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Concatenate all genes instead of individual genes (-totals)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="genes">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="genes"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>CU_options</name>
+      <prompt lang="en">Codon usage indices</prompt>
+      <argpos>4</argpos>
+      <parameters>
+        <parameter>
+          <name>all_indices</name>
+          <prompt lang="en">All indices (-all_indices)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -all_indices" : ""</code>
+            <code proglang="python">( ""  , " -all_indices" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">All indices (-all_indices)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="all_indices">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="all_indices"/>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>sp_indices</name>
+          <prompt lang="en">Special indices</prompt>
+          <precond>
+            <code proglang="perl">not $all_indices</code>
+            <code proglang="python">not all_indices</code>
+          </precond>
+          <parameters>
+            <parameter>
+              <name>CAI</name>
+              <prompt lang="en">Codon Adaptation Index (-cai)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -cai" : ""</code>
+                <code proglang="python">( ""  , " -cai" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Codon Adaptation Index (-cai)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="CAI">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="CAI"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>cai_file</name>
+              <prompt lang="en">User input file of CAI values (-cai_file)</prompt>
+              <type>
+                <datatype>
+                  <class>CaiValues</class>
+                  <superclass>AbstractText</superclass>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">$CAI</code>
+                <code proglang="python">CAI</code>
+              </precond>
+              <format>
+                <code proglang="perl">(defined $value) ? " -cai_file $value" : ""</code>
+                <code proglang="python">( ""  , " -cai_file " + str(value) )[value is not None]</code>
+              </format>
+              <argpos>2</argpos>
+              <interface type="form" generated="true">
+                <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                  <xhtml:legend>User input file of CAI values (-cai_file)</xhtml:legend>
+                  <xhtml:textarea name="cai_file" cols="60" rows="7"> </xhtml:textarea>
+                </xhtml:fieldset>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CaiValues" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="cai_file">
+                  <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(CaiValues)
+			</xhtml:i>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>Fop</name>
+              <prompt lang="en">Frequency of OPtimal codons index (-fop)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -fop" : ""</code>
+                <code proglang="python">( ""  , " -fop" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Frequency of OPtimal codons index (-fop)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Fop">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Fop"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>fop_file</name>
+              <prompt lang="en">User input file of Fop values (-fop_file)</prompt>
+              <type>
+                <datatype>
+                  <class>FopValues</class>
+                  <superclass>AbstractText</superclass>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">$Fop</code>
+                <code proglang="python">Fop</code>
+              </precond>
+              <format>
+                <code proglang="perl">(defined $value) ? " -fop_file $value" : ""</code>
+                <code proglang="python">( ""  , " -fop_file " + str(value) )[ value is not None ]</code>
+              </format>
+              <argpos>2</argpos>
+              <interface type="form" generated="true">
+                <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                  <xhtml:legend>User input file of Fop values (-fop_file)</xhtml:legend>
+                  <xhtml:textarea name="fop_file" cols="60" rows="7"> </xhtml:textarea>
+                </xhtml:fieldset>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="FopValues" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="fop_file">
+                  <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(FopValues)
+			</xhtml:i>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>CBI</name>
+              <prompt lang="en">Codon bias index (-cbi)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -cbi" : ""</code>
+                <code proglang="python">( ""  , " -cbi" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Codon bias index (-cbi)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="CBI">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="CBI"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>cbi_file</name>
+              <prompt lang="en">User input file of CBI values (-cbi_file)</prompt>
+              <type>
+                <datatype>
+                  <class>CbiValues</class>
+                  <superclass>AbstractText</superclass>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">$CBI</code>
+                <code proglang="python">CBI</code>
+              </precond>
+              <format>
+                <code proglang="perl">(defined $value) ? " -cbi_file $value" : ""</code>
+                <code proglang="python">( ""  , " -cbi_file " + str(value) )[ value is not None ]</code>
+              </format>
+              <argpos>2</argpos>
+              <interface type="form" generated="true">
+                <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                  <xhtml:legend>User input file of CBI values (-cbi_file)</xhtml:legend>
+                  <xhtml:textarea name="cbi_file" cols="60" rows="7"> </xhtml:textarea>
+                </xhtml:fieldset>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CbiValues" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="cbi_file">
+                  <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(CbiValues)
+			</xhtml:i>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>ENc</name>
+              <prompt lang="en">Effective Number of Codons (-enc)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -enc" : ""</code>
+                <code proglang="python">( ""  , " -enc" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Effective Number of Codons (-enc)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ENc">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ENc"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>GC</name>
+              <prompt lang="en">GC content of gene (-gc)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -gc" : ""</code>
+                <code proglang="python">( ""  , " -gc" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">GC content of gene (-gc)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="GC">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="GC"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>GC3s</name>
+              <prompt lang="en">GC of silent 3rd codon posit. (-gc3s)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -gc3s" : ""</code>
+                <code proglang="python">( ""  , " -gc3s" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">GC of silent 3rd codon posit. (-gc3s)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="GC3s">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="GC3s"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>silent_bc</name>
+              <prompt lang="en">Base composition at synonymous third codon positions (-sil_base)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -sil_base" : ""</code>
+                <code proglang="python">( ""  , " -sil_base" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Base composition at synonymous third codon positions (-sil_base)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="silent_bc">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="silent_bc"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>L_sym</name>
+              <prompt lang="en">Number of synonymous codons (-L_sym)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">( $value) ? " -L_sym" : ""</code>
+                <code proglang="python">( "" , " -L_sym" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of synonymous codons (-L_sym)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="L_sym">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="L_sym"/>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>L_aa</name>
+              <prompt lang="en">Total Number of synonymous and non-synonymous codons (-L_aa)</prompt>
+              <type>
+                <datatype>
+                  <class>Boolean</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>0</value>
+              </vdef>
+              <format>
+                <code proglang="perl">($value) ? " -L_aa" : ""</code>
+                <code proglang="python">( ""  , " -L_aa" )[ value ]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Total Number of synonymous and non-synonymous codons (-L_aa)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="L_aa">
+                    <xhtml:option value="1">Yes</xhtml:option>
+                    <xhtml:option value="0" selected="selected">No</xhtml:option>
+                  </xhtml:select>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="L_aa"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>AA_options</name>
+      <prompt lang="en">Amino acid indices</prompt>
+      <parameters>
+        <parameter>
+          <name>Hydro</name>
+          <prompt lang="en">Hydrophobicity of protein (-hyd)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -hyd" : ""</code>
+            <code proglang="python">( ""  , " -hyd" )[ value ]</code>
+          </format>
+          <argpos>4</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Hydrophobicity of protein (-hyd)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Hydro">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Hydro"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Aromo</name>
+          <prompt lang="en">Aromaticity of protein (-aro)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -aro" : ""</code>
+            <code proglang="python">( ""  , " -aro" )[ value ]</code>
+          </format>
+          <argpos>4</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Aromaticity of protein (-aro)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Aromo">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Aromo"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter>
+      <name>bulk_output_option</name>
+      <prompt lang="en">Bulk output option</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>-cu</value>
+      </vdef>
+      <vlist>
+        <velem>
+          <value>-cu</value>
+          <label>Codon Usage (-cu)</label>
+        </velem>
+        <velem>
+          <value>-aau</value>
+          <label>Amino Acid Usage (-aau)</label>
+        </velem>
+        <velem>
+          <value>-raau</value>
+          <label>Relative Amino Acid Usage (-raau)</label>
+        </velem>
+        <velem>
+          <value>-cutab</value>
+          <label>Tabulation of codon usage (-cutab)</label>
+        </velem>
+        <velem>
+          <value>-cutot</value>
+          <label>Tabulation of dataset's codon usage (-cutot)</label>
+        </velem>
+        <velem>
+          <value>-rscu</value>
+          <label>Relative Synonymous Codon Usage (-rscu)</label>
+        </velem>
+        <velem>
+          <value>-fasta</value>
+          <label>Fasta format (-fasta)</label>
+        </velem>
+        <velem>
+          <value>-reader</value>
+          <label>Reader format with codons are seperated by spaces (-reader)</label>
+        </velem>
+        <velem>
+          <value>-transl</value>
+          <label>Conceptual translation of DNA to amino acid (-transl)</label>
+        </velem>
+        <velem>
+          <value>-base</value>
+          <label>Detailed report of codon G+C composition (-base)</label>
+        </velem>
+        <velem>
+          <value>-dinuc</value>
+          <label>Dinucleotide usage of the three codon position (-dinuc)</label>
+        </velem>
+        <velem>
+          <value>-noblk</value>
+          <label>No bulk output to be written to file (-noblk)</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">(defined $value and $value ne $vdef) ? " $value" : ""</code>
+        <code proglang="python">( ""  , " " + str(value) )[ value is not None and value != vdef]</code>
+      </format>
+      <argpos>4</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Bulk output option<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bulk_output_option">
+            <xhtml:option value="-cu" selected="selected">Codon Usage (-cu)</xhtml:option>
+            <xhtml:option value="-aau">Amino Acid Usage (-aau)</xhtml:option>
+            <xhtml:option value="-raau">Relative Amino Acid Usage (-raau)</xhtml:option>
+            <xhtml:option value="-cutab">Tabulation of codon usage (-cutab)</xhtml:option>
+            <xhtml:option value="-cutot">Tabulation of dataset's codon usage (-cutot)</xhtml:option>
+            <xhtml:option value="-rscu">Relative Synonymous Codon Usage (-rscu)</xhtml:option>
+            <xhtml:option value="-fasta">Fasta format (-fasta)</xhtml:option>
+            <xhtml:option value="-reader">Reader format with codons are seperated by spaces (-reader)</xhtml:option>
+            <xhtml:option value="-transl">Conceptual translation of DNA to amino acid (-transl)</xhtml:option>
+            <xhtml:option value="-base">Detailed report of codon G+C composition (-base)</xhtml:option>
+            <xhtml:option value="-dinuc">Dinucleotide usage of the three codon position (-dinuc)</xhtml:option>
+            <xhtml:option value="-noblk">No bulk output to be written to file (-noblk)</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="-cu" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bulk_output_option"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>COA_option</name>
+      <prompt lang="en">Correspondence analysis options (available for several sequences)</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>Null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>Null</value>
+          <label>Do not perform a COA</label>
+        </velem>
+        <velem>
+          <value>-coa_cu</value>
+          <label>COA of codon usage frequencies (-coa_cu)</label>
+        </velem>
+        <velem>
+          <value>-coa_rscu</value>
+          <label>COA of Relative Synonymous Codon Usage (-coa_rscu)</label>
+        </velem>
+        <velem>
+          <value>-coa_aa</value>
+          <label>COA on Amino Acid usage frequencies (-coa_aa)</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">(defined $value) ? " $value" : ""</code>
+        <code proglang="python">( "" , " %s" %value)[value is not None]</code>
+      </format>
+      <argpos>3</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Correspondence analysis options (available for several sequences)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="COA_option">
+            <xhtml:option value="Null" selected="selected">Do not perform a COA</xhtml:option>
+            <xhtml:option value="-coa_cu">COA of codon usage frequencies (-coa_cu)</xhtml:option>
+            <xhtml:option value="-coa_rscu">COA of Relative Synonymous Codon Usage (-coa_rscu)</xhtml:option>
+            <xhtml:option value="-coa_aa">COA on Amino Acid usage frequencies (-coa_aa)</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="Null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="COA_option"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>coa_advanced</name>
+      <prompt lang="en">Advanced COA options</prompt>
+      <precond>
+        <code proglang="perl">$COA_option</code>
+        <code proglang="python">COA_option</code>
+      </precond>
+      <parameters>
+        <parameter>
+          <name>coa_expert</name>
+          <prompt lang="en">Generate detailed (expert) statistics on COA (-coa_expert)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -coa_expert" : ""</code>
+            <code proglang="python">( ""  , " -coa_expert" )[ value ]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Generate detailed (expert) statistics on COA (-coa_expert)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="coa_expert">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="coa_expert"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>coa_axes</name>
+          <prompt lang="en">Select number of axis to record (-coa_axes)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>4</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -coa_axes $value" : ""</code>
+            <code proglang="python">(  "" , "  -coa_axes " +  str(value) )[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Select number of axis to record (-coa_axes)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="coa_axes" type="text" value="4"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="4" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="coa_axes"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>coa_num</name>
+          <prompt lang="en">Select number of genes to use to identify optimal codons (-coa_num)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -coa_num $value" : ""</code>
+            <code proglang="python">( ""  , " -coa_num " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">Values can be whole numbers or a percentage (5 or 10%).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Select number of genes to use to identify optimal codons (-coa_num)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699994816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="coa_num" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699994816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Values can be whole numbers or a percentage (5 or 10%).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="coa_num">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699994816::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699994816::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Values can be whole numbers or a percentage (5 or 10%).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>coa_files</name>
+          <prompt>Coa file</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"*.coa"</code>
+            <code proglang="perl">"coa_raw"</code>
+            <code proglang="python">"*.coa"</code>
+            <code proglang="python">"coa_raw"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="coa_files">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"CodonW.out"</code>
+        <code proglang="python">"CodonW.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"CodonW.err"</code>
+        <code proglang="python">"CodonW.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

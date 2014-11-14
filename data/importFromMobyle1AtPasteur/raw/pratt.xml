@@ -1,0 +1,2095 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>pratt</name>
+    <version>2.1</version>
+    <doc>
+      <title>Pratt</title>
+      <description>
+        <text lang="en">Pattern discovery in sets of unaligned protein sequences</text>
+      </description>
+      <authors>K. Sturzrehm, I. Jonassen</authors>
+      <homepagelink>http://www.ii.uib.no/~inge/Pratt.html</homepagelink>
+      <sourcelink>ftp://ftp.ebi.ac.uk/pub/software/unix/pratt/</sourcelink>
+    </doc>
+    <command>pratt</command>
+    <category>sequence:protein:pattern</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seq">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequence File<xhtml:a href="#idm140117713828736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117713828736::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713828736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Fasta  format.  One   file  containing   all  the sequences. One sequence is specified by</xhtml:div>
+          <xhtml:div>one line starting with '&gt;' in position 1 and then the name of the sequence, and some lines containing the sequence in upper or lower case. The end of a sequence is identified by looking for either the start of a new sequence or the end of the file.</xhtml:div>
+          <div class="example" id="idm140117713828736::example" data-forparameter="seq">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+&amp;gt;seq1
+HLKSEDEMKASEDLKKHKKKGHHEAEIKPLAQSHATKHKIPVKYLEFIS
+SDLHAHKLRKRKLVKNMVL
+&amp;gt;seq2
+VEVFISEDDLKRKLVKNMVLDKDNKQHMLPKAGDTVTNYTLLGLVLVLI
+WLIMQRKRKKKEDVSEENIQEIPKKELAASS
+      </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117713828736::example" data-forparameter="seq" style="display:none">
+          <pre>
+&amp;gt;seq1
+HLKSEDEMKASEDLKKHKKKGHHEAEIKPLAQSHATKHKIPVKYLEFIS
+SDLHAHKLRKRKLVKNMVL
+&amp;gt;seq2
+VEVFISEDDLKRKLVKNMVLDKDNKQHMLPKAGDTVTNYTLLGLVLVLI
+WLIMQRKRKKKEDVSEENIQEIPKKELAASS
+      </pre>
+        </div>
+        <xhtml:textarea xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seq" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="conservation">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Pattern conservation parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="CM">Minimum number of Sequences to Match (-CM)<xhtml:a href="#idm140117713325584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="CM" type="text" value=""/>
+            <xhtml:div id="idm140117713325584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the minimum number of sequences to match a pattern. Pratt will only report patterns that match at least the chosen number of the sequences that you have input. Pratt will not allow you to choose a value higher than the number of sequences input.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Cpct">Minimum Percentage of Sequences to Match (-C%)<xhtml:a href="#idm140117713751568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="Cpct" type="text" value="100"/>
+            <xhtml:div id="idm140117713751568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the minimum percentage of the input sequences that should match a pattern. If you set this to, say 80, Pratt will only report patterns matching at least 80 % of the sequences input.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="restrictions">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Pattern restrictions parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="off" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PP">Position in sequence (-PP)<xhtml:a href="#idm140117713809776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="PP">
+              <xhtml:option value="off" selected="selected">OFF</xhtml:option>
+              <xhtml:option value="complete">Complete pattern match has to be in this area (complete)</xhtml:option>
+              <xhtml:option value="start">Pattern match has to start in this area (start)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117713809776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div/>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RestrictionPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="PF">
+            <legend>Restriction File name (if PP not off) (-PF)<xhtml:a href="#idm140117713338032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117713338032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This file contains lines to restrict pattern searches to certain regions in a sequence, say ACE2_YEAST: </xhtml:div>
+              <xhtml:div>&gt;ACE2_YEAST (100,200)</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea xmlns:xi="http://www.w3.org/2001/XInclude" name="PF" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PL">Maximum Pattern Length (-PL)<xhtml:a href="#idm140117713362944::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="PL" type="text" value="50"/>
+            <xhtml:div id="idm140117713362944::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allows you to set the maximum length of a pattern. The length of the pattern C-x(2,4)-[DE] is 1+4+1=6. </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PN">Maximum number of Pattern Symbols (-PN)<xhtml:a href="#idm140117714048176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="PN" type="text" value="50"/>
+            <xhtml:div id="idm140117714048176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this you can set the maximum number of symbols in a pattern. The pattern C-x(2,4)-[DE] has 2 symbols (C and [DE]).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PX">Maximum number of consecutive x's (-PX)<xhtml:a href="#idm140117712598016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <a href="#idm140117712598016::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="PX" type="text" value="5"/>
+            <xhtml:div id="idm140117712598016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option you can set the maximum length of a wildcard.</xhtml:div>
+              <div class="example" id="idm140117712598016::example" data-forparameter="PX">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+           x       -  1
+          x(10)    - 10
+         x(3,4)    -  4
+	  </pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117712598016::example" data-forparameter="PX" style="display:none">
+              <pre>
+           x       -  1
+          x(10)    - 10
+         x(3,4)    -  4
+	  </pre>
+            </div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="FN">Maximum number of flexible spacers (-FN)<xhtml:a href="#idm140117713522768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="FN" type="text" value="2"/>
+            <xhtml:div id="idm140117713522768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option you can set the maximum number of flexible wildcards (matching a variable number of arbitrary sequence symbols). For instance x(2,4) is a flexible wildcard, and the pattern C-x(2,4)-[DE]-x(10)-F contains one flexible wildcard.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="FL">Maximum Flexibility (-FL)<xhtml:a href="#idm140117713202560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="FL" type="text" value="2"/>
+            <xhtml:div id="idm140117713202560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You can set the maximum flexibility of a flexible wildcard (matching a variable number of arbitrary sequence symbols). For instance x(2,4) and x(10,12) has flexibility 2, and x(10) has flexibility 0. Increasing FL will increase the time used by Pratt.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="FP">Maximum Flexibility Product (-FP)<xhtml:a href="#idm140117713517200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <a href="#idm140117713517200::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="FP" type="text" value="10"/>
+            <xhtml:div id="idm140117713517200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> Using option FP you can set an upper limit on the product of a flexibilities for a pattern. This is related to the memory requirements of the search, and increasing the limit, increases the memory usage. Some patterns and the corresponding product of flexibilities.</xhtml:div>
+              <div class="example" id="idm140117713517200::example" data-forparameter="FP">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+C-x(2,4)-[DE]-x(10)-F      - (4-2+1)*(10-10+1)= 3
+C-x(2,4)-[DE]-x(10-14)-F   - (4-2+1)*(14-10+1)= 3*5= 15
+	  </pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117713517200::example" data-forparameter="FP" style="display:none">
+              <pre>
+C-x(2,4)-[DE]-x(10)-F      - (4-2+1)*(10-10+1)= 3
+C-x(2,4)-[DE]-x(10-14)-F   - (4-2+1)*(14-10+1)= 3*5= 15
+	  </pre>
+            </div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="BI">Input Pattern Symbol File? (-BI)<xhtml:a href="#idm140117713371344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="BI">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117713371344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using the B options (BN,BI,BF) on the menu you can control which pattern symbols will be used during the initial pattern search and during the refinement phase. The pattern symbols that can be used, are read from a file if the BI option is set, otherwise a default set will be used.</xhtml:div>
+              <xhtml:div>The default set has as the 20 first elements, the single amino acid symbols, and it also contains a set of ambiguous symbols, each containing amino acids that share some physio-chemical properties</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PatternSymbol" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="BF">
+            <legend>Input Pattern Symbol File name (if BI on) (-BF)<xhtml:a href="#idm140117714065264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a href="#idm140117714065264::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+            </legend>
+            <xhtml:div id="idm140117714065264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In the file each symbol is given on a separate line concataining the letters that the symbol should match. For the example, only patterns with the symbols C and [DE] would be considered. During the initial search, pattern symbols corresponding to the first BN lines can be used.</xhtml:div>
+              <xhtml:div>default file is: Pratt.sets.big</xhtml:div>
+              <div class="example" id="idm140117714065264::example" data-forparameter="BF">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+C
+DE
+	  </pre>
+              </div>
+            </xhtml:div>
+            <div class="example" id="idm140117714065264::example" data-forparameter="BF" style="display:none">
+              <pre>
+C
+DE
+	  </pre>
+            </div>
+            <xhtml:textarea xmlns:xi="http://www.w3.org/2001/XInclude" name="BF" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="BN">Number of Pattern Symbols Initial Search (-BN)<xhtml:a href="#idm140117713887488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="BN" type="text" value="20"/>
+            <xhtml:div id="idm140117713887488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Increasing BN will slow down the search and increase the memory usage, but allow more ambiguous pattern symbols.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="scoring">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Pattern Scoring parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="info" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="S">Scoring (-S)<xhtml:a href="#idm140117713648096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="S">
+              <xhtml:option value="info" selected="selected">Information content (info)</xhtml:option>
+              <xhtml:option value="mdl">Minimum Description Length (mdl)</xhtml:option>
+              <xhtml:option value="tree">Diversity calculated from a dendrogram (tree)</xhtml:option>
+              <xhtml:option value="dist">Distances matrix (dist)</xhtml:option>
+              <xhtml:option value="ppv">Positive Predictive Value (ppv)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117713648096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The S option allows you to control the scoring of patterns. There are five possible scoring schemes to be used:</xhtml:div>
+              <xhtml:div>info: patterns are scored by their information content as defined in (Jonassen et al, 1995). Note that a pattern's score is independent of which sequences it matches.</xhtml:div>
+              <xhtml:div>mdl: patterns are scored by a Minimum Description Length principle derived scoring scheme, which is related to the one above, but penalises patterns scoring few sequences vs. patterns scoring many. Parameters Z0 to Z3 are required when this scoring scheme is used.</xhtml:div>
+              <xhtml:div>tree: a pattern is scored higher if it contains more information and/or if it matches more diverse sequences. The sequence diversity is calculated from a dendrogram which has to be input.</xhtml:div>
+              <xhtml:div>dist: similar to the tree scoring, except a matrix with pairwise the similarity between all pairs of input sequences are used instead of the tree. The matrix has to be input.</xhtml:div>
+              <xhtml:div>ppv: a measure of Positive Predictive Value - it is assumed that the input sequences constitute a family, and are all contained in the Swiss-Prot database. PPV measures how certain one can be that a sequence belongs to the family given that it matches the pattern.</xhtml:div>
+              <xhtml:div>For the last three scoring schemes (tree, dist, ppv), an input file is needed.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="treefile">
+            <legend>Tree File for Scoring equal to tree (-SF)</legend>
+            <xhtml:textarea xmlns:xi="http://www.w3.org/2001/XInclude" name="treefile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PhylipDistanceMatrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="distfile">
+            <legend>Distances File if Scoring equal to dist (-SF)<xhtml:a href="#idm140117712450256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117712450256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A matrix with pairwise the similarity between all pairs of input sequences are used instead of the tree.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea xmlns:xi="http://www.w3.org/2001/XInclude" name="distfile" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="SWISSPROT " data-parametername="uniprotdb">
+            <legend>Swissprot file if Scoring equal to ppv (-SF)<xhtml:a href="#idm140117712415616::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117712415616::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default: uniprot_sprot databank.</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea xmlns:xi="http://www.w3.org/2001/XInclude" name="uniprotdb" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="minimizable" data-paragraphname="mdl_param">
+            <legend>MDL parameters (Z0-Z3) (if MDL scoring)</legend>
+            <xhtml:div>
+              <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Z0">Z0<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="Z0" type="text" value="10.00"/>
+              </label>
+              <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Z1">Z1<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="Z1" type="text" value="10.00"/>
+              </label>
+              <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="3.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Z2">Z2<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="Z2" type="text" value="3.00"/>
+              </label>
+              <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Z3">Z3<xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="Z3" type="text" value="10.00"/>
+              </label>
+            </xhtml:div>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="search">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Search parameters</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="seq" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="G">Pattern Graph from: (-G)<xhtml:a href="#idm140117712716528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="G">
+              <xhtml:option value="seq" selected="selected">Sequence (seq)</xhtml:option>
+              <xhtml:option value="al">Alignment (al)</xhtml:option>
+              <xhtml:option value="query">Query</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117712716528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If G is set to al or query, another option GF is required allowing the user to give the name of a file containing a multiple sequence alignment (in Clustal W format), or a query sequence in FastA format (without annotation). Only patterns consistent with the alignment/matching the query sequence will be considered.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="CLUSTAL " data-parametername="GF_ali">
+            <legend>Alignment file (if G set to al) (-GF)<xhtml:a href="#idm140117712700288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117712700288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Alignment file must be in CLUSTALW format</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea xmlns:xi="http://www.w3.org/2001/XInclude" name="GF_ali" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="GF_seq">
+            <legend>Query sequence file (if G set query) (-GF)<xhtml:a href="#idm140117712688160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117712688160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Query file must be in Fasta format</xhtml:div>
+            </xhtml:div>
+            <xhtml:textarea xmlns:xi="http://www.w3.org/2001/XInclude" name="GF_seq" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="E">Search Greediness (-E)<xhtml:a href="#idm140117712676000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="E" type="text" value="3"/>
+            <xhtml:div id="idm140117712676000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using the E parameter you can adjust the greediness of the search. Setting E to 0 (zero), the search will be exhaustive. Increasing E increases the greediness, and decreases the time used in the search.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="R">Pattern Refinement (-R)<xhtml:a href="#idm140117712665728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="R">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117712665728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When the R option is switched on, patterns found during the initial pattern search are input to a refinement algorithm where more ambiguous pattern symbols can be added. For instance the pattern C-x(4)-D might be refined to C-x-[ILV]-x-D-x(3)-[DEF]</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="RG">Generalise ambiguous symbols (if Pattern Refinement on) (-RG)<xhtml:a href="#idm140117713085280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="RG">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117713085280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If the RG option is switched on, then ambiguous symbols listed in the symbols file (or in the default symbol set -- see help for option B), are used. If RG is off, only the letters needed to match the input sequences are included in the ambiguous pattern positions.</xhtml:div>
+              <xhtml:div>For example, if [ILV] is a listed allowed symbol, and [IL] is not, [IL] can be included in a pattern if RG is off, but if RG is on, the full symbol [ILV] will be included instead.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="OP">PROSITE Pattern Format (-OP)<xhtml:a href="#idm140117713068880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="OP">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117713068880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When switched on, patterns will be output in PROSITE style (for instance C-x(2,4)-[DE]). When switched off, patterns are output in a simpler consensus pattern style (for instance Cxx--[DE] where x matches exactly one arbitrary sequence symbol and - matches zero or one arbitrary sequence symbol).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ON">Maximum number patterns (-ON)<xhtml:a href="#idm140117713057728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="ON" type="text" value="50"/>
+            <xhtml:div id="idm140117713057728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the maximum number of patterns to be found by Pratt</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="OA">Maximum number Alignments (-OA)<xhtml:a href="#idm140117713047584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="OA" type="text" value="50"/>
+            <xhtml:div id="idm140117713047584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the max. nr of patterns for which Pratt is to produce an alignment of the sequence segments matching it.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="M">Print Patterns in sequences (-M)<xhtml:a href="#idm140117713037376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="M">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117713037376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If the M option is set, then Pratt will print out the location of the sequence segments matching each of the (maximum 52) best patterns. The patterns are given labels A, B,...Z,a,b,...z in order of decreasing pattern score. Each sequence is printed on a line, one character per K-tuple in the sequence. If pattern with label C matches the third K-tuple in a sequence C is printed out. If several patterns match in the same K-tuple, only the best will be printed.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MR">Ratio for printing (-MR)<xhtml:a href="#idm140117713025936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input xmlns:xi="http://www.w3.org/2001/XInclude" name="MR" type="text" value="10"/>
+            <xhtml:div id="idm140117713025936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the K value (ratio) used for printing the summary information about where in each sequence the pattern matches are found.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MV">Print vertically (-MV)<xhtml:a href="#idm140117713013824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select xmlns:xi="http://www.w3.org/2001/XInclude" name="MV">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117713013824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If set, the output is printed vertically instead of horizontally, vertical output can be better for large sequence sets.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Sequence)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713828736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713828736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Fasta  format.  One   file  containing   all  the sequences. One sequence is specified by</xhtml:div>
+          <xhtml:div>one line starting with '&gt;' in position 1 and then the name of the sequence, and some lines containing the sequence in upper or lower case. The end of a sequence is identified by looking for either the start of a new sequence or the end of the file.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="conservation">
+        <xhtml:legend>Pattern conservation parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="CM" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713325584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713325584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the minimum number of sequences to match a pattern. Pratt will only report patterns that match at least the chosen number of the sequences that you have input. Pratt will not allow you to choose a value higher than the number of sequences input.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Cpct" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713751568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713751568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the minimum percentage of the input sequences that should match a pattern. If you set this to, say 80, Pratt will only report patterns matching at least 80 % of the sequences input.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="restrictions">
+        <xhtml:legend>Pattern restrictions parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="PP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="off" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713809776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713809776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div/>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="PF" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RestrictionPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i xmlns:xi="http://www.w3.org/2001/XInclude">
+				(RestrictionPattern)
+			</xhtml:i>
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713338032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713338032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This file contains lines to restrict pattern searches to certain regions in a sequence, say ACE2_YEAST: </xhtml:div>
+              <xhtml:div>&gt;ACE2_YEAST (100,200)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="PL" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713362944::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713362944::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Allows you to set the maximum length of a pattern. The length of the pattern C-x(2,4)-[DE] is 1+4+1=6. </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="PN" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117714048176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117714048176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this you can set the maximum number of symbols in a pattern. The pattern C-x(2,4)-[DE] has 2 symbols (C and [DE]).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="PX" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117712598016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117712598016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option you can set the maximum length of a wildcard.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="FN" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713522768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713522768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option you can set the maximum number of flexible wildcards (matching a variable number of arbitrary sequence symbols). For instance x(2,4) is a flexible wildcard, and the pattern C-x(2,4)-[DE]-x(10)-F contains one flexible wildcard.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="FL" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713202560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713202560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>You can set the maximum flexibility of a flexible wildcard (matching a variable number of arbitrary sequence symbols). For instance x(2,4) and x(10,12) has flexibility 2, and x(10) has flexibility 0. Increasing FL will increase the time used by Pratt.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="FP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713517200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713517200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div> Using option FP you can set an upper limit on the product of a flexibilities for a pattern. This is related to the memory requirements of the search, and increasing the limit, increases the memory usage. Some patterns and the corresponding product of flexibilities.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="BI" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713371344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713371344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using the B options (BN,BI,BF) on the menu you can control which pattern symbols will be used during the initial pattern search and during the refinement phase. The pattern symbols that can be used, are read from a file if the BI option is set, otherwise a default set will be used.</xhtml:div>
+              <xhtml:div>The default set has as the 20 first elements, the single amino acid symbols, and it also contains a set of ambiguous symbols, each containing amino acids that share some physio-chemical properties</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="BF" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PatternSymbol" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i xmlns:xi="http://www.w3.org/2001/XInclude">
+				(PatternSymbol)
+			</xhtml:i>
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117714065264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117714065264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In the file each symbol is given on a separate line concataining the letters that the symbol should match. For the example, only patterns with the symbols C and [DE] would be considered. During the initial search, pattern symbols corresponding to the first BN lines can be used.</xhtml:div>
+              <xhtml:div>default file is: Pratt.sets.big</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="BN" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713887488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713887488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Increasing BN will slow down the search and increase the memory usage, but allow more ambiguous pattern symbols.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="scoring">
+        <xhtml:legend>Pattern Scoring parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="S" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="info" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713648096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713648096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The S option allows you to control the scoring of patterns. There are five possible scoring schemes to be used:</xhtml:div>
+              <xhtml:div>info: patterns are scored by their information content as defined in (Jonassen et al, 1995). Note that a pattern's score is independent of which sequences it matches.</xhtml:div>
+              <xhtml:div>mdl: patterns are scored by a Minimum Description Length principle derived scoring scheme, which is related to the one above, but penalises patterns scoring few sequences vs. patterns scoring many. Parameters Z0 to Z3 are required when this scoring scheme is used.</xhtml:div>
+              <xhtml:div>tree: a pattern is scored higher if it contains more information and/or if it matches more diverse sequences. The sequence diversity is calculated from a dendrogram which has to be input.</xhtml:div>
+              <xhtml:div>dist: similar to the tree scoring, except a matrix with pairwise the similarity between all pairs of input sequences are used instead of the tree. The matrix has to be input.</xhtml:div>
+              <xhtml:div>ppv: a measure of Positive Predictive Value - it is assumed that the input sequences constitute a family, and are all contained in the Swiss-Prot database. PPV measures how certain one can be that a sequence belongs to the family given that it matches the pattern.</xhtml:div>
+              <xhtml:div>For the last three scoring schemes (tree, dist, ppv), an input file is needed.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="treefile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Tree)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="distfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PhylipDistanceMatrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i xmlns:xi="http://www.w3.org/2001/XInclude">
+				(PhylipDistanceMatrix)
+			</xhtml:i>
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117712450256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117712450256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>A matrix with pairwise the similarity between all pairs of input sequences are used instead of the tree.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="uniprotdb" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="SWISSPROT ">
+            <xhtml:i xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Sequence)
+			</xhtml:i>
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117712415616::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117712415616::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Default: uniprot_sprot databank.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <xhtml:fieldset class="minimizable" data-paragraphname="mdl_param">
+            <xhtml:legend>MDL parameters (Z0-Z3) (if MDL scoring)</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Z0" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Z1" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Z2" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="3.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Z3" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            </xhtml:div>
+          </xhtml:fieldset>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="search">
+        <xhtml:legend>Search parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="G" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="seq" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117712716528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117712716528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If G is set to al or query, another option GF is required allowing the user to give the name of a file containing a multiple sequence alignment (in Clustal W format), or a query sequence in FastA format (without annotation). Only patterns consistent with the alignment/matching the query sequence will be considered.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="GF_ali" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="CLUSTAL ">
+            <xhtml:i xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Alignment)
+			</xhtml:i>
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117712700288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117712700288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Alignment file must be in CLUSTALW format</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="GF_seq" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+            <xhtml:i xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Sequence)
+			</xhtml:i>
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117712688160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117712688160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Query file must be in Fasta format</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="E" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117712676000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117712676000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using the E parameter you can adjust the greediness of the search. Setting E to 0 (zero), the search will be exhaustive. Increasing E increases the greediness, and decreases the time used in the search.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="R" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117712665728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117712665728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When the R option is switched on, patterns found during the initial pattern search are input to a refinement algorithm where more ambiguous pattern symbols can be added. For instance the pattern C-x(4)-D might be refined to C-x-[ILV]-x-D-x(3)-[DEF]</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="RG" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713085280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713085280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If the RG option is switched on, then ambiguous symbols listed in the symbols file (or in the default symbol set -- see help for option B), are used. If RG is off, only the letters needed to match the input sequences are included in the ambiguous pattern positions.</xhtml:div>
+              <xhtml:div>For example, if [ILV] is a listed allowed symbol, and [IL] is not, [IL] can be included in a pattern if RG is off, but if RG is on, the full symbol [ILV] will be included instead.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="OP" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713068880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713068880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When switched on, patterns will be output in PROSITE style (for instance C-x(2,4)-[DE]). When switched off, patterns are output in a simpler consensus pattern style (for instance Cxx--[DE] where x matches exactly one arbitrary sequence symbol and - matches zero or one arbitrary sequence symbol).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ON" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713057728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713057728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the maximum number of patterns to be found by Pratt</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="OA" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713047584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713047584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the max. nr of patterns for which Pratt is to produce an alignment of the sequence segments matching it.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="M" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713037376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713037376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If the M option is set, then Pratt will print out the location of the sequence segments matching each of the (maximum 52) best patterns. The patterns are given labels A, B,...Z,a,b,...z in order of decreasing pattern score. Each sequence is printed on a line, one character per K-tuple in the sequence. If pattern with label C matches the third K-tuple in a sequence C is printed out. If several patterns match in the same K-tuple, only the best will be printed.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="MR" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713025936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713025936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the K value (ratio) used for printing the summary information about where in each sequence the pattern matches are found.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="MV" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a xmlns:xi="http://www.w3.org/2001/XInclude" href="#idm140117713013824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div xmlns:xi="http://www.w3.org/2001/XInclude" id="idm140117713013824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If set, the output is printed vertically instead of horizontally, vertical output can be better for large sequence sets.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="report" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters xmlns:xi="http://www.w3.org/2001/XInclude">
+    <parameter ismandatory="1" issimple="1">
+      <name>seq</name>
+      <prompt lang="en">Sequence File</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" fasta $value"</code>
+        <code proglang="python">" fasta "+str(value)</code>
+      </format>
+      <argpos>2</argpos>
+      <comment>
+        <text lang="en">Fasta  format.  One   file  containing   all  the sequences. One sequence is specified by</text>
+        <text lang="en">one line starting with '&gt;' in position 1 and then the name of the sequence, and some lines containing the sequence in upper or lower case. The end of a sequence is identified by looking for either the start of a new sequence or the end of the file.</text>
+      </comment>
+      <example>
+&gt;seq1
+HLKSEDEMKASEDLKKHKKKGHHEAEIKPLAQSHATKHKIPVKYLEFIS
+SDLHAHKLRKRKLVKNMVL
+&gt;seq2
+VEVFISEDDLKRKLVKNMVLDKDNKQHMLPKAGDTVTNYTLLGLVLVLI
+WLIMQRKRKKKEDVSEENIQEIPKKELAASS
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequence File</xhtml:legend>
+          <xhtml:textarea name="seq" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="seq">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713828736::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713828736::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Fasta  format.  One   file  containing   all  the sequences. One sequence is specified by</xhtml:div>
+            <xhtml:div>one line starting with '&gt;' in position 1 and then the name of the sequence, and some lines containing the sequence in upper or lower case. The end of a sequence is identified by looking for either the start of a new sequence or the end of the file.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>conservation</name>
+      <prompt lang="en">Pattern conservation parameters</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>CM</name>
+          <prompt lang="en">Minimum number of Sequences to Match (-CM)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -CM $value":""</code>
+            <code proglang="python">("" , " -CM " + str(value))[ value is not None ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value must be between 2 and 4</text>
+            </message>
+            <code proglang="perl">$value &gt;= 2 and $value &lt;= 4</code>
+            <code proglang="python">value &gt;= 2 and value &lt;= 4</code>
+          </ctrl>
+          <comment>
+            <text lang="en">Set the minimum number of sequences to match a pattern. Pratt will only report patterns that match at least the chosen number of the sequences that you have input. Pratt will not allow you to choose a value higher than the number of sequences input.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum number of Sequences to Match (-CM)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713325584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="CM" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713325584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the minimum number of sequences to match a pattern. Pratt will only report patterns that match at least the chosen number of the sequences that you have input. Pratt will not allow you to choose a value higher than the number of sequences input.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="CM">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713325584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713325584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the minimum number of sequences to match a pattern. Pratt will only report patterns that match at least the chosen number of the sequences that you have input. Pratt will not allow you to choose a value higher than the number of sequences input.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Cpct</name>
+          <prompt lang="en">Minimum Percentage of Sequences to Match (-C%)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>100</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -C% $value":""</code>
+            <code proglang="python">("" , " -C% " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the minimum percentage of the input sequences that should match a pattern. If you set this to, say 80, Pratt will only report patterns matching at least 80 % of the sequences input.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum Percentage of Sequences to Match (-C%)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713751568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Cpct" type="text" value="100"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713751568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the minimum percentage of the input sequences that should match a pattern. If you set this to, say 80, Pratt will only report patterns matching at least 80 % of the sequences input.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Cpct">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713751568::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713751568::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the minimum percentage of the input sequences that should match a pattern. If you set this to, say 80, Pratt will only report patterns matching at least 80 % of the sequences input.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>restrictions</name>
+      <prompt lang="en">Pattern restrictions parameters</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>PP</name>
+          <prompt lang="en">Position in sequence (-PP)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>off</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>off</value>
+              <label>OFF</label>
+            </velem>
+            <velem>
+              <value>complete</value>
+              <label>Complete pattern match has to be in this area (complete)</label>
+            </velem>
+            <velem>
+              <value>start</value>
+              <label>Pattern match has to start in this area (start)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " -PP $value":""</code>
+            <code proglang="python">("" , " -PP " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">You must give a file to define the area (PF)</text>
+            </message>
+            <code proglang="perl">$value eq $vdef or ($value ne $vdef and defined $PF)</code>
+            <code proglang="python">value == vdef or (value != vdef and PF is not None)</code>
+          </ctrl>
+          <comment>
+            <text lang="en"/>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Position in sequence (-PP)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713809776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="PP">
+                <xhtml:option value="off" selected="selected">OFF</xhtml:option>
+                <xhtml:option value="complete">Complete pattern match has to be in this area (complete)</xhtml:option>
+                <xhtml:option value="start">Pattern match has to start in this area (start)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713809776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div/>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="off" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PP">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713809776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713809776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div/>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>PF</name>
+          <prompt lang="en">Restriction File name (if PP not off) (-PF)</prompt>
+          <type>
+            <datatype>
+              <class>RestrictionPattern</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$PP ne "off"</code>
+            <code proglang="python">PP != "off"</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -PF $value"</code>
+            <code proglang="python">" -PF " + str(value)</code>
+          </format>
+          <comment>
+            <text lang="en">This file contains lines to restrict pattern searches to certain regions in a sequence, say ACE2_YEAST: </text>
+            <text lang="en">&gt;ACE2_YEAST (100,200)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Restriction File name (if PP not off) (-PF)</xhtml:legend>
+              <xhtml:textarea name="PF" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="RestrictionPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="PF">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(RestrictionPattern)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713338032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713338032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This file contains lines to restrict pattern searches to certain regions in a sequence, say ACE2_YEAST: </xhtml:div>
+                <xhtml:div>&gt;ACE2_YEAST (100,200)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>PL</name>
+          <prompt lang="en">Maximum Pattern Length (-PL)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>50</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -PL $value":""</code>
+            <code proglang="python">("" , " -PL " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Allows you to set the maximum length of a pattern. The length of the pattern C-x(2,4)-[DE] is 1+4+1=6. </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum Pattern Length (-PL)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713362944::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="PL" type="text" value="50"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713362944::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Allows you to set the maximum length of a pattern. The length of the pattern C-x(2,4)-[DE] is 1+4+1=6. </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PL">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713362944::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713362944::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Allows you to set the maximum length of a pattern. The length of the pattern C-x(2,4)-[DE] is 1+4+1=6. </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>PN</name>
+          <prompt lang="en">Maximum number of Pattern Symbols (-PN)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>50</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -PN $value":" "</code>
+            <code proglang="python">("" , " -PN " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Using this you can set the maximum number of symbols in a pattern. The pattern C-x(2,4)-[DE] has 2 symbols (C and [DE]).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number of Pattern Symbols (-PN)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714048176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="PN" type="text" value="50"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714048176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this you can set the maximum number of symbols in a pattern. The pattern C-x(2,4)-[DE] has 2 symbols (C and [DE]).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PN">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714048176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714048176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this you can set the maximum number of symbols in a pattern. The pattern C-x(2,4)-[DE] has 2 symbols (C and [DE]).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>PX</name>
+          <prompt lang="en">Maximum number of consecutive x's (-PX)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -PX $value":""</code>
+            <code proglang="python">("" , " -PX " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Using this option you can set the maximum length of a wildcard.</text>
+          </comment>
+          <example>
+           x       -  1
+          x(10)    - 10
+         x(3,4)    -  4
+	  </example>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number of consecutive x's (-PX)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712598016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712598016::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="PX" type="text" value="5"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712598016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option you can set the maximum length of a wildcard.</xhtml:div>
+                <div class="example" id="idm140117712598016::example" data-forparameter="PX">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+           x       -  1
+          x(10)    - 10
+         x(3,4)    -  4
+	  </pre>
+                </div>
+              </xhtml:div>
+              <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117712598016::example" data-forparameter="PX" style="display:none">
+                <pre>
+           x       -  1
+          x(10)    - 10
+         x(3,4)    -  4
+	  </pre>
+              </div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="PX">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712598016::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712598016::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option you can set the maximum length of a wildcard.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>FN</name>
+          <prompt lang="en">Maximum number of flexible spacers (-FN)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -FN $value":""</code>
+            <code proglang="python">("" , " -FN " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Using this option you can set the maximum number of flexible wildcards (matching a variable number of arbitrary sequence symbols). For instance x(2,4) is a flexible wildcard, and the pattern C-x(2,4)-[DE]-x(10)-F contains one flexible wildcard.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number of flexible spacers (-FN)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713522768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="FN" type="text" value="2"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713522768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option you can set the maximum number of flexible wildcards (matching a variable number of arbitrary sequence symbols). For instance x(2,4) is a flexible wildcard, and the pattern C-x(2,4)-[DE]-x(10)-F contains one flexible wildcard.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="FN">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713522768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713522768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option you can set the maximum number of flexible wildcards (matching a variable number of arbitrary sequence symbols). For instance x(2,4) is a flexible wildcard, and the pattern C-x(2,4)-[DE]-x(10)-F contains one flexible wildcard.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>FL</name>
+          <prompt lang="en">Maximum Flexibility (-FL)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -FL $value":""</code>
+            <code proglang="python">("" , " -FL " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">You can set the maximum flexibility of a flexible wildcard (matching a variable number of arbitrary sequence symbols). For instance x(2,4) and x(10,12) has flexibility 2, and x(10) has flexibility 0. Increasing FL will increase the time used by Pratt.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum Flexibility (-FL)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713202560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="FL" type="text" value="2"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713202560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You can set the maximum flexibility of a flexible wildcard (matching a variable number of arbitrary sequence symbols). For instance x(2,4) and x(10,12) has flexibility 2, and x(10) has flexibility 0. Increasing FL will increase the time used by Pratt.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="FL">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713202560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713202560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>You can set the maximum flexibility of a flexible wildcard (matching a variable number of arbitrary sequence symbols). For instance x(2,4) and x(10,12) has flexibility 2, and x(10) has flexibility 0. Increasing FL will increase the time used by Pratt.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>FP</name>
+          <prompt lang="en">Maximum Flexibility Product (-FP)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -FP $value":""</code>
+            <code proglang="python">("" , " -FP " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en"> Using option FP you can set an upper limit on the product of a flexibilities for a pattern. This is related to the memory requirements of the search, and increasing the limit, increases the memory usage. Some patterns and the corresponding product of flexibilities.</text>
+          </comment>
+          <example>
+C-x(2,4)-[DE]-x(10)-F      - (4-2+1)*(10-10+1)= 3
+C-x(2,4)-[DE]-x(10-14)-F   - (4-2+1)*(14-10+1)= 3*5= 15
+	  </example>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum Flexibility Product (-FP)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713517200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713517200::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="FP" type="text" value="10"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713517200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> Using option FP you can set an upper limit on the product of a flexibilities for a pattern. This is related to the memory requirements of the search, and increasing the limit, increases the memory usage. Some patterns and the corresponding product of flexibilities.</xhtml:div>
+                <div class="example" id="idm140117713517200::example" data-forparameter="FP">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+C-x(2,4)-[DE]-x(10)-F      - (4-2+1)*(10-10+1)= 3
+C-x(2,4)-[DE]-x(10-14)-F   - (4-2+1)*(14-10+1)= 3*5= 15
+	  </pre>
+                </div>
+              </xhtml:div>
+              <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117713517200::example" data-forparameter="FP" style="display:none">
+                <pre>
+C-x(2,4)-[DE]-x(10)-F      - (4-2+1)*(10-10+1)= 3
+C-x(2,4)-[DE]-x(10-14)-F   - (4-2+1)*(14-10+1)= 3*5= 15
+	  </pre>
+              </div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="FP">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713517200::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713517200::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div> Using option FP you can set an upper limit on the product of a flexibilities for a pattern. This is related to the memory requirements of the search, and increasing the limit, increases the memory usage. Some patterns and the corresponding product of flexibilities.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>BI</name>
+          <prompt lang="en">Input Pattern Symbol File? (-BI)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -BI on":""</code>
+            <code proglang="python">("" , " -BI on")[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Using the B options (BN,BI,BF) on the menu you can control which pattern symbols will be used during the initial pattern search and during the refinement phase. The pattern symbols that can be used, are read from a file if the BI option is set, otherwise a default set will be used.</text>
+            <text lang="en">The default set has as the 20 first elements, the single amino acid symbols, and it also contains a set of ambiguous symbols, each containing amino acids that share some physio-chemical properties</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Input Pattern Symbol File? (-BI)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713371344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="BI">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713371344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using the B options (BN,BI,BF) on the menu you can control which pattern symbols will be used during the initial pattern search and during the refinement phase. The pattern symbols that can be used, are read from a file if the BI option is set, otherwise a default set will be used.</xhtml:div>
+                <xhtml:div>The default set has as the 20 first elements, the single amino acid symbols, and it also contains a set of ambiguous symbols, each containing amino acids that share some physio-chemical properties</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="BI">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713371344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713371344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using the B options (BN,BI,BF) on the menu you can control which pattern symbols will be used during the initial pattern search and during the refinement phase. The pattern symbols that can be used, are read from a file if the BI option is set, otherwise a default set will be used.</xhtml:div>
+                <xhtml:div>The default set has as the 20 first elements, the single amino acid symbols, and it also contains a set of ambiguous symbols, each containing amino acids that share some physio-chemical properties</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>BF</name>
+          <prompt lang="en">Input Pattern Symbol File name (if BI on) (-BF)</prompt>
+          <type>
+            <datatype>
+              <class>PatternSymbol</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$BI</code>
+            <code proglang="python">BI</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " -BF $value" : "-BF /local/gensoft2/exe/pratt/2.1/share/Pratt.sets.big" </code>
+            <code proglang="python">( " -BF /local/gensoft2/exe/pratt/2.1/share/Pratt.sets.big"  , " -BF " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">In the file each symbol is given on a separate line concataining the letters that the symbol should match. For the example, only patterns with the symbols C and [DE] would be considered. During the initial search, pattern symbols corresponding to the first BN lines can be used.</text>
+            <text lang="en">default file is: Pratt.sets.big</text>
+          </comment>
+          <example>
+C
+DE
+	  </example>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Input Pattern Symbol File name (if BI on) (-BF)</xhtml:legend>
+              <xhtml:textarea name="BF" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PatternSymbol" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="BF">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(PatternSymbol)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714065264::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714065264::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In the file each symbol is given on a separate line concataining the letters that the symbol should match. For the example, only patterns with the symbols C and [DE] would be considered. During the initial search, pattern symbols corresponding to the first BN lines can be used.</xhtml:div>
+                <xhtml:div>default file is: Pratt.sets.big</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>BN</name>
+          <prompt lang="en">Number of Pattern Symbols Initial Search (-BN)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>20</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -BN $value":""</code>
+            <code proglang="python">("" , " -BN " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Increasing BN will slow down the search and increase the memory usage, but allow more ambiguous pattern symbols.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of Pattern Symbols Initial Search (-BN)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713887488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="BN" type="text" value="20"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713887488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Increasing BN will slow down the search and increase the memory usage, but allow more ambiguous pattern symbols.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="20" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="BN">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713887488::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713887488::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Increasing BN will slow down the search and increase the memory usage, but allow more ambiguous pattern symbols.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>scoring</name>
+      <prompt lang="en">Pattern Scoring parameters</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>S</name>
+          <prompt lang="en">Scoring (-S)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>info</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>info</value>
+              <label>Information content (info)</label>
+            </velem>
+            <velem>
+              <value>mdl</value>
+              <label>Minimum Description Length (mdl)</label>
+            </velem>
+            <velem>
+              <value>tree</value>
+              <label>Diversity calculated from a dendrogram (tree)</label>
+            </velem>
+            <velem>
+              <value>dist</value>
+              <label>Distances matrix (dist)</label>
+            </velem>
+            <velem>
+              <value>ppv</value>
+              <label>Positive Predictive Value (ppv)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " -S $value":""</code>
+            <code proglang="python">("" , " -S " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">The S option allows you to control the scoring of patterns. There are five possible scoring schemes to be used:</text>
+            <text lang="en">info: patterns are scored by their information content as defined in (Jonassen et al, 1995). Note that a pattern's score is independent of which sequences it matches.</text>
+            <text lang="en">mdl: patterns are scored by a Minimum Description Length principle derived scoring scheme, which is related to the one above, but penalises patterns scoring few sequences vs. patterns scoring many. Parameters Z0 to Z3 are required when this scoring scheme is used.</text>
+            <text lang="en">tree: a pattern is scored higher if it contains more information and/or if it matches more diverse sequences. The sequence diversity is calculated from a dendrogram which has to be input.</text>
+            <text lang="en">dist: similar to the tree scoring, except a matrix with pairwise the similarity between all pairs of input sequences are used instead of the tree. The matrix has to be input.</text>
+            <text lang="en">ppv: a measure of Positive Predictive Value - it is assumed that the input sequences constitute a family, and are all contained in the Swiss-Prot database. PPV measures how certain one can be that a sequence belongs to the family given that it matches the pattern.</text>
+            <text lang="en">For the last three scoring schemes (tree, dist, ppv), an input file is needed.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Scoring (-S)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713648096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="S">
+                <xhtml:option value="info" selected="selected">Information content (info)</xhtml:option>
+                <xhtml:option value="mdl">Minimum Description Length (mdl)</xhtml:option>
+                <xhtml:option value="tree">Diversity calculated from a dendrogram (tree)</xhtml:option>
+                <xhtml:option value="dist">Distances matrix (dist)</xhtml:option>
+                <xhtml:option value="ppv">Positive Predictive Value (ppv)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713648096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The S option allows you to control the scoring of patterns. There are five possible scoring schemes to be used:</xhtml:div>
+                <xhtml:div>info: patterns are scored by their information content as defined in (Jonassen et al, 1995). Note that a pattern's score is independent of which sequences it matches.</xhtml:div>
+                <xhtml:div>mdl: patterns are scored by a Minimum Description Length principle derived scoring scheme, which is related to the one above, but penalises patterns scoring few sequences vs. patterns scoring many. Parameters Z0 to Z3 are required when this scoring scheme is used.</xhtml:div>
+                <xhtml:div>tree: a pattern is scored higher if it contains more information and/or if it matches more diverse sequences. The sequence diversity is calculated from a dendrogram which has to be input.</xhtml:div>
+                <xhtml:div>dist: similar to the tree scoring, except a matrix with pairwise the similarity between all pairs of input sequences are used instead of the tree. The matrix has to be input.</xhtml:div>
+                <xhtml:div>ppv: a measure of Positive Predictive Value - it is assumed that the input sequences constitute a family, and are all contained in the Swiss-Prot database. PPV measures how certain one can be that a sequence belongs to the family given that it matches the pattern.</xhtml:div>
+                <xhtml:div>For the last three scoring schemes (tree, dist, ppv), an input file is needed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="info" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="S">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713648096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713648096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The S option allows you to control the scoring of patterns. There are five possible scoring schemes to be used:</xhtml:div>
+                <xhtml:div>info: patterns are scored by their information content as defined in (Jonassen et al, 1995). Note that a pattern's score is independent of which sequences it matches.</xhtml:div>
+                <xhtml:div>mdl: patterns are scored by a Minimum Description Length principle derived scoring scheme, which is related to the one above, but penalises patterns scoring few sequences vs. patterns scoring many. Parameters Z0 to Z3 are required when this scoring scheme is used.</xhtml:div>
+                <xhtml:div>tree: a pattern is scored higher if it contains more information and/or if it matches more diverse sequences. The sequence diversity is calculated from a dendrogram which has to be input.</xhtml:div>
+                <xhtml:div>dist: similar to the tree scoring, except a matrix with pairwise the similarity between all pairs of input sequences are used instead of the tree. The matrix has to be input.</xhtml:div>
+                <xhtml:div>ppv: a measure of Positive Predictive Value - it is assumed that the input sequences constitute a family, and are all contained in the Swiss-Prot database. PPV measures how certain one can be that a sequence belongs to the family given that it matches the pattern.</xhtml:div>
+                <xhtml:div>For the last three scoring schemes (tree, dist, ppv), an input file is needed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>treefile</name>
+          <prompt lang="en">Tree File for Scoring equal to tree (-SF)</prompt>
+          <type>
+            <datatype>
+              <class>Tree</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$S eq "tree"</code>
+            <code proglang="python">S == "tree"</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -SF $value "</code>
+            <code proglang="python">" -SF " + str(value)</code>
+          </format>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Tree File for Scoring equal to tree (-SF)</xhtml:legend>
+              <xhtml:textarea name="treefile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="treefile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>distfile</name>
+          <prompt lang="en">Distances File if Scoring equal to dist (-SF)</prompt>
+          <type>
+            <datatype>
+              <class>PhylipDistanceMatrix</class>
+              <superclass>AbstractText</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$S eq "dist"</code>
+            <code proglang="python">S == "dist"</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -SF $value; "</code>
+            <code proglang="python">" -SF " + str(value)</code>
+          </format>
+          <comment>
+            <text lang="en">A matrix with pairwise the similarity between all pairs of input sequences are used instead of the tree.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Distances File if Scoring equal to dist (-SF)</xhtml:legend>
+              <xhtml:textarea name="distfile" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PhylipDistanceMatrix" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="distfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(PhylipDistanceMatrix)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712450256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712450256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>A matrix with pairwise the similarity between all pairs of input sequences are used instead of the tree.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>uniprotdb</name>
+          <prompt lang="en">Swissprot file if Scoring equal to ppv (-SF)</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>SWISSPROT</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$S eq "ppv"</code>
+            <code proglang="python">S == "ppv"</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " -SF $value" : " -SF /local/gensoft2/exe/pratt/2.1/share/uniprot_sprot.dat" </code>
+            <code proglang="python">( " -SF /local/gensoft2/exe/pratt/2.1/share/uniprot_sprot.dat"  , " -SF " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Default: uniprot_sprot databank.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Swissprot file if Scoring equal to ppv (-SF)</xhtml:legend>
+              <xhtml:textarea name="uniprotdb" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="SWISSPROT " data-parametername="uniprotdb">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712415616::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712415616::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Default: uniprot_sprot databank.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>mdl_param</name>
+          <prompt lang="en">MDL parameters (Z0-Z3) (if MDL scoring)</prompt>
+          <precond>
+            <code proglang="perl">$S eq "mdl"</code>
+            <code proglang="python">S == "mdl"</code>
+          </precond>
+          <argpos>3</argpos>
+          <parameters>
+            <parameter ismandatory="1">
+              <name>Z0</name>
+              <prompt lang="en">Z0</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>10.00</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " -Z0 $value" : "" </code>
+                <code proglang="python">( ""  , " -Z0 " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Z0<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Z0" type="text" value="10.00"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Z0"/>
+              </interface>
+            </parameter>
+            <parameter ismandatory="1">
+              <name>Z1</name>
+              <prompt lang="en">Z1</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>10.00</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " -Z1 $value" : ""</code>
+                <code proglang="python">( "" , " -Z1 " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Z1<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Z1" type="text" value="10.00"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Z1"/>
+              </interface>
+            </parameter>
+            <parameter ismandatory="1">
+              <name>Z2</name>
+              <prompt lang="en">Z2</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>3.00</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " -Z2 $value" : ""</code>
+                <code proglang="python">( "" , " -Z2 " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Z2<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Z2" type="text" value="3.00"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="3.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Z2"/>
+              </interface>
+            </parameter>
+            <parameter ismandatory="1">
+              <name>Z3</name>
+              <prompt lang="en">Z3</prompt>
+              <type>
+                <datatype>
+                  <class>Integer</class>
+                </datatype>
+              </type>
+              <vdef>
+                <value>10.00</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and $value != $vdef)? " -Z3 $value" : ""</code>
+                <code proglang="python">( "" , " -Z3 " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Z3<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Z3" type="text" value="10.00"/>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="10.00" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Z3"/>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>search</name>
+      <prompt lang="en">Search parameters</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>G</name>
+          <prompt lang="en">Pattern Graph from: (-G)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>seq</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>seq</value>
+              <label>Sequence (seq)</label>
+            </velem>
+            <velem>
+              <value>al</value>
+              <label>Alignment (al)</label>
+            </velem>
+            <velem>
+              <value>query</value>
+              <label>Query</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " -G $value":""</code>
+            <code proglang="python">("" , " -G " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">If G is set to al or query, another option GF is required allowing the user to give the name of a file containing a multiple sequence alignment (in Clustal W format), or a query sequence in FastA format (without annotation). Only patterns consistent with the alignment/matching the query sequence will be considered.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Pattern Graph from: (-G)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712716528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="G">
+                <xhtml:option value="seq" selected="selected">Sequence (seq)</xhtml:option>
+                <xhtml:option value="al">Alignment (al)</xhtml:option>
+                <xhtml:option value="query">Query</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712716528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If G is set to al or query, another option GF is required allowing the user to give the name of a file containing a multiple sequence alignment (in Clustal W format), or a query sequence in FastA format (without annotation). Only patterns consistent with the alignment/matching the query sequence will be considered.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="seq" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="G">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712716528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712716528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If G is set to al or query, another option GF is required allowing the user to give the name of a file containing a multiple sequence alignment (in Clustal W format), or a query sequence in FastA format (without annotation). Only patterns consistent with the alignment/matching the query sequence will be considered.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>GF_ali</name>
+          <prompt lang="en">Alignment file (if G set to al) (-GF)</prompt>
+          <type>
+            <datatype>
+              <class>Alignment</class>
+            </datatype>
+            <dataFormat>CLUSTAL</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$G eq "al"</code>
+            <code proglang="python">G == "al"</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -GF $value"</code>
+            <code proglang="python">" -GF " + str(value)</code>
+          </format>
+          <comment>
+            <text lang="en">Alignment file must be in CLUSTALW format</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Alignment file (if G set to al) (-GF)</xhtml:legend>
+              <xhtml:textarea name="GF_ali" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Alignment" data-datatype-superclass="" data-biotype="" data-card="" data-formats="CLUSTAL " data-parametername="GF_ali">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Alignment)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712700288::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712700288::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Alignment file must be in CLUSTALW format</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>GF_seq</name>
+          <prompt lang="en">Query sequence file (if G set query) (-GF)</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">$G eq "query"</code>
+            <code proglang="python">G == "query"</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -GF $value"</code>
+            <code proglang="python">" -GF " + str(value)</code>
+          </format>
+          <comment>
+            <text lang="en">Query file must be in Fasta format</text>
+          </comment>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Query sequence file (if G set query) (-GF)</xhtml:legend>
+              <xhtml:textarea name="GF_seq" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="GF_seq">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712688160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712688160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Query file must be in Fasta format</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>E</name>
+          <prompt lang="en">Search Greediness (-E)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>3</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -E $value":""</code>
+            <code proglang="python">("" , " -E " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Using the E parameter you can adjust the greediness of the search. Setting E to 0 (zero), the search will be exhaustive. Increasing E increases the greediness, and decreases the time used in the search.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Search Greediness (-E)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712676000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="E" type="text" value="3"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712676000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using the E parameter you can adjust the greediness of the search. Setting E to 0 (zero), the search will be exhaustive. Increasing E increases the greediness, and decreases the time used in the search.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="3" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="E">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712676000::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712676000::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using the E parameter you can adjust the greediness of the search. Setting E to 0 (zero), the search will be exhaustive. Increasing E increases the greediness, and decreases the time used in the search.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>R</name>
+          <prompt lang="en">Pattern Refinement (-R)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -R off" : ""</code>
+            <code proglang="python">( " " , " -R off" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">When the R option is switched on, patterns found during the initial pattern search are input to a refinement algorithm where more ambiguous pattern symbols can be added. For instance the pattern C-x(4)-D might be refined to C-x-[ILV]-x-D-x(3)-[DEF]</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Pattern Refinement (-R)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712665728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="R">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712665728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When the R option is switched on, patterns found during the initial pattern search are input to a refinement algorithm where more ambiguous pattern symbols can be added. For instance the pattern C-x(4)-D might be refined to C-x-[ILV]-x-D-x(3)-[DEF]</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="R">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117712665728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117712665728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When the R option is switched on, patterns found during the initial pattern search are input to a refinement algorithm where more ambiguous pattern symbols can be added. For instance the pattern C-x(4)-D might be refined to C-x-[ILV]-x-D-x(3)-[DEF]</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>RG</name>
+          <prompt lang="en">Generalise ambiguous symbols (if Pattern Refinement on) (-RG)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$R</code>
+            <code proglang="python">R</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -RG on" : "" </code>
+            <code proglang="python">( ""  , " -RG on" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">If the RG option is switched on, then ambiguous symbols listed in the symbols file (or in the default symbol set -- see help for option B), are used. If RG is off, only the letters needed to match the input sequences are included in the ambiguous pattern positions.</text>
+            <text lang="en">For example, if [ILV] is a listed allowed symbol, and [IL] is not, [IL] can be included in a pattern if RG is off, but if RG is on, the full symbol [ILV] will be included instead.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Generalise ambiguous symbols (if Pattern Refinement on) (-RG)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713085280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="RG">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713085280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If the RG option is switched on, then ambiguous symbols listed in the symbols file (or in the default symbol set -- see help for option B), are used. If RG is off, only the letters needed to match the input sequences are included in the ambiguous pattern positions.</xhtml:div>
+                <xhtml:div>For example, if [ILV] is a listed allowed symbol, and [IL] is not, [IL] can be included in a pattern if RG is off, but if RG is on, the full symbol [ILV] will be included instead.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="RG">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713085280::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713085280::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If the RG option is switched on, then ambiguous symbols listed in the symbols file (or in the default symbol set -- see help for option B), are used. If RG is off, only the letters needed to match the input sequences are included in the ambiguous pattern positions.</xhtml:div>
+                <xhtml:div>For example, if [ILV] is a listed allowed symbol, and [IL] is not, [IL] can be included in a pattern if RG is off, but if RG is on, the full symbol [ILV] will be included instead.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output options</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>OP</name>
+          <prompt lang="en">PROSITE Pattern Format (-OP)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -OP off " : ""</code>
+            <code proglang="python">( "" , " -OP off " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">When switched on, patterns will be output in PROSITE style (for instance C-x(2,4)-[DE]). When switched off, patterns are output in a simpler consensus pattern style (for instance Cxx--[DE] where x matches exactly one arbitrary sequence symbol and - matches zero or one arbitrary sequence symbol).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">PROSITE Pattern Format (-OP)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713068880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="OP">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713068880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When switched on, patterns will be output in PROSITE style (for instance C-x(2,4)-[DE]). When switched off, patterns are output in a simpler consensus pattern style (for instance Cxx--[DE] where x matches exactly one arbitrary sequence symbol and - matches zero or one arbitrary sequence symbol).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="OP">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713068880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713068880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When switched on, patterns will be output in PROSITE style (for instance C-x(2,4)-[DE]). When switched off, patterns are output in a simpler consensus pattern style (for instance Cxx--[DE] where x matches exactly one arbitrary sequence symbol and - matches zero or one arbitrary sequence symbol).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ON</name>
+          <prompt lang="en">Maximum number patterns (-ON)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>50</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -ON $value":""</code>
+            <code proglang="python">("" , " -ON " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the maximum number of patterns to be found by Pratt</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number patterns (-ON)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713057728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ON" type="text" value="50"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713057728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the maximum number of patterns to be found by Pratt</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ON">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713057728::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713057728::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the maximum number of patterns to be found by Pratt</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>OA</name>
+          <prompt lang="en">Maximum number Alignments (-OA)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>50</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -OA $value":""</code>
+            <code proglang="python">("" , " -OA " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the max. nr of patterns for which Pratt is to produce an alignment of the sequence segments matching it.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum number Alignments (-OA)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713047584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="OA" type="text" value="50"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713047584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the max. nr of patterns for which Pratt is to produce an alignment of the sequence segments matching it.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="50" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="OA">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713047584::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713047584::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the max. nr of patterns for which Pratt is to produce an alignment of the sequence segments matching it.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>M</name>
+          <prompt lang="en">Print Patterns in sequences (-M)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -M off " : ""</code>
+            <code proglang="python">( " " , " -M off" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">If the M option is set, then Pratt will print out the location of the sequence segments matching each of the (maximum 52) best patterns. The patterns are given labels A, B,...Z,a,b,...z in order of decreasing pattern score. Each sequence is printed on a line, one character per K-tuple in the sequence. If pattern with label C matches the third K-tuple in a sequence C is printed out. If several patterns match in the same K-tuple, only the best will be printed.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print Patterns in sequences (-M)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713037376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="M">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713037376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If the M option is set, then Pratt will print out the location of the sequence segments matching each of the (maximum 52) best patterns. The patterns are given labels A, B,...Z,a,b,...z in order of decreasing pattern score. Each sequence is printed on a line, one character per K-tuple in the sequence. If pattern with label C matches the third K-tuple in a sequence C is printed out. If several patterns match in the same K-tuple, only the best will be printed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="M">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713037376::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713037376::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If the M option is set, then Pratt will print out the location of the sequence segments matching each of the (maximum 52) best patterns. The patterns are given labels A, B,...Z,a,b,...z in order of decreasing pattern score. Each sequence is printed on a line, one character per K-tuple in the sequence. If pattern with label C matches the third K-tuple in a sequence C is printed out. If several patterns match in the same K-tuple, only the best will be printed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>MR</name>
+          <prompt lang="en">Ratio for printing (-MR)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$M</code>
+            <code proglang="python">M</code>
+          </precond>
+          <vdef>
+            <value>10</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -MR $value":""</code>
+            <code proglang="python">("" , " -MR " + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the K value (ratio) used for printing the summary information about where in each sequence the pattern matches are found.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Ratio for printing (-MR)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713025936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="MR" type="text" value="10"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713025936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the K value (ratio) used for printing the summary information about where in each sequence the pattern matches are found.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MR">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713025936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713025936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the K value (ratio) used for printing the summary information about where in each sequence the pattern matches are found.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>MV</name>
+          <prompt lang="en">Print vertically (-MV)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$M</code>
+            <code proglang="python">M</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -MV on " : "" </code>
+            <code proglang="python">( ""  , " -MV on " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">If set, the output is printed vertically instead of horizontally, vertical output can be better for large sequence sets.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print vertically (-MV)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713013824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="MV">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713013824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If set, the output is printed vertically instead of horizontally, vertical output can be better for large sequence sets.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="MV">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713013824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713013824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If set, the output is printed vertically instead of horizontally, vertical output can be better for large sequence sets.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>outfiles</name>
+      <prompt lang="en">Output file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.pat"</code>
+        <code proglang="python">"*.pat"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfiles">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>report</name>
+      <prompt lang="en">Report output file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"report"</code>
+        <code proglang="python">"report"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="report">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"pratt.out"</code>
+        <code proglang="python">"pratt.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"pratt.err"</code>
+        <code proglang="python">"pratt.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

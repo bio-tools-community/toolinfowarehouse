@@ -1,0 +1,443 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>newicktops</name>
+    <package xml:base="Entities/njplot_package.xml">
+      <name>njplot</name>
+      <version>20051109</version>
+      <doc>
+        <title>tree drawing programs</title>
+        <description>
+          <text lang="en">A Newick phylogenetic tree drawer</text>
+        </description>
+        <comment>
+          <text lang="en">A tree drawing program able to draw any 
+      phylogenetic tree expressed in the Newick phylogenetic tree format
+        </text>
+        </comment>
+      </doc>
+    </package>
+    <version>1.0</version>
+    <doc>
+      <title>newicktops</title>
+      <description>
+        <text lang="en">A phylogenetic tree drawing program for biologists</text>
+      </description>
+      <authors>Manolo Gouy </authors>
+      <comment>
+        <text lang="en">newicktops is a tree drawing program able to draw any binary tree expressed
+          in the standard phylogenetic tree format (e.g., the format used by the PHYLIP package).
+          NJplot allows display of bootstrap scores and printing in the PostScript format.</text>
+      </comment>
+      <homepagelink>http://pbil.univ-lyon1.fr/software/njplot.html</homepagelink>
+      <sourcelink>ftp://pbil.univ-lyon1.fr/pub/mol_phylogeny/njplot/</sourcelink>
+    </doc>
+    <category>phylogeny:display</category>
+    <category>display:tree</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tree">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Tree file<a href="#idm140117722523184::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+          <a href="#idm140117722523184::comment" class="blindLink commentToggle" title="click to expand/collapse contextual help">?</a>
+        </legend>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117722523184::example" data-forparameter="tree" style="display:none">
+          <pre>(S3:0.5,(S1:0.9,(S5:0.5,S4:0.5)75:0.41)97:0.41,S2:0.5);</pre>
+        </div>
+        <div id="idm140117722523184::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117722523184::example" data-forparameter="tree">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>(S3:0.5,(S1:0.9,(S5:0.5,S4:0.5)75:0.41)97:0.41,S2:0.5);</pre>
+          </div>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tree" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="a4" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="paper_format">paper format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="paper_format">
+          <xhtml:option value="a4" selected="selected">a4</xhtml:option>
+          <xhtml:option value="us">us letter</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="font_size">Font size used for taxon names<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="font_size" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lengths">Show branch lengths if they appear in tree file<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="lengths">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="boots">Show bootstrap values if they appear in tree file<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="boots">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="no_title">Don't include title in postscript output<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="no_title">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="paper_size">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">the size of page for postscript</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:table>
+            <xhtml:tr>
+              <xhtml:td>
+                <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="width">width<xhtml:input name="width" type="text" value=""/>
+                </label>
+              </xhtml:td>
+              <xhtml:td>
+                <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="height">height<xhtml:input name="height" type="text" value=""/>
+                </label>
+              </xhtml:td>
+            </xhtml:tr>
+          </xhtml:table>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="command" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tree" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="paper_format" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="a4" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="font_size" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="lengths" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="boots" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="no_title" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="paper_size">
+        <xhtml:legend>the size of page for postscript</xhtml:legend>
+        <xhtml:div>
+          <xhtml:table>
+            <xhtml:tr>
+              <xhtml:td>
+                <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="width" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              </xhtml:td>
+              <xhtml:td>
+                <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="height" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+              </xhtml:td>
+            </xhtml:tr>
+          </xhtml:table>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tree_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ishidden="1" iscommand="1">
+      <name>command</name>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"newicktops"</code>
+        <code proglang="python">"newicktops"</code>
+      </format>
+      <argpos>0</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="command"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1" ismaininput="1">
+      <name>tree</name>
+      <prompt lang="en">Tree file</prompt>
+      <example>(S3:0.5,(S1:0.9,(S5:0.5,S4:0.5)75:0.41)97:0.41,S2:0.5);</example>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str(value)</code>
+      </format>
+      <argpos>10</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Tree file</xhtml:legend>
+          <xhtml:textarea name="tree" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tree">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>paper_format</name>
+      <prompt lang="en">paper format</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>a4</value>
+      </vdef>
+      <vlist>
+        <velem>
+          <label>a4</label>
+          <value>a4</value>
+        </velem>
+        <velem>
+          <label>us letter</label>
+          <value>us</value>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">($value eq $vdef) ? " -us" : ""</code>
+        <code proglang="python">( "" , " -us" )[ value != vdef ]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">paper format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="paper_format">
+            <xhtml:option value="a4" selected="selected">a4</xhtml:option>
+            <xhtml:option value="us">us letter</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="a4" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="paper_format"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>font_size</name>
+      <prompt lang="en">Font size used for taxon names</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -size $value" : ""</code>
+        <code proglang="python">( "" , " -size " + str( value ) )[ value is not None ]</code>
+      </format>
+      <argpos>1</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Font size used for taxon names<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="font_size" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="font_size"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>lengths</name>
+      <prompt lang="en">Show branch lengths if they appear in tree file</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -lengths" : ""</code>
+        <code proglang="python">( "" , " -lengths" )[ value ]</code>
+      </format>
+      <argpos>2</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show branch lengths if they appear in tree file<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="lengths">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lengths"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>boots</name>
+      <prompt lang="en">Show bootstrap values if they appear in tree file</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -boot" : ""</code>
+        <code proglang="python">( "" , " -boot" )[ value ]</code>
+      </format>
+      <argpos>3</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show bootstrap values if they appear in tree file<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="boots">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="boots"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>no_title</name>
+      <prompt lang="en">Don't include title in postscript output</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? " -notitle" : ""</code>
+        <code proglang="python">( "" , " -notitle" )[ value ]</code>
+      </format>
+      <argpos>4</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Don't include title in postscript output<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="no_title">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="no_title"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>paper_size</name>
+      <prompt lang="en">the size of page for postscript</prompt>
+      <parameters>
+        <parameter>
+          <name>width</name>
+          <prompt>width</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">width<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="width" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="width"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>height</name>
+          <prompt>height</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">height<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="height" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="height"/>
+          </interface>
+        </parameter>
+        <parameter ishidden="1">
+          <name>ps_size</name>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined($width) and defined($height)</code>
+            <code proglang="python">width != None and height != None</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -pssize $widthx$height"</code>
+            <code proglang="python">" -pssize %dx%d" %( width , height )</code>
+          </format>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ps_size"/>
+          </interface>
+        </parameter>
+      </parameters>
+      <layout>
+        <hbox>
+          <box>width</box>
+          <box>height</box>
+        </hbox>
+      </layout>
+    </paragraph>
+    <parameter isout="1">
+      <name>tree_out</name>
+      <prompt lang="en">Tree draw</prompt>
+      <type>
+        <datatype>
+          <class>PostScript</class>
+          <superclass>Binary</superclass>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">"*.ps"</code>
+        <code proglang="python">"*.ps"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="PostScript" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="tree_out"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"newicktops.out"</code>
+        <code proglang="python">"newicktops.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"newicktops.err"</code>
+        <code proglang="python">"newicktops.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

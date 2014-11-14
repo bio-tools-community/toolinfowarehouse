@@ -1,0 +1,1571 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>tipdate</name>
+    <version>1.2</version>
+    <doc>
+      <title>TipDate</title>
+      <description>
+        <text lang="en">Analysis of trees with dated tips</text>
+      </description>
+      <authors>Andrew Rambaut</authors>
+      <reference>Andrew Rambaut, 2000. Estimating the rate of molecular evolution: Incorporating non-contemporaneous sequences into maximum likelihood phylogenies. Bioinformatics.</reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/tipdate/TipDate.v1.2.Manual.pdf</doclink>
+    </doc>
+    <command>tipdate</command>
+    <category>phylogeny:tree_analyser</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="TipdateAlignment" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="alignment">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Alignment file<xhtml:a href="#idm140117724122528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <a href="#idm140117724122528::example" class="exampleLink" title="click to prefill with an example">[use example data]</a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724122528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>TipDate  requires a  sequence alignment together with a description of the quartets and dates to be used. The idea is that the user may supply an alignment of a large number of species and then define multiple quartets to be constructed from them.</xhtml:div>
+          <xhtml:div>Note that the sequences names have a date at the end (in this case in years). TipDate looks for any number at the end of the names and assumes these are dates. They can be decimal (i.e. 98.2) is 98 and 1/5 (if you want months specify the whole date in months). The units are arbitrary because the rates and dates estimated by the program will be specified in the same units the program doesn't need to know what they are.</xhtml:div>
+          <div class="example" id="idm140117724122528::example" data-forparameter="alignment">Example data <i>(click on <a>[use example data]</a> to load)</i>:
+			<pre>
+  6  24
+StrainA98 CAGCTCTGCCTCCTGAAGCCCCTA
+StrainB96 CAGCTCTGTCTCCTGCAGCCCCTA
+StrainC97 CGGCTCTGCCTCCTGCAGCCCCTG
+StrainD97 CAGCTCTGCCTCCTGCAGCCCCTG
+StrainE64 CAGCTCTGCCTCCTGCAGCCCTTA
+StrainF77 CAGCTCTGCCTCCTGCAGCCCCTA
+1
+(((StrainA98:1,StrainB96:1):2,(StrainC97:1,StrainD97:1):2):3,(StrainE64:2,StrainF77:2):4);
+      </pre>
+          </div>
+        </xhtml:div>
+        <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="example" id="idm140117724122528::example" data-forparameter="alignment" style="display:none">
+          <pre>
+  6  24
+StrainA98 CAGCTCTGCCTCCTGAAGCCCCTA
+StrainB96 CAGCTCTGTCTCCTGCAGCCCCTA
+StrainC97 CGGCTCTGCCTCCTGCAGCCCCTG
+StrainD97 CAGCTCTGCCTCCTGCAGCCCCTG
+StrainE64 CAGCTCTGCCTCCTGCAGCCCTTA
+StrainF77 CAGCTCTGCCTCCTGCAGCCCCTA
+1
+(((StrainA98:1,StrainB96:1):2,(StrainC97:1,StrainD97:1):2):3,(StrainE64:2,StrainF77:2):4);
+      </pre>
+        </div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alignment" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="F84" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="model">MODEL (-m)<xhtml:a href="#idm140117723957824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="model">
+              <xhtml:option value="F84" selected="selected">F84</xhtml:option>
+              <xhtml:option value="HKY">HKY</xhtml:option>
+              <xhtml:option value="REV">REV (markov general reversable model)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723957824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Model This option sets the model of nucleotide substitution with a choice of either F84, HKY (also known as HKY85) or REV (markov general reversable model). The first two models are quite similar but not identical.  They both require a transition transversion ratio and relative base frequencies as parameters.  Other models such as K2P, F81 and JC69 are special cases of HKY and can be obtained by setting the nucleotide frequencies equal (for K2P) or the transition transversion ratio to 1.0 (for F81) or both (for JC69).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="constant_rate">Molecular clock model (-k)<xhtml:a href="#idm140117723425360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="constant_rate">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723425360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies the Molecular Clock model (Single Rate, SR model). This model is the equivalent of the DNAMLK program in PHYLIP or specifying the molecular clock option in PAUP*. The default (i.e., not specifying k) gives the Non-Clock model (Different Rate, DR model).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="change_rate_estim">Variable Rate Tip Date Model (+w)<xhtml:a href="#idm140117723936160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="change_rate_estim">
+              <xhtml:option value="null" selected="selected">off</xhtml:option>
+              <xhtml:option value="+w">Maximum likelihood parameter (+w)</xhtml:option>
+              <xhtml:option value="+w+">Maximum likelihood parameter: only positive (+w+)</xhtml:option>
+              <xhtml:option value="+w-">Maximum likelihood parameter: only negative (+w-)</xhtml:option>
+              <xhtml:option value="-w">User value for variable Rate (-w)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723936160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies the Variable Rate Dated Tip
+(VRDT) model. This model assumes that the rate of substitution changes linearly
+as we go back through time. The rate of change of rate is given as a proportion
+of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter.</xhtml:div>
+              <xhtml:div>Using this option will estimate the rate of evolution as a maximum likelihood parameter. You can also constrain the estimation of this parameter to be only positive or only negative </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="user_rate_value">Variable Rate Tip Date Model with user value (-w)<xhtml:a href="#idm140117723200416::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="user_rate_value" type="text" value=""/>
+            <xhtml:div id="idm140117723200416::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Where value is an real number that gives the rate of change of rate as proportion of rate at present per unit time.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="change_confidence">Estimate confidence intervals ( require +w option) (-iw)<xhtml:a href="#idm140117723424240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="change_confidence">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723424240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Estimate confidence intervals for the rate of change of rate parameter in the Variable Rate Dated Tip model (requires +w option).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tip_date">Tip Date Model with estimation of the rate of evolution (+s)<xhtml:a href="#idm140117723222704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="tip_date">
+              <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+              <xhtml:option value="0">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723222704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies the Single Rate Date Tips (SRDT) model. The default value is the Non-Clock model. The input tree and sequences must have names that end with dates. Using this option will estimate the rate of evolution as a maximum likelihood parameter.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="substitution_confidence">Estimate confidence intervals for the absolute rate of substitution (-is)<xhtml:a href="#idm140117723477136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="substitution_confidence">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723477136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies which parameters should have confidence intervals estimated. The default is not to estimate confidence intervals. These options can be used in combination.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="date_confidence">Estimate confidence intervals for date of root of tree (-id)<xhtml:select name="date_confidence">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1.92" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="limit">Limit to use estimating confidence intervals (-l)<xhtml:a href="#idm140117723154560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="limit" type="text" value="1.92"/>
+            <xhtml:div id="idm140117723154560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies the value to use to obtain the confidence intervals around the estimate of rate of molecular evolution (and corresponding date of root of the tree).
+	    </xhtml:div>
+              <xhtml:div>Where value is a real number &gt;= 0 that specifies the log likelihood ratio that gives the confidence interval. The default is 1.92 which corresponds to half c2 with 1 degree of freedom. A value of 0 will disable the calculation of confidence intervals.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tip_date_specified">Tip date Model without estimation of the rate of evolution: user value (-s)<xhtml:a href="#idm140117723484336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="tip_date_specified" type="text" value=""/>
+            <xhtml:div id="idm140117723484336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Where the value is an real number that gives the rate of molecular evolution in substitutions per site per unit time (whatever the units of time that are represented by the input tip dates).</xhtml:div>
+              <xhtml:div>Variable Rate Tip Date Model This option specifies the Variable Rate Dated Tip (VRDT) model. This model assumes that the rate of substitution changes linearly as we go back through time. The rate of change of rate is given as a proportion of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter. This model must be used in conjunction with the +s or -s options, above.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="root_value_estimate">Estimate root tree (+r)<xhtml:a href="#idm140117723535088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="root_value_estimate">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117723535088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Alternatively TipDate can find the maximum likelihood position of the root. This tries all possible positions (2n-3) so increases the duration of analysis.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="root_value">Specify rooting of tree To perform the molecular clock and tip date models (-r)<xhtml:a href="#idm140117723439472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="root_value" type="text" value="1"/>
+            <xhtml:div id="idm140117723439472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The input tree must be rooted. This option is used to specify an outgroup sequence to root the tree with (sorry this is not very sophisticated: if you need to use more than one outgroup, root the tree before hand).</xhtml:div>
+              <xhtml:div>Where value is an integer number which refers to the sequence that will be used to root the tree (starting at 1).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="codon_categories">CODON CATEGORIES = 112, 123, 120, etc. [default: homogeneity] (-p)<xhtml:input name="codon_categories" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="codon_rate">CODON-specific Rate Heterogeneity: #1 #2 #3 separated by commas (-c)<xhtml:a href="#idm140117722613888::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="codon_rate" type="text" value=""/>
+            <xhtml:div id="idm140117722613888::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option the user may specify the relative rates for each codon position. This allows codon-specific rate heterogeneity to be modelled. The default is no site-specific rate heterogeneity.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seperate">Estimate seperate models for each site category (-e)<xhtml:select name="seperate">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gamma">Discrete Gamma Rate Heterogeneity (2 to 32) (-g)<xhtml:a href="#idm140117722713168::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="gamma" type="text" value=""/>
+            <xhtml:div id="idm140117722713168::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option the user may specify the
+	      number of categories for the discrete gamma rate heterogeneity model. Enter an integer between 2 and 32 that specifies the number of categories to use with the discrete gamma rate heterogeneity model.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alpha">Gamma Rate Heterogeneity (-a)<xhtml:a href="#idm140117722700848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="alpha" type="text" value=""/>
+            <xhtml:div id="idm140117722700848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option the user may specify a shape for the gamma rate heterogeneity called alpha. The default is no site-specific rate
+heterogeneity. Where value is a real number &gt;0 that specifies the shape of the gamma distribution to use with gamma rate heterogeneity.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="datasets">Number of Datasets (-n)<xhtml:input name="datasets" type="text" value="1"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="user_branch">User branch-lengths [default = estimate] (-ul)<xhtml:select name="user_branch">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="equal_freq">Equal frequencies of nucleotide (-f=)<xhtml:select name="equal_freq">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="freq_bases">Relative nucleotide frequencies: #A #C #G #T separated by commas (-f)<xhtml:a href="#idm140117722628128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="freq_bases" type="text" value=""/>
+            <xhtml:div id="idm140117722628128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option is used to specify the relative
+	      frequencies of the four nucleotides. By default, TipDate will estimate them empirically from the data.  If the given values don't sum to 1.0 then they will be scaled so that they do.</xhtml:div>
+              <xhtml:div>Value is four decimal numbers for the frequencies of A, C, G and T respectively, separated by commas.
+	    </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="transition_transversion">Transition/transversion ratio for F84/HKY model (-t)<xhtml:a href="#idm140117722674176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="transition_transversion" type="text" value="2.0"/>
+            <xhtml:div id="idm140117722674176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option allows the user to set a value for the transition transversion ratio (TS/TV). This is only valid when either the HKY or F84 model has been selected. Value is a decimal number greater than zero.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rate_matrix">Rate matrix values for REV model: 6 values separated by commas (-t)<xhtml:a href="#idm140117722658832::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="rate_matrix" type="text" value=""/>
+            <xhtml:div id="idm140117722658832::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Where value are size decimal numbers for the instantaneous rates of change from A to C, A to G, A to T, C to G, C to T and G to T respectively, separated by commas. The matrix is symmetrical so the reverse changes occur at the same instantaneous rate as forward changes (e.g. C to A equals A to C) and therefore only six values need be set. These values will be scaled such that the last value (G to T) is 1.0 and the others are set relative to this.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="branch">Print final branch lengths (-vb)<xhtml:select name="branch">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="likelihoods">Write likelihoods for each Site (-vs)<xhtml:select name="likelihoods">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="notrees">Don't Write trees (-vw)<xhtml:select name="notrees">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="progress">Show indication of progress (-vp)<xhtml:select name="progress">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alignment" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="TipdateAlignment" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(TipdateAlignment)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724122528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724122528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>TipDate  requires a  sequence alignment together with a description of the quartets and dates to be used. The idea is that the user may supply an alignment of a large number of species and then define multiple quartets to be constructed from them.</xhtml:div>
+          <xhtml:div>Note that the sequences names have a date at the end (in this case in years). TipDate looks for any number at the end of the names and assumes these are dates. They can be decimal (i.e. 98.2) is 98 and 1/5 (if you want months specify the whole date in months). The units are arbitrary because the rates and dates estimated by the program will be specified in the same units the program doesn't need to know what they are.</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control_options">
+        <xhtml:legend>Control options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="model" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="F84" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723957824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723957824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Model This option sets the model of nucleotide substitution with a choice of either F84, HKY (also known as HKY85) or REV (markov general reversable model). The first two models are quite similar but not identical.  They both require a transition transversion ratio and relative base frequencies as parameters.  Other models such as K2P, F81 and JC69 are special cases of HKY and can be obtained by setting the nucleotide frequencies equal (for K2P) or the transition transversion ratio to 1.0 (for F81) or both (for JC69).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="constant_rate" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723425360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723425360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies the Molecular Clock model (Single Rate, SR model). This model is the equivalent of the DNAMLK program in PHYLIP or specifying the molecular clock option in PAUP*. The default (i.e., not specifying k) gives the Non-Clock model (Different Rate, DR model).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="change_rate_estim" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723936160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723936160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies the Variable Rate Dated Tip
+(VRDT) model. This model assumes that the rate of substitution changes linearly
+as we go back through time. The rate of change of rate is given as a proportion
+of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter.</xhtml:div>
+              <xhtml:div>Using this option will estimate the rate of evolution as a maximum likelihood parameter. You can also constrain the estimation of this parameter to be only positive or only negative </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="user_rate_value" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723200416::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723200416::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Where value is an real number that gives the rate of change of rate as proportion of rate at present per unit time.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="change_confidence" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723424240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723424240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Estimate confidence intervals for the rate of change of rate parameter in the Variable Rate Dated Tip model (requires +w option).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tip_date" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723222704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723222704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies the Single Rate Date Tips (SRDT) model. The default value is the Non-Clock model. The input tree and sequences must have names that end with dates. Using this option will estimate the rate of evolution as a maximum likelihood parameter.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="substitution_confidence" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723477136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723477136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies which parameters should have confidence intervals estimated. The default is not to estimate confidence intervals. These options can be used in combination.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="date_confidence" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="limit" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1.92" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723154560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723154560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option specifies the value to use to obtain the confidence intervals around the estimate of rate of molecular evolution (and corresponding date of root of the tree).
+	    </xhtml:div>
+              <xhtml:div>Where value is a real number &gt;= 0 that specifies the log likelihood ratio that gives the confidence interval. The default is 1.92 which corresponds to half c2 with 1 degree of freedom. A value of 0 will disable the calculation of confidence intervals.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tip_date_specified" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723484336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723484336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Where the value is an real number that gives the rate of molecular evolution in substitutions per site per unit time (whatever the units of time that are represented by the input tip dates).</xhtml:div>
+              <xhtml:div>Variable Rate Tip Date Model This option specifies the Variable Rate Dated Tip (VRDT) model. This model assumes that the rate of substitution changes linearly as we go back through time. The rate of change of rate is given as a proportion of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter. This model must be used in conjunction with the +s or -s options, above.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="root_value_estimate" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723535088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723535088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Alternatively TipDate can find the maximum likelihood position of the root. This tries all possible positions (2n-3) so increases the duration of analysis.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="root_value" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117723439472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117723439472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>The input tree must be rooted. This option is used to specify an outgroup sequence to root the tree with (sorry this is not very sophisticated: if you need to use more than one outgroup, root the tree before hand).</xhtml:div>
+              <xhtml:div>Where value is an integer number which refers to the sequence that will be used to root the tree (starting at 1).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="codon_categories" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="codon_rate" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117722613888::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117722613888::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option the user may specify the relative rates for each codon position. This allows codon-specific rate heterogeneity to be modelled. The default is no site-specific rate heterogeneity.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seperate" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="gamma" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117722713168::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117722713168::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option the user may specify the
+	      number of categories for the discrete gamma rate heterogeneity model. Enter an integer between 2 and 32 that specifies the number of categories to use with the discrete gamma rate heterogeneity model.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alpha" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117722700848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117722700848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Using this option the user may specify a shape for the gamma rate heterogeneity called alpha. The default is no site-specific rate
+heterogeneity. Where value is a real number &gt;0 that specifies the shape of the gamma distribution to use with gamma rate heterogeneity.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="datasets" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="user_branch" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="equal_freq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="freq_bases" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117722628128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117722628128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option is used to specify the relative
+	      frequencies of the four nucleotides. By default, TipDate will estimate them empirically from the data.  If the given values don't sum to 1.0 then they will be scaled so that they do.</xhtml:div>
+              <xhtml:div>Value is four decimal numbers for the frequencies of A, C, G and T respectively, separated by commas.
+	    </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="transition_transversion" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117722674176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117722674176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>This option allows the user to set a value for the transition transversion ratio (TS/TV). This is only valid when either the HKY or F84 model has been selected. Value is a decimal number greater than zero.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="rate_matrix" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117722658832::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117722658832::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Where value are size decimal numbers for the instantaneous rates of change from A to C, A to G, A to T, C to G, C to T and G to T respectively, separated by commas. The matrix is symmetrical so the reverse changes occur at the same instantaneous rate as forward changes (e.g. C to A equals A to C) and therefore only six values need be set. These values will be scaled such that the last value (G to T) is 1.0 and the others are set relative to this.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="branch" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="likelihoods" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="notrees" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="progress" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outtree" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>alignment</name>
+      <prompt lang="en">Alignment file</prompt>
+      <type>
+        <datatype>
+          <class>TipdateAlignment</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" &lt;$value"</code>
+        <code proglang="python">" &lt;" + str(value)</code>
+      </format>
+      <argpos>10</argpos>
+      <comment>
+        <text lang="en">TipDate  requires a  sequence alignment together with a description of the quartets and dates to be used. The idea is that the user may supply an alignment of a large number of species and then define multiple quartets to be constructed from them.</text>
+        <text lang="en">Note that the sequences names have a date at the end (in this case in years). TipDate looks for any number at the end of the names and assumes these are dates. They can be decimal (i.e. 98.2) is 98 and 1/5 (if you want months specify the whole date in months). The units are arbitrary because the rates and dates estimated by the program will be specified in the same units the program doesn't need to know what they are.</text>
+      </comment>
+      <example>
+  6  24
+StrainA98 CAGCTCTGCCTCCTGAAGCCCCTA
+StrainB96 CAGCTCTGTCTCCTGCAGCCCCTA
+StrainC97 CGGCTCTGCCTCCTGCAGCCCCTG
+StrainD97 CAGCTCTGCCTCCTGCAGCCCCTG
+StrainE64 CAGCTCTGCCTCCTGCAGCCCTTA
+StrainF77 CAGCTCTGCCTCCTGCAGCCCCTA
+1
+(((StrainA98:1,StrainB96:1):2,(StrainC97:1,StrainD97:1):2):3,(StrainE64:2,StrainF77:2):4);
+      </example>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Alignment file</xhtml:legend>
+          <xhtml:textarea name="alignment" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="TipdateAlignment" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="alignment">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(TipdateAlignment)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117724122528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117724122528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>TipDate  requires a  sequence alignment together with a description of the quartets and dates to be used. The idea is that the user may supply an alignment of a large number of species and then define multiple quartets to be constructed from them.</xhtml:div>
+            <xhtml:div>Note that the sequences names have a date at the end (in this case in years). TipDate looks for any number at the end of the names and assumes these are dates. They can be decimal (i.e. 98.2) is 98 and 1/5 (if you want months specify the whole date in months). The units are arbitrary because the rates and dates estimated by the program will be specified in the same units the program doesn't need to know what they are.</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>control_options</name>
+      <prompt lang="en">Control options</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter>
+          <name>model</name>
+          <prompt lang="en">MODEL (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>F84</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>F84</value>
+              <label>F84</label>
+            </velem>
+            <velem>
+              <value>HKY</value>
+              <label>HKY</label>
+            </velem>
+            <velem>
+              <value>REV</value>
+              <label>REV (markov general reversable model)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef)? " -m$value" : ""</code>
+            <code proglang="python">( "" , " -m" + str(value))[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Model This option sets the model of nucleotide substitution with a choice of either F84, HKY (also known as HKY85) or REV (markov general reversable model). The first two models are quite similar but not identical.  They both require a transition transversion ratio and relative base frequencies as parameters.  Other models such as K2P, F81 and JC69 are special cases of HKY and can be obtained by setting the nucleotide frequencies equal (for K2P) or the transition transversion ratio to 1.0 (for F81) or both (for JC69).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">MODEL (-m)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723957824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="model">
+                <xhtml:option value="F84" selected="selected">F84</xhtml:option>
+                <xhtml:option value="HKY">HKY</xhtml:option>
+                <xhtml:option value="REV">REV (markov general reversable model)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723957824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Model This option sets the model of nucleotide substitution with a choice of either F84, HKY (also known as HKY85) or REV (markov general reversable model). The first two models are quite similar but not identical.  They both require a transition transversion ratio and relative base frequencies as parameters.  Other models such as K2P, F81 and JC69 are special cases of HKY and can be obtained by setting the nucleotide frequencies equal (for K2P) or the transition transversion ratio to 1.0 (for F81) or both (for JC69).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="F84" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="model">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723957824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723957824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Model This option sets the model of nucleotide substitution with a choice of either F84, HKY (also known as HKY85) or REV (markov general reversable model). The first two models are quite similar but not identical.  They both require a transition transversion ratio and relative base frequencies as parameters.  Other models such as K2P, F81 and JC69 are special cases of HKY and can be obtained by setting the nucleotide frequencies equal (for K2P) or the transition transversion ratio to 1.0 (for F81) or both (for JC69).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>constant_rate</name>
+          <prompt lang="en">Molecular clock model (-k)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -k" : ""</code>
+            <code proglang="python">( "" , " -k" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">This option specifies the Molecular Clock model (Single Rate, SR model). This model is the equivalent of the DNAMLK program in PHYLIP or specifying the molecular clock option in PAUP*. The default (i.e., not specifying k) gives the Non-Clock model (Different Rate, DR model).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Molecular clock model (-k)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723425360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="constant_rate">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723425360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies the Molecular Clock model (Single Rate, SR model). This model is the equivalent of the DNAMLK program in PHYLIP or specifying the molecular clock option in PAUP*. The default (i.e., not specifying k) gives the Non-Clock model (Different Rate, DR model).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="constant_rate">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723425360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723425360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies the Molecular Clock model (Single Rate, SR model). This model is the equivalent of the DNAMLK program in PHYLIP or specifying the molecular clock option in PAUP*. The default (i.e., not specifying k) gives the Non-Clock model (Different Rate, DR model).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>change_rate_estim</name>
+          <prompt lang="en">Variable Rate Tip Date Model (+w)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>null</value>
+              <label>off</label>
+            </velem>
+            <velem>
+              <value>+w</value>
+              <label>Maximum likelihood parameter (+w)</label>
+            </velem>
+            <velem>
+              <value>+w+</value>
+              <label>Maximum likelihood parameter: only positive (+w+)</label>
+            </velem>
+            <velem>
+              <value>+w-</value>
+              <label>Maximum likelihood parameter: only negative (+w-)</label>
+            </velem>
+            <velem>
+              <value>-w</value>
+              <label>User value for variable Rate (-w)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value ne $vdef and $value ne "-w") ? " $value" : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value !=vdef and value != "-w"]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Variable rate options (+w) can only be used with the dated tip models (+s/-s)</text>
+            </message>
+            <code proglang="perl">$tip_date or $tip_date_specified</code>
+            <code proglang="python">( tip_date or tip_date_specified )</code>
+          </ctrl>
+          <comment>
+            <text lang="en">This option specifies the Variable Rate Dated Tip
+(VRDT) model. This model assumes that the rate of substitution changes linearly
+as we go back through time. The rate of change of rate is given as a proportion
+of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter.</text>
+            <text lang="en">Using this option will estimate the rate of evolution as a maximum likelihood parameter. You can also constrain the estimation of this parameter to be only positive or only negative </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Variable Rate Tip Date Model (+w)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723936160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="change_rate_estim">
+                <xhtml:option value="null" selected="selected">off</xhtml:option>
+                <xhtml:option value="+w">Maximum likelihood parameter (+w)</xhtml:option>
+                <xhtml:option value="+w+">Maximum likelihood parameter: only positive (+w+)</xhtml:option>
+                <xhtml:option value="+w-">Maximum likelihood parameter: only negative (+w-)</xhtml:option>
+                <xhtml:option value="-w">User value for variable Rate (-w)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723936160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies the Variable Rate Dated Tip
+(VRDT) model. This model assumes that the rate of substitution changes linearly
+as we go back through time. The rate of change of rate is given as a proportion
+of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter.</xhtml:div>
+                <xhtml:div>Using this option will estimate the rate of evolution as a maximum likelihood parameter. You can also constrain the estimation of this parameter to be only positive or only negative </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="change_rate_estim">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723936160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723936160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies the Variable Rate Dated Tip
+(VRDT) model. This model assumes that the rate of substitution changes linearly
+as we go back through time. The rate of change of rate is given as a proportion
+of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter.</xhtml:div>
+                <xhtml:div>Using this option will estimate the rate of evolution as a maximum likelihood parameter. You can also constrain the estimation of this parameter to be only positive or only negative </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ismandatory="1">
+          <name>user_rate_value</name>
+          <prompt lang="en">Variable Rate Tip Date Model with user value (-w)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$change_rate_estim eq "-w"</code>
+            <code proglang="python">change_rate_estim == "-w"</code>
+          </precond>
+          <format>
+            <code proglang="perl">" -w $value"</code>
+            <code proglang="python">" -w " + str(value)</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Variable rate options (-w) can only be used with the dated tip models (+s/-s)</text>
+            </message>
+            <code proglang="perl">$tip_date or $tip_date_specified</code>
+            <code proglang="python">tip_date or tip_date_specified</code>
+          </ctrl>
+          <comment>
+            <text lang="en">Where value is an real number that gives the rate of change of rate as proportion of rate at present per unit time.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Variable Rate Tip Date Model with user value (-w)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723200416::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="user_rate_value" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723200416::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Where value is an real number that gives the rate of change of rate as proportion of rate at present per unit time.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9; conditional" title="This parameter is mandatory under certain conditions." data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="user_rate_value">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723200416::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723200416::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Where value is an real number that gives the rate of change of rate as proportion of rate at present per unit time.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>change_confidence</name>
+          <prompt lang="en">Estimate confidence intervals ( require +w option) (-iw)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $change_confidence</code>
+            <code proglang="python">change_confidence</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -iw" : ""</code>
+            <code proglang="python">( "" , " -iw" )[ value ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en"> -iw option can only be used with Variable Rate Tip Date Model (+w)</text>
+            </message>
+            <code proglang="perl">(defined $change_rate_estim and $change_rate_estim ne "-w")</code>
+            <code proglang="python">change_rate_estim is not None and change_rate_estim != "-w"</code>
+          </ctrl>
+          <comment>
+            <text lang="en">Estimate confidence intervals for the rate of change of rate parameter in the Variable Rate Dated Tip model (requires +w option).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Estimate confidence intervals ( require +w option) (-iw)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723424240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="change_confidence">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723424240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Estimate confidence intervals for the rate of change of rate parameter in the Variable Rate Dated Tip model (requires +w option).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="change_confidence">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723424240::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723424240::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Estimate confidence intervals for the rate of change of rate parameter in the Variable Rate Dated Tip model (requires +w option).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tip_date</name>
+          <prompt lang="en">Tip Date Model with estimation of the rate of evolution (+s)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " +s" : ""</code>
+            <code proglang="python">( "" , " +s" )[ value  ]</code>
+          </format>
+          <comment>
+            <text lang="en">This option specifies the Single Rate Date Tips (SRDT) model. The default value is the Non-Clock model. The input tree and sequences must have names that end with dates. Using this option will estimate the rate of evolution as a maximum likelihood parameter.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Tip Date Model with estimation of the rate of evolution (+s)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723222704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tip_date">
+                <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+                <xhtml:option value="0">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723222704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies the Single Rate Date Tips (SRDT) model. The default value is the Non-Clock model. The input tree and sequences must have names that end with dates. Using this option will estimate the rate of evolution as a maximum likelihood parameter.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tip_date">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723222704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723222704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies the Single Rate Date Tips (SRDT) model. The default value is the Non-Clock model. The input tree and sequences must have names that end with dates. Using this option will estimate the rate of evolution as a maximum likelihood parameter.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>substitution_confidence</name>
+          <prompt lang="en">Estimate confidence intervals for the absolute rate of substitution (-is)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$tip_date</code>
+            <code proglang="python">tip_date</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -is" : ""</code>
+            <code proglang="python">( "" , " -is" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">This option specifies which parameters should have confidence intervals estimated. The default is not to estimate confidence intervals. These options can be used in combination.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Estimate confidence intervals for the absolute rate of substitution (-is)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723477136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="substitution_confidence">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723477136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies which parameters should have confidence intervals estimated. The default is not to estimate confidence intervals. These options can be used in combination.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="substitution_confidence">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723477136::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723477136::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies which parameters should have confidence intervals estimated. The default is not to estimate confidence intervals. These options can be used in combination.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>date_confidence</name>
+          <prompt lang="en">Estimate confidence intervals for date of root of tree (-id)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$tip_date</code>
+            <code proglang="python">tip_date</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -id" : ""</code>
+            <code proglang="python">( "" , " -id" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Estimate confidence intervals for date of root of tree (-id)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="date_confidence">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="date_confidence"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>limit</name>
+          <prompt lang="en">Limit to use estimating confidence intervals (-l)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1.92</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -l $value" : ""</code>
+            <code proglang="python">( "" , " -l " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value is real number &gt;=0</text>
+            </message>
+            <code proglang="perl">$value &gt;= 0</code>
+            <code proglang="python">value &gt;= 0</code>
+          </ctrl>
+          <comment>
+            <text lang="en">This option specifies the value to use to obtain the confidence intervals around the estimate of rate of molecular evolution (and corresponding date of root of the tree).
+	    </text>
+            <text lang="en">Where value is a real number &gt;= 0 that specifies the log likelihood ratio that gives the confidence interval. The default is 1.92 which corresponds to half c2 with 1 degree of freedom. A value of 0 will disable the calculation of confidence intervals.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Limit to use estimating confidence intervals (-l)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723154560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="limit" type="text" value="1.92"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723154560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies the value to use to obtain the confidence intervals around the estimate of rate of molecular evolution (and corresponding date of root of the tree).
+	    </xhtml:div>
+                <xhtml:div>Where value is a real number &gt;= 0 that specifies the log likelihood ratio that gives the confidence interval. The default is 1.92 which corresponds to half c2 with 1 degree of freedom. A value of 0 will disable the calculation of confidence intervals.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1.92" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="limit">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723154560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723154560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option specifies the value to use to obtain the confidence intervals around the estimate of rate of molecular evolution (and corresponding date of root of the tree).
+	    </xhtml:div>
+                <xhtml:div>Where value is a real number &gt;= 0 that specifies the log likelihood ratio that gives the confidence interval. The default is 1.92 which corresponds to half c2 with 1 degree of freedom. A value of 0 will disable the calculation of confidence intervals.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tip_date_specified</name>
+          <prompt lang="en">Tip date Model without estimation of the rate of evolution: user value (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not $tip_date</code>
+            <code proglang="python">not tip_date</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " -s $value" : ""</code>
+            <code proglang="python">( "" , " -s " + str(value) )[ value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Where the value is an real number that gives the rate of molecular evolution in substitutions per site per unit time (whatever the units of time that are represented by the input tip dates).</text>
+            <text lang="en">Variable Rate Tip Date Model This option specifies the Variable Rate Dated Tip (VRDT) model. This model assumes that the rate of substitution changes linearly as we go back through time. The rate of change of rate is given as a proportion of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter. This model must be used in conjunction with the +s or -s options, above.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Tip date Model without estimation of the rate of evolution: user value (-s)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723484336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tip_date_specified" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723484336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Where the value is an real number that gives the rate of molecular evolution in substitutions per site per unit time (whatever the units of time that are represented by the input tip dates).</xhtml:div>
+                <xhtml:div>Variable Rate Tip Date Model This option specifies the Variable Rate Dated Tip (VRDT) model. This model assumes that the rate of substitution changes linearly as we go back through time. The rate of change of rate is given as a proportion of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter. This model must be used in conjunction with the +s or -s options, above.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tip_date_specified">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723484336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723484336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Where the value is an real number that gives the rate of molecular evolution in substitutions per site per unit time (whatever the units of time that are represented by the input tip dates).</xhtml:div>
+                <xhtml:div>Variable Rate Tip Date Model This option specifies the Variable Rate Dated Tip (VRDT) model. This model assumes that the rate of substitution changes linearly as we go back through time. The rate of change of rate is given as a proportion of the rate of substitution at the present. This rate can be positive or negative but not all data sets will have the power to estimate this parameter. This model must be used in conjunction with the +s or -s options, above.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>root_value_estimate</name>
+          <prompt lang="en">Estimate root tree (+r)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " +r" : ""</code>
+            <code proglang="python">( "" , " +r" )[ value  ]</code>
+          </format>
+          <comment>
+            <text lang="en">Alternatively TipDate can find the maximum likelihood position of the root. This tries all possible positions (2n-3) so increases the duration of analysis.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Estimate root tree (+r)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723535088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="root_value_estimate">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723535088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Alternatively TipDate can find the maximum likelihood position of the root. This tries all possible positions (2n-3) so increases the duration of analysis.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="root_value_estimate">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723535088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723535088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Alternatively TipDate can find the maximum likelihood position of the root. This tries all possible positions (2n-3) so increases the duration of analysis.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>root_value</name>
+          <prompt lang="en">Specify rooting of tree To perform the molecular clock and tip date models (-r)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not $root_value_estimate</code>
+            <code proglang="python">not root_value_estimate</code>
+          </precond>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " -r $value" : ""</code>
+            <code proglang="python">( "" , " -r " + str(value) )[ value is not None and value !=vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">The input tree must be rooted. This option is used to specify an outgroup sequence to root the tree with (sorry this is not very sophisticated: if you need to use more than one outgroup, root the tree before hand).</text>
+            <text lang="en">Where value is an integer number which refers to the sequence that will be used to root the tree (starting at 1).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Specify rooting of tree To perform the molecular clock and tip date models (-r)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723439472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="root_value" type="text" value="1"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723439472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The input tree must be rooted. This option is used to specify an outgroup sequence to root the tree with (sorry this is not very sophisticated: if you need to use more than one outgroup, root the tree before hand).</xhtml:div>
+                <xhtml:div>Where value is an integer number which refers to the sequence that will be used to root the tree (starting at 1).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="root_value">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117723439472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117723439472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The input tree must be rooted. This option is used to specify an outgroup sequence to root the tree with (sorry this is not very sophisticated: if you need to use more than one outgroup, root the tree before hand).</xhtml:div>
+                <xhtml:div>Where value is an integer number which refers to the sequence that will be used to root the tree (starting at 1).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>codon_categories</name>
+          <prompt lang="en">CODON CATEGORIES = 112, 123, 120, etc. [default: homogeneity] (-p)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -p $value" : ""</code>
+            <code proglang="python">( "" , " -p " + str(value) )[ value is not None ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">CODON CATEGORIES = 112, 123, 120, etc. [default: homogeneity] (-p)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="codon_categories" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="codon_categories"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>codon_rate</name>
+          <prompt lang="en">CODON-specific Rate Heterogeneity: #1 #2 #3 separated by commas (-c)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -c$value" : ""</code>
+            <code proglang="python">( "" , " -c" + str(value) )[ value is not None ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Rates are specified by value, which are three decimal numbers, separated by commas.</text>
+            </message>
+            <code proglang="perl">$value ~= /\d+(,\d+){2}/</code>
+            <code proglang="python">len(value.split(',')) == 3 </code>
+          </ctrl>
+          <comment>
+            <text lang="en">Using this option the user may specify the relative rates for each codon position. This allows codon-specific rate heterogeneity to be modelled. The default is no site-specific rate heterogeneity.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">CODON-specific Rate Heterogeneity: #1 #2 #3 separated by commas (-c)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722613888::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="codon_rate" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722613888::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option the user may specify the relative rates for each codon position. This allows codon-specific rate heterogeneity to be modelled. The default is no site-specific rate heterogeneity.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="codon_rate">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722613888::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722613888::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option the user may specify the relative rates for each codon position. This allows codon-specific rate heterogeneity to be modelled. The default is no site-specific rate heterogeneity.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>seperate</name>
+          <prompt lang="en">Estimate seperate models for each site category (-e)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -e" : ""</code>
+            <code proglang="python">( "" , " -e" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Estimate seperate models for each site category (-e)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seperate">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seperate"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>gamma</name>
+          <prompt lang="en">Discrete Gamma Rate Heterogeneity (2 to 32) (-g)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -g $value" : ""</code>
+            <code proglang="python">( "" , " -g " + str(value) )[ value is not None ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Enter an integer between 2 and 32</text>
+            </message>
+            <code proglang="perl">$value &lt;= 32 and $value &gt;= 2</code>
+            <code proglang="python">value &lt;= 32 and value &gt;= 2</code>
+          </ctrl>
+          <comment>
+            <text lang="en">Using this option the user may specify the
+	      number of categories for the discrete gamma rate heterogeneity model. Enter an integer between 2 and 32 that specifies the number of categories to use with the discrete gamma rate heterogeneity model.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Discrete Gamma Rate Heterogeneity (2 to 32) (-g)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722713168::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="gamma" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722713168::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option the user may specify the
+	      number of categories for the discrete gamma rate heterogeneity model. Enter an integer between 2 and 32 that specifies the number of categories to use with the discrete gamma rate heterogeneity model.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gamma">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722713168::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722713168::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option the user may specify the
+	      number of categories for the discrete gamma rate heterogeneity model. Enter an integer between 2 and 32 that specifies the number of categories to use with the discrete gamma rate heterogeneity model.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>alpha</name>
+          <prompt lang="en">Gamma Rate Heterogeneity (-a)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $gamma</code>
+            <code proglang="python">gamma is not None</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value)? " -a $value" : ""</code>
+            <code proglang="python">( "" , " -a " + str(value) )[value is not None]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Enter an real number greater than 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <comment>
+            <text lang="en">Using this option the user may specify a shape for the gamma rate heterogeneity called alpha. The default is no site-specific rate
+heterogeneity. Where value is a real number &gt;0 that specifies the shape of the gamma distribution to use with gamma rate heterogeneity.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Gamma Rate Heterogeneity (-a)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722700848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="alpha" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722700848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option the user may specify a shape for the gamma rate heterogeneity called alpha. The default is no site-specific rate
+heterogeneity. Where value is a real number &gt;0 that specifies the shape of the gamma distribution to use with gamma rate heterogeneity.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="alpha">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722700848::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722700848::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Using this option the user may specify a shape for the gamma rate heterogeneity called alpha. The default is no site-specific rate
+heterogeneity. Where value is a real number &gt;0 that specifies the shape of the gamma distribution to use with gamma rate heterogeneity.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>datasets</name>
+          <prompt lang="en">Number of Datasets (-n)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -n $value" : ""</code>
+            <code proglang="python">( "" , " -n " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of Datasets (-n)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="datasets" type="text" value="1"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="datasets"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>user_branch</name>
+          <prompt lang="en">User branch-lengths [default = estimate] (-ul)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -ul" : "" </code>
+            <code proglang="python">("", " -ul" ) [value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">User branch-lengths [default = estimate] (-ul)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="user_branch">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="user_branch"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>equal_freq</name>
+          <prompt lang="en">Equal frequencies of nucleotide (-f=)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -f=" : ""</code>
+            <code proglang="python">( "" , " -f=" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Equal frequencies of nucleotide (-f=)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="equal_freq">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="equal_freq"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>freq_bases</name>
+          <prompt lang="en">Relative nucleotide frequencies: #A #C #G #T separated by commas (-f)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not $equal_freq</code>
+            <code proglang="python">not equal_freq</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value)? " -f$value" : ""</code>
+            <code proglang="python">( "" , " -f" + str(value) )[ value is not None]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">You must enter four decimal numbers separated by commas</text>
+            </message>
+            <code proglang="perl">$value ~= /\d+(,\d+){3}/</code>
+            <code proglang="python">len(value.split(',')) == 4 </code>
+          </ctrl>
+          <comment>
+            <text lang="en">This option is used to specify the relative
+	      frequencies of the four nucleotides. By default, TipDate will estimate them empirically from the data.  If the given values don't sum to 1.0 then they will be scaled so that they do.</text>
+            <text lang="en">Value is four decimal numbers for the frequencies of A, C, G and T respectively, separated by commas.
+	    </text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Relative nucleotide frequencies: #A #C #G #T separated by commas (-f)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722628128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="freq_bases" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722628128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option is used to specify the relative
+	      frequencies of the four nucleotides. By default, TipDate will estimate them empirically from the data.  If the given values don't sum to 1.0 then they will be scaled so that they do.</xhtml:div>
+                <xhtml:div>Value is four decimal numbers for the frequencies of A, C, G and T respectively, separated by commas.
+	    </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="freq_bases">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722628128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722628128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option is used to specify the relative
+	      frequencies of the four nucleotides. By default, TipDate will estimate them empirically from the data.  If the given values don't sum to 1.0 then they will be scaled so that they do.</xhtml:div>
+                <xhtml:div>Value is four decimal numbers for the frequencies of A, C, G and T respectively, separated by commas.
+	    </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>transition_transversion</name>
+          <prompt lang="en">Transition/transversion ratio for F84/HKY model (-t)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$model eq "F84" or $model eq "HKY"</code>
+            <code proglang="python">model == "F84" or model == "HKY"</code>
+          </precond>
+          <vdef>
+            <value>2.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef)? " -t$value" : ""</code>
+            <code proglang="python">( "" , " -t" + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value is a decimal number greater than or equal to zero</text>
+            </message>
+            <code proglang="perl">$value &gt;= 0</code>
+            <code proglang="python">value &gt;= 0</code>
+          </ctrl>
+          <comment>
+            <text lang="en">This option allows the user to set a value for the transition transversion ratio (TS/TV). This is only valid when either the HKY or F84 model has been selected. Value is a decimal number greater than zero.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Transition/transversion ratio for F84/HKY model (-t)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722674176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="transition_transversion" type="text" value="2.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722674176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option allows the user to set a value for the transition transversion ratio (TS/TV). This is only valid when either the HKY or F84 model has been selected. Value is a decimal number greater than zero.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="transition_transversion">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722674176::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722674176::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>This option allows the user to set a value for the transition transversion ratio (TS/TV). This is only valid when either the HKY or F84 model has been selected. Value is a decimal number greater than zero.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>rate_matrix</name>
+          <prompt lang="en">Rate matrix values for REV model: 6 values separated by commas (-t)</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$model eq "REV"</code>
+            <code proglang="python">model == "REV"</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value)? " -t$value" : ""</code>
+            <code proglang="python">( "" , " -t" + str(value) )[ value is not None]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Value are size decimal numbers separated by commas</text>
+            </message>
+            <code proglang="perl">$value ~= /\d+(,\d+){5}/</code>
+            <code proglang="python">len(value.split(',')) == 6 </code>
+          </ctrl>
+          <comment>
+            <text lang="en">Where value are size decimal numbers for the instantaneous rates of change from A to C, A to G, A to T, C to G, C to T and G to T respectively, separated by commas. The matrix is symmetrical so the reverse changes occur at the same instantaneous rate as forward changes (e.g. C to A equals A to C) and therefore only six values need be set. These values will be scaled such that the last value (G to T) is 1.0 and the others are set relative to this.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Rate matrix values for REV model: 6 values separated by commas (-t)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722658832::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="rate_matrix" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722658832::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Where value are size decimal numbers for the instantaneous rates of change from A to C, A to G, A to T, C to G, C to T and G to T respectively, separated by commas. The matrix is symmetrical so the reverse changes occur at the same instantaneous rate as forward changes (e.g. C to A equals A to C) and therefore only six values need be set. These values will be scaled such that the last value (G to T) is 1.0 and the others are set relative to this.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="rate_matrix">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117722658832::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117722658832::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Where value are size decimal numbers for the instantaneous rates of change from A to C, A to G, A to T, C to G, C to T and G to T respectively, separated by commas. The matrix is symmetrical so the reverse changes occur at the same instantaneous rate as forward changes (e.g. C to A equals A to C) and therefore only six values need be set. These values will be scaled such that the last value (G to T) is 1.0 and the others are set relative to this.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_options</name>
+      <prompt lang="en">Output options</prompt>
+      <argpos>3</argpos>
+      <parameters>
+        <parameter>
+          <name>branch</name>
+          <prompt lang="en">Print final branch lengths (-vb)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -vb" : ""</code>
+            <code proglang="python">( "" , " -vb" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Print final branch lengths (-vb)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="branch">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="branch"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>likelihoods</name>
+          <prompt lang="en">Write likelihoods for each Site (-vs)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -vs" : ""</code>
+            <code proglang="python">( "" , " -vs" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Write likelihoods for each Site (-vs)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="likelihoods">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="likelihoods"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>notrees</name>
+          <prompt lang="en">Don't Write trees (-vw)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -vw" : ""</code>
+            <code proglang="python">( "" , " -vw" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Don't Write trees (-vw)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="notrees">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="notrees"/>
+          </interface>
+        </parameter>
+        <!-- ** Disable unneeded parameter **
+	<parameter>
+	  <name>memory</name>
+	  <prompt lang="en">Memory usage information (-vm)</prompt>
+	  <type>
+	    <datatype>
+	      <class>Boolean</class>
+	    </datatype>
+	  </type>
+	  <vdef>
+	    <value>0</value>
+	  </vdef>
+	  <format>
+	    <code proglang="perl">($value)? " -vm" : ""</code>
+	    <code proglang="python">( "" , " -vm" )[ value ]</code>
+	  </format>
+	</parameter>
+	     ** Disable unneeded parameter ** -->
+        <parameter>
+          <name>progress</name>
+          <prompt lang="en">Show indication of progress (-vp)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -vp":""</code>
+            <code proglang="python">( "" , " -vp" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Show indication of progress (-vp)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="progress">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="progress"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="1">
+      <name>outtree</name>
+      <prompt>Tree file</prompt>
+      <type>
+        <datatype>
+          <class>Tree</class>
+        </datatype>
+        <dataFormat>NEWICK</dataFormat>
+      </type>
+      <filenames>
+        <code proglang="perl">"tipdate.out"</code>
+        <code proglang="python">"tipdate.out"</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Tree" data-datatype-superclass="" data-biotype="" data-card="" data-formats="NEWICK " data-parametername="outtree">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Tree)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"tipdate.err"</code>
+        <code proglang="python">"tipdate.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

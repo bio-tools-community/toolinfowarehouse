@@ -1,0 +1,1952 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais                                               -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>CONJscan-T4SSscan</name>
+    <doc>
+      <title>CONJscan - T4SSscan</title>
+      <description>
+        <text lang="en">Search for relaxases and key components of type IV secretion systems in proteomes using an HMM profiles database.</text>
+      </description>
+      <authors>Guglielmini, J., L. Quintais, M. P. Garcillán-Barcia, F. de la Cruz, E. P. C. Rocha</authors>
+      <reference doi="10.1371/journal.pgen.1002222">Guglielmini, J., L. Quintais, M. P. Garcillán-Barcia, F. de la Cruz, E. P. C. Rocha (2011). 
+      The Repertoire of ICE in Prokaryotes Underscores the Unity, Diversity, and Ubiquity of Conjugation. PLoS Genet., 7(8): e1002222.</reference>
+      <reference>Eddy, S. R. (2011). Accelerated Profile HMM Searches. PLoS Comput. Biol., 7(10): e1002195.</reference>
+      <reference>Eddy, S. R. (2008). A probabilistic model of local sequence alignment that simplifies statistical significance estimation. PLoS Comput. Biol., 4:e1000069.</reference>
+      <reference>Eddy, S. R. (1998). Profile hidden Markov models. Bioinformatics, 14:755-763.</reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/hmmer/Userguide.pdf</doclink>
+    </doc>
+    <env name="PFAMDB" xml:base="Env/alternate_hmmdb.xml">/mount/bioweb-prod/share/hmmdb/</env>
+    <command>hmmscan</command>
+    <category>sequence:protein:profiles</category>
+    <interface type="form" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="prog_desc" style="border: thin solid #CCCC00; background-color: #FFFFCC">
+        <p>Scans a set of protein sequences for type IV secretion systems and relaxases using HMM profiles. 
+       See Guglielmini et al. (2011) for our criteria to class loci on the basis of this output. Except when it makes sense 
+       biologically, we recommend ignoring the hits covering less than half of the profile or with c-Evalue &lt;  0.01.</p>
+        <p>The output consists of three sections: a ranked list of the best scoring HMMs, a list of the best scoring domains
+        in order of their occurrence in the sequence, and alignments for all the best scoring domains. A sequence score may
+         be higher than a domain score for the same sequence if there is more than one domain in the sequence; 
+         the sequence score takes into account all the domains. All sequences scoring above the -E and -T cutoffs are shown 
+         in the first list, then every domain found in this list is shown in the second list of domain hits. If desired, 
+         E-value and score thresholds may also be applied to the domain list using the --domE and --domT options.</p>
+        <p>We recommend ignoring the hits covering less than half of the profile or with c-Evalue &lt; 0.01. See 
+         <a href="http://bioweb2.pasteur.fr/docs/CONJscan-T4SSscan/profile_length.txt" target="_blank">this page</a>.</p>
+      </div>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="seqfile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequence file</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seqfile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="thresholds_report">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options for reporting thresholds</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="E_value_cutoff">E_value cutoff (-E)<xhtml:a href="#idm140117704759504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="E_value_cutoff" type="text" value="10.0"/>
+            <xhtml:div id="idm140117704759504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In the per-target output, report target profiles with an E-value of &lt;= value. The
+        default is 10.0, meaning that on average, about 10 false positives will be reported
+        per query, so you can see the top of the 'noise' and decide for yourself if it's really
+        noise.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Bit_cutoff">Bit score cutoff (-T)<xhtml:a href="#idm140117705368032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="Bit_cutoff" type="text" value=""/>
+            <xhtml:div id="idm140117705368032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Instead of thresholding per-profile output on E-value, instead report target profiles
+        with a bit score of &gt;= value.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="domE">E-value cutoff for the per-domain ranked hit list (--domE)<xhtml:a href="#idm140117705875472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="domE" type="text" value="10.0"/>
+            <xhtml:div id="idm140117705875472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In the per-domain output, for target profiles that have already satisfied the perprofile
+            reporting threshold, report individual domains with a conditional E-value
+            of &lt;= value. The default is 10.0. A 'conditional' E-value means the expected
+            number of additional false positive domains in the smaller search space of those
+            comparisons that already satisfied the per-profile reporting threshold (and thus
+            must have at least one homologous domain already).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="domT">Bit score cutoff for the per-domain ranked hit list  (--domT)<xhtml:a href="#idm140117707314496::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="domT" type="text" value=""/>
+            <xhtml:div id="idm140117707314496::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Instead of thresholding per-domain output on E-value, instead report domains with
+              a bit score of &gt;= value.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="minimizable" data-paragraphname="thresholds_inclusion">
+            <legend>Options controlling inclusion (significance) thresholds.<xhtml:a href="#idm140117705893936::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            </legend>
+            <xhtml:div id="idm140117705893936::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>'Inclusion' thresholds are stricter than reporting thresholds. Inclusion thresholds 
+            control which hits are considered to be reliable enough to be included in an output alignment or a 
+            subsequent search round. In hmmscan, which does not have any alignment output  nor any iterative
+            search steps, inclusion thresholds have little effect. They only affect what domains get
+            marked as significant ('!') or questionable ('?') in domain output.</xhtml:div>
+            </xhtml:div>
+            <xhtml:div>
+              <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0.01" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="incE">Include sequences lower than this E-value threshold (--incE)<xhtml:a href="#idm140117705899008::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="incE" type="text" value="0.01"/>
+                <xhtml:div id="idm140117705899008::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Use an E-value of &lt;= value as the per-target inclusion threshold. The default is
+              0.01, meaning that on average, about 1 false positive would be expected in every
+              100 searches with different query sequences.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.01" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="incdomE">Include domains lower than this E-value threshold  (--incdomE)<xhtml:a href="#idm140117706201456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="incdomE" type="text" value="0.01"/>
+                <xhtml:div id="idm140117706201456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Use a conditional E-value of &lt;= value as the per-domain inclusion threshold, in
+              targets that have already satisfied the overall per-target inclusion threshold. The
+              default is 0.01.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="incT">Include sequences upper than this score threshold  (--incT)<xhtml:a href="#idm140117706113664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="incT" type="text" value=""/>
+                <xhtml:div id="idm140117706113664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Instead of using E-values for setting the inclusion threshold, instead use a bit score
+                of &gt;= the value as the per-target inclusion threshold. It would be unusual to use bit
+                score thresholds with hmmscan, because you don't expect a single score threshold
+                to work for different profiles; different profiles have slightly different expected score
+                distributions.</xhtml:div>
+                </xhtml:div>
+              </label>
+              <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="incdomT">Include domans upper than this score threshold  (--incdomT)<xhtml:a href="#idm140117706029808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:input name="incdomT" type="text" value=""/>
+                <xhtml:div id="idm140117706029808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Instead of using E-values, instead use a bit score of &gt;= value as the per-domain
+                inclusion threshold. As with --incT above, it would be unusual to use a single bit
+                score threshold in hmmscan.</xhtml:div>
+                </xhtml:div>
+              </label>
+            </xhtml:div>
+          </fieldset>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="model_specific">Options for model-specific thresholding<xhtml:a href="#idm140117706198480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="model_specific">
+              <xhtml:option value="null" selected="selected">No profile</xhtml:option>
+              <xhtml:option value="--cut_ga">use profile's GA gathering cutoffs (cut_ga)</xhtml:option>
+              <xhtml:option value="--cut_nc">use profile's NC noise cutoffs (cut_nc)</xhtml:option>
+              <xhtml:option value="--cut_tc">use profile's TC trusted cutoffs (cut_tc)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117706198480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Curated profile databases may define specific bit score thresholds for each profile, superseding any thresholding
+            based on statistical significance alone. To use these options, the profile must contain the appropriate
+            (GA, TC, and/or NC) optional score threshold annotation; this is picked up by hmmbuild from Stockholm
+            format alignment files. Each thresholding option has two scores: the per-sequence threshold x1 value and the
+            per-domain threshold x2 value. These act as if -T x1 --incT x1 --domT x2 --incdomT x2 has been
+            applied specifically using each model's curated thresholds.</xhtml:div>
+              <xhtml:div>cut ga: Use the GA (gathering) bit scores in the model to set per-sequence (GA1) and
+            per-domain (GA2) reporting and inclusion thresholds. GA thresholds are generally
+            considered to be the reliable curated thresholds defining family membership; for
+            example, in Pfam, these thresholds define what gets included in Pfam Full alignments
+            based on searches with Pfam Seed models.</xhtml:div>
+              <xhtml:div>cut_nc: Use the NC (noise cutoff) bit score thresholds in the model to set per-sequence
+            (NC1) and per-domain (NC2) reporting and inclusion thresholds. NC thresholds
+            are generally considered to be the score of the highest-scoring known false positive.</xhtml:div>
+              <xhtml:div>cut_tc: Use the NC (trusted cutoff) bit score thresholds in the model to set per-sequence
+            (TC1) and per-domain (TC2) reporting and inclusion thresholds. TC thresholds are
+            generally considered to be the score of the lowest-scoring known true positive that
+            is above all known false positives.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="acceleration">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options controlling acceleration heuristics<xhtml:a href="#idm140117705001952::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705001952::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>HMMER3 searches are accelerated in a three-step filter pipeline: the MSV filter, the Viterbi filter, and
+            the Forward filter. The first filter is the fastest and most approximate; the last is the full Forward scoring
+            algorithm. There is also a 'bias filter' step between MSV and Viterbi. Targets that pass all the steps
+            in the acceleration pipeline are then subjected to 'postprocessing' -- domain identification and scoring
+            using the Forward/Backward algorithm. Changing filter thresholds only removes or includes targets from
+            consideration; changing filter thresholds does not alter bit scores, E-values, or alignments, all of which are
+            determined solely in 'postprocessing'.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max">Turn all heuristic filters off (less speed, more power) (--max)<xhtml:a href="#idm140117704621184::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="max">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704621184::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turn off all filters, including the bias filter, and run full Forward/Backward postprocessing
+              on every target. This increases sensitivity somewhat, at a large cost in speed.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="F1">Stage 1 (MSV) threshold<xhtml:a href="#idm140117705381552::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="F1" type="text" value="0.02"/>
+            <xhtml:div id="idm140117705381552::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the P-value threshold for the MSV filter step. The default is 0.02, meaning that
+            roughly 2% of the highest scoring nonhomologous targets are expected to pass the filter.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.001" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="F2">Stage 1 (Vit) threshold<xhtml:a href="#idm140117705967344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="F2" type="text" value="0.001"/>
+            <xhtml:div id="idm140117705967344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the P-value threshold for the Viterbi filter step. The default is 0.001.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.00001" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="F3">Stage 1 (Fwd) threshold<xhtml:a href="#idm140117705157904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="F3" type="text" value="0.00001"/>
+            <xhtml:div id="idm140117705157904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the P-value threshold for the Forward filter step. The default is 1e-5.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nobias">Turn off composition bias filter (--nobias)<xhtml:a href="#idm140117705146304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="nobias">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117705146304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turn off the bias filter. This increases sensitivity somewhat, but can come at a
+            high cost in speed, especially if the query has biased residue composition (such
+            as a repetitive sequence region, or if it is a membrane protein with large regions
+            of hydrophobicity). Without the bias filter, too many sequences may pass the filter
+            with biased queries, leading to slower than expected performance as the computationally
+            intensive Forward/Backward algorithms shoulder an abnormally heavy
+            load.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Other expert options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nonull2">Turn off biased composition score corrections (--nonull2)<xhtml:a href="#idm140117704493856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="nonull2">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704493856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turn off the 'null2' score corrections for biased composition.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="E_value_calculation">Control of E_value calculation (-Z)<xhtml:a href="#idm140117704483088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="E_value_calculation" type="text" value=""/>
+            <xhtml:div id="idm140117704483088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Assert that the total number of targets in your searches is the value, for the purposes of
+          per-sequence E-value calculations, rather than the actual number of targets seen.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="domZ">Set Z score of significant sequences, for domain E-value calculation  (--domZ)<xhtml:a href="#idm140117704473360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="domZ" type="text" value=""/>
+            <xhtml:div id="idm140117704473360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Assert that the total number of targets in your searches is the value, for the purposes
+          of per-domain conditional E-value calculations, rather than the number of targets
+          that passed the reporting thresholds.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="42" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed">Set RNG seed number (--seed)<xhtml:a href="#idm140117704463920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="seed" type="text" value="42"/>
+            <xhtml:div id="idm140117704463920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the random number seed to value. Some steps in postprocessing require Monte
+               Carlo simulation. The default is to use a fixed seed (42), so that results are exactly
+               reproducible. Any other positive integer will give different (but also reproducible)
+               results. A choice of 0 uses a 'randomly chosen' seed.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="controlOutput">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options controlling output</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile_name">Name of the sequence(s) file (-o)<xhtml:input name="outfile_name" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="tblout" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="perseqfile_name">File name of parseable table of per-sequence hits (--tblout)<xhtml:a href="#idm140117704431680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="perseqfile_name" type="text" value="tblout"/>
+            <xhtml:div id="idm140117704431680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Save a simple tabular (space-delimited) file summarizing the 'per-target' output,
+        with one data line per homologous target model found</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="domtblout" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="perdomfile_name">File name of parseable table of per-domain hits (--domtblout)<xhtml:a href="#idm140117704412640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="perdomfile_name" type="text" value="domtblout"/>
+            <xhtml:div id="idm140117704412640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Save a simple tabular (space-delimited) file summarizing the 'per-domain' output,
+          with one data line per homologous domain detected in a query sequence for each
+          homologous model.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="acc">Prefer accessions over names in output<xhtml:a href="#idm140117704401776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="acc">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704401776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use accessions instead of names in the main output, where available for profiles
+        and/or sequences</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noali">Don't output alignments, so output is smaller<xhtml:a href="#idm140117704330400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="noali">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704330400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Omit the alignment section from the main output. This can greatly reduce the
+        output volume.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="notextw">Unlimit ASCII text output line width (--notextw)<xhtml:a href="#idm140117704320800::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="notextw">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117704320800::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Unlimit the length of each line in the main output. The default is a limit of 120
+                characters per line, which helps in displaying the output cleanly on terminals and
+                in editors, but can truncate target profile description lines.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="120" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="textw">Set max width of ASCII text output lines (--textw)<xhtml:a href="#idm140117704309408::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="textw" type="text" value="120"/>
+            <xhtml:div id="idm140117704309408::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the main output's line length limit to value&gt; characters per line. The default is
+         120.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="prog_desc" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seqfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="HMMDB" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="thresholds_report">
+        <xhtml:legend>Options for reporting thresholds</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="E_value_cutoff" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704759504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704759504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In the per-target output, report target profiles with an E-value of &lt;= value. The
+        default is 10.0, meaning that on average, about 10 false positives will be reported
+        per query, so you can see the top of the 'noise' and decide for yourself if it's really
+        noise.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Bit_cutoff" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705368032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705368032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Instead of thresholding per-profile output on E-value, instead report target profiles
+        with a bit score of &gt;= value.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="domE" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705875472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705875472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In the per-domain output, for target profiles that have already satisfied the perprofile
+            reporting threshold, report individual domains with a conditional E-value
+            of &lt;= value. The default is 10.0. A 'conditional' E-value means the expected
+            number of additional false positive domains in the smaller search space of those
+            comparisons that already satisfied the per-profile reporting threshold (and thus
+            must have at least one homologous domain already).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="domT" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117707314496::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117707314496::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Instead of thresholding per-domain output on E-value, instead report domains with
+              a bit score of &gt;= value.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <xhtml:fieldset class="minimizable" data-paragraphname="thresholds_inclusion">
+            <xhtml:legend>Options controlling inclusion (significance) thresholds.</xhtml:legend>
+            <xhtml:div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="incE" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0.01" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117705899008::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117705899008::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Use an E-value of &lt;= value as the per-target inclusion threshold. The default is
+              0.01, meaning that on average, about 1 false positive would be expected in every
+              100 searches with different query sequences.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="incdomE" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.01" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117706201456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117706201456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Use a conditional E-value of &lt;= value as the per-domain inclusion threshold, in
+              targets that have already satisfied the overall per-target inclusion threshold. The
+              default is 0.01.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="incT" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117706113664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117706113664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Instead of using E-values for setting the inclusion threshold, instead use a bit score
+                of &gt;= the value as the per-target inclusion threshold. It would be unusual to use bit
+                score thresholds with hmmscan, because you don't expect a single score threshold
+                to work for different profiles; different profiles have slightly different expected score
+                distributions.</xhtml:div>
+                </xhtml:div>
+              </div>
+              <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="incdomT" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                <xhtml:a href="#idm140117706029808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                <xhtml:div id="idm140117706029808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <xhtml:div>Instead of using E-values, instead use a bit score of &gt;= value as the per-domain
+                inclusion threshold. As with --incT above, it would be unusual to use a single bit
+                score threshold in hmmscan.</xhtml:div>
+                </xhtml:div>
+              </div>
+            </xhtml:div>
+          </xhtml:fieldset>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="model_specific" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117706198480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117706198480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Curated profile databases may define specific bit score thresholds for each profile, superseding any thresholding
+            based on statistical significance alone. To use these options, the profile must contain the appropriate
+            (GA, TC, and/or NC) optional score threshold annotation; this is picked up by hmmbuild from Stockholm
+            format alignment files. Each thresholding option has two scores: the per-sequence threshold x1 value and the
+            per-domain threshold x2 value. These act as if -T x1 --incT x1 --domT x2 --incdomT x2 has been
+            applied specifically using each model's curated thresholds.</xhtml:div>
+              <xhtml:div>cut ga: Use the GA (gathering) bit scores in the model to set per-sequence (GA1) and
+            per-domain (GA2) reporting and inclusion thresholds. GA thresholds are generally
+            considered to be the reliable curated thresholds defining family membership; for
+            example, in Pfam, these thresholds define what gets included in Pfam Full alignments
+            based on searches with Pfam Seed models.</xhtml:div>
+              <xhtml:div>cut_nc: Use the NC (noise cutoff) bit score thresholds in the model to set per-sequence
+            (NC1) and per-domain (NC2) reporting and inclusion thresholds. NC thresholds
+            are generally considered to be the score of the highest-scoring known false positive.</xhtml:div>
+              <xhtml:div>cut_tc: Use the NC (trusted cutoff) bit score thresholds in the model to set per-sequence
+            (TC1) and per-domain (TC2) reporting and inclusion thresholds. TC thresholds are
+            generally considered to be the score of the lowest-scoring known true positive that
+            is above all known false positives.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="acceleration">
+        <xhtml:legend>Options controlling acceleration heuristics</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="max" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704621184::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704621184::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turn off all filters, including the bias filter, and run full Forward/Backward postprocessing
+              on every target. This increases sensitivity somewhat, at a large cost in speed.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="F1" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705381552::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705381552::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the P-value threshold for the MSV filter step. The default is 0.02, meaning that
+            roughly 2% of the highest scoring nonhomologous targets are expected to pass the filter.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="F2" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.001" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705967344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705967344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the P-value threshold for the Viterbi filter step. The default is 0.001.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="F3" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.00001" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705157904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705157904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the P-value threshold for the Forward filter step. The default is 1e-5.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nobias" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117705146304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117705146304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turn off the bias filter. This increases sensitivity somewhat, but can come at a
+            high cost in speed, especially if the query has biased residue composition (such
+            as a repetitive sequence region, or if it is a membrane protein with large regions
+            of hydrophobicity). Without the bias filter, too many sequences may pass the filter
+            with biased queries, leading to slower than expected performance as the computationally
+            intensive Forward/Backward algorithms shoulder an abnormally heavy
+            load.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert">
+        <xhtml:legend>Other expert options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nonull2" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704493856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704493856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turn off the 'null2' score corrections for biased composition.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="E_value_calculation" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704483088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704483088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Assert that the total number of targets in your searches is the value, for the purposes of
+          per-sequence E-value calculations, rather than the actual number of targets seen.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="domZ" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704473360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704473360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Assert that the total number of targets in your searches is the value, for the purposes
+          of per-domain conditional E-value calculations, rather than the number of targets
+          that passed the reporting thresholds.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seed" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="42" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704463920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704463920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the random number seed to value. Some steps in postprocessing require Monte
+               Carlo simulation. The default is to use a fixed seed (42), so that results are exactly
+               reproducible. Any other positive integer will give different (but also reproducible)
+               results. A choice of 0 uses a 'randomly chosen' seed.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="controlOutput">
+        <xhtml:legend>Options controlling output</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile_name" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="perseqfile_name" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="tblout" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704431680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704431680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Save a simple tabular (space-delimited) file summarizing the 'per-target' output,
+        with one data line per homologous target model found</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="perdomfile_name" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="domtblout" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704412640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704412640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Save a simple tabular (space-delimited) file summarizing the 'per-domain' output,
+          with one data line per homologous domain detected in a query sequence for each
+          homologous model.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="acc" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704401776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704401776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Use accessions instead of names in the main output, where available for profiles
+        and/or sequences</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="noali" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704330400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704330400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Omit the alignment section from the main output. This can greatly reduce the
+        output volume.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="notextw" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704320800::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704320800::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Unlimit the length of each line in the main output. The default is a limit of 120
+                characters per line, which helps in displaying the output cleanly on terminals and
+                in editors, but can truncate target profile description lines.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="textw" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="120" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117704309408::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117704309408::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the main output's line length limit to value&gt; characters per line. The default is
+         120.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="controlOutput">
+        <xhtml:legend>Options controlling output</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_file_name" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_perseqfile_name" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="output_perdomfile_name" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Text)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter issimple="1">
+      <name>prog_desc</name>
+      <prompt lang="en">Program description</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <interface type="form">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="border: thin solid #CCCC00; background-color: #FFFFCC">
+          <p>Scans a set of protein sequences for type IV secretion systems and relaxases using HMM profiles. 
+       See Guglielmini et al. (2011) for our criteria to class loci on the basis of this output. Except when it makes sense 
+       biologically, we recommend ignoring the hits covering less than half of the profile or with c-Evalue &lt;  0.01.</p>
+          <p>The output consists of three sections: a ranked list of the best scoring HMMs, a list of the best scoring domains
+        in order of their occurrence in the sequence, and alignments for all the best scoring domains. A sequence score may
+         be higher than a domain score for the same sequence if there is more than one domain in the sequence; 
+         the sequence score takes into account all the domains. All sequences scoring above the -E and -T cutoffs are shown 
+         in the first list, then every domain found in this list is shown in the second list of domain hits. If desired, 
+         E-value and score thresholds may also be applied to the domain list using the --domE and --domT options.</p>
+          <p>We recommend ignoring the hits covering less than half of the profile or with c-Evalue &lt; 0.01. See 
+         <a href="http://bioweb2.pasteur.fr/docs/CONJscan-T4SSscan/profile_length.txt" target="_blank">this page</a>.</p>
+        </div>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="prog_desc"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>seqfile</name>
+      <prompt lang="en">Sequence file</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <argpos>3</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequence file</xhtml:legend>
+          <xhtml:textarea name="seqfile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="" data-formats="FASTA " data-parametername="seqfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ishidden="1">
+      <name>HMMDB</name>
+      <prompt lang="en">HMM database</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" CONJscan "</code>
+        <code proglang="python">" CONJscan "</code>
+      </format>
+      <argpos>2</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="HMMDB"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>thresholds_report</name>
+      <prompt lang="en">Options for reporting thresholds</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter issimple="1">
+          <name>E_value_cutoff</name>
+          <prompt lang="en">E_value cutoff (-E)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not defined $Bit_cutoff and $model_specific ne '--cut_ga' and $model_specific ne '--cut_nc'</code>
+            <code proglang="python">Bit_cutoff is None and model_specific != '--cut_ga' and model_specific != '--cut_nc'</code>
+          </precond>
+          <vdef>
+            <value>10.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -E $value" : ""</code>
+            <code proglang="python">( "" , " -E " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">In the per-target output, report target profiles with an E-value of &lt;= value. The
+        default is 10.0, meaning that on average, about 10 false positives will be reported
+        per query, so you can see the top of the 'noise' and decide for yourself if it's really
+        noise.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">E_value cutoff (-E)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704759504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="E_value_cutoff" type="text" value="10.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704759504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In the per-target output, report target profiles with an E-value of &lt;= value. The
+        default is 10.0, meaning that on average, about 10 false positives will be reported
+        per query, so you can see the top of the 'noise' and decide for yourself if it's really
+        noise.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="10.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="E_value_cutoff">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704759504::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704759504::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In the per-target output, report target profiles with an E-value of &lt;= value. The
+        default is 10.0, meaning that on average, about 10 false positives will be reported
+        per query, so you can see the top of the 'noise' and decide for yourself if it's really
+        noise.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Bit_cutoff</name>
+          <prompt lang="en">Bit score cutoff (-T)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$E_value_cutoff == 10.0 and $model_specific ne '--cut_ga' and $model_specific ne '--cut_nc'</code>
+            <code proglang="python">E_value_cutoff == 10.0 and model_specific != '--cut_ga' and model_specific != '--cut_nc'</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value)? " -T $value" : ""</code>
+            <code proglang="python">( "" , " -T " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Instead of thresholding per-profile output on E-value, instead report target profiles
+        with a bit score of &gt;= value.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Bit score cutoff (-T)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705368032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Bit_cutoff" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705368032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Instead of thresholding per-profile output on E-value, instead report target profiles
+        with a bit score of &gt;= value.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Bit_cutoff">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705368032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705368032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Instead of thresholding per-profile output on E-value, instead report target profiles
+        with a bit score of &gt;= value.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>domE</name>
+          <prompt lang="en">E-value cutoff for the per-domain ranked hit list (--domE)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not defined $domT and $model_specific ne '--cut_ga' and $model_specific ne '--cut_nc'</code>
+            <code proglang="python">domT is None and model_specific != '--cut_ga' and model_specific != '--cut_nc'</code>
+          </precond>
+          <vdef>
+            <value>10.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --domE $value" : ""</code>
+            <code proglang="python">( "" , " --domE " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">In the per-domain output, for target profiles that have already satisfied the perprofile
+            reporting threshold, report individual domains with a conditional E-value
+            of &lt;= value. The default is 10.0. A 'conditional' E-value means the expected
+            number of additional false positive domains in the smaller search space of those
+            comparisons that already satisfied the per-profile reporting threshold (and thus
+            must have at least one homologous domain already).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">E-value cutoff for the per-domain ranked hit list (--domE)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705875472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="domE" type="text" value="10.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705875472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In the per-domain output, for target profiles that have already satisfied the perprofile
+            reporting threshold, report individual domains with a conditional E-value
+            of &lt;= value. The default is 10.0. A 'conditional' E-value means the expected
+            number of additional false positive domains in the smaller search space of those
+            comparisons that already satisfied the per-profile reporting threshold (and thus
+            must have at least one homologous domain already).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="domE">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705875472::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705875472::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In the per-domain output, for target profiles that have already satisfied the perprofile
+            reporting threshold, report individual domains with a conditional E-value
+            of &lt;= value. The default is 10.0. A 'conditional' E-value means the expected
+            number of additional false positive domains in the smaller search space of those
+            comparisons that already satisfied the per-profile reporting threshold (and thus
+            must have at least one homologous domain already).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>domT</name>
+          <prompt lang="en">Bit score cutoff for the per-domain ranked hit list  (--domT)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$domE == 10.0 and $model_specific ne '--cut_ga' and $model_specific ne '--cut_nc'</code>
+            <code proglang="python">domE == 10.0 and model_specific != '--cut_ga' and model_specific != '--cut_nc'</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value) ? " --domT $value" : ""</code>
+            <code proglang="python">( "" , " --domT " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Instead of thresholding per-domain output on E-value, instead report domains with
+              a bit score of &gt;= value.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Bit score cutoff for the per-domain ranked hit list  (--domT)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117707314496::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="domT" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117707314496::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Instead of thresholding per-domain output on E-value, instead report domains with
+              a bit score of &gt;= value.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="domT">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117707314496::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117707314496::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Instead of thresholding per-domain output on E-value, instead report domains with
+              a bit score of &gt;= value.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <paragraph>
+          <name>thresholds_inclusion</name>
+          <prompt lang="en">Options controlling inclusion (significance) thresholds.</prompt>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">'Inclusion' thresholds are stricter than reporting thresholds. Inclusion thresholds 
+            control which hits are considered to be reliable enough to be included in an output alignment or a 
+            subsequent search round. In hmmscan, which does not have any alignment output  nor any iterative
+            search steps, inclusion thresholds have little effect. They only affect what domains get
+            marked as significant ('!') or questionable ('?') in domain output.</text>
+          </comment>
+          <parameters>
+            <parameter issimple="1">
+              <name>incE</name>
+              <prompt lang="en">Include sequences lower than this E-value threshold (--incE)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">not defined $incT and $model_specific ne '--cut_ga' </code>
+                <code proglang="python">incT is None and model_specific != '--cut_ga' </code>
+              </precond>
+              <vdef>
+                <value>0.01</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and value != vdef) ? " --incE $value" : ""</code>
+                <code proglang="python">( "" , " --incE " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <comment>
+                <text lang="en">Use an E-value of &lt;= value as the per-target inclusion threshold. The default is
+              0.01, meaning that on average, about 1 false positive would be expected in every
+              100 searches with different query sequences.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Include sequences lower than this E-value threshold (--incE)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705899008::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="incE" type="text" value="0.01"/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705899008::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Use an E-value of &lt;= value as the per-target inclusion threshold. The default is
+              0.01, meaning that on average, about 1 false positive would be expected in every
+              100 searches with different query sequences.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0.01" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="incE">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705899008::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705899008::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Use an E-value of &lt;= value as the per-target inclusion threshold. The default is
+              0.01, meaning that on average, about 1 false positive would be expected in every
+              100 searches with different query sequences.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>incdomE</name>
+              <prompt lang="en">Include domains lower than this E-value threshold  (--incdomE)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">defined $incdomT and not defined model_specific</code>
+                <code proglang="python">incdomT is not None and model_specific is None</code>
+              </precond>
+              <vdef>
+                <value>0.01</value>
+              </vdef>
+              <format>
+                <code proglang="perl">(defined $value and value != vdef) ? " --incdomE $value" : ""</code>
+                <code proglang="python">( "" , " --incdomE " + str(value) )[ value is not None and value != vdef]</code>
+              </format>
+              <comment>
+                <text lang="en">Use a conditional E-value of &lt;= value as the per-domain inclusion threshold, in
+              targets that have already satisfied the overall per-target inclusion threshold. The
+              default is 0.01.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Include domains lower than this E-value threshold  (--incdomE)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706201456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="incdomE" type="text" value="0.01"/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706201456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Use a conditional E-value of &lt;= value as the per-domain inclusion threshold, in
+              targets that have already satisfied the overall per-target inclusion threshold. The
+              default is 0.01.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.01" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="incdomE">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706201456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706201456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Use a conditional E-value of &lt;= value as the per-domain inclusion threshold, in
+              targets that have already satisfied the overall per-target inclusion threshold. The
+              default is 0.01.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>incT</name>
+              <prompt lang="en">Include sequences upper than this score threshold  (--incT)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">$incE == 0.01 and $model_specific ne '--cut_ga'</code>
+                <code proglang="python">incE == 0.01 and model_specific != '--cut_ga'</code>
+              </precond>
+              <format>
+                <code proglang="perl">(defined $value) ? " --incT $value" : ""</code>
+                <code proglang="python">( "" , " --incT " + str(value) )[ value is not None ]</code>
+              </format>
+              <comment>
+                <text lang="en">Instead of using E-values for setting the inclusion threshold, instead use a bit score
+                of &gt;= the value as the per-target inclusion threshold. It would be unusual to use bit
+                score thresholds with hmmscan, because you don't expect a single score threshold
+                to work for different profiles; different profiles have slightly different expected score
+                distributions.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Include sequences upper than this score threshold  (--incT)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706113664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="incT" type="text" value=""/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706113664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Instead of using E-values for setting the inclusion threshold, instead use a bit score
+                of &gt;= the value as the per-target inclusion threshold. It would be unusual to use bit
+                score thresholds with hmmscan, because you don't expect a single score threshold
+                to work for different profiles; different profiles have slightly different expected score
+                distributions.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="incT">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706113664::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706113664::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Instead of using E-values for setting the inclusion threshold, instead use a bit score
+                of &gt;= the value as the per-target inclusion threshold. It would be unusual to use bit
+                score thresholds with hmmscan, because you don't expect a single score threshold
+                to work for different profiles; different profiles have slightly different expected score
+                distributions.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+            <parameter>
+              <name>incdomT</name>
+              <prompt lang="en">Include domans upper than this score threshold  (--incdomT)</prompt>
+              <type>
+                <datatype>
+                  <class>Float</class>
+                </datatype>
+              </type>
+              <precond>
+                <code proglang="perl">$incdomE == 0.01 and not defined $model_specific </code>
+                <code proglang="python">incdomE == 0.01 and model_specific is None</code>
+              </precond>
+              <format>
+                <code proglang="perl">(defined $value) ? " --incdomT $value" : ""</code>
+                <code proglang="python">( "" , " --incdomT " + str(value) )[ value is not None ]</code>
+              </format>
+              <comment>
+                <text lang="en">Instead of using E-values, instead use a bit score of &gt;= value as the per-domain
+                inclusion threshold. As with --incT above, it would be unusual to use a single bit
+                score threshold in hmmscan.</text>
+              </comment>
+              <interface type="form" generated="true">
+                <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Include domans upper than this score threshold  (--incdomT)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706029808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="incdomT" type="text" value=""/>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706029808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Instead of using E-values, instead use a bit score of &gt;= value as the per-domain
+                inclusion threshold. As with --incT above, it would be unusual to use a single bit
+                score threshold in hmmscan.</xhtml:div>
+                  </xhtml:div>
+                </label>
+              </interface>
+              <interface generated="true" type="job_input">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="incdomT">
+                  <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706029808::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+                  <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706029808::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                    <xhtml:div>Instead of using E-values, instead use a bit score of &gt;= value as the per-domain
+                inclusion threshold. As with --incT above, it would be unusual to use a single bit
+                score threshold in hmmscan.</xhtml:div>
+                  </xhtml:div>
+                </div>
+              </interface>
+            </parameter>
+          </parameters>
+        </paragraph>
+        <parameter>
+          <name>model_specific</name>
+          <prompt lang="en">Options for model-specific thresholding</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not defined $Bit_cutoff and not $E_value_cutoff == 10.0 and not defined $incdomT and  $incdomE == 0.01</code>
+            <code proglang="python">not Bit_cutoff and E_value_cutoff == 10.0 and incdomT is None and incdomE == 0.01</code>
+          </precond>
+          <vdef>
+            <value>null</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>null</value>
+              <label>No profile</label>
+            </velem>
+            <velem>
+              <value>--cut_ga</value>
+              <label>use profile's GA gathering cutoffs (cut_ga)</label>
+            </velem>
+            <velem>
+              <value>--cut_nc</value>
+              <label>use profile's NC noise cutoffs (cut_nc)</label>
+            </velem>
+            <velem>
+              <value>--cut_tc</value>
+              <label>use profile's TC trusted cutoffs (cut_tc)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " $value" : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Curated profile databases may define specific bit score thresholds for each profile, superseding any thresholding
+            based on statistical significance alone. To use these options, the profile must contain the appropriate
+            (GA, TC, and/or NC) optional score threshold annotation; this is picked up by hmmbuild from Stockholm
+            format alignment files. Each thresholding option has two scores: the per-sequence threshold x1 value and the
+            per-domain threshold x2 value. These act as if -T x1 --incT x1 --domT x2 --incdomT x2 has been
+            applied specifically using each model's curated thresholds.</text>
+            <text lang="en">cut ga: Use the GA (gathering) bit scores in the model to set per-sequence (GA1) and
+            per-domain (GA2) reporting and inclusion thresholds. GA thresholds are generally
+            considered to be the reliable curated thresholds defining family membership; for
+            example, in Pfam, these thresholds define what gets included in Pfam Full alignments
+            based on searches with Pfam Seed models.</text>
+            <text lang="en">cut_nc: Use the NC (noise cutoff) bit score thresholds in the model to set per-sequence
+            (NC1) and per-domain (NC2) reporting and inclusion thresholds. NC thresholds
+            are generally considered to be the score of the highest-scoring known false positive.</text>
+            <text lang="en">cut_tc: Use the NC (trusted cutoff) bit score thresholds in the model to set per-sequence
+            (TC1) and per-domain (TC2) reporting and inclusion thresholds. TC thresholds are
+            generally considered to be the score of the lowest-scoring known true positive that
+            is above all known false positives.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Options for model-specific thresholding<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706198480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="model_specific">
+                <xhtml:option value="null" selected="selected">No profile</xhtml:option>
+                <xhtml:option value="--cut_ga">use profile's GA gathering cutoffs (cut_ga)</xhtml:option>
+                <xhtml:option value="--cut_nc">use profile's NC noise cutoffs (cut_nc)</xhtml:option>
+                <xhtml:option value="--cut_tc">use profile's TC trusted cutoffs (cut_tc)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706198480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Curated profile databases may define specific bit score thresholds for each profile, superseding any thresholding
+            based on statistical significance alone. To use these options, the profile must contain the appropriate
+            (GA, TC, and/or NC) optional score threshold annotation; this is picked up by hmmbuild from Stockholm
+            format alignment files. Each thresholding option has two scores: the per-sequence threshold x1 value and the
+            per-domain threshold x2 value. These act as if -T x1 --incT x1 --domT x2 --incdomT x2 has been
+            applied specifically using each model's curated thresholds.</xhtml:div>
+                <xhtml:div>cut ga: Use the GA (gathering) bit scores in the model to set per-sequence (GA1) and
+            per-domain (GA2) reporting and inclusion thresholds. GA thresholds are generally
+            considered to be the reliable curated thresholds defining family membership; for
+            example, in Pfam, these thresholds define what gets included in Pfam Full alignments
+            based on searches with Pfam Seed models.</xhtml:div>
+                <xhtml:div>cut_nc: Use the NC (noise cutoff) bit score thresholds in the model to set per-sequence
+            (NC1) and per-domain (NC2) reporting and inclusion thresholds. NC thresholds
+            are generally considered to be the score of the highest-scoring known false positive.</xhtml:div>
+                <xhtml:div>cut_tc: Use the NC (trusted cutoff) bit score thresholds in the model to set per-sequence
+            (TC1) and per-domain (TC2) reporting and inclusion thresholds. TC thresholds are
+            generally considered to be the score of the lowest-scoring known true positive that
+            is above all known false positives.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="model_specific">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117706198480::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117706198480::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Curated profile databases may define specific bit score thresholds for each profile, superseding any thresholding
+            based on statistical significance alone. To use these options, the profile must contain the appropriate
+            (GA, TC, and/or NC) optional score threshold annotation; this is picked up by hmmbuild from Stockholm
+            format alignment files. Each thresholding option has two scores: the per-sequence threshold x1 value and the
+            per-domain threshold x2 value. These act as if -T x1 --incT x1 --domT x2 --incdomT x2 has been
+            applied specifically using each model's curated thresholds.</xhtml:div>
+                <xhtml:div>cut ga: Use the GA (gathering) bit scores in the model to set per-sequence (GA1) and
+            per-domain (GA2) reporting and inclusion thresholds. GA thresholds are generally
+            considered to be the reliable curated thresholds defining family membership; for
+            example, in Pfam, these thresholds define what gets included in Pfam Full alignments
+            based on searches with Pfam Seed models.</xhtml:div>
+                <xhtml:div>cut_nc: Use the NC (noise cutoff) bit score thresholds in the model to set per-sequence
+            (NC1) and per-domain (NC2) reporting and inclusion thresholds. NC thresholds
+            are generally considered to be the score of the highest-scoring known false positive.</xhtml:div>
+                <xhtml:div>cut_tc: Use the NC (trusted cutoff) bit score thresholds in the model to set per-sequence
+            (TC1) and per-domain (TC2) reporting and inclusion thresholds. TC thresholds are
+            generally considered to be the score of the lowest-scoring known true positive that
+            is above all known false positives.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>acceleration</name>
+      <prompt lang="en">Options controlling acceleration heuristics</prompt>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">HMMER3 searches are accelerated in a three-step filter pipeline: the MSV filter, the Viterbi filter, and
+            the Forward filter. The first filter is the fastest and most approximate; the last is the full Forward scoring
+            algorithm. There is also a 'bias filter' step between MSV and Viterbi. Targets that pass all the steps
+            in the acceleration pipeline are then subjected to 'postprocessing' -- domain identification and scoring
+            using the Forward/Backward algorithm. Changing filter thresholds only removes or includes targets from
+            consideration; changing filter thresholds does not alter bit scores, E-values, or alignments, all of which are
+            determined solely in 'postprocessing'.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>max</name>
+          <prompt lang="en">Turn all heuristic filters off (less speed, more power) (--max)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --max" : ""</code>
+            <code proglang="python">( "" , " --max " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Turn off all filters, including the bias filter, and run full Forward/Backward postprocessing
+              on every target. This increases sensitivity somewhat, at a large cost in speed.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Turn all heuristic filters off (less speed, more power) (--max)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704621184::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="max">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704621184::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turn off all filters, including the bias filter, and run full Forward/Backward postprocessing
+              on every target. This increases sensitivity somewhat, at a large cost in speed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="max">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704621184::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704621184::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turn off all filters, including the bias filter, and run full Forward/Backward postprocessing
+              on every target. This increases sensitivity somewhat, at a large cost in speed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>F1</name>
+          <prompt>Stage 1 (MSV) threshold</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not max</code>
+            <code proglang="python">not max</code>
+          </precond>
+          <vdef>
+            <value>0.02</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef ) ? " --F1 $value" : ""</code>
+            <code proglang="python">( "" , " --F1 " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the P-value threshold for the MSV filter step. The default is 0.02, meaning that
+            roughly 2% of the highest scoring nonhomologous targets are expected to pass the filter.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Stage 1 (MSV) threshold<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705381552::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="F1" type="text" value="0.02"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705381552::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the P-value threshold for the MSV filter step. The default is 0.02, meaning that
+            roughly 2% of the highest scoring nonhomologous targets are expected to pass the filter.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="F1">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705381552::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705381552::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the P-value threshold for the MSV filter step. The default is 0.02, meaning that
+            roughly 2% of the highest scoring nonhomologous targets are expected to pass the filter.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>F2</name>
+          <prompt>Stage 1 (Vit) threshold</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not max</code>
+            <code proglang="python">not max</code>
+          </precond>
+          <vdef>
+            <value>0.001</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef ) ? " --F2 $value" : ""</code>
+            <code proglang="python">( "" , " --F2 " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the P-value threshold for the Viterbi filter step. The default is 0.001.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Stage 1 (Vit) threshold<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705967344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="F2" type="text" value="0.001"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705967344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the P-value threshold for the Viterbi filter step. The default is 0.001.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.001" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="F2">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705967344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705967344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the P-value threshold for the Viterbi filter step. The default is 0.001.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>F3</name>
+          <prompt>Stage 1 (Fwd) threshold</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not max</code>
+            <code proglang="python">not max</code>
+          </precond>
+          <vdef>
+            <value>0.00001</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef ) ? " --F3 $value" : ""</code>
+            <code proglang="python">( "" , " --F3 " + str(value) )[ value is not None and value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the P-value threshold for the Forward filter step. The default is 1e-5.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Stage 1 (Fwd) threshold<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705157904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="F3" type="text" value="0.00001"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705157904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the P-value threshold for the Forward filter step. The default is 1e-5.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.00001" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="F3">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705157904::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705157904::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the P-value threshold for the Forward filter step. The default is 1e-5.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nobias</name>
+          <prompt lang="en">Turn off composition bias filter (--nobias)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">not max</code>
+            <code proglang="python">not max</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --nobias" : ""</code>
+            <code proglang="python">( "" , " --nobias " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Turn off the bias filter. This increases sensitivity somewhat, but can come at a
+            high cost in speed, especially if the query has biased residue composition (such
+            as a repetitive sequence region, or if it is a membrane protein with large regions
+            of hydrophobicity). Without the bias filter, too many sequences may pass the filter
+            with biased queries, leading to slower than expected performance as the computationally
+            intensive Forward/Backward algorithms shoulder an abnormally heavy
+            load.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Turn off composition bias filter (--nobias)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705146304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nobias">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705146304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turn off the bias filter. This increases sensitivity somewhat, but can come at a
+            high cost in speed, especially if the query has biased residue composition (such
+            as a repetitive sequence region, or if it is a membrane protein with large regions
+            of hydrophobicity). Without the bias filter, too many sequences may pass the filter
+            with biased queries, leading to slower than expected performance as the computationally
+            intensive Forward/Backward algorithms shoulder an abnormally heavy
+            load.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nobias">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117705146304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117705146304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turn off the bias filter. This increases sensitivity somewhat, but can come at a
+            high cost in speed, especially if the query has biased residue composition (such
+            as a repetitive sequence region, or if it is a membrane protein with large regions
+            of hydrophobicity). Without the bias filter, too many sequences may pass the filter
+            with biased queries, leading to slower than expected performance as the computationally
+            intensive Forward/Backward algorithms shoulder an abnormally heavy
+            load.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>expert</name>
+      <prompt lang="en">Other expert options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>nonull2</name>
+          <prompt lang="en">Turn off biased composition score corrections (--nonull2)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --nonull2" : ""</code>
+            <code proglang="python">( "" , " --nonull2 " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Turn off the 'null2' score corrections for biased composition.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Turn off biased composition score corrections (--nonull2)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704493856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nonull2">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704493856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turn off the 'null2' score corrections for biased composition.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nonull2">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704493856::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704493856::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turn off the 'null2' score corrections for biased composition.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>E_value_calculation</name>
+          <prompt lang="en">Control of E_value calculation (-Z)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " -Z $value" : ""</code>
+            <code proglang="python">( "" , " -Z " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Assert that the total number of targets in your searches is the value, for the purposes of
+          per-sequence E-value calculations, rather than the actual number of targets seen.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Control of E_value calculation (-Z)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704483088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="E_value_calculation" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704483088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Assert that the total number of targets in your searches is the value, for the purposes of
+          per-sequence E-value calculations, rather than the actual number of targets seen.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="E_value_calculation">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704483088::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704483088::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Assert that the total number of targets in your searches is the value, for the purposes of
+          per-sequence E-value calculations, rather than the actual number of targets seen.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>domZ</name>
+          <prompt lang="en">Set Z score of significant sequences, for domain E-value calculation  (--domZ)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value) ? " --domZ $value" : ""</code>
+            <code proglang="python">( "" , " --domZ " + str(value) )[ value is not None ]</code>
+          </format>
+          <comment>
+            <text lang="en">Assert that the total number of targets in your searches is the value, for the purposes
+          of per-domain conditional E-value calculations, rather than the number of targets
+          that passed the reporting thresholds.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set Z score of significant sequences, for domain E-value calculation  (--domZ)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704473360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="domZ" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704473360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Assert that the total number of targets in your searches is the value, for the purposes
+          of per-domain conditional E-value calculations, rather than the number of targets
+          that passed the reporting thresholds.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="domZ">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704473360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704473360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Assert that the total number of targets in your searches is the value, for the purposes
+          of per-domain conditional E-value calculations, rather than the number of targets
+          that passed the reporting thresholds.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>seed</name>
+          <prompt lang="en">Set RNG seed number (--seed)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>42</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --seed $value " : ""</code>
+            <code proglang="python">( "" , " --seed " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the random number seed to value. Some steps in postprocessing require Monte
+               Carlo simulation. The default is to use a fixed seed (42), so that results are exactly
+               reproducible. Any other positive integer will give different (but also reproducible)
+               results. A choice of 0 uses a 'randomly chosen' seed.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt;= 0</text>
+            </message>
+            <code proglang="perl">0 &lt;= $value</code>
+            <code proglang="python">0 &lt;= value</code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set RNG seed number (--seed)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704463920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seed" type="text" value="42"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704463920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the random number seed to value. Some steps in postprocessing require Monte
+               Carlo simulation. The default is to use a fixed seed (42), so that results are exactly
+               reproducible. Any other positive integer will give different (but also reproducible)
+               results. A choice of 0 uses a 'randomly chosen' seed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="42" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704463920::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704463920::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the random number seed to value. Some steps in postprocessing require Monte
+               Carlo simulation. The default is to use a fixed seed (42), so that results are exactly
+               reproducible. Any other positive integer will give different (but also reproducible)
+               results. A choice of 0 uses a 'randomly chosen' seed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>controlOutput</name>
+      <prompt lang="en">Options controlling output</prompt>
+      <parameters>
+        <parameter>
+          <name>outfile_name</name>
+          <prompt lang="en">Name of the sequence(s) file (-o)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value ) ? " -o $value" : ""</code>
+            <code proglang="python">( " " , " -o " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the sequence(s) file (-o)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outfile_name" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile_name"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>output_file_name</name>
+          <prompt lang="en">Output file</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $outfile_name</code>
+            <code proglang="python">outfile_name is not None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">$outfile_name</code>
+            <code proglang="python">str(outfile_name)</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_file_name">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>perseqfile_name</name>
+          <prompt lang="en">File name of parseable table of per-sequence hits (--tblout)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>tblout</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? " --tblout $value" : ""</code>
+            <code proglang="python">( "" , " --tblout " + str(value) )[ value is not None]</code>
+          </format>
+          <comment>
+            <text lang="en">Save a simple tabular (space-delimited) file summarizing the 'per-target' output,
+        with one data line per homologous target model found</text>
+          </comment>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">File name of parseable table of per-sequence hits (--tblout)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704431680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="perseqfile_name" type="text" value="tblout"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704431680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Save a simple tabular (space-delimited) file summarizing the 'per-target' output,
+        with one data line per homologous target model found</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="tblout" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="perseqfile_name">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704431680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704431680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Save a simple tabular (space-delimited) file summarizing the 'per-target' output,
+        with one data line per homologous target model found</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>output_perseqfile_name</name>
+          <prompt lang="en">Output parseable table of per-sequence hits</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$perseqfile_name</code>
+            <code proglang="python">perseqfile_name</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">$perseqfile_name</code>
+            <code proglang="python">str(perseqfile_name)</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_perseqfile_name">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>perdomfile_name</name>
+          <prompt lang="en">File name of parseable table of per-domain hits (--domtblout)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>domtblout</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value) ? " --domtblout $value" : ""</code>
+            <code proglang="python">( "" , " --domtblout " + str(value) )[ value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Save a simple tabular (space-delimited) file summarizing the 'per-domain' output,
+          with one data line per homologous domain detected in a query sequence for each
+          homologous model.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">File name of parseable table of per-domain hits (--domtblout)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704412640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="perdomfile_name" type="text" value="domtblout"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704412640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Save a simple tabular (space-delimited) file summarizing the 'per-domain' output,
+          with one data line per homologous domain detected in a query sequence for each
+          homologous model.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="domtblout" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="perdomfile_name">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704412640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704412640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Save a simple tabular (space-delimited) file summarizing the 'per-domain' output,
+          with one data line per homologous domain detected in a query sequence for each
+          homologous model.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>acc</name>
+          <prompt lang="en">Prefer accessions over names in output</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --acc " : ""</code>
+            <code proglang="python">( "" , " --acc " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Use accessions instead of names in the main output, where available for profiles
+        and/or sequences</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Prefer accessions over names in output<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704401776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="acc">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704401776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use accessions instead of names in the main output, where available for profiles
+        and/or sequences</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="acc">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704401776::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704401776::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Use accessions instead of names in the main output, where available for profiles
+        and/or sequences</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>noali</name>
+          <prompt lang="en">Don't output alignments, so output is smaller</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --noali " : ""</code>
+            <code proglang="python">( "" , " --noali " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Omit the alignment section from the main output. This can greatly reduce the
+        output volume.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Don't output alignments, so output is smaller<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704330400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="noali">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704330400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Omit the alignment section from the main output. This can greatly reduce the
+        output volume.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="noali">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704330400::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704330400::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Omit the alignment section from the main output. This can greatly reduce the
+        output volume.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>notextw</name>
+          <prompt lang="en">Unlimit ASCII text output line width (--notextw)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">textw == 120</code>
+            <code proglang="python">textw == 120</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --notextw " : ""</code>
+            <code proglang="python">( "" , " --notextw " )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Unlimit the length of each line in the main output. The default is a limit of 120
+                characters per line, which helps in displaying the output cleanly on terminals and
+                in editors, but can truncate target profile description lines.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Unlimit ASCII text output line width (--notextw)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704320800::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="notextw">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704320800::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Unlimit the length of each line in the main output. The default is a limit of 120
+                characters per line, which helps in displaying the output cleanly on terminals and
+                in editors, but can truncate target profile description lines.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="notextw">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704320800::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704320800::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Unlimit the length of each line in the main output. The default is a limit of 120
+                characters per line, which helps in displaying the output cleanly on terminals and
+                in editors, but can truncate target profile description lines.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>textw</name>
+          <prompt lang="en">Set max width of ASCII text output lines (--textw)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>120</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --textw $value " : ""</code>
+            <code proglang="python">( "" , " --textw " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the main output's line length limit to value&gt; characters per line. The default is
+         120.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set max width of ASCII text output lines (--textw)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704309408::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="textw" type="text" value="120"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704309408::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the main output's line length limit to value&gt; characters per line. The default is
+         120.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="120" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="textw">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117704309408::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117704309408::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the main output's line length limit to value&gt; characters per line. The default is
+         120.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>output_perdomfile_name</name>
+          <prompt lang="en">Output parseable table of per-domain hits</prompt>
+          <type>
+            <datatype>
+              <class>Text</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$perdomfile_name</code>
+            <code proglang="python">perdomfile_name</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">$perdomfile_name</code>
+            <code proglang="python">str(perdomfile_name)</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="output_perdomfile_name">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"CONJscan-T4SSscan.out"</code>
+        <code proglang="python">"CONJscan-T4SSscan.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"CONJscan-T4SSscan.err"</code>
+        <code proglang="python">"CONJscan-T4SSscan.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

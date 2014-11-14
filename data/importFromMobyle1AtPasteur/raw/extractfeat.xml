@@ -1,0 +1,1006 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais and Nicolas Joly,                             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>extractfeat</name>
+    <package>
+      <name>EMBOSS</name>
+      <version>6.3.1</version>
+      <doc>
+        <title>EMBOSS</title>
+        <description>
+          <text lang="en">European Molecular Biology Open Software Suite</text>
+        </description>
+        <authors>Rice,P. Longden,I. and Bleasby, A.</authors>
+        <reference>EMBOSS: The European Molecular Biology Open Software Suite (2000)  Rice,P. Longden,I. and Bleasby, A. Trends in Genetics 16, (6) pp276--277</reference>
+        <sourcelink>http://emboss.sourceforge.net/download</sourcelink>
+        <homepagelink>http://emboss.sourceforge.net</homepagelink>
+      </doc>
+    </package>
+    <doc>
+      <title>extractfeat</title>
+      <description>
+        <text lang="en">Extract features from sequence(s)</text>
+      </description>
+      <doclink>http://bioweb2.pasteur.fr/docs/EMBOSS/extractfeat.html</doclink>
+      <doclink>http://emboss.sourceforge.net/docs/themes</doclink>
+    </doc>
+    <command>extractfeat</command>
+    <category>sequence:edit:feature_table</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+            <legend>sequence option</legend>
+            <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_additional">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Additional section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_before">Amount of sequence before feature to extract<xhtml:a href="#idm140117714909520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_before" type="text" value="0"/>
+            <xhtml:div id="idm140117714909520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this value is greater than 0 then that number of bases or residues before the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the start of the extracted sequence  will be this number of bases/residues before the end of the  feature. So a value of '10' will start the extraction 10  bases/residues before the start of the sequence, and a value of  '-10' will start the extraction 10 bases/residues before the end  of the feature. The output sequence will be padded with 'N' or 'X'  characters if the sequence starts after the required start of the  extraction.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_after">Amount of sequence after feature to extract<xhtml:a href="#idm140117714945648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_after" type="text" value="0"/>
+            <xhtml:div id="idm140117714945648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this value is greater than 0 then that number of bases or residues after the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the end of the extracted sequence will  be this number of bases/residues after the start of the feature.  So a value of '10' will end the extraction 10 bases/residues after  the end of the sequence, and a value of '-10' will end the  extraction 10 bases/residues after the start of the feature. The  output sequence will be padded with 'N' or 'X' characters if the  sequence ends before the required end of the extraction.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_source">Source of feature to display<xhtml:a href="#idm140117716752560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_source" type="text" value=""/>
+            <xhtml:div id="idm140117716752560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default any feature source in the feature table is shown. You can set this to match any feature source you wish to  show. 
+  The source name is usually either the name of the program that  detected the feature or it is the feature table (eg: EMBL) that  the feature came from. 
+  The source may be wildcarded by using '*'. 
+  If you wish to show more than one source, separate their names  with the character '|', eg: 
+  gene* | embl</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_type">Type of feature to extract<xhtml:a href="#idm140117715185792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_type" type="text" value=""/>
+            <xhtml:div id="idm140117715185792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default every feature in the feature table is extracted. You can set this to be any feature type you wish to extract. 
+  See http://www.ebi.ac.uk/embl/WebFeat/ for a list of the EMBL  feature types and see the Uniprot user manual in  http://www.uniprot.org/manual/sequence_annotation  for a list of the Uniprot feature types. 
+  The type may be wildcarded by using '*'. 
+  If you wish to extract more than one type, separate their names  with the character '|', eg: 
+  *UTR | intron</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_sense">Sense of feature to extract<xhtml:a href="#idm140117715196656::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_sense" type="text" value="0"/>
+            <xhtml:div id="idm140117715196656::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default any feature type in the feature table is extracted. You can set this to match any feature sense you wish. 0  - any sense, 1 - forward sense, -1 - reverse sense</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_minscore">Minimum score of feature to extract<xhtml:a href="#idm140117716286336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_minscore" type="text" value="0.0"/>
+            <xhtml:div id="idm140117716286336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Minimum score of feature to extract (see also maxscore)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_maxscore">Maximum score of feature to extract<xhtml:a href="#idm140117714701360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_maxscore" type="text" value="0.0"/>
+            <xhtml:div id="idm140117714701360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Maximum score of feature to extract. 
+ If both minscore and maxscore are zero (the default),  then any score is ignored</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_tag">Tag of feature to extract<xhtml:a href="#idm140117715293344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_tag" type="text" value=""/>
+            <xhtml:div id="idm140117715293344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tags are the types of extra values that a feature may have. For example in the EMBL feature table, a 'CDS' type of feature  may have the tags '/codon', '/codon_start', '/db_xref',  '/EC_number', '/evidence', '/exception', '/function', '/gene',  '/label', '/map', '/note', '/number', '/partial', '/product',  '/protein_id', '/pseudo', '/standard_name', '/translation',  '/transl_except', '/transl_table', or '/usedin'. Some of these  tags also have values, for example '/gene' can have the value of  the gene name. 
+  By default any feature tag in the feature table is extracted. You  can set this to match any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_value">Value of feature tags to extract<xhtml:a href="#idm140117714259296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_value" type="text" value=""/>
+            <xhtml:div id="idm140117714259296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tag values are the values associated with a feature tag. Tags are the types of extra values that a feature may have. For  example in the EMBL feature table, a 'CDS' type of feature may  have the tags '/codon', '/codon_start', '/db_xref', '/EC_number',  '/evidence', '/exception', '/function', '/gene', '/label', '/map',  '/note', '/number', '/partial', '/product', '/protein_id',  '/pseudo', '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Only some of these tags can have  values, for example '/gene' can have the value of the gene name.  By default any feature tag value in the feature table is shown.  You can set this to match any feature tag value you wish to show. 
+  The tag value may be wildcarded by using '*'. 
+  If you wish to show more than one tag value, separate their names  with a space or the character '|', eg: 
+  pax* | 10</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output section</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_join">Output introns etc. as one sequence<xhtml:a href="#idm140117713954224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_join">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117713954224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Some features, such as CDS (coding sequence) and mRNA are composed of introns concatenated together. There may be other  forms of 'joined' sequence, depending on the feature table. If  this option is set TRUE, then any group of these features will be  output as a single sequence. If the 'before' and 'after'  qualifiers have been set, then only the sequence before the first  feature and after the last feature are added.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_featinname">Append type of feature to output sequence name<xhtml:a href="#idm140117714216768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="e_featinname">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117714216768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To aid you in identifying the type of feature that has been output, the type of feature is added to the start of the  description of the output sequence. Sometimes the description of a  sequence is lost in subsequent processing of the sequences file,  so it is useful for the type to be a part of the sequence ID name.  If you set this to be TRUE then the name is added to the ID name  of the output sequence.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_describe">Feature tag names to add to the description<xhtml:a href="#idm140117713762208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="e_describe" type="text" value=""/>
+            <xhtml:div id="idm140117713762208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To aid you in identifying some further properties of a feature that has been output, this lets you specify one or more  tag names that should be added to the output sequence Description  text, together with their values (if any). For example, if this is  set to be 'gene', then if any output feature has the tag (for  example) '/gene=BRCA1' associated with it, then the text  '(gene=BRCA1)' will be added to the Description line. Tags are the  types of extra values that a feature may have. For example in the  EMBL feature table, a 'CDS' type of feature may have the tags  '/codon', '/codon_start', '/db_xref', '/EC_number', '/evidence',  '/exception', '/function', '/gene', '/label', '/map', '/note',  '/number', '/partial', '/product', '/protein_id', '/pseudo',  '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Some of these tags also have  values, for example '/gene' can have the value of the gene name. 
+  By default no feature tag is displayed. You can set this to match  any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="extractfeat.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outseq">Name of the output sequence file (e_outseq)<xhtml:input name="e_outseq" type="text" value="extractfeat.e_outseq"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_osformat_outseq">Choose the sequence output format<xhtml:select name="e_osformat_outseq">
+              <xhtml:option value="EMBL">Embl</xhtml:option>
+              <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+              <xhtml:option value="GCG">Gcg</xhtml:option>
+              <xhtml:option value="GENBANK">Genbank</xhtml:option>
+              <xhtml:option value="NBRF">Nbrf</xhtml:option>
+              <xhtml:option value="CODATA">Codata</xhtml:option>
+              <xhtml:option value="RAW">Raw</xhtml:option>
+              <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+              <xhtml:option value="GFF">Gff</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_input">
+        <xhtml:legend>Input section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_additional">
+        <xhtml:legend>Additional section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_before" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117714909520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117714909520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this value is greater than 0 then that number of bases or residues before the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the start of the extracted sequence  will be this number of bases/residues before the end of the  feature. So a value of '10' will start the extraction 10  bases/residues before the start of the sequence, and a value of  '-10' will start the extraction 10 bases/residues before the end  of the feature. The output sequence will be padded with 'N' or 'X'  characters if the sequence starts after the required start of the  extraction.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_after" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117714945648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117714945648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>If this value is greater than 0 then that number of bases or residues after the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the end of the extracted sequence will  be this number of bases/residues after the start of the feature.  So a value of '10' will end the extraction 10 bases/residues after  the end of the sequence, and a value of '-10' will end the  extraction 10 bases/residues after the start of the feature. The  output sequence will be padded with 'N' or 'X' characters if the  sequence ends before the required end of the extraction.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_source" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117716752560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117716752560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default any feature source in the feature table is shown. You can set this to match any feature source you wish to  show. 
+  The source name is usually either the name of the program that  detected the feature or it is the feature table (eg: EMBL) that  the feature came from. 
+  The source may be wildcarded by using '*'. 
+  If you wish to show more than one source, separate their names  with the character '|', eg: 
+  gene* | embl</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_type" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117715185792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117715185792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default every feature in the feature table is extracted. You can set this to be any feature type you wish to extract. 
+  See http://www.ebi.ac.uk/embl/WebFeat/ for a list of the EMBL  feature types and see the Uniprot user manual in  http://www.uniprot.org/manual/sequence_annotation  for a list of the Uniprot feature types. 
+  The type may be wildcarded by using '*'. 
+  If you wish to extract more than one type, separate their names  with the character '|', eg: 
+  *UTR | intron</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_sense" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117715196656::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117715196656::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>By default any feature type in the feature table is extracted. You can set this to match any feature sense you wish. 0  - any sense, 1 - forward sense, -1 - reverse sense</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_minscore" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117716286336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117716286336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Minimum score of feature to extract (see also maxscore)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_maxscore" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117714701360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117714701360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Maximum score of feature to extract. 
+ If both minscore and maxscore are zero (the default),  then any score is ignored</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_tag" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117715293344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117715293344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tags are the types of extra values that a feature may have. For example in the EMBL feature table, a 'CDS' type of feature  may have the tags '/codon', '/codon_start', '/db_xref',  '/EC_number', '/evidence', '/exception', '/function', '/gene',  '/label', '/map', '/note', '/number', '/partial', '/product',  '/protein_id', '/pseudo', '/standard_name', '/translation',  '/transl_except', '/transl_table', or '/usedin'. Some of these  tags also have values, for example '/gene' can have the value of  the gene name. 
+  By default any feature tag in the feature table is extracted. You  can set this to match any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_value" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117714259296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117714259296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Tag values are the values associated with a feature tag. Tags are the types of extra values that a feature may have. For  example in the EMBL feature table, a 'CDS' type of feature may  have the tags '/codon', '/codon_start', '/db_xref', '/EC_number',  '/evidence', '/exception', '/function', '/gene', '/label', '/map',  '/note', '/number', '/partial', '/product', '/protein_id',  '/pseudo', '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Only some of these tags can have  values, for example '/gene' can have the value of the gene name.  By default any feature tag value in the feature table is shown.  You can set this to match any feature tag value you wish to show. 
+  The tag value may be wildcarded by using '*'. 
+  If you wish to show more than one tag value, separate their names  with a space or the character '|', eg: 
+  pax* | 10</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_join" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117713954224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117713954224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Some features, such as CDS (coding sequence) and mRNA are composed of introns concatenated together. There may be other  forms of 'joined' sequence, depending on the feature table. If  this option is set TRUE, then any group of these features will be  output as a single sequence. If the 'before' and 'after'  qualifiers have been set, then only the sequence before the first  feature and after the last feature are added.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_featinname" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117714216768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117714216768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To aid you in identifying the type of feature that has been output, the type of feature is added to the start of the  description of the output sequence. Sometimes the description of a  sequence is lost in subsequent processing of the sequences file,  so it is useful for the type to be a part of the sequence ID name.  If you set this to be TRUE then the name is added to the ID name  of the output sequence.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_describe" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117713762208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117713762208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>To aid you in identifying some further properties of a feature that has been output, this lets you specify one or more  tag names that should be added to the output sequence Description  text, together with their values (if any). For example, if this is  set to be 'gene', then if any output feature has the tag (for  example) '/gene=BRCA1' associated with it, then the text  '(gene=BRCA1)' will be added to the Description line. Tags are the  types of extra values that a feature may have. For example in the  EMBL feature table, a 'CDS' type of feature may have the tags  '/codon', '/codon_start', '/db_xref', '/EC_number', '/evidence',  '/exception', '/function', '/gene', '/label', '/map', '/note',  '/number', '/partial', '/product', '/protein_id', '/pseudo',  '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Some of these tags also have  values, for example '/gene' can have the value of the gene name. 
+  By default no feature tag is displayed. You can set this to match  any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="extractfeat.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_osformat_outseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="auto" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="e_output">
+        <xhtml:legend>Output section</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="e_outseq_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <paragraph>
+      <name>e_input</name>
+      <prompt lang="en">Input section</prompt>
+      <parameters>
+        <parameter issimple="1" ismandatory="1">
+          <name>e_sequence</name>
+          <prompt lang="en">sequence option</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>EMBL</dataFormat>
+            <dataFormat>FASTA</dataFormat>
+            <dataFormat>GCG</dataFormat>
+            <dataFormat>GENBANK</dataFormat>
+            <dataFormat>NBRF</dataFormat>
+            <dataFormat>CODATA</dataFormat>
+            <dataFormat>RAW</dataFormat>
+            <dataFormat>SWISSPROT</dataFormat>
+            <dataFormat>GFF</dataFormat>
+            <card>1,n</card>
+          </type>
+          <format>
+            <code proglang="python">("", " -sequence=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>sequence option</xhtml:legend>
+              <xhtml:textarea name="e_sequence" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="EMBL FASTA GCG GENBANK NBRF CODATA RAW SWISSPROT GFF " data-parametername="e_sequence">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_additional</name>
+      <prompt lang="en">Additional section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_before</name>
+          <prompt lang="en">Amount of sequence before feature to extract</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -before=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>2</argpos>
+          <comment>
+            <text lang="en">If this value is greater than 0 then that number of bases or residues before the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the start of the extracted sequence  will be this number of bases/residues before the end of the  feature. So a value of '10' will start the extraction 10  bases/residues before the start of the sequence, and a value of  '-10' will start the extraction 10 bases/residues before the end  of the feature. The output sequence will be padded with 'N' or 'X'  characters if the sequence starts after the required start of the  extraction.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Amount of sequence before feature to extract<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714909520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_before" type="text" value="0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714909520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this value is greater than 0 then that number of bases or residues before the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the start of the extracted sequence  will be this number of bases/residues before the end of the  feature. So a value of '10' will start the extraction 10  bases/residues before the start of the sequence, and a value of  '-10' will start the extraction 10 bases/residues before the end  of the feature. The output sequence will be padded with 'N' or 'X'  characters if the sequence starts after the required start of the  extraction.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_before">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714909520::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714909520::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this value is greater than 0 then that number of bases or residues before the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the start of the extracted sequence  will be this number of bases/residues before the end of the  feature. So a value of '10' will start the extraction 10  bases/residues before the start of the sequence, and a value of  '-10' will start the extraction 10 bases/residues before the end  of the feature. The output sequence will be padded with 'N' or 'X'  characters if the sequence starts after the required start of the  extraction.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_after</name>
+          <prompt lang="en">Amount of sequence after feature to extract</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -after=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>3</argpos>
+          <comment>
+            <text lang="en">If this value is greater than 0 then that number of bases or residues after the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the end of the extracted sequence will  be this number of bases/residues after the start of the feature.  So a value of '10' will end the extraction 10 bases/residues after  the end of the sequence, and a value of '-10' will end the  extraction 10 bases/residues after the start of the feature. The  output sequence will be padded with 'N' or 'X' characters if the  sequence ends before the required end of the extraction.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Amount of sequence after feature to extract<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714945648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_after" type="text" value="0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714945648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this value is greater than 0 then that number of bases or residues after the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the end of the extracted sequence will  be this number of bases/residues after the start of the feature.  So a value of '10' will end the extraction 10 bases/residues after  the end of the sequence, and a value of '-10' will end the  extraction 10 bases/residues after the start of the feature. The  output sequence will be padded with 'N' or 'X' characters if the  sequence ends before the required end of the extraction.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_after">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714945648::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714945648::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If this value is greater than 0 then that number of bases or residues after the feature are included in the extracted  sequence. This allows you to get the context of the feature. If  this value is negative then the end of the extracted sequence will  be this number of bases/residues after the start of the feature.  So a value of '10' will end the extraction 10 bases/residues after  the end of the sequence, and a value of '-10' will end the  extraction 10 bases/residues after the start of the feature. The  output sequence will be padded with 'N' or 'X' characters if the  sequence ends before the required end of the extraction.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_source</name>
+          <prompt lang="en">Source of feature to display</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -source=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>4</argpos>
+          <comment>
+            <text lang="en">By default any feature source in the feature table is shown. You can set this to match any feature source you wish to  show. 
+  The source name is usually either the name of the program that  detected the feature or it is the feature table (eg: EMBL) that  the feature came from. 
+  The source may be wildcarded by using '*'. 
+  If you wish to show more than one source, separate their names  with the character '|', eg: 
+  gene* | embl</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Source of feature to display<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117716752560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_source" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117716752560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By default any feature source in the feature table is shown. You can set this to match any feature source you wish to  show. 
+  The source name is usually either the name of the program that  detected the feature or it is the feature table (eg: EMBL) that  the feature came from. 
+  The source may be wildcarded by using '*'. 
+  If you wish to show more than one source, separate their names  with the character '|', eg: 
+  gene* | embl</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_source">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117716752560::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117716752560::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By default any feature source in the feature table is shown. You can set this to match any feature source you wish to  show. 
+  The source name is usually either the name of the program that  detected the feature or it is the feature table (eg: EMBL) that  the feature came from. 
+  The source may be wildcarded by using '*'. 
+  If you wish to show more than one source, separate their names  with the character '|', eg: 
+  gene* | embl</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_type</name>
+          <prompt lang="en">Type of feature to extract</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -type=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>5</argpos>
+          <comment>
+            <text lang="en">By default every feature in the feature table is extracted. You can set this to be any feature type you wish to extract. 
+  See http://www.ebi.ac.uk/embl/WebFeat/ for a list of the EMBL  feature types and see the Uniprot user manual in  http://www.uniprot.org/manual/sequence_annotation  for a list of the Uniprot feature types. 
+  The type may be wildcarded by using '*'. 
+  If you wish to extract more than one type, separate their names  with the character '|', eg: 
+  *UTR | intron</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Type of feature to extract<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117715185792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_type" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117715185792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By default every feature in the feature table is extracted. You can set this to be any feature type you wish to extract. 
+  See http://www.ebi.ac.uk/embl/WebFeat/ for a list of the EMBL  feature types and see the Uniprot user manual in  http://www.uniprot.org/manual/sequence_annotation  for a list of the Uniprot feature types. 
+  The type may be wildcarded by using '*'. 
+  If you wish to extract more than one type, separate their names  with the character '|', eg: 
+  *UTR | intron</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_type">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117715185792::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117715185792::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By default every feature in the feature table is extracted. You can set this to be any feature type you wish to extract. 
+  See http://www.ebi.ac.uk/embl/WebFeat/ for a list of the EMBL  feature types and see the Uniprot user manual in  http://www.uniprot.org/manual/sequence_annotation  for a list of the Uniprot feature types. 
+  The type may be wildcarded by using '*'. 
+  If you wish to extract more than one type, separate their names  with the character '|', eg: 
+  *UTR | intron</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_sense</name>
+          <prompt lang="en">Sense of feature to extract</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -sense=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>6</argpos>
+          <comment>
+            <text lang="en">By default any feature type in the feature table is extracted. You can set this to match any feature sense you wish. 0  - any sense, 1 - forward sense, -1 - reverse sense</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Sense of feature to extract<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117715196656::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_sense" type="text" value="0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117715196656::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By default any feature type in the feature table is extracted. You can set this to match any feature sense you wish. 0  - any sense, 1 - forward sense, -1 - reverse sense</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_sense">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117715196656::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117715196656::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>By default any feature type in the feature table is extracted. You can set this to match any feature sense you wish. 0  - any sense, 1 - forward sense, -1 - reverse sense</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_minscore</name>
+          <prompt lang="en">Minimum score of feature to extract</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -minscore=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>7</argpos>
+          <comment>
+            <text lang="en">Minimum score of feature to extract (see also maxscore)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Minimum score of feature to extract<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117716286336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_minscore" type="text" value="0.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117716286336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Minimum score of feature to extract (see also maxscore)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_minscore">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117716286336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117716286336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Minimum score of feature to extract (see also maxscore)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_maxscore</name>
+          <prompt lang="en">Maximum score of feature to extract</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -maxscore=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>8</argpos>
+          <comment>
+            <text lang="en">Maximum score of feature to extract. 
+ If both minscore and maxscore are zero (the default),  then any score is ignored</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Maximum score of feature to extract<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714701360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_maxscore" type="text" value="0.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714701360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Maximum score of feature to extract. 
+ If both minscore and maxscore are zero (the default),  then any score is ignored</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_maxscore">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714701360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714701360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Maximum score of feature to extract. 
+ If both minscore and maxscore are zero (the default),  then any score is ignored</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_tag</name>
+          <prompt lang="en">Tag of feature to extract</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -tag=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>9</argpos>
+          <comment>
+            <text lang="en">Tags are the types of extra values that a feature may have. For example in the EMBL feature table, a 'CDS' type of feature  may have the tags '/codon', '/codon_start', '/db_xref',  '/EC_number', '/evidence', '/exception', '/function', '/gene',  '/label', '/map', '/note', '/number', '/partial', '/product',  '/protein_id', '/pseudo', '/standard_name', '/translation',  '/transl_except', '/transl_table', or '/usedin'. Some of these  tags also have values, for example '/gene' can have the value of  the gene name. 
+  By default any feature tag in the feature table is extracted. You  can set this to match any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Tag of feature to extract<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117715293344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_tag" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117715293344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tags are the types of extra values that a feature may have. For example in the EMBL feature table, a 'CDS' type of feature  may have the tags '/codon', '/codon_start', '/db_xref',  '/EC_number', '/evidence', '/exception', '/function', '/gene',  '/label', '/map', '/note', '/number', '/partial', '/product',  '/protein_id', '/pseudo', '/standard_name', '/translation',  '/transl_except', '/transl_table', or '/usedin'. Some of these  tags also have values, for example '/gene' can have the value of  the gene name. 
+  By default any feature tag in the feature table is extracted. You  can set this to match any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_tag">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117715293344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117715293344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tags are the types of extra values that a feature may have. For example in the EMBL feature table, a 'CDS' type of feature  may have the tags '/codon', '/codon_start', '/db_xref',  '/EC_number', '/evidence', '/exception', '/function', '/gene',  '/label', '/map', '/note', '/number', '/partial', '/product',  '/protein_id', '/pseudo', '/standard_name', '/translation',  '/transl_except', '/transl_table', or '/usedin'. Some of these  tags also have values, for example '/gene' can have the value of  the gene name. 
+  By default any feature tag in the feature table is extracted. You  can set this to match any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_value</name>
+          <prompt lang="en">Value of feature tags to extract</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -value=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>10</argpos>
+          <comment>
+            <text lang="en">Tag values are the values associated with a feature tag. Tags are the types of extra values that a feature may have. For  example in the EMBL feature table, a 'CDS' type of feature may  have the tags '/codon', '/codon_start', '/db_xref', '/EC_number',  '/evidence', '/exception', '/function', '/gene', '/label', '/map',  '/note', '/number', '/partial', '/product', '/protein_id',  '/pseudo', '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Only some of these tags can have  values, for example '/gene' can have the value of the gene name.  By default any feature tag value in the feature table is shown.  You can set this to match any feature tag value you wish to show. 
+  The tag value may be wildcarded by using '*'. 
+  If you wish to show more than one tag value, separate their names  with a space or the character '|', eg: 
+  pax* | 10</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Value of feature tags to extract<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714259296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_value" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714259296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tag values are the values associated with a feature tag. Tags are the types of extra values that a feature may have. For  example in the EMBL feature table, a 'CDS' type of feature may  have the tags '/codon', '/codon_start', '/db_xref', '/EC_number',  '/evidence', '/exception', '/function', '/gene', '/label', '/map',  '/note', '/number', '/partial', '/product', '/protein_id',  '/pseudo', '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Only some of these tags can have  values, for example '/gene' can have the value of the gene name.  By default any feature tag value in the feature table is shown.  You can set this to match any feature tag value you wish to show. 
+  The tag value may be wildcarded by using '*'. 
+  If you wish to show more than one tag value, separate their names  with a space or the character '|', eg: 
+  pax* | 10</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_value">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714259296::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714259296::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Tag values are the values associated with a feature tag. Tags are the types of extra values that a feature may have. For  example in the EMBL feature table, a 'CDS' type of feature may  have the tags '/codon', '/codon_start', '/db_xref', '/EC_number',  '/evidence', '/exception', '/function', '/gene', '/label', '/map',  '/note', '/number', '/partial', '/product', '/protein_id',  '/pseudo', '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Only some of these tags can have  values, for example '/gene' can have the value of the gene name.  By default any feature tag value in the feature table is shown.  You can set this to match any feature tag value you wish to show. 
+  The tag value may be wildcarded by using '*'. 
+  If you wish to show more than one tag value, separate their names  with a space or the character '|', eg: 
+  pax* | 10</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>e_output</name>
+      <prompt lang="en">Output section</prompt>
+      <parameters>
+        <parameter>
+          <name>e_join</name>
+          <prompt lang="en">Output introns etc. as one sequence</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -join")[ bool(value) ]</code>
+          </format>
+          <argpos>11</argpos>
+          <comment>
+            <text lang="en">Some features, such as CDS (coding sequence) and mRNA are composed of introns concatenated together. There may be other  forms of 'joined' sequence, depending on the feature table. If  this option is set TRUE, then any group of these features will be  output as a single sequence. If the 'before' and 'after'  qualifiers have been set, then only the sequence before the first  feature and after the last feature are added.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output introns etc. as one sequence<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713954224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_join">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713954224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Some features, such as CDS (coding sequence) and mRNA are composed of introns concatenated together. There may be other  forms of 'joined' sequence, depending on the feature table. If  this option is set TRUE, then any group of these features will be  output as a single sequence. If the 'before' and 'after'  qualifiers have been set, then only the sequence before the first  feature and after the last feature are added.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_join">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713954224::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713954224::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Some features, such as CDS (coding sequence) and mRNA are composed of introns concatenated together. There may be other  forms of 'joined' sequence, depending on the feature table. If  this option is set TRUE, then any group of these features will be  output as a single sequence. If the 'before' and 'after'  qualifiers have been set, then only the sequence before the first  feature and after the last feature are added.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_featinname</name>
+          <prompt lang="en">Append type of feature to output sequence name</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="python">("", " -featinname")[ bool(value) ]</code>
+          </format>
+          <argpos>12</argpos>
+          <comment>
+            <text lang="en">To aid you in identifying the type of feature that has been output, the type of feature is added to the start of the  description of the output sequence. Sometimes the description of a  sequence is lost in subsequent processing of the sequences file,  so it is useful for the type to be a part of the sequence ID name.  If you set this to be TRUE then the name is added to the ID name  of the output sequence.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Append type of feature to output sequence name<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714216768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_featinname">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714216768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To aid you in identifying the type of feature that has been output, the type of feature is added to the start of the  description of the output sequence. Sometimes the description of a  sequence is lost in subsequent processing of the sequences file,  so it is useful for the type to be a part of the sequence ID name.  If you set this to be TRUE then the name is added to the ID name  of the output sequence.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_featinname">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117714216768::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117714216768::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To aid you in identifying the type of feature that has been output, the type of feature is added to the start of the  description of the output sequence. Sometimes the description of a  sequence is lost in subsequent processing of the sequences file,  so it is useful for the type to be a part of the sequence ID name.  If you set this to be TRUE then the name is added to the ID name  of the output sequence.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_describe</name>
+          <prompt lang="en">Feature tag names to add to the description</prompt>
+          <type>
+            <datatype>
+              <class>String</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="python">("", " -describe=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>13</argpos>
+          <comment>
+            <text lang="en">To aid you in identifying some further properties of a feature that has been output, this lets you specify one or more  tag names that should be added to the output sequence Description  text, together with their values (if any). For example, if this is  set to be 'gene', then if any output feature has the tag (for  example) '/gene=BRCA1' associated with it, then the text  '(gene=BRCA1)' will be added to the Description line. Tags are the  types of extra values that a feature may have. For example in the  EMBL feature table, a 'CDS' type of feature may have the tags  '/codon', '/codon_start', '/db_xref', '/EC_number', '/evidence',  '/exception', '/function', '/gene', '/label', '/map', '/note',  '/number', '/partial', '/product', '/protein_id', '/pseudo',  '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Some of these tags also have  values, for example '/gene' can have the value of the gene name. 
+  By default no feature tag is displayed. You can set this to match  any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Feature tag names to add to the description<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713762208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_describe" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713762208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To aid you in identifying some further properties of a feature that has been output, this lets you specify one or more  tag names that should be added to the output sequence Description  text, together with their values (if any). For example, if this is  set to be 'gene', then if any output feature has the tag (for  example) '/gene=BRCA1' associated with it, then the text  '(gene=BRCA1)' will be added to the Description line. Tags are the  types of extra values that a feature may have. For example in the  EMBL feature table, a 'CDS' type of feature may have the tags  '/codon', '/codon_start', '/db_xref', '/EC_number', '/evidence',  '/exception', '/function', '/gene', '/label', '/map', '/note',  '/number', '/partial', '/product', '/protein_id', '/pseudo',  '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Some of these tags also have  values, for example '/gene' can have the value of the gene name. 
+  By default no feature tag is displayed. You can set this to match  any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_describe">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117713762208::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117713762208::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>To aid you in identifying some further properties of a feature that has been output, this lets you specify one or more  tag names that should be added to the output sequence Description  text, together with their values (if any). For example, if this is  set to be 'gene', then if any output feature has the tag (for  example) '/gene=BRCA1' associated with it, then the text  '(gene=BRCA1)' will be added to the Description line. Tags are the  types of extra values that a feature may have. For example in the  EMBL feature table, a 'CDS' type of feature may have the tags  '/codon', '/codon_start', '/db_xref', '/EC_number', '/evidence',  '/exception', '/function', '/gene', '/label', '/map', '/note',  '/number', '/partial', '/product', '/protein_id', '/pseudo',  '/standard_name', '/translation', '/transl_except',  '/transl_table', or '/usedin'. Some of these tags also have  values, for example '/gene' can have the value of the gene name. 
+  By default no feature tag is displayed. You can set this to match  any feature tag you wish to show. 
+  The tag may be wildcarded by using '*'. 
+  If you wish to extract more than one tag, separate their names  with the character '|', eg: 
+  gene | label</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_outseq</name>
+          <prompt lang="en">Name of the output sequence file (e_outseq)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>extractfeat.e_outseq</value>
+          </vdef>
+          <format>
+            <code proglang="python">("" , " -outseq=" + str(value))[value is not None]</code>
+          </format>
+          <argpos>14</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Name of the output sequence file (e_outseq)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_outseq" type="text" value="extractfeat.e_outseq"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="extractfeat.e_outseq" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_outseq"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>e_osformat_outseq</name>
+          <prompt lang="en">Choose the sequence output format</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>FASTA</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>EMBL</value>
+              <label>Embl</label>
+            </velem>
+            <velem>
+              <value>FASTA</value>
+              <label>Fasta</label>
+            </velem>
+            <velem>
+              <value>GCG</value>
+              <label>Gcg</label>
+            </velem>
+            <velem>
+              <value>GENBANK</value>
+              <label>Genbank</label>
+            </velem>
+            <velem>
+              <value>NBRF</value>
+              <label>Nbrf</label>
+            </velem>
+            <velem>
+              <value>CODATA</value>
+              <label>Codata</label>
+            </velem>
+            <velem>
+              <value>RAW</value>
+              <label>Raw</label>
+            </velem>
+            <velem>
+              <value>SWISSPROT</value>
+              <label>Swissprot</label>
+            </velem>
+            <velem>
+              <value>GFF</value>
+              <label>Gff</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="python">("", " -osformat=" + str(value))[value is not None and value!=vdef]</code>
+          </format>
+          <argpos>15</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Choose the sequence output format<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="e_osformat_outseq">
+                <xhtml:option value="EMBL">Embl</xhtml:option>
+                <xhtml:option value="FASTA" selected="selected">Fasta</xhtml:option>
+                <xhtml:option value="GCG">Gcg</xhtml:option>
+                <xhtml:option value="GENBANK">Genbank</xhtml:option>
+                <xhtml:option value="NBRF">Nbrf</xhtml:option>
+                <xhtml:option value="CODATA">Codata</xhtml:option>
+                <xhtml:option value="RAW">Raw</xhtml:option>
+                <xhtml:option value="SWISSPROT">Swissprot</xhtml:option>
+                <xhtml:option value="GFF">Gff</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="FASTA" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="e_osformat_outseq"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>e_outseq_out</name>
+          <prompt lang="en">outseq_out option</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>
+              <ref param="e_osformat_outseq">
+              </ref>
+            </dataFormat>
+          </type>
+          <filenames>
+            <code proglang="python">e_outseq</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="&#10;               " data-parametername="e_outseq_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter ishidden="1">
+      <name>auto</name>
+      <prompt lang="en">Turn off any prompting</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="python">" -auto -stdout"</code>
+      </format>
+      <argpos>16</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="auto"/>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"extractfeat.out"</code>
+        <code proglang="python">"extractfeat.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"extractfeat.err"</code>
+        <code proglang="python">"extractfeat.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

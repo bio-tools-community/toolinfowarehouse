@@ -1,0 +1,2324 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais                                               -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>hmmsim</name>
+    <package xml:base="Entities/hmmer_package.xml">
+      <name>hmmer</name>
+      <version>3.0</version>
+      <doc>
+        <title>hmmer</title>
+        <description>
+          <text lang="en">HMMER is an implementation of profile HMM methods for sensitive
+        database searches using multiple sequence alignments as queries.</text>
+        </description>
+        <homepagelink>http://hmmer.janelia.org/</homepagelink>
+        <sourcelink>ftp://selab.janelia.org/pub/software/hmmer3/</sourcelink>
+        <authors>S. Eddy</authors>
+        <reference>Eddy, S. R. (1998). Profile hidden Markov models. Bioinformatics, 14:755-763.</reference>
+        <reference>Eddy, S. R. (2008). A probabilistic model of local sequence alignment that simplifies statistical significance
+estimation. PLoS Comput. Biol., 4:e1000069</reference>
+        <doclink>http://bioweb2.pasteur.fr/docs/hmmer/Userguide.pdf</doclink>
+      </doc>
+    </package>
+    <doc>
+      <title>HMMSIM</title>
+      <description>
+        <text lang="en">
+          Collect profile HMM score distributions on random sequences
+        </text>
+      </description>
+    </doc>
+    <command>hmmsim</command>
+    <category>hmm:simulation</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="hmmfile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">HMM file</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="hmmfile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="generalOptions">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">General options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="aln">Obtain alignment length statistics (-a)<xhtml:a href="#idm140117719991600::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="aln">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117719991600::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Collect expected Viterbi alignment length statistics from each simulated sequence.
+            This only works with Viterbi scores (the default; see --vit). Two additional fields are
+            printed in the output table for each model: the mean length of Viterbi alignments,
+            and the standard deviation.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="verbose">Verbose: print scores (-v)<xhtml:select name="verbose">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Length">Length of random target sequences (-L)<xhtml:input name="Length" type="text" value="100"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1000" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="number">Number of random target sequences (-N)<xhtml:input name="number" type="text" value="1000"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="AdvancedOptions">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Advanced options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="--fs" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="altAln">Alternative alignment styles<xhtml:a href="#idm140117718484896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="altAln">
+              <xhtml:option value="--fs" selected="selected">multihit local alignment (fs)</xhtml:option>
+              <xhtml:option value="--sw">unihit local alignment (sw)</xhtml:option>
+              <xhtml:option value="--ls">multihit glocal alignment (ls)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718484896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>H3 only uses multihit local alignment ( --fs mode), and this is where we believe the statistical fits. Unihit
+            local alignment scores (Smith/Waterman; --sw mode) also obey our statistical conjectures. Glocal alignment
+            statistics (either multihit or unihit) are still not adequately understood nor adequately fitted.</xhtml:div>
+              <xhtml:div>fs: Collect multihit local alignment scores. This is the default. 'fs comes from HMMER2'
+            s historical terminology for multihit local alignment as 'fragment search mode'.</xhtml:div>
+              <xhtml:div>sw: Collect unihit local alignment scores. The H3 J state is disabled. 'sw' comes from
+            HMMER2's historical terminology for unihit local alignment as 'Smith/Waterman search mode'.</xhtml:div>
+              <xhtml:div>ls Collect multihit glocal alignment scores. In glocal (global/local) alignment, the entire
+            model must align, to a subsequence of the target. The H3 local entry/exit transition
+            probabilities are disabled. 'ls' comes from HMMER2's historical terminology
+            for multihit local alignment as 'local search mode'.</xhtml:div>
+              <xhtml:div>s: Collect unihit glocal alignment scores. Both the H3 J state and local entry/exit transition
+            probabilities are disabled. 's' comes from HMMER2's historical terminology
+            for unihit glocal alignment.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="--vit" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="altSco">Option controlling scoring algorithm<xhtml:a href="#idm140117719293360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="altSco">
+              <xhtml:option value="--vit" selected="selected">Score sequences with the Viterbi algorithm (vit)</xhtml:option>
+              <xhtml:option value="--fwd">Score sequences with the Forward algorithm (fwd)</xhtml:option>
+              <xhtml:option value="--hyd">Score sequences with the Hybrid algorithm (hyd)</xhtml:option>
+              <xhtml:option value="--msv">Score sequences with the MSV algorithm (msv)</xhtml:option>
+              <xhtml:option value="--fast">Use the optimized versions of the above (fast)</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117719293360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>vit: Collect Viterbi maximum likelihood alignment scores. This is the default.</xhtml:div>
+              <xhtml:div>fwd: Collect Forward log-odds likelihood scores, summed over alignment ensemble.</xhtml:div>
+              <xhtml:div>hyb: Collect 'Hybrid' scores, as described in papers by Yu and Hwa (for instance, Bioinformatics
+            18:864, 2002). These involve calculating a Forward matrix and taking the
+            maximum cell value. The number itself is statistically somewhat unmotivated, but
+            the distribution is expected be a well-behaved extreme value distribution (Gumbel).</xhtml:div>
+              <xhtml:div>msv: Collect MSV (multiple ungapped segment Viterbi) scores, using H3's main acceleration
+            heuristic.</xhtml:div>
+              <xhtml:div>fast: For any of the above options, use H3's optimized production implementation (using
+            SIMD vectorization). The default is to use the 'generic' implementation (slow and
+            non-vectorized). The optimized implementations sacrifice a small amount of numerical
+            precision. This can introduce confounding noise into statistical simulations
+            and fits, so when one gets super-concerned about exact details, it's better to be
+            able to factor that source of noise out.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="controlMasse">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Controlling range of fitted tail masses</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tmin">Set lower bound tail mass for fwd,island (--tmin)<xhtml:a href="#idm140117719548608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="tmin" type="text" value="0.02"/>
+            <xhtml:div id="idm140117719548608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the lower bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tmax">Set upper bound tail mass for fwd,island (--tmax)<xhtml:a href="#idm140117720734336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="tmax" type="text" value="0.02"/>
+            <xhtml:div id="idm140117720734336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the upper bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tpoints">Set number of tail probs to try (--tpoints)<xhtml:a href="#idm140117720766096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="tpoints" type="text" value="1"/>
+            <xhtml:div id="idm140117720766096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the number of tail masses to sample, starting from --tmin and ending at --tmax.
+            The default is 1, for the default 0.02 single tail mass.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tlinear">Use linear not log spacing of tail probs (--tlinear)<xhtml:a href="#idm140117720791680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="tlinear">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117720791680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sample a range of tail masses with uniform linear spacing. The default is to use
+            uniform logarithmic spacing.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="ECalibration">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Options controlling h3 parameter estimation methods<xhtml:a href="#idm140117720747248::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720747248::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>H3 uses three short random sequence simulations to estimating the location parameters 
+        for the expected score distributions for MSV scores, Viterbi scores, and Forward scores. These options 
+        allow these simulations to be modified.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EmL">Lengt of sequences for MSV Gumbel mu fit (EmL)<xhtml:a href="#idm140117719720080::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EmL" type="text" value="200"/>
+            <xhtml:div id="idm140117719720080::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the sequence length in simulation that estimates the location parameter mu
+         for MSV E-values. Default is 200. Enter a value &gt; 0. </xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EmN">Number of sequences for MSV Gumbel mu fit (EmN)<xhtml:a href="#idm140117719460064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EmN" type="text" value="200"/>
+            <xhtml:div id="idm140117719460064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+              mu for MSV E-values. Default is 200. Enter a value &gt; 0.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EvL">Lengt of sequences for Viterbi Gumbel mu fit (EvL)<xhtml:a href="#idm140117718943456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EvL" type="text" value="200"/>
+            <xhtml:div id="idm140117718943456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the sequence length in simulation that estimates the location parameter mu
+            for Viterbi E-values. Default is 200. Enter a value &gt; 0</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EvN">Number of sequences for Viterbi Gumbel mu fit (EvN)<xhtml:a href="#idm140117719716624::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EvN" type="text" value="200"/>
+            <xhtml:div id="idm140117719716624::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+          mu for Viterbi E-values. Default is 200. Enter a value &gt; 0.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EfL">Lengt of sequences for Forward exp tail tau fit (EfL)<xhtml:a href="#idm140117720007824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EfL" type="text" value="100"/>
+            <xhtml:div id="idm140117720007824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the sequence length in simulation that estimates the location parameter tau
+          for Forward E-values. Default is 100. Enter a value &gt; 0</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EfN">Number of sequences for Forward exp tail tau fit (EfN)<xhtml:a href="#idm140117720728528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="EfN" type="text" value="200"/>
+            <xhtml:div id="idm140117720728528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+            tau for Forward E-values. Default is 200. Enter a value &gt; 0</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.04" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Eft">Tail mass for Forward exponential tail tau fit (Eft)<xhtml:a href="#idm140117718501344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="Eft" type="text" value="0.04"/>
+            <xhtml:div id="idm140117718501344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+            tau for Forward evalues. Default is 0.04. Enter a value &gt; 0 and &lt; 1</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="debugg">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Debugging options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stall">Arrest after start: for debugging MPI under gdb (--stall)<xhtml:a href="#idm140117718543120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="stall">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718543120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For debugging the MPI master/worker version: pause after start, to enable the
+            developer to attach debuggers to the running master and worker(s) processes.
+            Send SIGCONT signal to release the pause. (Under gdb: (gdb) signal SIGCONT)
+            (Only available if optional MPI support was enabled at compile-time.)</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed">Set random number seed  (--seed)<xhtml:a href="#idm140117718513712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="seed" type="text" value="0"/>
+            <xhtml:div id="idm140117718513712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the random number seed. The default is 0, which makes the random
+            number generator use an arbitrary seed, so that different runs of hmmsim will
+            almost certainly generate a different statistical sample. For debugging, it is useful
+            to force reproducible results, by fixing a random number seed.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Experiments options<xhtml:a href="#idm140117718426672::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718426672::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>These options were used in a small variety of different exploratory experiments.</xhtml:div>
+        </xhtml:div>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bgflat">Set uniform background frequencies (--bgflat)<xhtml:a href="#idm140117718422928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="bgflat">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718422928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the background residue distribution to a uniform distribution, both for purposes
+            of the null model used in calculating scores, and for generating the random sequences.
+            The default is to use a standard amino acid background frequency distribution.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bgcomp">Set bg frequencies to model's average composition (--bgcomp)<xhtml:a href="#idm140117718439824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="bgcomp">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718439824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the background residue distribution to the mean composition of the profile. This
+            was used in exploring some of the effects of biased composition.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lengthmode">Turn the H3 length model off (--x-no-lengthmode)<xhtml:a href="#idm140117718352160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="lengthmode">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117718352160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turn the H3 target sequence length model off. Set the self-transitions for N,C,J
+            and the null model to 350/351 instead; this emulates HMMER2. Not a good idea
+            in general. This was used to demonstrate one of the main H2 vs. H3 differences.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nu">Set nu parameter (expected HSPs) for GMSV (--nu)<xhtml:a href="#idm140117718340992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="nu" type="text" value="2.0"/>
+            <xhtml:div id="idm140117718340992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the nu parameter for the MSV algorithm -- the expected number of ungapped
+          local alignments per target sequence. The default is 2.0, corresponding to a E-&gt;J transition probability of 0.5. This was used to test whether varying nu has
+          significant effect on result (it doesn't seem to, within reason). This option only
+          works if --msv is selected (it only affects MSV), and it will not work with --fast
+          (because the optimized implementations are hardwired to assume nu=2.0).</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pthresh">Set  P-value threshold for --ffile (--pthresh)<xhtml:a href="#idm140117718256112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="pthresh" type="text" value="0.02"/>
+            <xhtml:div id="idm140117718256112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the filter P-value threshold to use in generating filter power files with --ffile. The
+            default is 0.02 (which would be appropriate for testing MSV scores, since this is
+            the default MSV filter threshold in H3's acceleration pipeline.) Other appropriate
+            choices (matching defaults in the acceleration pipeline) would be 0.001 for Viterbi,
+            and 1e-5 for Forward.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="save">Direct summary output to file, not stdout. (-o)<xhtml:input name="save" type="text" value=""/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="afile">Output alignment lengths to file (--afile)<xhtml:a href="#idm140117718322704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="afile" type="text" value=""/>
+            <xhtml:div id="idm140117718322704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When collecting Viterbi alignment statistics (the -a option), for each sampled sequence,
+            output two fields per line to a file: the length of the optimal alignment,
+            and the Viterbi bit score. Requires that the -a option is also used.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="efile">Output E vs. E plots to file in xy format (--efile)<xhtml:a href="#idm140117718302384::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="efile" type="text" value=""/>
+            <xhtml:div id="idm140117718302384::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Output a rank versus. E-value plot in XMGRACE xy format to file. The x-axis is the
+            rank of this sequence, from highest score to lowest; the y-axis is the E-value calculated
+            for this sequence. E-values are calculated using H3's default procedures (i.e.
+            the 'pmu, plambda' parameters in the output table). You expect a rough match
+            between rank and E-value if E-values are accurately estimated.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ffile">Output filter fraction: sequences passing P thresh (--ffile)<xhtml:a href="#idm140117718283600::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="ffile" type="text" value=""/>
+            <xhtml:div id="idm140117718283600::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Output a 'filter power' file: for each model, a line with three fields: model
+            name, number of sequences passing the P-value threshold, and fraction of sequences
+            passing the P-value threshold. See --pthresh for setting the P-value
+            threshold, which defaults to 0.02 (the default MSV filter threshold in H3). The
+            P-values are as determined by H3's default procedures (the 'pmu,plambda' parameters
+            in the output table). If all is well, you expect to see filter power equal to
+            the predicted P-value setting of the threshold.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pfile">Output cumulative survival plots (--pfile)<xhtml:a href="#idm140117718130880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="pfile" type="text" value=""/>
+            <xhtml:div id="idm140117718130880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Output cumulative survival plots (P(S&gt;x)) to file in XMGRACE xy format.
+            There are three plots: (1) the observed score distribution; (2) the maximum likelihood
+            fitted distribution; (3) a maximum likelihood fit to the location parameter
+            (mu/tau) while assuming lambda=log 2.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xfile">Output bitscores as binary double vector to file (--xfile)<xhtml:a href="#idm140117718114688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:input name="xfile" type="text" value=""/>
+            <xhtml:div id="idm140117718114688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Output the bit scores as a binary array of double-precision floats (8 bytes per score)
+            to file. Programs like Easel's esl-histplot can read such binary files. This is
+            useful when generating extremely large sample sizes.</xhtml:div>
+            </xhtml:div>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hmmfile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(HmmProfile)
+			</xhtml:i>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="generalOptions">
+        <xhtml:legend>General options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="aln" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719991600::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719991600::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Collect expected Viterbi alignment length statistics from each simulated sequence.
+            This only works with Viterbi scores (the default; see --vit). Two additional fields are
+            printed in the output table for each model: the mean length of Viterbi alignments,
+            and the standard deviation.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="verbose" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="number" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1000" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="AdvancedOptions">
+        <xhtml:legend>Advanced options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="altAln" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="--fs" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718484896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718484896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>H3 only uses multihit local alignment ( --fs mode), and this is where we believe the statistical fits. Unihit
+            local alignment scores (Smith/Waterman; --sw mode) also obey our statistical conjectures. Glocal alignment
+            statistics (either multihit or unihit) are still not adequately understood nor adequately fitted.</xhtml:div>
+              <xhtml:div>fs: Collect multihit local alignment scores. This is the default. 'fs comes from HMMER2'
+            s historical terminology for multihit local alignment as 'fragment search mode'.</xhtml:div>
+              <xhtml:div>sw: Collect unihit local alignment scores. The H3 J state is disabled. 'sw' comes from
+            HMMER2's historical terminology for unihit local alignment as 'Smith/Waterman search mode'.</xhtml:div>
+              <xhtml:div>ls Collect multihit glocal alignment scores. In glocal (global/local) alignment, the entire
+            model must align, to a subsequence of the target. The H3 local entry/exit transition
+            probabilities are disabled. 'ls' comes from HMMER2's historical terminology
+            for multihit local alignment as 'local search mode'.</xhtml:div>
+              <xhtml:div>s: Collect unihit glocal alignment scores. Both the H3 J state and local entry/exit transition
+            probabilities are disabled. 's' comes from HMMER2's historical terminology
+            for unihit glocal alignment.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="altSco" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="--vit" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719293360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719293360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>vit: Collect Viterbi maximum likelihood alignment scores. This is the default.</xhtml:div>
+              <xhtml:div>fwd: Collect Forward log-odds likelihood scores, summed over alignment ensemble.</xhtml:div>
+              <xhtml:div>hyb: Collect 'Hybrid' scores, as described in papers by Yu and Hwa (for instance, Bioinformatics
+            18:864, 2002). These involve calculating a Forward matrix and taking the
+            maximum cell value. The number itself is statistically somewhat unmotivated, but
+            the distribution is expected be a well-behaved extreme value distribution (Gumbel).</xhtml:div>
+              <xhtml:div>msv: Collect MSV (multiple ungapped segment Viterbi) scores, using H3's main acceleration
+            heuristic.</xhtml:div>
+              <xhtml:div>fast: For any of the above options, use H3's optimized production implementation (using
+            SIMD vectorization). The default is to use the 'generic' implementation (slow and
+            non-vectorized). The optimized implementations sacrifice a small amount of numerical
+            precision. This can introduce confounding noise into statistical simulations
+            and fits, so when one gets super-concerned about exact details, it's better to be
+            able to factor that source of noise out.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="controlMasse">
+        <xhtml:legend>Controlling range of fitted tail masses</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tmin" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719548608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719548608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the lower bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tmax" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117720734336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117720734336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the upper bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tpoints" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117720766096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117720766096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the number of tail masses to sample, starting from --tmin and ending at --tmax.
+            The default is 1, for the default 0.02 single tail mass.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="tlinear" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117720791680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117720791680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sample a range of tail masses with uniform linear spacing. The default is to use
+            uniform logarithmic spacing.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="ECalibration">
+        <xhtml:legend>Options controlling h3 parameter estimation methods</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EmL" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719720080::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719720080::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the sequence length in simulation that estimates the location parameter mu
+         for MSV E-values. Default is 200. Enter a value &gt; 0. </xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EmN" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719460064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719460064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+              mu for MSV E-values. Default is 200. Enter a value &gt; 0.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EvL" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718943456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718943456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the sequence length in simulation that estimates the location parameter mu
+            for Viterbi E-values. Default is 200. Enter a value &gt; 0</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EvN" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117719716624::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117719716624::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+          mu for Viterbi E-values. Default is 200. Enter a value &gt; 0.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EfL" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117720007824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117720007824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the sequence length in simulation that estimates the location parameter tau
+          for Forward E-values. Default is 100. Enter a value &gt; 0</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="EfN" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117720728528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117720728528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+            tau for Forward E-values. Default is 200. Enter a value &gt; 0</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Eft" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.04" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718501344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718501344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+            tau for Forward evalues. Default is 0.04. Enter a value &gt; 0 and &lt; 1</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="debugg">
+        <xhtml:legend>Debugging options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stall" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718543120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718543120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For debugging the MPI master/worker version: pause after start, to enable the
+            developer to attach debuggers to the running master and worker(s) processes.
+            Send SIGCONT signal to release the pause. (Under gdb: (gdb) signal SIGCONT)
+            (Only available if optional MPI support was enabled at compile-time.)</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="seed" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718513712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718513712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the random number seed. The default is 0, which makes the random
+            number generator use an arbitrary seed, so that different runs of hmmsim will
+            almost certainly generate a different statistical sample. For debugging, it is useful
+            to force reproducible results, by fixing a random number seed.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="expert">
+        <xhtml:legend>Experiments options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bgflat" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718422928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718422928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the background residue distribution to a uniform distribution, both for purposes
+            of the null model used in calculating scores, and for generating the random sequences.
+            The default is to use a standard amino acid background frequency distribution.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="bgcomp" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718439824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718439824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the background residue distribution to the mean composition of the profile. This
+            was used in exploring some of the effects of biased composition.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="lengthmode" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718352160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718352160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Turn the H3 target sequence length model off. Set the self-transitions for N,C,J
+            and the null model to 350/351 instead; this emulates HMMER2. Not a good idea
+            in general. This was used to demonstrate one of the main H2 vs. H3 differences.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nu" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718340992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718340992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the nu parameter for the MSV algorithm -- the expected number of ungapped
+          local alignments per target sequence. The default is 2.0, corresponding to a E-&gt;J transition probability of 0.5. This was used to test whether varying nu has
+          significant effect on result (it doesn't seem to, within reason). This option only
+          works if --msv is selected (it only affects MSV), and it will not work with --fast
+          (because the optimized implementations are hardwired to assume nu=2.0).</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pthresh" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718256112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718256112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Set the filter P-value threshold to use in generating filter power files with --ffile. The
+            default is 0.02 (which would be appropriate for testing MSV scores, since this is
+            the default MSV filter threshold in H3's acceleration pipeline.) Other appropriate
+            choices (matching defaults in the acceleration pipeline) would be 0.001 for Viterbi,
+            and 1e-5 for Forward.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="save" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="afile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718322704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718322704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>When collecting Viterbi alignment statistics (the -a option), for each sampled sequence,
+            output two fields per line to a file: the length of the optimal alignment,
+            and the Viterbi bit score. Requires that the -a option is also used.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="efile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718302384::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718302384::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Output a rank versus. E-value plot in XMGRACE xy format to file. The x-axis is the
+            rank of this sequence, from highest score to lowest; the y-axis is the E-value calculated
+            for this sequence. E-values are calculated using H3's default procedures (i.e.
+            the 'pmu, plambda' parameters in the output table). You expect a rough match
+            between rank and E-value if E-values are accurately estimated.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ffile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718283600::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718283600::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Output a 'filter power' file: for each model, a line with three fields: model
+            name, number of sequences passing the P-value threshold, and fraction of sequences
+            passing the P-value threshold. See --pthresh for setting the P-value
+            threshold, which defaults to 0.02 (the default MSV filter threshold in H3). The
+            P-values are as determined by H3's default procedures (the 'pmu,plambda' parameters
+            in the output table). If all is well, you expect to see filter power equal to
+            the predicted P-value setting of the threshold.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718130880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718130880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Output cumulative survival plots (P(S&gt;x)) to file in XMGRACE xy format.
+            There are three plots: (1) the observed score distribution; (2) the maximum likelihood
+            fitted distribution; (3) a maximum likelihood fit to the location parameter
+            (mu/tau) while assuming lambda=log 2.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117718114688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117718114688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Output the bit scores as a binary array of double-precision floats (8 bytes per score)
+            to file. Programs like Easel's esl-histplot can read such binary files. This is
+            useful when generating extremely large sample sizes.</xhtml:div>
+            </xhtml:div>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="save_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="afile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="efile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="ffile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pfile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="xfile_out" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BitScores" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>hmmfile</name>
+      <prompt lang="en">HMM file</prompt>
+      <type>
+        <datatype>
+          <class>HmmProfile</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+str(value)</code>
+      </format>
+      <argpos>30</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>HMM file</xhtml:legend>
+          <xhtml:textarea name="hmmfile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="HmmProfile" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="hmmfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(HmmProfile)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>generalOptions</name>
+      <prompt lang="en">General options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>aln</name>
+          <prompt lang="en">Obtain alignment length statistics (-a)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$altSco eq '--vit'</code>
+            <code proglang="python">altSco == '--vit'</code>
+          </precond>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -a" : ""</code>
+            <code proglang="python">( "" , " -a" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Collect expected Viterbi alignment length statistics from each simulated sequence.
+            This only works with Viterbi scores (the default; see --vit). Two additional fields are
+            printed in the output table for each model: the mean length of Viterbi alignments,
+            and the standard deviation.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Obtain alignment length statistics (-a)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719991600::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="aln">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719991600::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Collect expected Viterbi alignment length statistics from each simulated sequence.
+            This only works with Viterbi scores (the default; see --vit). Two additional fields are
+            printed in the output table for each model: the mean length of Viterbi alignments,
+            and the standard deviation.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="aln">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719991600::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719991600::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Collect expected Viterbi alignment length statistics from each simulated sequence.
+            This only works with Viterbi scores (the default; see --vit). Two additional fields are
+            printed in the output table for each model: the mean length of Viterbi alignments,
+            and the standard deviation.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>verbose</name>
+          <prompt lang="en">Verbose: print scores (-v)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -v" : ""</code>
+            <code proglang="python">( "" , " -v" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Verbose: print scores (-v)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="verbose">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="verbose"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Length</name>
+          <prompt lang="en">Length of random target sequences (-L)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>100</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef ) ? " -L $value" : ""</code>
+            <code proglang="python">( "" , " -L " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">value &gt; 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Length of random target sequences (-L)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Length" type="text" value="100"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Length"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>number</name>
+          <prompt lang="en">Number of random target sequences (-N)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1000</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -N $value" : ""</code>
+            <code proglang="python">( "" , " -N " + str(value) )[ value is not None and value !=vdef]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">value &gt; 0</text>
+            </message>
+            <code proglang="perl">$value &gt; 0</code>
+            <code proglang="python">value &gt; 0</code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of random target sequences (-N)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="number" type="text" value="1000"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1000" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="number"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>AdvancedOptions</name>
+      <prompt lang="en">Advanced options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>altAln</name>
+          <prompt lang="en">Alternative alignment styles</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>--fs</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>--fs</value>
+              <label>multihit local alignment (fs)</label>
+            </velem>
+            <velem>
+              <value>--sw</value>
+              <label>unihit local alignment (sw)</label>
+            </velem>
+            <velem>
+              <value>--ls</value>
+              <label>multihit glocal alignment (ls)</label>
+            </velem>
+          </vlist>
+          <!--<velem>  'Failed to parse command line: Abbreviated option "-s" is ambiguous'
+            <value>-s</value>
+            <label>unihit glocal alignment (s)</label>
+           </velem>
+           -->
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " $value" : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">H3 only uses multihit local alignment ( --fs mode), and this is where we believe the statistical fits. Unihit
+            local alignment scores (Smith/Waterman; --sw mode) also obey our statistical conjectures. Glocal alignment
+            statistics (either multihit or unihit) are still not adequately understood nor adequately fitted.</text>
+            <text lang="en">fs: Collect multihit local alignment scores. This is the default. 'fs comes from HMMER2'
+            s historical terminology for multihit local alignment as 'fragment search mode'.</text>
+            <text lang="en">sw: Collect unihit local alignment scores. The H3 J state is disabled. 'sw' comes from
+            HMMER2's historical terminology for unihit local alignment as 'Smith/Waterman search mode'.</text>
+            <text lang="en">ls Collect multihit glocal alignment scores. In glocal (global/local) alignment, the entire
+            model must align, to a subsequence of the target. The H3 local entry/exit transition
+            probabilities are disabled. 'ls' comes from HMMER2's historical terminology
+            for multihit local alignment as 'local search mode'.</text>
+            <text lang="en">s: Collect unihit glocal alignment scores. Both the H3 J state and local entry/exit transition
+            probabilities are disabled. 's' comes from HMMER2's historical terminology
+            for unihit glocal alignment.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Alternative alignment styles<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718484896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="altAln">
+                <xhtml:option value="--fs" selected="selected">multihit local alignment (fs)</xhtml:option>
+                <xhtml:option value="--sw">unihit local alignment (sw)</xhtml:option>
+                <xhtml:option value="--ls">multihit glocal alignment (ls)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718484896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>H3 only uses multihit local alignment ( --fs mode), and this is where we believe the statistical fits. Unihit
+            local alignment scores (Smith/Waterman; --sw mode) also obey our statistical conjectures. Glocal alignment
+            statistics (either multihit or unihit) are still not adequately understood nor adequately fitted.</xhtml:div>
+                <xhtml:div>fs: Collect multihit local alignment scores. This is the default. 'fs comes from HMMER2'
+            s historical terminology for multihit local alignment as 'fragment search mode'.</xhtml:div>
+                <xhtml:div>sw: Collect unihit local alignment scores. The H3 J state is disabled. 'sw' comes from
+            HMMER2's historical terminology for unihit local alignment as 'Smith/Waterman search mode'.</xhtml:div>
+                <xhtml:div>ls Collect multihit glocal alignment scores. In glocal (global/local) alignment, the entire
+            model must align, to a subsequence of the target. The H3 local entry/exit transition
+            probabilities are disabled. 'ls' comes from HMMER2's historical terminology
+            for multihit local alignment as 'local search mode'.</xhtml:div>
+                <xhtml:div>s: Collect unihit glocal alignment scores. Both the H3 J state and local entry/exit transition
+            probabilities are disabled. 's' comes from HMMER2's historical terminology
+            for unihit glocal alignment.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="--fs" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="altAln">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718484896::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718484896::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>H3 only uses multihit local alignment ( --fs mode), and this is where we believe the statistical fits. Unihit
+            local alignment scores (Smith/Waterman; --sw mode) also obey our statistical conjectures. Glocal alignment
+            statistics (either multihit or unihit) are still not adequately understood nor adequately fitted.</xhtml:div>
+                <xhtml:div>fs: Collect multihit local alignment scores. This is the default. 'fs comes from HMMER2'
+            s historical terminology for multihit local alignment as 'fragment search mode'.</xhtml:div>
+                <xhtml:div>sw: Collect unihit local alignment scores. The H3 J state is disabled. 'sw' comes from
+            HMMER2's historical terminology for unihit local alignment as 'Smith/Waterman search mode'.</xhtml:div>
+                <xhtml:div>ls Collect multihit glocal alignment scores. In glocal (global/local) alignment, the entire
+            model must align, to a subsequence of the target. The H3 local entry/exit transition
+            probabilities are disabled. 'ls' comes from HMMER2's historical terminology
+            for multihit local alignment as 'local search mode'.</xhtml:div>
+                <xhtml:div>s: Collect unihit glocal alignment scores. Both the H3 J state and local entry/exit transition
+            probabilities are disabled. 's' comes from HMMER2's historical terminology
+            for unihit glocal alignment.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>altSco</name>
+          <prompt lang="en">Option controlling scoring algorithm</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>--vit</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>--vit</value>
+              <label>Score sequences with the Viterbi algorithm (vit)</label>
+            </velem>
+            <velem>
+              <value>--fwd</value>
+              <label>Score sequences with the Forward algorithm (fwd)</label>
+            </velem>
+            <velem>
+              <value>--hyd</value>
+              <label>Score sequences with the Hybrid algorithm (hyd)</label>
+            </velem>
+            <velem>
+              <value>--msv</value>
+              <label>Score sequences with the MSV algorithm (msv)</label>
+            </velem>
+            <velem>
+              <value>--fast</value>
+              <label>Use the optimized versions of the above (fast)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? "  $value" : ""</code>
+            <code proglang="python">( "" , " " + str(value) )[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">vit: Collect Viterbi maximum likelihood alignment scores. This is the default.</text>
+            <text lang="en">fwd: Collect Forward log-odds likelihood scores, summed over alignment ensemble.</text>
+            <text lang="en">hyb: Collect 'Hybrid' scores, as described in papers by Yu and Hwa (for instance, Bioinformatics
+            18:864, 2002). These involve calculating a Forward matrix and taking the
+            maximum cell value. The number itself is statistically somewhat unmotivated, but
+            the distribution is expected be a well-behaved extreme value distribution (Gumbel).</text>
+            <text lang="en">msv: Collect MSV (multiple ungapped segment Viterbi) scores, using H3's main acceleration
+            heuristic.</text>
+            <text lang="en">fast: For any of the above options, use H3's optimized production implementation (using
+            SIMD vectorization). The default is to use the 'generic' implementation (slow and
+            non-vectorized). The optimized implementations sacrifice a small amount of numerical
+            precision. This can introduce confounding noise into statistical simulations
+            and fits, so when one gets super-concerned about exact details, it's better to be
+            able to factor that source of noise out.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Option controlling scoring algorithm<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719293360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="altSco">
+                <xhtml:option value="--vit" selected="selected">Score sequences with the Viterbi algorithm (vit)</xhtml:option>
+                <xhtml:option value="--fwd">Score sequences with the Forward algorithm (fwd)</xhtml:option>
+                <xhtml:option value="--hyd">Score sequences with the Hybrid algorithm (hyd)</xhtml:option>
+                <xhtml:option value="--msv">Score sequences with the MSV algorithm (msv)</xhtml:option>
+                <xhtml:option value="--fast">Use the optimized versions of the above (fast)</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719293360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>vit: Collect Viterbi maximum likelihood alignment scores. This is the default.</xhtml:div>
+                <xhtml:div>fwd: Collect Forward log-odds likelihood scores, summed over alignment ensemble.</xhtml:div>
+                <xhtml:div>hyb: Collect 'Hybrid' scores, as described in papers by Yu and Hwa (for instance, Bioinformatics
+            18:864, 2002). These involve calculating a Forward matrix and taking the
+            maximum cell value. The number itself is statistically somewhat unmotivated, but
+            the distribution is expected be a well-behaved extreme value distribution (Gumbel).</xhtml:div>
+                <xhtml:div>msv: Collect MSV (multiple ungapped segment Viterbi) scores, using H3's main acceleration
+            heuristic.</xhtml:div>
+                <xhtml:div>fast: For any of the above options, use H3's optimized production implementation (using
+            SIMD vectorization). The default is to use the 'generic' implementation (slow and
+            non-vectorized). The optimized implementations sacrifice a small amount of numerical
+            precision. This can introduce confounding noise into statistical simulations
+            and fits, so when one gets super-concerned about exact details, it's better to be
+            able to factor that source of noise out.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="--vit" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="altSco">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719293360::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719293360::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>vit: Collect Viterbi maximum likelihood alignment scores. This is the default.</xhtml:div>
+                <xhtml:div>fwd: Collect Forward log-odds likelihood scores, summed over alignment ensemble.</xhtml:div>
+                <xhtml:div>hyb: Collect 'Hybrid' scores, as described in papers by Yu and Hwa (for instance, Bioinformatics
+            18:864, 2002). These involve calculating a Forward matrix and taking the
+            maximum cell value. The number itself is statistically somewhat unmotivated, but
+            the distribution is expected be a well-behaved extreme value distribution (Gumbel).</xhtml:div>
+                <xhtml:div>msv: Collect MSV (multiple ungapped segment Viterbi) scores, using H3's main acceleration
+            heuristic.</xhtml:div>
+                <xhtml:div>fast: For any of the above options, use H3's optimized production implementation (using
+            SIMD vectorization). The default is to use the 'generic' implementation (slow and
+            non-vectorized). The optimized implementations sacrifice a small amount of numerical
+            precision. This can introduce confounding noise into statistical simulations
+            and fits, so when one gets super-concerned about exact details, it's better to be
+            able to factor that source of noise out.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>controlMasse</name>
+      <prompt lang="en">Controlling range of fitted tail masses</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>tmin</name>
+          <prompt lang="en">Set lower bound tail mass for fwd,island (--tmin)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.02</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --tmin $value" : ""</code>
+            <code proglang="python">( "" , " --tmin " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the lower bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set lower bound tail mass for fwd,island (--tmin)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719548608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tmin" type="text" value="0.02"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719548608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the lower bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tmin">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719548608::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719548608::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the lower bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tmax</name>
+          <prompt lang="en">Set upper bound tail mass for fwd,island (--tmax)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.02</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --tmax $value" : ""</code>
+            <code proglang="python">( "" , " --tmax " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the upper bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set upper bound tail mass for fwd,island (--tmax)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720734336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tmax" type="text" value="0.02"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720734336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the upper bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tmax">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720734336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720734336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the upper bound on the tail mass distribution. (The default is 0.02 for the default
+            single tail mass.)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tpoints</name>
+          <prompt lang="en">Set number of tail probs to try (--tpoints)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --tpoints $value" : ""</code>
+            <code proglang="python">( "" , " --tpoints " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the number of tail masses to sample, starting from --tmin and ending at --tmax.
+            The default is 1, for the default 0.02 single tail mass.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set number of tail probs to try (--tpoints)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720766096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tpoints" type="text" value="1"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720766096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the number of tail masses to sample, starting from --tmin and ending at --tmax.
+            The default is 1, for the default 0.02 single tail mass.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tpoints">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720766096::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720766096::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the number of tail masses to sample, starting from --tmin and ending at --tmax.
+            The default is 1, for the default 0.02 single tail mass.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>tlinear</name>
+          <prompt lang="en">Use linear not log spacing of tail probs (--tlinear)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --tlinear" : ""</code>
+            <code proglang="python">( "" , " --tlinear" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Sample a range of tail masses with uniform linear spacing. The default is to use
+            uniform logarithmic spacing.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Use linear not log spacing of tail probs (--tlinear)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720791680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="tlinear">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720791680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sample a range of tail masses with uniform linear spacing. The default is to use
+            uniform logarithmic spacing.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tlinear">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720791680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720791680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sample a range of tail masses with uniform linear spacing. The default is to use
+            uniform logarithmic spacing.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>ECalibration</name>
+      <prompt lang="en">Options controlling h3 parameter estimation methods</prompt>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">H3 uses three short random sequence simulations to estimating the location parameters 
+        for the expected score distributions for MSV scores, Viterbi scores, and Forward scores. These options 
+        allow these simulations to be modified.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>EmL</name>
+          <prompt lang="en">Lengt of sequences for MSV Gumbel mu fit (EmL)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --EmL $value" : ""</code>
+            <code proglang="python">( "" , " --EmL " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the sequence length in simulation that estimates the location parameter mu
+         for MSV E-values. Default is 200. Enter a value &gt; 0. </text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Lengt of sequences for MSV Gumbel mu fit (EmL)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719720080::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EmL" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719720080::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the sequence length in simulation that estimates the location parameter mu
+         for MSV E-values. Default is 200. Enter a value &gt; 0. </xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EmL">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719720080::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719720080::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the sequence length in simulation that estimates the location parameter mu
+         for MSV E-values. Default is 200. Enter a value &gt; 0. </xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EmN</name>
+          <prompt lang="en">Number of sequences for MSV Gumbel mu fit (EmN)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --EmN $value" : ""</code>
+            <code proglang="python">( "" , " --EmN " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the number of sequences in simulation that estimates the location parameter
+              mu for MSV E-values. Default is 200. Enter a value &gt; 0.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of sequences for MSV Gumbel mu fit (EmN)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719460064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EmN" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719460064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+              mu for MSV E-values. Default is 200. Enter a value &gt; 0.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EmN">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719460064::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719460064::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+              mu for MSV E-values. Default is 200. Enter a value &gt; 0.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EvL</name>
+          <prompt lang="en">Lengt of sequences for Viterbi Gumbel mu fit (EvL)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value!=$vdef) ? " --EvL $value" : ""</code>
+            <code proglang="python">( "" , " --EvL " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the sequence length in simulation that estimates the location parameter mu
+            for Viterbi E-values. Default is 200. Enter a value &gt; 0</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Lengt of sequences for Viterbi Gumbel mu fit (EvL)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718943456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EvL" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718943456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the sequence length in simulation that estimates the location parameter mu
+            for Viterbi E-values. Default is 200. Enter a value &gt; 0</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EvL">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718943456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718943456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the sequence length in simulation that estimates the location parameter mu
+            for Viterbi E-values. Default is 200. Enter a value &gt; 0</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EvN</name>
+          <prompt lang="en">Number of sequences for Viterbi Gumbel mu fit (EvN)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --EvN $value" : ""</code>
+            <code proglang="python">( "" , " --EvN " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the number of sequences in simulation that estimates the location parameter
+          mu for Viterbi E-values. Default is 200. Enter a value &gt; 0.</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of sequences for Viterbi Gumbel mu fit (EvN)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719716624::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EvN" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719716624::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+          mu for Viterbi E-values. Default is 200. Enter a value &gt; 0.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EvN">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117719716624::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117719716624::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+          mu for Viterbi E-values. Default is 200. Enter a value &gt; 0.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EfL</name>
+          <prompt lang="en">Lengt of sequences for Forward exp tail tau fit (EfL)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>100</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --EfL $value" : ""</code>
+            <code proglang="python">( "" , " --EfL " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the sequence length in simulation that estimates the location parameter tau
+          for Forward E-values. Default is 100. Enter a value &gt; 0</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Lengt of sequences for Forward exp tail tau fit (EfL)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720007824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EfL" type="text" value="100"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720007824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the sequence length in simulation that estimates the location parameter tau
+          for Forward E-values. Default is 100. Enter a value &gt; 0</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="100" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EfL">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720007824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720007824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the sequence length in simulation that estimates the location parameter tau
+          for Forward E-values. Default is 100. Enter a value &gt; 0</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>EfN</name>
+          <prompt lang="en">Number of sequences for Forward exp tail tau fit (EfN)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>200</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --EfN $value" : ""</code>
+            <code proglang="python">( "" , " --EfN " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the number of sequences in simulation that estimates the location parameter
+            tau for Forward E-values. Default is 200. Enter a value &gt; 0</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 </text>
+            </message>
+            <code proglang="perl">$value &gt; 0 </code>
+            <code proglang="python">value &gt; 0 </code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of sequences for Forward exp tail tau fit (EfN)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720728528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="EfN" type="text" value="200"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720728528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+            tau for Forward E-values. Default is 200. Enter a value &gt; 0</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="200" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="EfN">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117720728528::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117720728528::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the number of sequences in simulation that estimates the location parameter
+            tau for Forward E-values. Default is 200. Enter a value &gt; 0</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Eft</name>
+          <prompt lang="en">Tail mass for Forward exponential tail tau fit (Eft)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.04</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --Eft $value" : ""</code>
+            <code proglang="python">( "" , " --Eft " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+            tau for Forward evalues. Default is 0.04. Enter a value &gt; 0 and &lt; 1</text>
+          </comment>
+          <ctrl>
+            <message>
+              <text lang="en">Enter a value &gt; 0 and &lt; 1</text>
+            </message>
+            <code proglang="perl">$value &gt; 0 and $value &lt; 1</code>
+            <code proglang="python">value &gt; 0 and value &lt; 1</code>
+          </ctrl>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Tail mass for Forward exponential tail tau fit (Eft)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718501344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Eft" type="text" value="0.04"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718501344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+            tau for Forward evalues. Default is 0.04. Enter a value &gt; 0 and &lt; 1</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.04" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Eft">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718501344::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718501344::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Sets the tail mass fraction to fit in the simulation that estimates the location parameter
+            tau for Forward evalues. Default is 0.04. Enter a value &gt; 0 and &lt; 1</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>debugg</name>
+      <prompt lang="en">Debugging options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>stall</name>
+          <prompt lang="en">Arrest after start: for debugging MPI under gdb (--stall)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --stall" : ""</code>
+            <code proglang="python">( "" , " --stall" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">For debugging the MPI master/worker version: pause after start, to enable the
+            developer to attach debuggers to the running master and worker(s) processes.
+            Send SIGCONT signal to release the pause. (Under gdb: (gdb) signal SIGCONT)
+            (Only available if optional MPI support was enabled at compile-time.)</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Arrest after start: for debugging MPI under gdb (--stall)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718543120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="stall">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718543120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For debugging the MPI master/worker version: pause after start, to enable the
+            developer to attach debuggers to the running master and worker(s) processes.
+            Send SIGCONT signal to release the pause. (Under gdb: (gdb) signal SIGCONT)
+            (Only available if optional MPI support was enabled at compile-time.)</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stall">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718543120::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718543120::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For debugging the MPI master/worker version: pause after start, to enable the
+            developer to attach debuggers to the running master and worker(s) processes.
+            Send SIGCONT signal to release the pause. (Under gdb: (gdb) signal SIGCONT)
+            (Only available if optional MPI support was enabled at compile-time.)</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>seed</name>
+          <prompt lang="en">Set random number seed  (--seed)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --seed $value" : ""</code>
+            <code proglang="python">( "" , " --seed " + str(value))[ value is not None and value != vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the random number seed. The default is 0, which makes the random
+            number generator use an arbitrary seed, so that different runs of hmmsim will
+            almost certainly generate a different statistical sample. For debugging, it is useful
+            to force reproducible results, by fixing a random number seed.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set random number seed  (--seed)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718513712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="seed" type="text" value="0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718513712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the random number seed. The default is 0, which makes the random
+            number generator use an arbitrary seed, so that different runs of hmmsim will
+            almost certainly generate a different statistical sample. For debugging, it is useful
+            to force reproducible results, by fixing a random number seed.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="seed">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718513712::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718513712::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the random number seed. The default is 0, which makes the random
+            number generator use an arbitrary seed, so that different runs of hmmsim will
+            almost certainly generate a different statistical sample. For debugging, it is useful
+            to force reproducible results, by fixing a random number seed.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>expert</name>
+      <prompt lang="en">Experiments options</prompt>
+      <argpos>1</argpos>
+      <comment>
+        <text lang="en">These options were used in a small variety of different exploratory experiments.</text>
+      </comment>
+      <parameters>
+        <parameter>
+          <name>bgflat</name>
+          <prompt lang="en">Set uniform background frequencies (--bgflat)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --bgflat" : ""</code>
+            <code proglang="python">( "" , " --bgflat" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the background residue distribution to a uniform distribution, both for purposes
+            of the null model used in calculating scores, and for generating the random sequences.
+            The default is to use a standard amino acid background frequency distribution.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set uniform background frequencies (--bgflat)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718422928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bgflat">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718422928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the background residue distribution to a uniform distribution, both for purposes
+            of the null model used in calculating scores, and for generating the random sequences.
+            The default is to use a standard amino acid background frequency distribution.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bgflat">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718422928::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718422928::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the background residue distribution to a uniform distribution, both for purposes
+            of the null model used in calculating scores, and for generating the random sequences.
+            The default is to use a standard amino acid background frequency distribution.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>bgcomp</name>
+          <prompt lang="en">Set bg frequencies to model's average composition (--bgcomp)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --bgcomp" : ""</code>
+            <code proglang="python">( "" , " --bgcomp" )[ value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the background residue distribution to the mean composition of the profile. This
+            was used in exploring some of the effects of biased composition.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set bg frequencies to model's average composition (--bgcomp)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718439824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="bgcomp">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718439824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the background residue distribution to the mean composition of the profile. This
+            was used in exploring some of the effects of biased composition.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="bgcomp">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718439824::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718439824::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the background residue distribution to the mean composition of the profile. This
+            was used in exploring some of the effects of biased composition.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>lengthmode</name>
+          <prompt lang="en">Turn the H3 length model off (--x-no-lengthmode)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " --x-no-lengthmode" : ""</code>
+            <code proglang="python">( "" , " --x-no-lengthmode " )[value ]</code>
+          </format>
+          <comment>
+            <text lang="en">Turn the H3 target sequence length model off. Set the self-transitions for N,C,J
+            and the null model to 350/351 instead; this emulates HMMER2. Not a good idea
+            in general. This was used to demonstrate one of the main H2 vs. H3 differences.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Turn the H3 length model off (--x-no-lengthmode)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718352160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="lengthmode">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718352160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turn the H3 target sequence length model off. Set the self-transitions for N,C,J
+            and the null model to 350/351 instead; this emulates HMMER2. Not a good idea
+            in general. This was used to demonstrate one of the main H2 vs. H3 differences.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="lengthmode">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718352160::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718352160::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Turn the H3 target sequence length model off. Set the self-transitions for N,C,J
+            and the null model to 350/351 instead; this emulates HMMER2. Not a good idea
+            in general. This was used to demonstrate one of the main H2 vs. H3 differences.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>nu</name>
+          <prompt lang="en">Set nu parameter (expected HSPs) for GMSV (--nu)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$altSco eq '--msv'</code>
+            <code proglang="python">altSco == '--msv'</code>
+          </precond>
+          <vdef>
+            <value>2.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --nu $value" : ""</code>
+            <code proglang="python">( "" , " --nu " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the nu parameter for the MSV algorithm -- the expected number of ungapped
+          local alignments per target sequence. The default is 2.0, corresponding to a E-&gt;J transition probability of 0.5. This was used to test whether varying nu has
+          significant effect on result (it doesn't seem to, within reason). This option only
+          works if --msv is selected (it only affects MSV), and it will not work with --fast
+          (because the optimized implementations are hardwired to assume nu=2.0).</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set nu parameter (expected HSPs) for GMSV (--nu)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718340992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nu" type="text" value="2.0"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718340992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the nu parameter for the MSV algorithm -- the expected number of ungapped
+          local alignments per target sequence. The default is 2.0, corresponding to a E-&gt;J transition probability of 0.5. This was used to test whether varying nu has
+          significant effect on result (it doesn't seem to, within reason). This option only
+          works if --msv is selected (it only affects MSV), and it will not work with --fast
+          (because the optimized implementations are hardwired to assume nu=2.0).</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nu">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718340992::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718340992::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the nu parameter for the MSV algorithm -- the expected number of ungapped
+          local alignments per target sequence. The default is 2.0, corresponding to a E-&gt;J transition probability of 0.5. This was used to test whether varying nu has
+          significant effect on result (it doesn't seem to, within reason). This option only
+          works if --msv is selected (it only affects MSV), and it will not work with --fast
+          (because the optimized implementations are hardwired to assume nu=2.0).</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>pthresh</name>
+          <prompt lang="en">Set  P-value threshold for --ffile (--pthresh)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $ffile</code>
+            <code proglang="python">ffile is not None</code>
+          </precond>
+          <vdef>
+            <value>0.02</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " --pthresh $value" : ""</code>
+            <code proglang="python">( "" , " --pthresh " + str(value) )[ value is not None and value !=vdef ]</code>
+          </format>
+          <comment>
+            <text lang="en">Set the filter P-value threshold to use in generating filter power files with --ffile. The
+            default is 0.02 (which would be appropriate for testing MSV scores, since this is
+            the default MSV filter threshold in H3's acceleration pipeline.) Other appropriate
+            choices (matching defaults in the acceleration pipeline) would be 0.001 for Viterbi,
+            and 1e-5 for Forward.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Set  P-value threshold for --ffile (--pthresh)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718256112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pthresh" type="text" value="0.02"/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718256112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the filter P-value threshold to use in generating filter power files with --ffile. The
+            default is 0.02 (which would be appropriate for testing MSV scores, since this is
+            the default MSV filter threshold in H3's acceleration pipeline.) Other appropriate
+            choices (matching defaults in the acceleration pipeline) would be 0.001 for Viterbi,
+            and 1e-5 for Forward.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.02" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pthresh">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718256112::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718256112::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Set the filter P-value threshold to use in generating filter power files with --ffile. The
+            default is 0.02 (which would be appropriate for testing MSV scores, since this is
+            the default MSV filter threshold in H3's acceleration pipeline.) Other appropriate
+            choices (matching defaults in the acceleration pipeline) would be 0.001 for Viterbi,
+            and 1e-5 for Forward.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_options</name>
+      <prompt lang="en">Output options</prompt>
+      <argpos>1</argpos>
+      <parameters>
+        <parameter>
+          <name>save</name>
+          <prompt lang="en">Direct summary output to file, not stdout. (-o)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " -o $value" : ""</code>
+            <code proglang="python">( "" , " -o " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Direct summary output to file, not stdout. (-o)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="save" type="text" value=""/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="save"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>save_out</name>
+          <prompt lang="en">Direct summary output to file.</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $save</code>
+            <code proglang="python">save is not None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$save"</code>
+            <code proglang="python">str( save )</code>
+          </filenames>
+          <argpos>1</argpos>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="save_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>afile</name>
+          <prompt lang="en">Output alignment lengths to file (--afile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$aln and $altSco eq '--vit'</code>
+            <code proglang="python">aln and altSco == '--vit'</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value)? " --afile $value" : ""</code>
+            <code proglang="python">( "" , " --afile " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">When collecting Viterbi alignment statistics (the -a option), for each sampled sequence,
+            output two fields per line to a file: the length of the optimal alignment,
+            and the Viterbi bit score. Requires that the -a option is also used.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output alignment lengths to file (--afile)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718322704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="afile" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718322704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When collecting Viterbi alignment statistics (the -a option), for each sampled sequence,
+            output two fields per line to a file: the length of the optimal alignment,
+            and the Viterbi bit score. Requires that the -a option is also used.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="afile">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718322704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718322704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>When collecting Viterbi alignment statistics (the -a option), for each sampled sequence,
+            output two fields per line to a file: the length of the optimal alignment,
+            and the Viterbi bit score. Requires that the -a option is also used.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>afile_out</name>
+          <prompt lang="en">Output alignment lengths</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $afile</code>
+            <code proglang="python">afile is not None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$afile"</code>
+            <code proglang="python">str( afile )</code>
+          </filenames>
+          <argpos>1</argpos>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="afile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>efile</name>
+          <prompt lang="en">Output E vs. E plots to file in xy format (--efile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " --efile $value" : ""</code>
+            <code proglang="python">( "" , " --efile " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Output a rank versus. E-value plot in XMGRACE xy format to file. The x-axis is the
+            rank of this sequence, from highest score to lowest; the y-axis is the E-value calculated
+            for this sequence. E-values are calculated using H3's default procedures (i.e.
+            the 'pmu, plambda' parameters in the output table). You expect a rough match
+            between rank and E-value if E-values are accurately estimated.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output E vs. E plots to file in xy format (--efile)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718302384::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="efile" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718302384::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Output a rank versus. E-value plot in XMGRACE xy format to file. The x-axis is the
+            rank of this sequence, from highest score to lowest; the y-axis is the E-value calculated
+            for this sequence. E-values are calculated using H3's default procedures (i.e.
+            the 'pmu, plambda' parameters in the output table). You expect a rough match
+            between rank and E-value if E-values are accurately estimated.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="efile">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718302384::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718302384::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Output a rank versus. E-value plot in XMGRACE xy format to file. The x-axis is the
+            rank of this sequence, from highest score to lowest; the y-axis is the E-value calculated
+            for this sequence. E-values are calculated using H3's default procedures (i.e.
+            the 'pmu, plambda' parameters in the output table). You expect a rough match
+            between rank and E-value if E-values are accurately estimated.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>efile_out</name>
+          <prompt lang="en">Output E vs. E plots to file in xy format</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $efile</code>
+            <code proglang="python">efile is not None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$efile"</code>
+            <code proglang="python">str( efile )</code>
+          </filenames>
+          <argpos>1</argpos>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="efile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>ffile</name>
+          <prompt lang="en">Output filter fraction: sequences passing P thresh (--ffile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " --ffile $value" : ""</code>
+            <code proglang="python">( "" , " --ffile " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Output a 'filter power' file: for each model, a line with three fields: model
+            name, number of sequences passing the P-value threshold, and fraction of sequences
+            passing the P-value threshold. See --pthresh for setting the P-value
+            threshold, which defaults to 0.02 (the default MSV filter threshold in H3). The
+            P-values are as determined by H3's default procedures (the 'pmu,plambda' parameters
+            in the output table). If all is well, you expect to see filter power equal to
+            the predicted P-value setting of the threshold.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output filter fraction: sequences passing P thresh (--ffile)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718283600::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="ffile" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718283600::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Output a 'filter power' file: for each model, a line with three fields: model
+            name, number of sequences passing the P-value threshold, and fraction of sequences
+            passing the P-value threshold. See --pthresh for setting the P-value
+            threshold, which defaults to 0.02 (the default MSV filter threshold in H3). The
+            P-values are as determined by H3's default procedures (the 'pmu,plambda' parameters
+            in the output table). If all is well, you expect to see filter power equal to
+            the predicted P-value setting of the threshold.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ffile">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718283600::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718283600::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Output a 'filter power' file: for each model, a line with three fields: model
+            name, number of sequences passing the P-value threshold, and fraction of sequences
+            passing the P-value threshold. See --pthresh for setting the P-value
+            threshold, which defaults to 0.02 (the default MSV filter threshold in H3). The
+            P-values are as determined by H3's default procedures (the 'pmu,plambda' parameters
+            in the output table). If all is well, you expect to see filter power equal to
+            the predicted P-value setting of the threshold.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>ffile_out</name>
+          <prompt lang="en">Output filter fraction: sequences passing P thresh</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $ffile</code>
+            <code proglang="python">ffile is not None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$ffile"</code>
+            <code proglang="python">str( ffile )</code>
+          </filenames>
+          <argpos>1</argpos>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="ffile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>pfile</name>
+          <prompt lang="en">Output cumulative survival plots (--pfile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " --pfile $value" : ""</code>
+            <code proglang="python">( "" , " --pfile " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Output cumulative survival plots (P(S&gt;x)) to file in XMGRACE xy format.
+            There are three plots: (1) the observed score distribution; (2) the maximum likelihood
+            fitted distribution; (3) a maximum likelihood fit to the location parameter
+            (mu/tau) while assuming lambda=log 2.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output cumulative survival plots (--pfile)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718130880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pfile" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718130880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Output cumulative survival plots (P(S&gt;x)) to file in XMGRACE xy format.
+            There are three plots: (1) the observed score distribution; (2) the maximum likelihood
+            fitted distribution; (3) a maximum likelihood fit to the location parameter
+            (mu/tau) while assuming lambda=log 2.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pfile">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718130880::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718130880::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Output cumulative survival plots (P(S&gt;x)) to file in XMGRACE xy format.
+            There are three plots: (1) the observed score distribution; (2) the maximum likelihood
+            fitted distribution; (3) a maximum likelihood fit to the location parameter
+            (mu/tau) while assuming lambda=log 2.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>pfile_out</name>
+          <prompt lang="en">Output cumulative survival plots</prompt>
+          <type>
+            <datatype>
+              <class>Report</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $pfile</code>
+            <code proglang="python">pfile is not None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$pfile"</code>
+            <code proglang="python">str( pfile )</code>
+          </filenames>
+          <argpos>1</argpos>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pfile_out">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>xfile</name>
+          <prompt lang="en">Output bitscores as binary double vector to file (--xfile)</prompt>
+          <type>
+            <datatype>
+              <class>Filename</class>
+            </datatype>
+          </type>
+          <format>
+            <code proglang="perl">(defined $value)? " --xfile $value" : ""</code>
+            <code proglang="python">( "" , " --xfile " + str(value) )[ value is not None ]</code>
+          </format>
+          <argpos>1</argpos>
+          <comment>
+            <text lang="en">Output the bit scores as a binary array of double-precision floats (8 bytes per score)
+            to file. Programs like Easel's esl-histplot can read such binary files. This is
+            useful when generating extremely large sample sizes.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output bitscores as binary double vector to file (--xfile)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718114688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="xfile" type="text" value=""/>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718114688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Output the bit scores as a binary array of double-precision floats (8 bytes per score)
+            to file. Programs like Easel's esl-histplot can read such binary files. This is
+            useful when generating extremely large sample sizes.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="xfile">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117718114688::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117718114688::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Output the bit scores as a binary array of double-precision floats (8 bytes per score)
+            to file. Programs like Easel's esl-histplot can read such binary files. This is
+            useful when generating extremely large sample sizes.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>xfile_out</name>
+          <prompt lang="en">Output bitscores as binary double vector to file</prompt>
+          <type>
+            <datatype>
+              <class>BitScores</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $xfile</code>
+            <code proglang="python">xfile is not None</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"$xfile"</code>
+            <code proglang="python">str( xfile )</code>
+          </filenames>
+          <argpos>1</argpos>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BitScores" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="xfile_out"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"hmmsim.out"</code>
+        <code proglang="python">"hmmsim.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"hmmsim.err"</code>
+        <code proglang="python">"hmmsim.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

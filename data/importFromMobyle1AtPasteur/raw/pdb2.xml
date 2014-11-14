@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>pdb2</name>
+    <package xml:base="Entities/pdb_lib_package.xml">
+      <name>pdb-lib</name>
+      <version>1.0</version>
+      <doc>
+        <title>Tool for protein structure prediction and model quality assessment</title>
+        <description>
+          <text lang="en">Tool for protein structure prediction and model quality assessment</text>
+        </description>
+      </doc>
+    </package>
+    <doc>
+      <title>pdb2</title>
+      <description>
+        <text lang="en">Calculate Sequences with Optimal Folding properties (SOF) 
+        from protein sequences given in a PDB file format 
+        for 3D structure information predictions</text>
+      </description>
+      <authors> Caudron B., Guilloux A., Jestin J-L.</authors>
+      <reference doi="10.4236/am.2014.51009">A method to predict amino acids at proximity of beta-sheet axes from
+protein sequences. Applied Mathematics, Vol. 5, PP. 79-89, 2014</reference>
+      <reference doi="10.5936/csbj.201305001">A method to predict edge strands in beta-sheets from protein sequences.
+           Computational and Structural Biotechnology Journal, Vol. 7, Issue 9, May 2013</reference>
+    </doc>
+    <command>pdb2</command>
+    <category>structure:3D_structure</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="PDB " data-parametername="pdbfile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">PDB File</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pdbfile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pdbid">or you can instead enter a PDB id (4 characters).<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pdbid" type="text" value=""/>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pdbfile" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="PDB ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(_3DStructure)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pdbid" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output parameters</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="folding" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Pdb2Report" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="excel ">
+            <xhtml:i>
+				(Pdb2Report)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="log" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="pdb2Log" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(pdb2Log)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter issimple="1">
+      <name>pdbfile</name>
+      <prompt lang="en">PDB File</prompt>
+      <type>
+        <datatype>
+          <superclass>AbstractText</superclass>
+          <class>_3DStructure</class>
+        </datatype>
+        <dataFormat>PDB</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -f $value" : ""</code>
+        <code proglang="python">( "" , " -f " + str(value) )[ value is not None ]</code>
+      </format>
+      <ctrl>
+        <message>
+          <text lang="en">You must enter either the PDB data or the PDB id</text>
+        </message>
+        <code proglang="perl">not defined $pdbid and defined $pdbfile</code>
+        <code proglang="python">pdbfile is not None and pdbid is None</code>
+      </ctrl>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>PDB File</xhtml:legend>
+          <xhtml:textarea name="pdbfile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="PDB " data-parametername="pdbfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(_3DStructure)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>pdbid</name>
+      <prompt lang="en">or you can instead enter a PDB id (4 characters).</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -n $value" : ""</code>
+        <code proglang="python">( "" , " -n " + str(value) )[ value is not None ]</code>
+      </format>
+      <ctrl>
+        <message>
+          <text lang="en">You must enter either the PDB data or the PDB id</text>
+        </message>
+        <code proglang="perl">defined $pdbid and not defined $pdbfile</code>
+        <code proglang="python">pdbid is not None and pdbfile is None</code>
+      </ctrl>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">or you can instead enter a PDB id (4 characters).<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pdbid" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="pdbid"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output parameters</prompt>
+      <parameters>
+        <parameter isout="1">
+          <name>folding</name>
+          <prompt lang="en">Folding properties</prompt>
+          <type>
+            <datatype>
+              <superclass>Report</superclass>
+              <class>Pdb2Report</class>
+            </datatype>
+            <dataFormat>excel</dataFormat>
+          </type>
+          <filenames>
+            <code proglang="perl">'*.xls'</code>
+            <code proglang="python">'*.xls'</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Pdb2Report" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="excel " data-parametername="folding">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Pdb2Report)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>log</name>
+          <prompt lang="en">pdb2 file log</prompt>
+          <type>
+            <datatype>
+              <superclass>AbstractText</superclass>
+              <class>pdb2Log</class>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">'*.txt'</code>
+            <code proglang="python">'*.txt'</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="pdb2Log" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="log">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(pdb2Log)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"pdb2.out"</code>
+        <code proglang="python">"pdb2.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"pdb2.err"</code>
+        <code proglang="python">"pdb2.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

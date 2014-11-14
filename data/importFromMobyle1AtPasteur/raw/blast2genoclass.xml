@@ -1,0 +1,1159 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>blast2genoclass</name>
+    <version>1.0</version>
+    <package xml:base="Entities/blastTaxoAnalysis_package.xml">
+      <name>blastTaxoAnalysis</name>
+      <version>1.0</version>
+      <doc>
+        <title>Blast filtering for taxonomic or genomic classification.</title>
+        <description>
+          <text lang="en">Blast filtering with taxonomic hierarchy information for taxonomic or genomic classification.</text>
+        </description>
+      </doc>
+    </package>
+    <doc>
+      <title>blast2genoclass</title>
+      <description>
+        <text lang="en">One-line description of Blast program filtering</text>
+      </description>
+      <authors>C. Maufrais</authors>
+    </doc>
+    <command>blast2genoclass</command>
+    <category>database:search:filter</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="infile">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Blast output file</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="infile" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="Null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="blastfilter">Filter the one-line description of Blast program with:<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="blastfilter">
+          <xhtml:option value="Null" selected="selected"/>
+          <xhtml:option value="M">best e-value</xhtml:option>
+          <xhtml:option value="F">most frequent description</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nbofhit">Number of hsp to consider (-x)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700977456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nbofhit" type="text" value="10"/>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700977456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>0: all hsp </xhtml:div>
+        </xhtml:div>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="genomic_name">Filter the one-line description of Blast program with user name (-p)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="genomic_name" type="text" value=""/>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="taxonomic_name">Filter the hit of Blast with Taxonomic hierarchy name (-n)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="taxonomic_name" type="text" value=""/>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output option</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="verboseall">Report detailed results matching "Description filter option" for all blast (-v)<xhtml:a href="#idm140117702371424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="verboseall">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117702371424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In "res4individualBlast.txt" file, for all input blast, are details: </xhtml:div>
+              <xhtml:div>For all matching "Description filter option":</xhtml:div>
+              <xhtml:div>- query name, (query letter): percentage of matching description</xhtml:div>
+              <xhtml:div>and for all corresponding hits:</xhtml:div>
+              <xhtml:div>- Database sequence's species, accession number and letters</xhtml:div>
+              <xhtml:div>- Hsp description</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="verbose">Detailed report for database sequence(s) matching "Description filter option" (-V)<xhtml:a href="#idm140117699992256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="verbose">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117699992256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In "res4allBlast.txt" file, for the best database sequence(s), are details: </xhtml:div>
+              <xhtml:div>For database sequence matching "Description filter option":</xhtml:div>
+              <xhtml:div>- Database sequence's species, accession number, letters and description</xhtml:div>
+              <xhtml:div>- Number of query matching this sequence.</xhtml:div>
+              <xhtml:div>- Query name, (letters)</xhtml:div>
+              <xhtml:div>and for all corresponding hsp:</xhtml:div>
+              <xhtml:div>- Hsp description</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="option">Hsp(s) selection (-m)<xhtml:select name="option">
+              <xhtml:option value="0">All hsps</xhtml:option>
+              <xhtml:option value="1" selected="selected">Only compatible hsps</xhtml:option>
+              <xhtml:option value="2">Simple overlaps are possible</xhtml:option>
+              <xhtml:option value="3">Global overlaps on database sequence(s) are possible</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="align">Produce alignment: database sequence matching "Description filter option" vs queries (-a)<xhtml:a href="#idm140117700471104::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="align">
+              <xhtml:option value="0" selected="selected"/>
+              <xhtml:option value="1">hsps blast and database sequence reference alignment: hsp merged in pairwise alignment</xhtml:option>
+              <xhtml:option value="2">hsps blast and database sequence reference alignment: hsp in multiple alignment</xhtml:option>
+              <xhtml:option value="3">hsps blast and database sequence reference alignment: hsp in multiple alignment and consensus</xhtml:option>
+              <xhtml:option value="4">part of queries (hsp) and database sequence reference alignment: queries merged in pairwise alignment</xhtml:option>
+              <xhtml:option value="5">part of queries (hsp) and database sequence reference alignment: queries in multiple alignment</xhtml:option>
+              <xhtml:option value="6">part of queries (hsp) and database sequence reference alignment: queries in multiple alignment and consensus</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117700471104::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For 1,2,3 hsps alignments (Sbjt and Query) are re-aligned on the reference sequence extract from database.</xhtml:div>
+              <xhtml:div>For 4,5,6 part of queries corresponding to hsps are re-aligned on the reference sequence extract from database.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="picture">Produce graphical alignment summary images: database sequence matching "Description filter option" vs queries (-g)<xhtml:select name="picture">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="blastout">Blast output file(s) sort/split by specific taxonomic hierarchy (-b)<xhtml:select name="blastout">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hspSeq">Extract Hsp(s) fragment from Query sequence(s) (-Q)<xhtml:select name="hspSeq">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="queryout">Query name write in file(s) sort/split by specific taxonomic hierarchy (-q)<xhtml:select name="queryout">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="besthitseq">Report database sequence(s) matching option in fasta file (-s)<xhtml:select name="besthitseq">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fastaExtract">Extraction of fasta sequences.<xhtml:a href="#idm140117698732640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:select name="fastaExtract">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+            <xhtml:div id="idm140117698732640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Extract fasta sequence, matching specified taxonomic filter, from file containing query sequences witch are used to made blast.</xhtml:div>
+            </xhtml:div>
+          </label>
+          <fieldset class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA " data-parametername="query_seq">
+            <legend>Query sequences witch are used to made blast.</legend>
+            <xhtml:textarea name="query_seq" cols="60" rows="7"> </xhtml:textarea>
+          </fieldset>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="infile" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BlastTextReport)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="blastfilter" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="Null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="nbofhit" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700977456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700977456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>0: all hsp </xhtml:div>
+        </xhtml:div>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="genomic_name" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="taxonomic_name" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output option</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="verboseall" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117702371424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117702371424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In "res4individualBlast.txt" file, for all input blast, are details: </xhtml:div>
+              <xhtml:div>For all matching "Description filter option":</xhtml:div>
+              <xhtml:div>- query name, (query letter): percentage of matching description</xhtml:div>
+              <xhtml:div>and for all corresponding hits:</xhtml:div>
+              <xhtml:div>- Database sequence's species, accession number and letters</xhtml:div>
+              <xhtml:div>- Hsp description</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="verbose" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117699992256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117699992256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>In "res4allBlast.txt" file, for the best database sequence(s), are details: </xhtml:div>
+              <xhtml:div>For database sequence matching "Description filter option":</xhtml:div>
+              <xhtml:div>- Database sequence's species, accession number, letters and description</xhtml:div>
+              <xhtml:div>- Number of query matching this sequence.</xhtml:div>
+              <xhtml:div>- Query name, (letters)</xhtml:div>
+              <xhtml:div>and for all corresponding hsp:</xhtml:div>
+              <xhtml:div>- Hsp description</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="option" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="align" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117700471104::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117700471104::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>For 1,2,3 hsps alignments (Sbjt and Query) are re-aligned on the reference sequence extract from database.</xhtml:div>
+              <xhtml:div>For 4,5,6 part of queries corresponding to hsps are re-aligned on the reference sequence extract from database.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="picture" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="blastout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hspSeq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="queryout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="besthitseq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fastaExtract" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+            <xhtml:a href="#idm140117698732640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+            <xhtml:div id="idm140117698732640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+              <xhtml:div>Extract fasta sequence, matching specified taxonomic filter, from file containing query sequences witch are used to made blast.</xhtml:div>
+            </xhtml:div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="query_seq" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="query_seq_run1" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="query_seq_run2" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output">
+        <xhtml:legend>Output option</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Blast2taxoclassReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(Blast2taxoclassReport)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pictureout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="alignout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="GenoClasAln" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(GenoClasAln)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="verboseoutall" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="VerboseReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(VerboseReport)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="verboseout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="VerboseReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(VerboseReport)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="blastoutfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(BlastTextReport)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="queryoutfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="QueryNameReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+            <xhtml:i>
+				(QueryNameReport)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="besthitseqfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="fastafile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+            <xhtml:i>
+				(Sequence)
+			</xhtml:i>
+          </div>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>infile</name>
+      <prompt lang="en">Blast output file</prompt>
+      <type>
+        <datatype>
+          <class>BlastTextReport</class>
+          <superclass>Report</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" -i $value"</code>
+        <code proglang="python">" -i " + str(value)</code>
+      </format>
+      <argpos>20</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Blast output file</xhtml:legend>
+          <xhtml:textarea name="infile" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="infile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BlastTextReport)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>blastfilter</name>
+      <prompt lang="en">Filter the one-line description of Blast program with:</prompt>
+      <type>
+        <datatype>
+          <class>Choice</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>Null</value>
+      </vdef>
+      <vlist>
+        <velem undef="1">
+          <value>Null</value>
+          <label/>
+        </velem>
+        <velem>
+          <value>M</value>
+          <label>best e-value</label>
+        </velem>
+        <velem>
+          <value>F</value>
+          <label>most frequent description</label>
+        </velem>
+      </vlist>
+      <format>
+        <code proglang="perl">($value ne vdef) ? " -$value" : ""</code>
+        <code proglang="python">("", " -" + str(value))[value != vdef]</code>
+      </format>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Filter the one-line description of Blast program with:<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="blastfilter">
+            <xhtml:option value="Null" selected="selected"/>
+            <xhtml:option value="M">best e-value</xhtml:option>
+            <xhtml:option value="F">most frequent description</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="Null" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="blastfilter"/>
+      </interface>
+    </parameter>
+    <parameter>
+      <name>nbofhit</name>
+      <prompt lang="en">Number of hsp to consider (-x)</prompt>
+      <type>
+        <datatype>
+          <class>Integer</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>10</value>
+      </vdef>
+      <format>
+        <code proglang="perl">(defined $value) ? " -x $value" : ""</code>
+        <code proglang="python">("", " -x " + str(value) )[value is not None and value != vdef]</code>
+      </format>
+      <comment>
+        <text lang="en">0: all hsp </text>
+      </comment>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Number of hsp to consider (-x)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700977456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="nbofhit" type="text" value="10"/>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700977456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>0: all hsp </xhtml:div>
+          </xhtml:div>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nbofhit">
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700977456::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700977456::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>0: all hsp </xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>genomic_name</name>
+      <prompt lang="en">Filter the one-line description of Blast program with user name (-p)</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -p $value" : ""</code>
+        <code proglang="python">("", " -p " + str(value).replace(' ','_') )[value is not None]</code>
+      </format>
+      <ctrl>
+        <message>
+          <text lang="en">Choose only one of the one-line description filter option: User name or not.</text>
+        </message>
+        <code proglang="perl">(defined $blastfilter and (not defined $genomic_name)) or (defined $genomic_name and (not defined $blastfilter))</code>
+        <code proglang="python">(blastfilter is not None and (genomic_name is None)) or (genomic_name is not None and (blastfilter is None)) </code>
+      </ctrl>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Filter the one-line description of Blast program with user name (-p)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="genomic_name" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="genomic_name"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>taxonomic_name</name>
+      <prompt lang="en">Filter the hit of Blast with Taxonomic hierarchy name (-n)</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">(defined $value) ? " -n $value" : ""</code>
+        <code proglang="python">("", " -n " + str(value).replace(' ','_') )[value is not None]</code>
+      </format>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Filter the hit of Blast with Taxonomic hierarchy name (-n)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="taxonomic_name" type="text" value=""/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="taxonomic_name"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>output</name>
+      <prompt lang="en">Output option</prompt>
+      <parameters>
+        <parameter>
+          <name>verboseall</name>
+          <prompt lang="en">Report detailed results matching "Description filter option" for all blast (-v)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -v" : ""</code>
+            <code proglang="python">("" , " -v") [value]</code>
+          </format>
+          <comment>
+            <text lang="en">In "res4individualBlast.txt" file, for all input blast, are details: </text>
+            <text lang="en">For all matching "Description filter option":</text>
+            <text lang="en">- query name, (query letter): percentage of matching description</text>
+            <text lang="en">and for all corresponding hits:</text>
+            <text lang="en">- Database sequence's species, accession number and letters</text>
+            <text lang="en">- Hsp description</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Report detailed results matching "Description filter option" for all blast (-v)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702371424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="verboseall">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702371424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In "res4individualBlast.txt" file, for all input blast, are details: </xhtml:div>
+                <xhtml:div>For all matching "Description filter option":</xhtml:div>
+                <xhtml:div>- query name, (query letter): percentage of matching description</xhtml:div>
+                <xhtml:div>and for all corresponding hits:</xhtml:div>
+                <xhtml:div>- Database sequence's species, accession number and letters</xhtml:div>
+                <xhtml:div>- Hsp description</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="verboseall">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117702371424::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117702371424::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In "res4individualBlast.txt" file, for all input blast, are details: </xhtml:div>
+                <xhtml:div>For all matching "Description filter option":</xhtml:div>
+                <xhtml:div>- query name, (query letter): percentage of matching description</xhtml:div>
+                <xhtml:div>and for all corresponding hits:</xhtml:div>
+                <xhtml:div>- Database sequence's species, accession number and letters</xhtml:div>
+                <xhtml:div>- Hsp description</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>verbose</name>
+          <prompt lang="en">Detailed report for database sequence(s) matching "Description filter option" (-V)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -V" : ""</code>
+            <code proglang="python">("" , " -V") [value]</code>
+          </format>
+          <comment>
+            <text lang="en">In "res4allBlast.txt" file, for the best database sequence(s), are details: </text>
+            <text lang="en">For database sequence matching "Description filter option":</text>
+            <text lang="en">- Database sequence's species, accession number, letters and description</text>
+            <text lang="en">- Number of query matching this sequence.</text>
+            <text lang="en">- Query name, (letters)</text>
+            <text lang="en">and for all corresponding hsp:</text>
+            <text lang="en">- Hsp description</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Detailed report for database sequence(s) matching "Description filter option" (-V)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699992256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="verbose">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699992256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In "res4allBlast.txt" file, for the best database sequence(s), are details: </xhtml:div>
+                <xhtml:div>For database sequence matching "Description filter option":</xhtml:div>
+                <xhtml:div>- Database sequence's species, accession number, letters and description</xhtml:div>
+                <xhtml:div>- Number of query matching this sequence.</xhtml:div>
+                <xhtml:div>- Query name, (letters)</xhtml:div>
+                <xhtml:div>and for all corresponding hsp:</xhtml:div>
+                <xhtml:div>- Hsp description</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="verbose">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117699992256::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117699992256::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>In "res4allBlast.txt" file, for the best database sequence(s), are details: </xhtml:div>
+                <xhtml:div>For database sequence matching "Description filter option":</xhtml:div>
+                <xhtml:div>- Database sequence's species, accession number, letters and description</xhtml:div>
+                <xhtml:div>- Number of query matching this sequence.</xhtml:div>
+                <xhtml:div>- Query name, (letters)</xhtml:div>
+                <xhtml:div>and for all corresponding hsp:</xhtml:div>
+                <xhtml:div>- Hsp description</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>option</name>
+          <prompt lang="en">Hsp(s) selection (-m)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>0</value>
+              <label>All hsps</label>
+            </velem>
+            <velem>
+              <value>1</value>
+              <label>Only compatible hsps</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>Simple overlaps are possible</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>Global overlaps on database sequence(s) are possible</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value ne vdef) ? " -m $value" : ""</code>
+            <code proglang="python">("", " -m " + str(value))[value != vdef]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Hsp(s) selection (-m)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="option">
+                <xhtml:option value="0">All hsps</xhtml:option>
+                <xhtml:option value="1" selected="selected">Only compatible hsps</xhtml:option>
+                <xhtml:option value="2">Simple overlaps are possible</xhtml:option>
+                <xhtml:option value="3">Global overlaps on database sequence(s) are possible</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="option"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>align</name>
+          <prompt lang="en">Produce alignment: database sequence matching "Description filter option" vs queries (-a)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <vlist>
+            <velem undef="1">
+              <value>0</value>
+              <label/>
+            </velem>
+            <velem>
+              <value>1</value>
+              <label>hsps blast and database sequence reference alignment: hsp merged in pairwise alignment</label>
+            </velem>
+            <velem>
+              <value>2</value>
+              <label>hsps blast and database sequence reference alignment: hsp in multiple alignment</label>
+            </velem>
+            <velem>
+              <value>3</value>
+              <label>hsps blast and database sequence reference alignment: hsp in multiple alignment and consensus</label>
+            </velem>
+            <velem>
+              <value>4</value>
+              <label>part of queries (hsp) and database sequence reference alignment: queries merged in pairwise alignment</label>
+            </velem>
+            <velem>
+              <value>5</value>
+              <label>part of queries (hsp) and database sequence reference alignment: queries in multiple alignment</label>
+            </velem>
+            <velem>
+              <value>6</value>
+              <label>part of queries (hsp) and database sequence reference alignment: queries in multiple alignment and consensus</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($value  ne vdef)? " -a $value" : ""</code>
+            <code proglang="python">("" , " -a " +str(value)) [value != vdef]</code>
+          </format>
+          <comment>
+            <text lang="en">For 1,2,3 hsps alignments (Sbjt and Query) are re-aligned on the reference sequence extract from database.</text>
+            <text lang="en">For 4,5,6 part of queries corresponding to hsps are re-aligned on the reference sequence extract from database.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce alignment: database sequence matching "Description filter option" vs queries (-a)<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700471104::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="align">
+                <xhtml:option value="0" selected="selected"/>
+                <xhtml:option value="1">hsps blast and database sequence reference alignment: hsp merged in pairwise alignment</xhtml:option>
+                <xhtml:option value="2">hsps blast and database sequence reference alignment: hsp in multiple alignment</xhtml:option>
+                <xhtml:option value="3">hsps blast and database sequence reference alignment: hsp in multiple alignment and consensus</xhtml:option>
+                <xhtml:option value="4">part of queries (hsp) and database sequence reference alignment: queries merged in pairwise alignment</xhtml:option>
+                <xhtml:option value="5">part of queries (hsp) and database sequence reference alignment: queries in multiple alignment</xhtml:option>
+                <xhtml:option value="6">part of queries (hsp) and database sequence reference alignment: queries in multiple alignment and consensus</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700471104::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For 1,2,3 hsps alignments (Sbjt and Query) are re-aligned on the reference sequence extract from database.</xhtml:div>
+                <xhtml:div>For 4,5,6 part of queries corresponding to hsps are re-aligned on the reference sequence extract from database.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="align">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117700471104::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117700471104::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>For 1,2,3 hsps alignments (Sbjt and Query) are re-aligned on the reference sequence extract from database.</xhtml:div>
+                <xhtml:div>For 4,5,6 part of queries corresponding to hsps are re-aligned on the reference sequence extract from database.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>picture</name>
+          <prompt lang="en">Produce graphical alignment summary images: database sequence matching "Description filter option" vs queries (-g)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -g" : ""</code>
+            <code proglang="python">("" , " -g") [value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce graphical alignment summary images: database sequence matching "Description filter option" vs queries (-g)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="picture">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="picture"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>blastout</name>
+          <prompt lang="en">Blast output file(s) sort/split by specific taxonomic hierarchy (-b)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -b" : ""</code>
+            <code proglang="python">("" , " -b") [value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Blast output file(s) sort/split by specific taxonomic hierarchy (-b)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="blastout">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="blastout"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>hspSeq</name>
+          <prompt lang="en">Extract Hsp(s) fragment from Query sequence(s) (-Q)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -Q" : ""</code>
+            <code proglang="python">("" , " -Q") [value]</code>
+          </format>
+          <!--  <ctrl>
+            <message>
+              <text lang="en">Query sequences must be done.</text>
+            </message>
+            <code proglang="perl">defined $query_seq</code>
+            <code proglang="python">query_seq is not None</code>
+          </ctrl> -->
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Extract Hsp(s) fragment from Query sequence(s) (-Q)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="hspSeq">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hspSeq"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>queryout</name>
+          <prompt lang="en">Query name write in file(s) sort/split by specific taxonomic hierarchy (-q)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -q" : ""</code>
+            <code proglang="python">("" , " -q") [value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Query name write in file(s) sort/split by specific taxonomic hierarchy (-q)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="queryout">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="queryout"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>besthitseq</name>
+          <prompt lang="en">Report database sequence(s) matching option in fasta file (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value)? " -s" : ""</code>
+            <code proglang="python">("" , " -s") [value]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Report database sequence(s) matching option in fasta file (-s)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="besthitseq">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="besthitseq"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>fastaExtract</name>
+          <prompt lang="en">Extraction of fasta sequences.</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <ctrl>
+            <message>
+              <text lang="en">Query name write in file must be checked and query sequences must be done.</text>
+            </message>
+            <code proglang="perl">$fastaExtract == 1 and $queryout == 1 and defined $query_seq</code>
+            <code proglang="python">(fastaExtract and (queryout and query_seq is not None)) or (not fastaExtract)</code>
+          </ctrl>
+          <comment>
+            <text lang="en">Extract fasta sequence, matching specified taxonomic filter, from file containing query sequences witch are used to made blast.</text>
+          </comment>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Extraction of fasta sequences.<xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698732640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="fastaExtract">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698732640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Extract fasta sequence, matching specified taxonomic filter, from file containing query sequences witch are used to made blast.</xhtml:div>
+              </xhtml:div>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="fastaExtract">
+              <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117698732640::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117698732640::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Extract fasta sequence, matching specified taxonomic filter, from file containing query sequences witch are used to made blast.</xhtml:div>
+              </xhtml:div>
+            </div>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>query_seq</name>
+          <prompt lang="en">Query sequences witch are used to made blast.</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <card>1,n</card>
+          </type>
+          <interface type="form" generated="true">
+            <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              <xhtml:legend>Query sequences witch are used to made blast.</xhtml:legend>
+              <xhtml:textarea name="query_seq" cols="60" rows="7"> </xhtml:textarea>
+            </xhtml:fieldset>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA " data-parametername="query_seq">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ishidden="1">
+          <name>query_seq_run1</name>
+          <prompt lang="en">Query sequences witch are used to made blast.</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <card>1,n</card>
+          </type>
+          <precond>
+            <code proglang="perl">defined $hspSeq and defined $query_seq</code>
+            <code proglang="python">hspSeq and query_seq</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value)? " -f $query_seq": ""</code>
+            <code proglang="python">(""," -f "+ str(query_seq)) [query_seq is not None]</code>
+          </format>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA " data-parametername="query_seq_run1">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter ishidden="1">
+          <name>query_seq_run2</name>
+          <prompt lang="en">Query sequences witch are used to made blast.</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+            <card>1,n</card>
+          </type>
+          <precond>
+            <code proglang="perl">defined $fastaExtract and defined $queryout and defined $query_seq</code>
+            <code proglang="python">fastaExtract and queryout and query_seq</code>
+          </precond>
+          <format>
+            <code proglang="perl">(defined $value)? " &amp;&amp; extractfasta -i $query_seq *.qry": ""</code>
+            <code proglang="python">(""," &amp;&amp; extractfasta -i "+ str(query_seq) + " *.qry") [query_seq is not None]</code>
+          </format>
+          <argpos>100</argpos>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="FASTA " data-parametername="query_seq_run2">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isstdout="1">
+          <name>outfile</name>
+          <prompt>Output file</prompt>
+          <type>
+            <datatype>
+              <class>Blast2taxoclassReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <filenames>
+            <code proglang="perl">"blast2genoclass.out"</code>
+            <code proglang="python">"blast2genoclass.out"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Blast2taxoclassReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="outfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Blast2taxoclassReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>pictureout</name>
+          <prompt>Graphical output</prompt>
+          <type>
+            <datatype>
+              <class>Picture</class>
+              <superclass>Binary</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $picture</code>
+            <code proglang="python">picture</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"*.png"</code>
+            <code proglang="python">"*.png"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="" data-formats="" data-parametername="pictureout"/>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>alignout</name>
+          <prompt>Alignment</prompt>
+          <type>
+            <datatype>
+              <class>GenoClasAln</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $align</code>
+            <code proglang="python">align</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"*.aln"</code>
+            <code proglang="python">"*.aln"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="GenoClasAln" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="alignout">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(GenoClasAln)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>verboseoutall</name>
+          <prompt>Verbose output file for all blast</prompt>
+          <type>
+            <datatype>
+              <class>VerboseReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $verboseall</code>
+            <code proglang="python">verboseall</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"res4individualBlast.txt"</code>
+            <code proglang="python">"res4individualBlast.txt"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="VerboseReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="verboseoutall">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(VerboseReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>verboseout</name>
+          <prompt>Verbose output file for database sequence(s)</prompt>
+          <type>
+            <datatype>
+              <class>VerboseReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $verbose</code>
+            <code proglang="python">verbose</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"res4allBlast.txt"</code>
+            <code proglang="python">"res4allBlast.txt"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="VerboseReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="verboseout">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(VerboseReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>blastoutfile</name>
+          <prompt>Blast output file(s)</prompt>
+          <type>
+            <datatype>
+              <class>BlastTextReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $blastout</code>
+            <code proglang="python">blastout</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"*.blast"</code>
+            <code proglang="python">"*.blast"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="BlastTextReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="blastoutfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(BlastTextReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>queryoutfile</name>
+          <prompt>Query name file</prompt>
+          <type>
+            <datatype>
+              <class>QueryNameReport</class>
+              <superclass>Report</superclass>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">defined $queryout</code>
+            <code proglang="python">queryout</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"*.qry"</code>
+            <code proglang="python">"*.qry"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="QueryNameReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="queryoutfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(QueryNameReport)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>besthitseqfile</name>
+          <prompt>Database sequence(s) fasta file</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">defined $besthitseq</code>
+            <code proglang="python">besthitseq</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"*.dbfasta"</code>
+            <code proglang="python">"*.dbfasta"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="besthitseqfile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+        <parameter isout="1">
+          <name>fastafile</name>
+          <prompt>Fasta file</prompt>
+          <type>
+            <datatype>
+              <class>Sequence</class>
+            </datatype>
+            <dataFormat>FASTA</dataFormat>
+          </type>
+          <precond>
+            <code proglang="perl">defined $fastaExtract  or defined $hspSeq</code>
+            <code proglang="python">fastaExtract or hspSeq</code>
+          </precond>
+          <filenames>
+            <code proglang="perl">"*.fasta"</code>
+            <code proglang="python">"*.fasta"</code>
+          </filenames>
+          <interface generated="true" type="job_output">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="fastafile">
+              <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+            </div>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"blast2genoclass.err"</code>
+        <code proglang="python">"blast2genoclass.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

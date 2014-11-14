@@ -1,0 +1,675 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>toppred</name>
+    <version>1.10</version>
+    <doc>
+      <title>TopPred</title>
+      <description>
+        <text lang="en">Topology prediction of membrane proteins</text>
+      </description>
+      <authors>Heijne, Wallin, Claros, Deveaud, Schuerer</authors>
+      <reference>von Heijne, G. (1992) Membrane Protein Structure Prediction: Hydrophobicity Analysis and the 'Positive Inside' Rule. J.Mol.Biol. 225, 487-494.</reference>
+      <reference>Claros, M.G., and von Heijne, G. (1994) TopPred II: An Improved Software For Membrane Protein Structure Predictions. CABIOS 10, 685-686.</reference>
+      <reference>Deveaud and Schuerer (Institut Pasteur) new implementation of the original toppred program, based on G. von Heijne algorithm.</reference>
+      <doclink>http://bioweb2.pasteur.fr/docs/toppred/toppred.pdf</doclink>
+      <sourcelink>ftp://ftp.pasteur.fr/pub/gensoft/projects/toppred/</sourcelink>
+    </doc>
+    <category>sequence:protein:2D_structure</category>
+    <category>structure:2D_structure</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,n" data-formats="FASTA " data-parametername="query">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Sequence</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="query" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="graph_output">Produce hydrophobicity graph image (-g)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="graph_output">
+          <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+          <xhtml:option value="0">No</xhtml:option>
+        </xhtml:select>
+      </label>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="topo_output">Produce image of each topology (-t)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="topo_output">
+          <xhtml:option value="1">Yes</xhtml:option>
+          <xhtml:option value="0" selected="selected">No</xhtml:option>
+        </xhtml:select>
+      </label>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="GES-scale" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="scale">Hydrophobicity scale (-H)<xhtml:select name="scale">
+              <xhtml:option value="KD-scale">KD-scale (Kyte and Doolittle)</xhtml:option>
+              <xhtml:option value="GVH-scale">GVH-scale (Gunnar von Heijne)</xhtml:option>
+              <xhtml:option value="GES-scale" selected="selected">GES-scale (Goldman Engelman Steitz)</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="organism">Organism: eukaryot (default is prokaryot) (-e)<xhtml:select name="organism">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="certain">Certain cutoff (-c)<xhtml:input name="certain" type="text" value="1.0"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.6" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="putative">Putative cutoff (-p)<xhtml:input name="putative" type="text" value="0.6"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="core">Core window size: (-n)<xhtml:input name="core" type="text" value="10"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="triangle">Wedge window size: (-q)<xhtml:input name="triangle" type="text" value="5"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="60" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="loop_length">Critical loop length (-s)<xhtml:input name="loop_length" type="text" value="60"/>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Segment_distance">Critical transmembrane spacer (-d)<xhtml:input name="Segment_distance" type="text" value="2"/>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Output options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="new" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outformat">Output format (-O)<xhtml:select name="outformat">
+              <xhtml:option value="new" selected="selected">New text output format (new)</xhtml:option>
+              <xhtml:option value="html">HTML</xhtml:option>
+              <xhtml:option value="old">Output format of the old toppred implementation (old)</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="png" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="profile_format">Hydrophobicity Profile file format (-g)<xhtml:select name="profile_format">
+              <xhtml:option value="png" selected="selected">PNG output (png)</xhtml:option>
+              <xhtml:option value="ps">PostScript output (ps)</xhtml:option>
+              <xhtml:option value="ppm">PPM output (ppm)</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="toppred" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="query" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,n" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="graph_output" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="topo_output" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control">
+        <xhtml:legend>Control options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="scale" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="GES-scale" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="organism" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="certain" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="putative" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.6" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="core" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="triangle" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="loop_length" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="60" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="Segment_distance" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="output_options">
+        <xhtml:legend>Output options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outformat" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="new" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="profile_format" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="png" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="graphicfiles" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="0,n" data-formats="&#10;           "/>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="hydrophobicity_files" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="html_file" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ToppredHtmlReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ToppredHtmlReport)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter iscommand="1" ishidden="1">
+      <name>toppred</name>
+      <prompt lang="en">Command</prompt>
+      <type>
+        <datatype>
+          <class>String</class>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">"toppred"</code>
+        <code proglang="python">"toppred"</code>
+      </format>
+      <argpos>0</argpos>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="toppred"/>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1" ismaininput="1">
+      <name>query</name>
+      <prompt lang="en">Sequence</prompt>
+      <type>
+        <biotype>Protein</biotype>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+        <card>1,n</card>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" "+ str( value )</code>
+      </format>
+      <argpos>10</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Sequence</xhtml:legend>
+          <xhtml:textarea name="query" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="Protein " data-card="1,n" data-formats="FASTA " data-parametername="query">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Protein Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>graph_output</name>
+      <prompt lang="en">Produce hydrophobicity graph image (-g)</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>1</value>
+      </vdef>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce hydrophobicity graph image (-g)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="graph_output">
+            <xhtml:option value="1" selected="selected">Yes</xhtml:option>
+            <xhtml:option value="0">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="1" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="graph_output"/>
+      </interface>
+    </parameter>
+    <parameter issimple="1">
+      <name>topo_output</name>
+      <prompt lang="en">Produce image of each topology (-t)</prompt>
+      <type>
+        <datatype>
+          <class>Boolean</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>0</value>
+      </vdef>
+      <format>
+        <code proglang="perl">($value) ? "" : " -t none"</code>
+        <code proglang="python">(" -t none","")[ value ]</code>
+      </format>
+      <argpos>7</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Produce image of each topology (-t)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="topo_output">
+            <xhtml:option value="1">Yes</xhtml:option>
+            <xhtml:option value="0" selected="selected">No</xhtml:option>
+          </xhtml:select>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="topo_output"/>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>control</name>
+      <prompt lang="en">Control options</prompt>
+      <parameters>
+        <parameter>
+          <name>scale</name>
+          <prompt lang="en">Hydrophobicity scale (-H)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>GES-scale</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>KD-scale</value>
+              <label>KD-scale (Kyte and Doolittle)</label>
+            </velem>
+            <velem>
+              <value>GVH-scale</value>
+              <label>GVH-scale (Gunnar von Heijne)</label>
+            </velem>
+            <velem>
+              <value>GES-scale</value>
+              <label>GES-scale (Goldman Engelman Steitz)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? "-H $value" : ""</code>
+            <code proglang="python">( "" , " -H " + str( value ) )[ value is not None and value != vdef ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Hydrophobicity scale (-H)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="scale">
+                <xhtml:option value="KD-scale">KD-scale (Kyte and Doolittle)</xhtml:option>
+                <xhtml:option value="GVH-scale">GVH-scale (Gunnar von Heijne)</xhtml:option>
+                <xhtml:option value="GES-scale" selected="selected">GES-scale (Goldman Engelman Steitz)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="GES-scale" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="scale"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>organism</name>
+          <prompt lang="en">Organism: eukaryot (default is prokaryot) (-e)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -e" : ""</code>
+            <code proglang="python">( "" , " -e" )[ value ]</code>
+          </format>
+          <argpos>1</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Organism: eukaryot (default is prokaryot) (-e)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="organism">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="organism"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>certain</name>
+          <prompt lang="en">Certain cutoff (-c)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>1.0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -c $value" : ""</code>
+            <code proglang="python">( "" , " -c " + str(value) ) [ value is not None and value!= vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Certain cutoff must be greater than putative cutoff</text>
+            </message>
+            <code proglang="perl">$certain &gt; $putative</code>
+            <code proglang="python">certain &gt; putative</code>
+          </ctrl>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Certain cutoff (-c)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="certain" type="text" value="1.0"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="1.0" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="certain"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>putative</name>
+          <prompt lang="en">Putative cutoff (-p)</prompt>
+          <type>
+            <datatype>
+              <class>Float</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0.6</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? "-p $value" : ""</code>
+            <code proglang="python">( "" , " -p " + str(value) )[ value is not None and value != vdef ]</code>
+          </format>
+          <ctrl>
+            <message>
+              <text lang="en">Putative cutoff must be not be greater than certain cutoff</text>
+            </message>
+            <code proglang="perl">$certain &gt; $putative</code>
+            <code proglang="python">certain &gt; putative</code>
+          </ctrl>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Putative cutoff (-p)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="putative" type="text" value="0.6"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="0.6" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="putative"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>core</name>
+          <prompt lang="en">Core window size: (-n)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>10</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -n $value" : ""</code>
+            <code proglang="python">( "" , " -n " + str(value) )[ value is not None and value != vdef ]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Core window size: (-n)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="core" type="text" value="10"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="10" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="core"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>triangle</name>
+          <prompt lang="en">Wedge window size: (-q)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>5</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -q $value" : ""</code>
+            <code proglang="python">( "" , " -q " + str(value) )[ value is not None and value != vdef ]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Wedge window size: (-q)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="triangle" type="text" value="5"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="5" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="triangle"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>loop_length</name>
+          <prompt lang="en">Critical loop length (-s)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>60</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -s $value" : ""</code>
+            <code proglang="python">( "" , " -s " + str(value) )[ value is not None and value != vdef ]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Critical loop length (-s)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="loop_length" type="text" value="60"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="60" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="loop_length"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>Segment_distance</name>
+          <prompt lang="en">Critical transmembrane spacer (-d)</prompt>
+          <type>
+            <datatype>
+              <class>Integer</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>2</value>
+          </vdef>
+          <format>
+            <code proglang="perl">(defined $value and $value != $vdef) ? " -d $value" : ""</code>
+            <code proglang="python">( "" , " -d " + str( value ) )[ value is not None and value!= vdef ]</code>
+          </format>
+          <argpos>2</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Critical transmembrane spacer (-d)<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="Segment_distance" type="text" value="2"/>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="2" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="Segment_distance"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <paragraph>
+      <name>output_options</name>
+      <prompt lang="en">Output options</prompt>
+      <parameters>
+        <parameter>
+          <name>outformat</name>
+          <prompt lang="en">Output format (-O)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>new</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>new</value>
+              <label>New text output format (new)</label>
+            </velem>
+            <velem>
+              <value>html</value>
+              <label>HTML</label>
+            </velem>
+            <velem>
+              <value>old</value>
+              <label>Output format of the old toppred implementation (old)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">(defined $value and $value ne $vdef) ? " -O $value" : ""</code>
+            <code proglang="python">( "" , " -O " + str(value) )[ value is not None and value != vdef ]</code>
+          </format>
+          <argpos>5</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Output format (-O)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outformat">
+                <xhtml:option value="new" selected="selected">New text output format (new)</xhtml:option>
+                <xhtml:option value="html">HTML</xhtml:option>
+                <xhtml:option value="old">Output format of the old toppred implementation (old)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="new" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outformat"/>
+          </interface>
+        </parameter>
+        <parameter>
+          <name>profile_format</name>
+          <prompt lang="en">Hydrophobicity Profile file format (-g)</prompt>
+          <type>
+            <datatype>
+              <class>Choice</class>
+            </datatype>
+          </type>
+          <precond>
+            <code proglang="perl">$graph_output </code>
+            <code proglang="python">graph_output </code>
+          </precond>
+          <vdef>
+            <value>png</value>
+          </vdef>
+          <vlist>
+            <velem>
+              <value>png</value>
+              <label>PNG output (png)</label>
+            </velem>
+            <velem>
+              <value>ps</value>
+              <label>PostScript output (ps)</label>
+            </velem>
+            <velem>
+              <value>ppm</value>
+              <label>PPM output (ppm)</label>
+            </velem>
+          </vlist>
+          <format>
+            <code proglang="perl">($graph_output) ? " -g $value" : " -g none"</code>
+            <code proglang="python">( " -g none" , " -g " + str(value) )[ graph_output ]</code>
+          </format>
+          <argpos>7</argpos>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Hydrophobicity Profile file format (-g)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="profile_format">
+                <xhtml:option value="png" selected="selected">PNG output (png)</xhtml:option>
+                <xhtml:option value="ps">PostScript output (ps)</xhtml:option>
+                <xhtml:option value="ppm">PPM output (ppm)</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="png" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="profile_format"/>
+          </interface>
+        </parameter>
+      </parameters>
+    </paragraph>
+    <parameter isout="1">
+      <name>graphicfiles</name>
+      <prompt lang="en">Graphic output files</prompt>
+      <type>
+        <datatype>
+          <class>Picture</class>
+          <superclass>Binary</superclass>
+        </datatype>
+        <dataFormat>
+          <ref param="profile_format"/>
+        </dataFormat>
+        <card>0,n</card>
+      </type>
+      <precond>
+        <code proglang="perl">$graph_output </code>
+        <code proglang="python">graph_output </code>
+      </precond>
+      <filenames>
+        <code proglang="perl">*.$profile_format</code>
+        <code proglang="python">'*.' + profile_format</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Picture" data-datatype-superclass="Binary" data-biotype="" data-card="0,n" data-formats="&#10;           " data-parametername="graphicfiles"/>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>hydrophobicity_files</name>
+      <prompt lang="en">Hydrophobicity output files</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+        <card>1,n</card>
+      </type>
+      <filenames>
+        <code proglang="perl">*.hydro*</code>
+        <code proglang="python">'*.hydro*'</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="1,n" data-formats="" data-parametername="hydrophobicity_files">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>html_file</name>
+      <prompt lang="en">Output file in html format</prompt>
+      <type>
+        <datatype>
+          <class>ToppredHtmlReport</class>
+          <superclass>Report</superclass>
+        </datatype>
+      </type>
+      <precond>
+        <code proglang="perl">outformat eq 'html'</code>
+        <code proglang="python">outformat == 'html'</code>
+      </precond>
+      <filenames>
+        <code proglang="perl">*.html</code>
+        <code proglang="python">'*.html'</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="ToppredHtmlReport" data-datatype-superclass="Report" data-biotype="" data-card="" data-formats="" data-parametername="html_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ToppredHtmlReport)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"toppred.out"</code>
+        <code proglang="python">"toppred.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"toppred.err"</code>
+        <code proglang="python">"toppred.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+

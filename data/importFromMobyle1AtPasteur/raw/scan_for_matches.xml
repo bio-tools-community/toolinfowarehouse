@@ -1,0 +1,384 @@
+<?xml version="1.0"?>
+<!-- XML Authors: Corinne Maufrais, Nicolas Joly and Bertrand Neron,             -->
+<!-- 'Biological Software and Databases' Group, Institut Pasteur, Paris.         -->
+<!-- Distributed under LGPLv2 License. Please refer to the COPYING.LIB document. -->
+<program>
+  <head>
+    <name>scan_for_matches</name>
+    <version>97</version>
+    <doc>
+      <title>scan_for_matches</title>
+      <description>
+        <text lang="en">Scan Nucleotide or Protein Sequences for Matching Patterns</text>
+      </description>
+      <comment>
+        <text lang="en">Scan_for_matches is a utility to search for patterns in DNA and protein sequences.</text>
+      </comment>
+      <doclink>http://bioweb2.pasteur.fr/docs/scan_for_matches/scan_for_matches.txt</doclink>
+      <sourcelink>ftp://ftp.mcs.anl.gov/pub/Genomics/PatScan/</sourcelink>
+    </doc>
+    <command>scan_for_matches</command>
+    <category>sequence:protein:pattern</category>
+    <category>sequence:nucleic:pattern</category>
+    <interface type="form" generated="true">
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="sequence">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Input sequence</legend>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="sequence" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="ScanPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="pat_file">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Pattern file<xhtml:a href="#idm140117707088032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        </legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117707088032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Some examples of pattern:</xhtml:div>
+          <xhtml:div>- Simple Patterns Built by Matching Ranges and Reverse Complements:</xhtml:div>
+          <xhtml:div>p1=4...7 3...8 ~p1 (three "pattern units" with: 4...7 which "match 4 to 7 characters and call them p1", 3...8 which "match 3 to 8 characters" and  ~pi "match the reverse complement of p1" )</xhtml:div>
+          <xhtml:div>- Defining Pairing Rules and Allowing Mismatches, Insertions, and Deletions</xhtml:div>
+          <xhtml:div>r1={au,ua,gc,cg,gu,ug,ga,ag}</xhtml:div>
+          <xhtml:div>p1=2...3 0...4 p2=2...5 1...5 r1~p2 0...4 ~p1 (p1=2...3     match 2 or 3 characters (call it p1), 0...4        match 0 to 4 characters, p2=2...5     match 2 to 5 characters (call it p2), 1...5        match 1 to 5 characters, r1~p2        match the reverse complement of p2 using rule r1, allowing G-A and A-G pairs, 0...4        match 0 to 4 characters, ~p1          match the reverse complement of p1 allowing only G-C, C-G, A-T, and T-A pairs)</xhtml:div>
+          <xhtml:div>- Mismatches and bulges</xhtml:div>
+          <xhtml:div>p1=10...10 3...8 ~p1[1,2,1] (the third pattern unit must match 10 characters, allowing one "mismatch" (a pairing other than G-C, C-G, A-T, or T-A))</xhtml:div>
+          <xhtml:div>-Searching for repeats:</xhtml:div>
+          <xhtml:div>p1=6...6 3...8 p1   (find exact 6 character repeat separated by to 8 characters)</xhtml:div>
+          <xhtml:div>p1=6...6 3..8 p1[1,0,0]   (allow one mismatch)</xhtml:div>
+          <xhtml:div>p1=3...3 p1[1,0,0] p1[1,0,0] p1[1,0,0] (match 12 characters that are the remains of a 3-character sequence occurring 4 times) </xhtml:div>
+          <xhtml:div> p1=4...8 0...3 p2=6...8 p1 0...3 p2 (This would match things like ATCT G TCTTT ATCT TG TCTTT)</xhtml:div>
+          <xhtml:div>-Searching for particular sequences:</xhtml:div>
+          <xhtml:div>p1=6...8 GAGA ~p1    (match a hairpin with GAGA as the loop)</xhtml:div>
+          <xhtml:div>RRRRYYYY             (match 4 purines followed by 4 pyrimidines)</xhtml:div>
+          <xhtml:div>TATAA[1,0,0]         (match TATAA, allowing 1 mismatch)</xhtml:div>
+        </xhtml:div>
+        <xhtml:textarea xmlns:xhtml="http://www.w3.org/1999/xhtml" name="pat_file" cols="60" rows="7"> </xhtml:textarea>
+      </fieldset>
+      <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control_options">
+        <legend xmlns:xhtml="http://www.w3.org/1999/xhtml">Control options</legend>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="complementary_strand">Search complementary strand (-c)<xhtml:select name="complementary_strand">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+          <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="protein">Protein sequence? (-p)<xhtml:select name="protein">
+              <xhtml:option value="1">Yes</xhtml:option>
+              <xhtml:option value="0" selected="selected">No</xhtml:option>
+            </xhtml:select>
+          </label>
+        </xhtml:div>
+      </fieldset>
+      <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="hits" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile_name">Outfile name<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outfile_name" type="text" value="hits"/>
+      </label>
+    </interface>
+    <interface type="job_input" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="sequence" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA ">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="pat_file" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="ScanPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ScanPattern)
+			</xhtml:i>
+        <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117707088032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+        <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117707088032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+          <xhtml:div>Some examples of pattern:</xhtml:div>
+          <xhtml:div>- Simple Patterns Built by Matching Ranges and Reverse Complements:</xhtml:div>
+          <xhtml:div>p1=4...7 3...8 ~p1 (three "pattern units" with: 4...7 which "match 4 to 7 characters and call them p1", 3...8 which "match 3 to 8 characters" and  ~pi "match the reverse complement of p1" )</xhtml:div>
+          <xhtml:div>- Defining Pairing Rules and Allowing Mismatches, Insertions, and Deletions</xhtml:div>
+          <xhtml:div>r1={au,ua,gc,cg,gu,ug,ga,ag}</xhtml:div>
+          <xhtml:div>p1=2...3 0...4 p2=2...5 1...5 r1~p2 0...4 ~p1 (p1=2...3     match 2 or 3 characters (call it p1), 0...4        match 0 to 4 characters, p2=2...5     match 2 to 5 characters (call it p2), 1...5        match 1 to 5 characters, r1~p2        match the reverse complement of p2 using rule r1, allowing G-A and A-G pairs, 0...4        match 0 to 4 characters, ~p1          match the reverse complement of p1 allowing only G-C, C-G, A-T, and T-A pairs)</xhtml:div>
+          <xhtml:div>- Mismatches and bulges</xhtml:div>
+          <xhtml:div>p1=10...10 3...8 ~p1[1,2,1] (the third pattern unit must match 10 characters, allowing one "mismatch" (a pairing other than G-C, C-G, A-T, or T-A))</xhtml:div>
+          <xhtml:div>-Searching for repeats:</xhtml:div>
+          <xhtml:div>p1=6...6 3...8 p1   (find exact 6 character repeat separated by to 8 characters)</xhtml:div>
+          <xhtml:div>p1=6...6 3..8 p1[1,0,0]   (allow one mismatch)</xhtml:div>
+          <xhtml:div>p1=3...3 p1[1,0,0] p1[1,0,0] p1[1,0,0] (match 12 characters that are the remains of a 3-character sequence occurring 4 times) </xhtml:div>
+          <xhtml:div> p1=4...8 0...3 p2=6...8 p1 0...3 p2 (This would match things like ATCT G TCTTT ATCT TG TCTTT)</xhtml:div>
+          <xhtml:div>-Searching for particular sequences:</xhtml:div>
+          <xhtml:div>p1=6...8 GAGA ~p1    (match a hairpin with GAGA as the loop)</xhtml:div>
+          <xhtml:div>RRRRYYYY             (match 4 purines followed by 4 pyrimidines)</xhtml:div>
+          <xhtml:div>TATAA[1,0,0]         (match TATAA, allowing 1 mismatch)</xhtml:div>
+        </xhtml:div>
+      </div>
+      <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="control_options">
+        <xhtml:legend>Control options</xhtml:legend>
+        <xhtml:div>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="complementary_strand" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="protein" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+        </xhtml:div>
+      </xhtml:fieldset>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile_name" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="hits" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+    </interface>
+    <interface type="job_output" generated="true">
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="outfile" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stdout" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+      <div xmlns="http://www.w3.org/1999/xhtml" data-parametername="stderr" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+        <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+      </div>
+    </interface>
+  </head>
+  <parameters>
+    <parameter ismandatory="1" issimple="1">
+      <name>sequence</name>
+      <prompt lang="en">Input sequence</prompt>
+      <type>
+        <datatype>
+          <class>Sequence</class>
+        </datatype>
+        <dataFormat>FASTA</dataFormat>
+      </type>
+      <format>
+        <code proglang="perl">" &lt; $value"</code>
+        <code proglang="python">" &lt; " + str(value)</code>
+      </format>
+      <argpos>100</argpos>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Input sequence</xhtml:legend>
+          <xhtml:textarea name="sequence" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Sequence" data-datatype-superclass="" data-biotype="" data-card="" data-formats="FASTA " data-parametername="sequence">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Sequence)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter ismandatory="1" issimple="1">
+      <name>pat_file</name>
+      <prompt lang="en">Pattern file</prompt>
+      <type>
+        <datatype>
+          <class>ScanPattern</class>
+          <superclass>AbstractText</superclass>
+        </datatype>
+      </type>
+      <format>
+        <code proglang="perl">" $value"</code>
+        <code proglang="python">" " + str(value)</code>
+      </format>
+      <argpos>99</argpos>
+      <comment>
+        <text lang="en">Some examples of pattern:</text>
+        <text lang="en">- Simple Patterns Built by Matching Ranges and Reverse Complements:</text>
+        <text lang="en">p1=4...7 3...8 ~p1 (three "pattern units" with: 4...7 which "match 4 to 7 characters and call them p1", 3...8 which "match 3 to 8 characters" and  ~pi "match the reverse complement of p1" )</text>
+        <text lang="en">- Defining Pairing Rules and Allowing Mismatches, Insertions, and Deletions</text>
+        <text lang="en">r1={au,ua,gc,cg,gu,ug,ga,ag}</text>
+        <text lang="en">p1=2...3 0...4 p2=2...5 1...5 r1~p2 0...4 ~p1 (p1=2...3     match 2 or 3 characters (call it p1), 0...4        match 0 to 4 characters, p2=2...5     match 2 to 5 characters (call it p2), 1...5        match 1 to 5 characters, r1~p2        match the reverse complement of p2 using rule r1, allowing G-A and A-G pairs, 0...4        match 0 to 4 characters, ~p1          match the reverse complement of p1 allowing only G-C, C-G, A-T, and T-A pairs)</text>
+        <text lang="en">- Mismatches and bulges</text>
+        <text lang="en">p1=10...10 3...8 ~p1[1,2,1] (the third pattern unit must match 10 characters, allowing one "mismatch" (a pairing other than G-C, C-G, A-T, or T-A))</text>
+        <text lang="en">-Searching for repeats:</text>
+        <text lang="en">p1=6...6 3...8 p1   (find exact 6 character repeat separated by to 8 characters)</text>
+        <text lang="en">p1=6...6 3..8 p1[1,0,0]   (allow one mismatch)</text>
+        <text lang="en">p1=3...3 p1[1,0,0] p1[1,0,0] p1[1,0,0] (match 12 characters that are the remains of a 3-character sequence occurring 4 times) </text>
+        <text lang="en"> p1=4...8 0...3 p2=6...8 p1 0...3 p2 (This would match things like ATCT G TCTTT ATCT TG TCTTT)</text>
+        <text lang="en">-Searching for particular sequences:</text>
+        <text lang="en">p1=6...8 GAGA ~p1    (match a hairpin with GAGA as the loop)</text>
+        <text lang="en">RRRRYYYY             (match 4 purines followed by 4 pyrimidines)</text>
+        <text lang="en">TATAA[1,0,0]         (match TATAA, allowing 1 mismatch)</text>
+      </comment>
+      <interface type="form" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+          <xhtml:legend>Pattern file</xhtml:legend>
+          <xhtml:textarea name="pat_file" cols="60" rows="7"> </xhtml:textarea>
+        </xhtml:fieldset>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="ScanPattern" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="pat_file">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(ScanPattern)
+			</xhtml:i>
+          <xhtml:a xmlns:xhtml="http://www.w3.org/1999/xhtml" href="#idm140117707088032::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+          <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml" id="idm140117707088032::comment" class="commentText" style="display:none" mode="ajaxTarget">
+            <xhtml:div>Some examples of pattern:</xhtml:div>
+            <xhtml:div>- Simple Patterns Built by Matching Ranges and Reverse Complements:</xhtml:div>
+            <xhtml:div>p1=4...7 3...8 ~p1 (three "pattern units" with: 4...7 which "match 4 to 7 characters and call them p1", 3...8 which "match 3 to 8 characters" and  ~pi "match the reverse complement of p1" )</xhtml:div>
+            <xhtml:div>- Defining Pairing Rules and Allowing Mismatches, Insertions, and Deletions</xhtml:div>
+            <xhtml:div>r1={au,ua,gc,cg,gu,ug,ga,ag}</xhtml:div>
+            <xhtml:div>p1=2...3 0...4 p2=2...5 1...5 r1~p2 0...4 ~p1 (p1=2...3     match 2 or 3 characters (call it p1), 0...4        match 0 to 4 characters, p2=2...5     match 2 to 5 characters (call it p2), 1...5        match 1 to 5 characters, r1~p2        match the reverse complement of p2 using rule r1, allowing G-A and A-G pairs, 0...4        match 0 to 4 characters, ~p1          match the reverse complement of p1 allowing only G-C, C-G, A-T, and T-A pairs)</xhtml:div>
+            <xhtml:div>- Mismatches and bulges</xhtml:div>
+            <xhtml:div>p1=10...10 3...8 ~p1[1,2,1] (the third pattern unit must match 10 characters, allowing one "mismatch" (a pairing other than G-C, C-G, A-T, or T-A))</xhtml:div>
+            <xhtml:div>-Searching for repeats:</xhtml:div>
+            <xhtml:div>p1=6...6 3...8 p1   (find exact 6 character repeat separated by to 8 characters)</xhtml:div>
+            <xhtml:div>p1=6...6 3..8 p1[1,0,0]   (allow one mismatch)</xhtml:div>
+            <xhtml:div>p1=3...3 p1[1,0,0] p1[1,0,0] p1[1,0,0] (match 12 characters that are the remains of a 3-character sequence occurring 4 times) </xhtml:div>
+            <xhtml:div> p1=4...8 0...3 p2=6...8 p1 0...3 p2 (This would match things like ATCT G TCTTT ATCT TG TCTTT)</xhtml:div>
+            <xhtml:div>-Searching for particular sequences:</xhtml:div>
+            <xhtml:div>p1=6...8 GAGA ~p1    (match a hairpin with GAGA as the loop)</xhtml:div>
+            <xhtml:div>RRRRYYYY             (match 4 purines followed by 4 pyrimidines)</xhtml:div>
+            <xhtml:div>TATAA[1,0,0]         (match TATAA, allowing 1 mismatch)</xhtml:div>
+          </xhtml:div>
+        </div>
+      </interface>
+    </parameter>
+    <paragraph>
+      <name>control_options</name>
+      <prompt lang="en">Control options</prompt>
+      <argpos>2</argpos>
+      <parameters>
+        <parameter issimple="1">
+          <name>complementary_strand</name>
+          <prompt lang="en">Search complementary strand (-c)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -c" : ""</code>
+            <code proglang="python">( "" , " -c" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Search complementary strand (-c)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="complementary_strand">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="complementary_strand"/>
+          </interface>
+        </parameter>
+        <parameter issimple="1">
+          <name>protein</name>
+          <prompt lang="en">Protein sequence? (-p)</prompt>
+          <type>
+            <datatype>
+              <class>Boolean</class>
+            </datatype>
+          </type>
+          <vdef>
+            <value>0</value>
+          </vdef>
+          <format>
+            <code proglang="perl">($value) ? " -p" : ""</code>
+            <code proglang="python">( "" , " -p" )[ value ]</code>
+          </format>
+          <interface type="form" generated="true">
+            <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Protein sequence? (-p)<xhtml:select xmlns:xhtml="http://www.w3.org/1999/xhtml" name="protein">
+                <xhtml:option value="1">Yes</xhtml:option>
+                <xhtml:option value="0" selected="selected">No</xhtml:option>
+              </xhtml:select>
+            </label>
+          </interface>
+          <interface generated="true" type="job_input">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="0" data-datatype="Boolean" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="protein"/>
+          </interface>
+        </parameter>
+        <!-- Ne passe pas les tests sur raclette: Segmentation fault (core dumped)
+	<parameter>
+	  <name>stop_after_n_misses</name>
+	  <prompt lang="en">Stop after n misses (-n)</prompt>
+	  <type>
+	    <datatype>
+	      <class>Integer</class>
+	    </datatype>
+	  </type>
+	  <format>
+	    <code proglang="perl">($value) ? " -n $value" : ""</code>
+	    <code proglang="python">( "" , " -n " + str(value) )[ value is not None ]</code>
+	  </format>
+	</parameter>
+-->
+      </parameters>
+    </paragraph>
+    <parameter issimple="1">
+      <name>outfile_name</name>
+      <prompt lang="en">Outfile name</prompt>
+      <type>
+        <datatype>
+          <class>Filename</class>
+        </datatype>
+      </type>
+      <vdef>
+        <value>hits</value>
+      </vdef>
+      <format>
+        <code proglang="perl">" &gt; $value"</code>
+        <code proglang="python">" &gt; " + str(value)</code>
+      </format>
+      <argpos>101</argpos>
+      <interface type="form" generated="true">
+        <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Outfile name<xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" name="outfile_name" type="text" value="hits"/>
+        </label>
+      </interface>
+      <interface generated="true" type="job_input">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="hits" data-datatype="Filename" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile_name"/>
+      </interface>
+    </parameter>
+    <parameter isout="1">
+      <name>outfile</name>
+      <prompt lang="en">Output file</prompt>
+      <type>
+        <datatype>
+          <class>Text</class>
+        </datatype>
+      </type>
+      <filenames>
+        <code proglang="perl">outfile_name</code>
+        <code proglang="python">str(outfile_name)</code>
+      </filenames>
+      <interface generated="true" type="job_output">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Text" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="outfile">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Text)
+			</xhtml:i>
+        </div>
+      </interface>
+    </parameter>
+    <parameter isstdout="true">
+      <name>stdout</name>
+      <prompt>Standard output</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stdout">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"scan_for_matches.out"</code>
+        <code proglang="python">"scan_for_matches.out"</code>
+      </filenames>
+    </parameter>
+    <parameter isout="true">
+      <name>stderr</name>
+      <prompt>Standard error</prompt>
+      <type>
+        <datatype>
+          <class>Report</class>
+        </datatype>
+      </type>
+      <interface type="job_output" generated="true">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="Report" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="stderr">
+          <xhtml:i xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				(Report)
+			</xhtml:i>
+        </div>
+      </interface>
+      <filenames>
+        <code proglang="perl">"scan_for_matches.err"</code>
+        <code proglang="python">"scan_for_matches.err"</code>
+      </filenames>
+    </parameter>
+  </parameters>
+</program>
+
