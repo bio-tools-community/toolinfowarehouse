@@ -122,7 +122,7 @@ if __name__ == "__main__":
     new_dict = {}
     json_ext = '.json'
 
-    for i in tools[0:10]:
+    for i in tools:
         try:
             # improve this part, important to be able to get all tool from any toolshed ...
             if not i['id'].find("galaxy.web.pasteur.fr") or not i['id'].find("testtoolshed.g2.bx.psu.edu") or not i['id'].find("toolshed.g2.bx.psu.edu"):
