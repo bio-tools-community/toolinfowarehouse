@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0"
-        xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://biotoolsregistry.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://biotoolsregistry.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
     <xsl:param name="mobyle_root" select="mobyle_root"/>
 
@@ -8,6 +8,7 @@
 
     <xsl:variable name="operations" select="document('mobyle_operations.xml')"/>
     <xsl:variable name="topics" select="document('mobyle_topics.xml')"/>
+    <xsl:variable name="edam" select="document('EDAM_1.5.owl')"/>
 
     <xsl:template match="/program">
         <resources xsi:schemaLocation="http://biotoolsregistry.org/biotools-beta06.xsd" >
@@ -38,11 +39,15 @@
                 </interface>
                 <description><xsl:value-of select="head/doc/description/text/text()" /></description>
                 <xsl:for-each select="$topics//tool[@name=current()/head/name/text()]/topic">
-                    <topic uri="{text()}">??</topic>
+                    <topic uri="{text()}">
+                        <xsl:value-of select="$edam//owl:Class[@rdf:about=current()/text()]/rdfs:label/text()"/>
+                    </topic>
                 </xsl:for-each>
                 <function>
                     <xsl:for-each select="$operations//tool[@name=current()/head/name/text()]/operation">
-                        <functionName uri="{text()}">??</functionName>
+                        <functionName uri="{text()}">
+                            <xsl:value-of select="$edam//owl:Class[@rdf:about=current()/text()]/rdfs:label/text()"/>
+                        </functionName>
                     </xsl:for-each>
                 </function>
                 <contact>
