@@ -80,7 +80,7 @@
     </xsl:template>
 
     <xsl:template match="reference/@doi">
-        <publicationOtherID><xsl:value-of select="." /></publicationOtherID>
+        <publicationsOtherID><xsl:value-of select="." /></publicationsOtherID>
     </xsl:template>
 
 </xsl:stylesheet>
