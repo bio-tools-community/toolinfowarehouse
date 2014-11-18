@@ -58,20 +58,13 @@
                     </xsl:for-each>
 
                     <xsl:for-each select="parameters//parameter[not(@isout) and not(@isstdout) and not(@ishidden)]">
-                        <xsl:if test="$data/datas/data[@name=current()/type/datatype/class/text()]">
-                            <input>
-                                <xsl:apply-templates select="."/>
-                            </input>
-                        </xsl:if>
+			<xsl:apply-templates select="."/>
                     </xsl:for-each>
 
                     <xsl:for-each select="parameters//parameter[@isout or @isstdout]">
-                        <xsl:if test="$data/datas/data[@name=current()/type/datatype/class/text()]">
-                            <output>
-                                <xsl:apply-templates select="."/>
-                            </output>
-                        </xsl:if>
+			<xsl:apply-templates select="."/>
                     </xsl:for-each>
+
                 </function>
                 <contact>
                     <contactEmail><xsl:value-of select="$mobyle_contact" /></contactEmail>
@@ -116,22 +109,47 @@
          <xsl:value-of select="$edam//owl:Class[@rdf:about=$id]/rdfs:label/text()"/>
     </xsl:template>
 
-    <xsl:template match="parameter"> 
-	<dataType uri="{$data/datas/data[@name=current()/type/datatype/class/text()]/text()}">
-	    <xsl:call-template name="owlClassLabel">
-		<xsl:with-param name="id">
-		    <xsl:value-of select="$data/datas/data[@name=current()/type/datatype/class/text()]/text()" />
-		</xsl:with-param>
-	    </xsl:call-template>
-	</dataType>
-	<dataFormat uri="{$formats/formats/format[@name=current()/type/dataFormat/text()]/text()}">
-	    <xsl:call-template name="owlClassLabel">
-		<xsl:with-param name="id">
-		    <xsl:value-of select="$formats/formats/format[@name=current()/type/dataFormat/text()]/text()" />
-		</xsl:with-param>
-	    </xsl:call-template>
-	</dataFormat>
-	<dataHandle><xsl:value-of select="name/text()" /></dataHandle>
+    <xsl:template match="parameter">
+        <xsl:variable name="mobyle_class">
+            <xsl:choose>
+                <xsl:when test="type/datatype/superclass/text()">
+                    <xsl:value-of select="type/datatype/superclass/text()" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="type/datatype/class/text()" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="parameter_type">
+            <xsl:choose>
+                <xsl:when test="@isout or @isstdout">output</xsl:when>
+                <xsl:otherwise>input</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:if test="$data/datas/data[@name=$mobyle_class]">
+            <xsl:element name="{$parameter_type}">
+		<dataType uri="{$data/datas/data[@name=$mobyle_class]/text()}">
+		    <xsl:call-template name="owlClassLabel">
+			<xsl:with-param name="id">
+			    <xsl:value-of select="$data/datas/data[@name=$mobyle_class]/text()" />
+			</xsl:with-param>
+		    </xsl:call-template>
+		</dataType>
+                <xsl:if test="$formats/formats/format[@name=current()/type/dataFormat/text()]/text()">
+			<dataFormat uri="{$formats/formats/format[@name=current()/type/dataFormat/text()]/text()}">
+			    <xsl:call-template name="owlClassLabel">
+				<xsl:with-param name="id">
+				    <xsl:value-of select="$formats/formats/format[@name=current()/type/dataFormat/text()]/text()" />
+				</xsl:with-param>
+			    </xsl:call-template>
+			</dataFormat>
+                </xsl:if>
+		<dataHandle><xsl:value-of select="name/text()" /></dataHandle>
+            </xsl:element>
+        </xsl:if>
+
+
+
     </xsl:template>
 
 </xsl:stylesheet>
