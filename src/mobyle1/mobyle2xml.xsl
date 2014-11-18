@@ -8,6 +8,9 @@
 
     <xsl:variable name="operations" select="document('mobyle_operations.xml')"/>
     <xsl:variable name="topics" select="document('mobyle_topics.xml')"/>
+    <xsl:variable name="data" select="document('mobyle_data.xml')"/>
+    <xsl:variable name="formats" select="document('mobyle_formats.xml')"/>
+
     <xsl:variable name="edam" select="document('EDAM_1.5.owl')"/>
 
     <xsl:template match="/program">
@@ -40,14 +43,34 @@
                 <description><xsl:value-of select="head/doc/description/text/text()" /></description>
                 <xsl:for-each select="$topics//tool[@name=current()/head/name/text()]/topic">
                     <topic uri="{text()}">
-                        <xsl:value-of select="$edam//owl:Class[@rdf:about=current()/text()]/rdfs:label/text()"/>
+                        <xsl:call-template name="owlClassLabel"> 
+                            <xsl:with-param name="id"><xsl:value-of select="current()/text()" /></xsl:with-param>
+                        </xsl:call-template>
                     </topic>
                 </xsl:for-each>
                 <function>
                     <xsl:for-each select="$operations//tool[@name=current()/head/name/text()]/operation">
                         <functionName uri="{text()}">
-                            <xsl:value-of select="$edam//owl:Class[@rdf:about=current()/text()]/rdfs:label/text()"/>
+                            <xsl:call-template name="owlClassLabel">
+                                <xsl:with-param name="id"><xsl:value-of select="current()/text()" /></xsl:with-param>
+                            </xsl:call-template>
                         </functionName>
+                    </xsl:for-each>
+
+                    <xsl:for-each select="parameters//parameter[not(@isout) and not(@isstdout) and not(@ishidden)]">
+                        <xsl:if test="$data/datas/data[@name=current()/type/datatype/class/text()]">
+                            <input>
+                                <xsl:apply-templates select="."/>
+                            </input>
+                        </xsl:if>
+                    </xsl:for-each>
+
+                    <xsl:for-each select="parameters//parameter[@isout or @isstdout]">
+                        <xsl:if test="$data/datas/data[@name=current()/type/datatype/class/text()]">
+                            <output>
+                                <xsl:apply-templates select="."/>
+                            </output>
+                        </xsl:if>
                     </xsl:for-each>
                 </function>
                 <contact>
@@ -86,6 +109,29 @@
 
     <xsl:template match="reference/@doi">
         <publicationsOtherID><xsl:value-of select="." /></publicationsOtherID>
+    </xsl:template>
+
+    <xsl:template name="owlClassLabel">
+         <xsl:param name="id"/>
+         <xsl:value-of select="$edam//owl:Class[@rdf:about=$id]/rdfs:label/text()"/>
+    </xsl:template>
+
+    <xsl:template match="parameter"> 
+	<dataType uri="{$data/datas/data[@name=current()/type/datatype/class/text()]/text()}">
+	    <xsl:call-template name="owlClassLabel">
+		<xsl:with-param name="id">
+		    <xsl:value-of select="$data/datas/data[@name=current()/type/datatype/class/text()]/text()" />
+		</xsl:with-param>
+	    </xsl:call-template>
+	</dataType>
+	<dataFormat uri="{$formats/formats/format[@name=current()/type/dataFormat/text()]/text()}">
+	    <xsl:call-template name="owlClassLabel">
+		<xsl:with-param name="id">
+		    <xsl:value-of select="$formats/formats/format[@name=current()/type/dataFormat/text()]/text()" />
+		</xsl:with-param>
+	    </xsl:call-template>
+	</dataFormat>
+	<dataHandle><xsl:value-of select="name/text()" /></dataHandle>
     </xsl:template>
 
 </xsl:stylesheet>
