@@ -30,13 +30,13 @@
                         <xsl:value-of select="head/version/text()" />
                     </xsl:if>
                 </name>
-                <homepage><xsl:value-of select="$mobyle_root" />#forms::<xsl:value-of select="head/name/text()" /></homepage>
+                <homepage><xsl:value-of select="$mobyle_root" />/#forms::<xsl:value-of select="head/name/text()" /></homepage>
                 <version><xsl:value-of select="head/version/text()" /></version>
                 <collection>Mobyle</collection>
                 <xsl:if test="head/package">
                     <collection><xsl:value-of select="head/package/name/text()" />_<xsl:value-of select="head/package/version/text()" /></collection>
                 </xsl:if>
-                <resourceType uri="http://www.ebi.ac.uk/swo/SWO_0000000">Tool (analysis)</resourceType>
+                <resourceType>Tool (analysis)</resourceType>
                 <interface>
                     <interfaceType>Web UI</interfaceType>
                 </interface>
