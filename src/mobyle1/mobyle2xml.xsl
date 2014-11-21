@@ -13,7 +13,7 @@
 
     <xsl:variable name="edam" select="document('EDAM_1.5.owl')"/>
 
-    <xsl:template match="/program">
+    <xsl:template match="/*">
         <resources xsi:schemaLocation="http://biotoolsregistry.org/biotools-beta06.xsd" >
         <resource>
                 <name>
