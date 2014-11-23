@@ -1,10 +1,10 @@
 """
 Created on Oct. 23, 2014
 
-@author: Olivia Doppelt-Azeroual
+@author: Olivia Doppelt-Azeroual, Institut Pasteur, Paris
 @contact: olivia.doppelt@pasteur.fr
 @project: toolinfowarehouse
-@organization: edamontology
+@githuborganization: edamontology
 """
 
 import sys
@@ -111,7 +111,7 @@ def build_fonction_dict(tool_meta_data):
                 try:
                     formatList = string.split(input[u'format'], ',')
                 except AttributeError:
-                    print "NO FORMAT: ------------", tool_meta_data[u'id']
+                    print "NO FORMAT: ------------", tool_meta_data[u'id'], "______", input[u'format']
                     sys.exit(1)
 
                 list_format = []
@@ -126,7 +126,8 @@ def build_fonction_dict(tool_meta_data):
         except KeyError:
 
                 inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
-                formatList = string.split(input[u'extensions'], ',')
+                #print type(input[u'extensions'])
+                formatList = input[u'extensions']
                 for format in formatList:
                     inputDict[u'dataFormat'].append({u'uri': "", u'term': format})
                 inputDict[u'dataHandle'] = input[u'label']
