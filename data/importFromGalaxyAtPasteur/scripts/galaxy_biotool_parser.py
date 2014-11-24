@@ -1,10 +1,10 @@
 """
 Created on Oct. 23, 2014
 
-@author: Olivia Doppelt-Azeroual
+@author: Olivia Doppelt-Azeroual, Institut Pasteur, Paris
 @contact: olivia.doppelt@pasteur.fr
 @project: toolinfowarehouse
-@organization: edamontology
+@githuborganization: edamontology
 """
 
 import sys
@@ -40,9 +40,9 @@ def get_source_registry(tool_id):
         return ""
 
 
-def get_collection_name(tool_id):
+def get_tool_name(tool_id):
     try:
-        source = string.split(tool_id, '/')[0]
+        source = string.split(tool_id, '/')[-2]
         return source
     except ValueError:
         print "ValueError:", tool_id
@@ -54,17 +54,38 @@ def build_metadata_one(tool_meta_data, url):
       builds general_dict
       @param: tool_meta_data for one tool extracted from galaxy
     """
-    gen_dict = {k: tool_meta_data[k] for k in (u'name', u'id',
-        u'version', u'description')}
-    gen_dict[u'collectionName'] = url
+    gen_dict = {k: tool_meta_data[k] for k in (u'version', u'description')}
+    gen_dict[u'name'] = get_tool_name(tool_meta_data[u'id'])
+    gen_dict[u'uses'] = [{"usesName": url,
+                          "usesHomepage": url,
+                          "usesVersion": gen_dict[u'version']
+        }]
+    gen_dict[u'collection'] = [url]
+    gen_dict[u'sourceRegistry'] = get_source_registry(tool_meta_data[u'id'])
     gen_dict[u'softwareType'] = 'Tool'
-    gen_dict[u'sourceRegistry'] = get_source_registry(gen_dict[u'id'])
-    gen_dict[u'maturity'] = 'production'
-    gen_dict[u'platform'] = 'Linux'
+    gen_dict[u'maturity'] = [{u'uri': "",
+                            u'term': 'production'
+                            }]
+    gen_dict[u'platform'] = [{u'uri': "",
+                              u'term': 'Linux'
+                              }]
+    # these fields need to be filled with MODULE ressource at Pasteur
+    #gen_dict[u'language'] = []
+    #gen_dict[u'topic'] = []
+    #gen_dict[u'tag'] = []
+    #gen_dict[u'licence'] = []
+    #gen_dict[u'cost'] = []
+    #gen_dict[u'credits'] = []
+    #gen_dict[u'docs'] = []
+
     try:
-        gen_dict[u'citations'] = tool_meta_data[u"citations"]
+        # citations are missing from the bioblend show tool
+        # need adjustments to consider them once they are
+        # included
+        gen_dict[u'publications'] = [tool_meta_data[u"citations"]]
     except KeyError:
-        gen_dict[u'citations'] = ""
+        pass
+        #gen_dict[u'publications'] = []
 
     return gen_dict
 
@@ -80,26 +101,55 @@ def build_fonction_dict(tool_meta_data):
     inputs = []
     outputs = []
     inputs_complete = [elem for elem in tool_meta_data[u'inputs'] if elem[u'type'] in [u'data']]
+
     try:
         try:
             for input in inputs_complete:
-                elem = {i: input[i] for i in (u'format', u'type',
-                    u'label', u'name')}
-                inputs.append(elem)
+                inputDict = {}
+                inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+
+                try:
+                    formatList = string.split(input[u'format'], ',')
+                except AttributeError:
+                    print "NO FORMAT: ------------", tool_meta_data[u'id'], "______", input[u'format']
+                    sys.exit(1)
+
+                list_format = []
+
+                for format in formatList:
+                    dict_format = {u'uri': "", u'term': format}
+                    list_format.append(dict_format)
+                inputDict[u'dataFormat'] = list_format
+                inputDict[u'dataHandle'] = input[u'label']
+                inputs.append(inputDict)
+
         except KeyError:
-                elem = {i: input[i] for i in (u'extensions',
-                    u'type', u'label', u'name')}
-                inputs.append(elem)
+
+                inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+                #print type(input[u'extensions'])
+                formatList = input[u'extensions']
+                for format in formatList:
+                    inputDict[u'dataFormat'].append({u'uri': "", u'term': format})
+                inputDict[u'dataHandle'] = input[u'label']
+                inputs.append(inputDict)
+
     except KeyError:
-        elem = {i: input[i] for i in (u'type', u'label', u'name')}
-        inputs.append(elem)
+        inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+        inputDict[u'dataFormat'] = []
+        inputDict[u'dataHandle'] = input[u'label']
+        inputs.append(inputDict)
 
     for output in tool_meta_data[u'outputs']:
-        outputs.append({o: output[o] for o in (u'format', u'label', u'name')})
+        outputDict = {}
+        outputDict[u'dataType'] = []
+        outputDict[u'dataFormat'] = {u'uri': "", u'term': output[u'format']}
+        outputDict[u'dataHandle'] = output[u'name']
+        outputs.append(outputDict)
 
     func_dict[u'description'] = tool_meta_data[u'description']
-    func_dict[u'outputs'] = outputs
-    func_dict[u'inputs'] = inputs
+    func_dict[u'functionName'] = []
+    func_dict[u'output'] = outputs
+    func_dict[u'input'] = inputs
     func_dict[u'functionHandle'] = 'MainFunction'
     return func_dict
 
@@ -113,6 +163,7 @@ if __name__ == "__main__":
     parser.add_argument("--api_key", help="galaxy user api key")
     parser.add_argument("--tool_dir", help="directory to store the tool\
         json (needs to be created before running the script")
+    parser.add_argument("--collection_name", help="collection name matchine the galaxy url")
 
     args = parser.parse_args()
     gi = GalaxyInstance(args.galaxy_url, key=args.api_key)
@@ -124,18 +175,23 @@ if __name__ == "__main__":
 
     for i in tools:
         try:
-            # improve this part, important to be able to get all tool from any toolshed ...
+            # improve this part, important to be able to get all tool from any toolshed
             if not i['id'].find("galaxy.web.pasteur.fr") or not i['id'].find("testtoolshed.g2.bx.psu.edu") or not i['id'].find("toolshed.g2.bx.psu.edu"):
-                tools_meta_data.append(gi.tools.show_tool(tool_id=i['id'], io_details=True, link_details=True))
-            else:
-                print i['id']
+                tool_metadata = gi.tools.show_tool(tool_id=i['id'], io_details=True, link_details=True)
+  #              pprint.pprint(tool_metadata)
+                tools_meta_data.append(tool_metadata)
+          #  else:
+           #     print i['id']
         except ConnectionError:
             pass
 
     for tool in tools_meta_data:
         tool_name = build_tool_name(tool[u'id'])
         with open(os.path.join(os.getcwd(), args.tool_dir, tool_name + json_ext), 'w') as tool_file:
-            general_dict = build_metadata_one(tool, args.galaxy_url)
-            general_dict[u'fonction'] = build_fonction_dict(tool)
-            json.dump(general_dict, tool_file, indent=4)
-            tool_file.close()
+            try:
+                general_dict = build_metadata_one(tool, args.galaxy_url)
+                general_dict[u'fonction'] = build_fonction_dict(tool)
+                json.dump(general_dict, tool_file, indent=4)
+                tool_file.close()
+            except SystemExit:
+                pass
