@@ -133,7 +133,9 @@ if __name__ == '__main__':
         resource_name = res['name']
         if args.xml_dir:
             xml_path = os.path.join(args.xml_dir, resource_name + '.xml')
-            json.dump(res, open(xml_path, 'w'), indent=True)
+            o_file =  open(xml_path, 'w')
+            o_file.write(etree.tostring(xml, pretty_print=True))
+            o_file.close()
         if args.json_dir:
             json_path = os.path.join(args.json_dir, resource_name + '.json')
             json.dump(res, open(json_path, 'w'), indent=True)
