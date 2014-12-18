@@ -11,7 +11,7 @@
     <xsl:variable name="data" select="document('mobyle_data.xml')"/>
     <xsl:variable name="formats" select="document('mobyle_formats.xml')"/>
 
-    <xsl:variable name="edam" select="document('EDAM_1.6.owl')"/>
+    <xsl:variable name="edam" select="document('EDAM_1.8.owl')"/>
 
     <xsl:template match="/*">
         <resources xsi:schemaLocation="http://biotoolsregistry.org/biotools-beta06.xsd" >
