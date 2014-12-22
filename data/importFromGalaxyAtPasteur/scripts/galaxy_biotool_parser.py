@@ -89,6 +89,37 @@ def build_metadata_one(tool_meta_data, url):
 
     return gen_dict
 
+def build_case_inputs(inputs):
+    print "def_case_inputs",len(inputs)
+
+    #print "OOOOOOOOOOOOOOOOOOOOOOKKKKKKKKKKKKKKKKKKKKKKKKKKK", len(cases)
+    try:
+        cases_list=[]
+        for inp in inputs:
+
+            if (inp[u'type']) == "conditional" :# and :
+
+                for i in inp[u'cases']:
+                    for u in i[u'inputs']:
+                        if u[u'type'] == u'data':
+                            cases_list.append(u)
+
+       # if inputs[u'type'pprint.pprint(inputs)
+        #for i in case:
+            #print '______'
+            #for u in i[u'inputs']:
+                #if u[u'type'] == u'data':
+                    #inputs_case.append(u)
+
+        #print len(inputs_case)
+    except KeyError:
+        print "key error in build_case_inputs"
+        pass
+
+    return cases_list
+
+
+
 
 def build_fonction_dict(tool_meta_data):
     """
@@ -100,8 +131,28 @@ def build_fonction_dict(tool_meta_data):
     func_dict = {}
     inputs = []
     outputs = []
+#    print "tool_meta_data[u'inputs']", len(tool_meta_data[u'inputs'])
+#    pprint.pprint(tool_meta_data[u'inputs'])
     inputs_complete = [elem for elem in tool_meta_data[u'inputs'] if elem[u'type'] in [u'data']]
+    try:
 
+        cases_list=build_case_inputs(tool_meta_data[u'inputs'])
+
+# creation de DEUX input lists
+        for i in cases_list:
+            print("cases")
+            pprint.pprint(i)
+            print('inputs')
+            pprint.pprint(inputs_complete)
+        print '__________________________'
+    except KeyError:
+        print "key error in build_function_dict"
+        pprint.pprint(tool_meta_data[u'inputs'])
+        pass
+
+    #print("FILTER INPUTS_________________________________________________________________")
+    #pprint.pprint(inputs_complete)
+    #pprint.pprint(tool_meta_data[u'cases'])
     try:
         try:
             for input in inputs_complete:
@@ -173,7 +224,7 @@ if __name__ == "__main__":
     new_dict = {}
     json_ext = '.json'
 
-    for i in tools:
+    for i in tools[0:50]:
         try:
             # improve this part, important to be able to get all tool from any toolshed
             if not i['id'].find("galaxy.web.pasteur.fr") or not i['id'].find("testtoolshed.g2.bx.psu.edu") or not i['id'].find("toolshed.g2.bx.psu.edu"):
