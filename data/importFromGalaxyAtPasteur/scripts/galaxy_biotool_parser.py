@@ -128,6 +128,46 @@ def build_case_inputs(case_dict, input):
     case_dict.update({i: j for i, j in dict_cases.items() if len(j) != 0})
 
 
+def build_input_for_json(list_inputs):
+    liste = []
+    inputs = {}
+    try:
+        try:
+
+            for input in list_inputs:
+                inputDict = {}
+                inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+
+                try:
+                    formatList = string.split(input[u'format'], ',')
+                except AttributeError:
+                    formatList = ["AnyFormat"]
+
+                list_format = []
+                for format in formatList:
+                    dict_format = {u'uri': "", u'term': format}
+                    list_format.append(dict_format)
+                inputDict[u'dataFormat'] = list_format
+                inputDict[u'dataHandle'] = input[u'label']
+                liste.append(inputDict)
+
+        except KeyError:
+                inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+                formatList = input[u'extensions']
+                for format in formatList:
+                    inputDict[u'dataFormat'].append({u'uri': "", u'term': format})
+                inputDict[u'dataHandle'] = input[u'label']
+                liste.append(inputDict)
+
+    except KeyError:
+        inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+        inputDict[u'dataFormat'] = []
+        inputDict[u'dataHandle'] = input[u'label']
+        liste.append(inputDict)
+
+    return liste
+
+
 def build_fonction_dict(tool_meta_data):
     """
     builds function dict
@@ -136,10 +176,11 @@ def build_fonction_dict(tool_meta_data):
     1 steps for outputs, only dict comprehension
     """
     func_dict = {}
-    inputs = []
+    inputs = {}
     outputs = []
     inputs_fix = []
     dict_cases = {}
+    inputs_case = {}
 
     for input in tool_meta_data[u'inputs']:
         if input[u'type'] == u'data':
@@ -162,51 +203,13 @@ def build_fonction_dict(tool_meta_data):
     print "______inputs_complete"
     pprint.pprint(inputs_fix)
 
-
 #__________________INPUT DICT _________________________
     if len(dict_cases) == 0:
-        try:
-            try:
-
-                for input in inputs_fix:
-                #print ("________INPUT______________")
-                    #pprint.pprint(input)
-                    inputDict = {}
-                    inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
-
-                    try:
-                        formatList = string.split(input[u'format'], ',')
-                    except AttributeError:
-                        print "NO FORMAT: ------------", tool_meta_data[u'id'], "______", input[u'format']
-                        formatList = ["AnyFormat"]
-
-                    list_format = []
-                    for format in formatList:
-                        dict_format = {u'uri': "", u'term': format}
-                        list_format.append(dict_format)
-                    inputDict[u'dataFormat'] = list_format
-                    inputDict[u'dataHandle'] = input[u'label']
-                    inputs.append(inputDict)
-
-            except KeyError:
-                    inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
-                    #print type(input[u'extensions'])
-                    formatList = input[u'extensions']
-                    for format in formatList:
-                        inputDict[u'dataFormat'].append({u'uri': "", u'term': format})
-                    inputDict[u'dataHandle'] = input[u'label']
-                    inputs.append(inputDict)
-
-        except KeyError:
-            inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
-            inputDict[u'dataFormat'] = []
-            inputDict[u'dataHandle'] = input[u'label']
-            inputs.append(inputDict)
+        inputs["input_fix"] = build_input_for_json(inputs_fix)
     else:
-        pass
+        for key, case in dict_cases.iteritems():
+            inputs[key] = build_input_for_json(case) + build_input_for_json(inputs_fix)
 
-
-    print len(inputs)
 
 # Faire 2 inputDict si 2 cases --> 2  tools a enregistrer
 
@@ -225,6 +228,7 @@ def build_fonction_dict(tool_meta_data):
     func_dict[u'output'] = outputs
     func_dict[u'input'] = inputs
     func_dict[u'functionHandle'] = 'MainFunction'
+
     return func_dict
 
 
@@ -252,7 +256,7 @@ if __name__ == "__main__":
             # improve this part, important to be able to get all tool from any toolshed
             if not i['id'].find("galaxy.web.pasteur.fr") or not i['id'].find("testtoolshed.g2.bx.psu.edu") or not i['id'].find("toolshed.g2.bx.psu.edu"):
                 tool_metadata = gi.tools.show_tool(tool_id=i['id'], io_details=True, link_details=True)
-                pprint.pprint(tool_metadata)
+
                 tools_meta_data.append(tool_metadata)
           #  else:
            #     print i['id']
