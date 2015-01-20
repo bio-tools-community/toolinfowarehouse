@@ -55,7 +55,7 @@ def build_metadata_one(tool_meta_data, url):
       @param: tool_meta_data for one tool extracted from galaxy
     """
     gen_dict = {k: tool_meta_data[k] for k in (u'version', u'description')}
-    gen_dict[u'name'] = get_tool_name(tool_meta_data[u'id'])
+    gen_dict[u'name'] = tool_meta_data[u'id'] #get_tool_name(tool_meta_data[u'id'])
     gen_dict[u'uses'] = [{"usesName": url,
                           "usesHomepage": url,
                           "usesVersion": gen_dict[u'version']
@@ -89,36 +89,43 @@ def build_metadata_one(tool_meta_data, url):
 
     return gen_dict
 
-def build_case_inputs(inputs):
-    print "def_case_inputs",len(inputs)
 
-    #print "OOOOOOOOOOOOOOOOOOOOOOKKKKKKKKKKKKKKKKKKKKKKKKKKK", len(cases)
-    try:
-        cases_list=[]
-        for inp in inputs:
+def build_case_inputs(case_dict, input):
+    dict_cases = {}
+    for inp in input[u'cases']:
 
-            if (inp[u'type']) == "conditional" :# and :
+        for elem in inp[u'inputs']:
+            if elem[u'type'] == u'data':
+                if dict_cases.get(inp[u'value']) is None:
+                    dict_cases[inp[u'value']] = [elem]
+                else:
+                    dict_cases[inp[u'value']].append(elem)
 
-                for i in inp[u'cases']:
-                    for u in i[u'inputs']:
-                        if u[u'type'] == u'data':
-                            cases_list.append(u)
+                # repeat in conditional
 
-       # if inputs[u'type'pprint.pprint(inputs)
-        #for i in case:
-            #print '______'
-            #for u in i[u'inputs']:
-                #if u[u'type'] == u'data':
-                    #inputs_case.append(u)
+            if elem[u'type'] == u'repeat':
+                try:
+                    cases = elem[u'inputs'][0][u'cases']
 
-        #print len(inputs_case)
-    except KeyError:
-        print "key error in build_case_inputs"
-        pass
+                    for case in cases:
+                        if case[u'inputs'] != []:
+                            for case_input in case[u'inputs']:
+                                if case_input[u'type'] == u'data':
+                                    if dict_cases.get(inp[u'value']) is None:
+                                        dict_cases[inp[u'value']] = [case_input]
+                                    else:
+                                        dict_cases[inp[u'value']].append(case_input)
 
-    return cases_list
+                except KeyError:
+                    print "KeyError key == REPEAT"
+                    for el in elem[u'inputs']:
+                        if el[u'type'] == u'data':
+                            if dict_cases.get(inp[u'value']) is None:
+                                dict_cases[inp[u'value']] = [el]
+                            else:
+                                dict_cases[inp[u'value']].append(el)
 
-
+    case_dict.update({i: j for i, j in dict_cases.items() if len(j) != 0})
 
 
 def build_fonction_dict(tool_meta_data):
@@ -131,64 +138,80 @@ def build_fonction_dict(tool_meta_data):
     func_dict = {}
     inputs = []
     outputs = []
-#    print "tool_meta_data[u'inputs']", len(tool_meta_data[u'inputs'])
-#    pprint.pprint(tool_meta_data[u'inputs'])
-    inputs_complete = [elem for elem in tool_meta_data[u'inputs'] if elem[u'type'] in [u'data']]
-    try:
+    inputs_fix = []
+    dict_cases = {}
 
-        cases_list=build_case_inputs(tool_meta_data[u'inputs'])
+    for input in tool_meta_data[u'inputs']:
+        if input[u'type'] == u'data':
+            inputs_fix.append(input)
+        # repeat not in conditional
+        if input[u'type'] == u'repeat':
 
-# creation de DEUX input lists
-        for i in cases_list:
-            print("cases")
-            pprint.pprint(i)
-            print('inputs')
-            pprint.pprint(inputs_complete)
-        print '__________________________'
-    except KeyError:
-        print "key error in build_function_dict"
-        pprint.pprint(tool_meta_data[u'inputs'])
-        pass
+            for rep in input[u'inputs']:
 
-    #print("FILTER INPUTS_________________________________________________________________")
-    #pprint.pprint(inputs_complete)
-    #pprint.pprint(tool_meta_data[u'cases'])
-    try:
+                if rep[u'type'] == u'data':
+                    print 'repeeeeeeaaaaaatttt'
+                    inputs_fix.append(rep)
+                elif rep[u'type'] == "conditional":
+                    build_case_inputs(dict_cases, rep)
+        if input[u'type'] == "conditional":
+            build_case_inputs(dict_cases, input)
+
+    print "______cases_dict: "
+    pprint.pprint(dict_cases)
+    print "______inputs_complete"
+    pprint.pprint(inputs_fix)
+
+
+#__________________INPUT DICT _________________________
+    if len(dict_cases) == 0:
         try:
-            for input in inputs_complete:
-                inputDict = {}
-                inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+            try:
 
-                try:
-                    formatList = string.split(input[u'format'], ',')
-                except AttributeError:
-                    print "NO FORMAT: ------------", tool_meta_data[u'id'], "______", input[u'format']
-                    sys.exit(1)
+                for input in inputs_fix:
+                #print ("________INPUT______________")
+                    #pprint.pprint(input)
+                    inputDict = {}
+                    inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
 
-                list_format = []
+                    try:
+                        formatList = string.split(input[u'format'], ',')
+                    except AttributeError:
+                        print "NO FORMAT: ------------", tool_meta_data[u'id'], "______", input[u'format']
+                        formatList = ["AnyFormat"]
 
-                for format in formatList:
-                    dict_format = {u'uri': "", u'term': format}
-                    list_format.append(dict_format)
-                inputDict[u'dataFormat'] = list_format
-                inputDict[u'dataHandle'] = input[u'label']
-                inputs.append(inputDict)
+                    list_format = []
+                    for format in formatList:
+                        dict_format = {u'uri': "", u'term': format}
+                        list_format.append(dict_format)
+                    inputDict[u'dataFormat'] = list_format
+                    inputDict[u'dataHandle'] = input[u'label']
+                    inputs.append(inputDict)
+
+            except KeyError:
+                    inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+                    #print type(input[u'extensions'])
+                    formatList = input[u'extensions']
+                    for format in formatList:
+                        inputDict[u'dataFormat'].append({u'uri': "", u'term': format})
+                    inputDict[u'dataHandle'] = input[u'label']
+                    inputs.append(inputDict)
 
         except KeyError:
+            inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+            inputDict[u'dataFormat'] = []
+            inputDict[u'dataHandle'] = input[u'label']
+            inputs.append(inputDict)
+    else:
+        pass
 
-                inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
-                #print type(input[u'extensions'])
-                formatList = input[u'extensions']
-                for format in formatList:
-                    inputDict[u'dataFormat'].append({u'uri': "", u'term': format})
-                inputDict[u'dataHandle'] = input[u'label']
-                inputs.append(inputDict)
 
-    except KeyError:
-        inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
-        inputDict[u'dataFormat'] = []
-        inputDict[u'dataHandle'] = input[u'label']
-        inputs.append(inputDict)
+    print len(inputs)
+
+# Faire 2 inputDict si 2 cases --> 2  tools a enregistrer
+
+
+#_____________OUTPUT DICT_______________________________________
 
     for output in tool_meta_data[u'outputs']:
         outputDict = {}
@@ -224,12 +247,12 @@ if __name__ == "__main__":
     new_dict = {}
     json_ext = '.json'
 
-    for i in tools[0:50]:
+    for i in tools[0:5]:
         try:
             # improve this part, important to be able to get all tool from any toolshed
             if not i['id'].find("galaxy.web.pasteur.fr") or not i['id'].find("testtoolshed.g2.bx.psu.edu") or not i['id'].find("toolshed.g2.bx.psu.edu"):
                 tool_metadata = gi.tools.show_tool(tool_id=i['id'], io_details=True, link_details=True)
-  #              pprint.pprint(tool_metadata)
+                pprint.pprint(tool_metadata)
                 tools_meta_data.append(tool_metadata)
           #  else:
            #     print i['id']
