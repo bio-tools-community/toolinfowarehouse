@@ -42,7 +42,7 @@ def build_edam_dict(edam_file):
         namespace = re.sub('http://edamontology.org/([a-zA-Z][a-zA-Z0-9]*)_([0-9]*)', '\g<1>', row[0])
 
         if namespace in ['data', 'format', 'identifier', 'topic', 'operation']:
-            print '{!s}, "{!s}"'.format(get_edam_short_id(row[0]), row[1])
+            print '{!s}, {!s}'.format(get_edam_short_id(row[0]), row[1])
         else:
             continue
 
