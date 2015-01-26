@@ -15,6 +15,13 @@ import string
 import argparse
 import json
 
+#to parse owl EDAM file
+from rdflib import Graph
+#from rdflib.term import URIRef
+#from rdflib.resource import Resource
+#from rdflib.namespace import RDFS
+
+
 from bioblend.galaxy.client import ConnectionError
 from bioblend.galaxy import GalaxyInstance
 
@@ -50,13 +57,46 @@ def get_tool_name(tool_id):
         return ""
 
 
+def get_edam_short_id(long_id):
+        if long_id is None:
+            return None
+        return re.sub('http://edamontology.org/([a-zA-Z][a-zA-Z0-9]*)_([0-9]*)',
+               'EDAM_\g<1>:\g<2>', long_id)
+
+
+def build_edam_dict(edam_file):
+    # from the owl EDAM file, prints a usable parsing txt file
+    # recuperer le label et le EDAM term et construire un dict
+
+    g = Graph().parse(source=edam_file)
+
+    for row in g.query("""
+    SELECT ?class ?name
+    WHERE {
+           ?class rdfs:label ?name
+           }
+    """):
+        namespace = re.sub('http://edamontology.org/([a-zA-Z][a-zA-Z0-9]*)_([0-9]*)', '\g<1>', row[0])
+
+        if namespace in ['data', 'format', 'identifier', 'topic', 'operation']:
+            print '{!s}, "{!s}"'.format(get_edam_short_id(row[0]), row[1])
+        else:
+            continue
+
+    return {}
+
+
+
+
+
+
 def build_metadata_one(tool_meta_data, url):
     """
       builds general_dict
       @param: tool_meta_data for one tool extracted from galaxy
     """
     gen_dict = {k: tool_meta_data[k] for k in (u'version', u'description')}
-    gen_dict[u'name'] = tool_meta_data[u'id'] #get_tool_name(tool_meta_data[u'id'])
+    gen_dict[u'name'] = tool_meta_data[u'id']
     gen_dict[u'uses'] = [{"usesName": url,
                           "usesHomepage": url,
                           "usesVersion": gen_dict[u'version']
@@ -198,14 +238,12 @@ def build_fonction_dict(tool_meta_data):
         if input[u'type'] == "conditional":
             build_case_inputs(dict_cases, input)
 
-
 #__________________INPUT DICT _________________________
     if len(dict_cases) == 0:
         inputs["input_fix"] = build_input_for_json(inputs_fix)
     else:
         for key, case in dict_cases.iteritems():
             inputs[key] = build_input_for_json(case) + build_input_for_json(inputs_fix)
-
 
 #_____________OUTPUT DICT_______________________________________
 
@@ -233,7 +271,6 @@ def build_fonction_dict(tool_meta_data):
         func_dict[u'input'] = inputs[u"input_fix"]
         func_dict[u'functionHandle'] = 'MainFunction'
         func_list.append(func_dict)
-#        print("TYPE FUNC DICT:", type(func_dict))
 
     return func_list
 
@@ -243,11 +280,19 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Galaxy instance tool\
         parsing, for integration in biotools/bioregistry")
 
-    parser.add_argument("--galaxy_url", help="url to the analyzed galaxy instance")
+    parser.add_argument("--galaxy_url", help="url to the analyze \
+        galaxy instance")
+
     parser.add_argument("--api_key", help="galaxy user api key")
+
     parser.add_argument("--tool_dir", help="directory to store the tool\
         json (needs to be created before running the script")
-    parser.add_argument("--collection_name", help="collection name matchine the galaxy url")
+
+    parser.add_argument("--collection_name", help="collection name \
+        matchine the galaxy url")
+
+    parser.add_argument("--edam_file", help="edam own file to create  \
+        the edam_dict")
 
     args = parser.parse_args()
     gi = GalaxyInstance(args.galaxy_url, key=args.api_key)
@@ -257,7 +302,11 @@ if __name__ == "__main__":
     new_dict = {}
     json_ext = '.json'
 
-    for i in tools:
+    edam_dict = {}
+
+    edam_dict = build_edam_dict(args.edam_file)
+
+    for i in tools[0:1]:
         try:
             # improve this part, important to be able to get all tool from any toolshed
             if not i['id'].find("galaxy.web.pasteur.fr") or not i['id'].find("testtoolshed.g2.bx.psu.edu") or not i['id'].find("toolshed.g2.bx.psu.edu"):
