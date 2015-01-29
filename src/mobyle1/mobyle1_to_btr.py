@@ -3,6 +3,7 @@ import json
 import argparse
 import requests
 import os.path
+import getpass
 
 ns = {'btr':'http://biotoolsregistry.org'}
 
@@ -89,8 +90,12 @@ def doc_to_dict(doc):
             resource['function'].append(function)
         return resource
 
-def auth(login, password):
-    return json.loads(requests.post('http://elixir-registry-demo.cbs.dtu.dk/auth/login','{"username": "%s","password": "%s"}' % (login, password), headers={'Accept':'application/json', 'Content-type':'application/json'}).text)['token']
+def auth(login):
+    print login
+    password = getpass.getpass()
+    resp = requests.post('http://elixir-registry.cbs.dtu.dk/api/auth/login','{"username": "%s","password": "%s"}' % (login, password), headers={'Accept':'application/json', 'Content-type':'application/json'}).text
+    print resp
+    return json.loads(resp)['token']
 
 if __name__ == '__main__':
     # 1. Import XML files from a Mobyle server or from a folder containing XML files
@@ -105,7 +110,6 @@ if __name__ == '__main__':
     parser.add_argument('--json_dir', help="target directory for JSON files")
     parser.add_argument('--xml_dir', help="target directory for XML files")
     parser.add_argument('--login', help="registry login")
-    parser.add_argument('--password', help="registry password")
     args = parser.parse_args()
     if args.from_files:
         filenames = args.from_files
@@ -119,9 +123,9 @@ if __name__ == '__main__':
     transform = etree.XSLT(xslt_doc)
     params = {'mobyle_root':"'http://mobyle.pasteur.fr'",
               'mobyle_contact':"'mobyle@pasteur.fr'"}
-    if args.login and args.password:
+    if args.login:
         print "authenticated"
-        token = auth(args.login, args.password)
+        token = auth(args.login)
         ok_cnt = 0
         ko_cnt = 0
     for filename in filenames:
@@ -139,8 +143,8 @@ if __name__ == '__main__':
         if args.json_dir:
             json_path = os.path.join(args.json_dir, resource_name + '.json')
             json.dump(res, open(json_path, 'w'), indent=True)
-        if args.login and args.password:
-            resp = requests.post('http://elixir-registry-demo.cbs.dtu.dk/tool', json.dumps(res), headers={'Accept':'application/json', 'Content-type':'application/json', 'Authorization': 'Token %s' % token})
+        if args.login and args:
+            resp = requests.post('http://elixir-registry.cbs.dtu.dk/api/tool', json.dumps(res), headers={'Accept':'application/json', 'Content-type':'application/json', 'Authorization': 'Token %s' % token})
             #print resp.status_code
             if resp.status_code==201:
                 print "%s ok" % resource_name
@@ -148,6 +152,5 @@ if __name__ == '__main__':
             else:
                 print "%s ko, error: %s" % (resource_name, resp.text)
                 ko_cnt += 1
-    if args.login and args.password:
+    if args.login:
         print "import finished, ok=%s, ko=%s" % (ok_cnt, ko_cnt)
-
