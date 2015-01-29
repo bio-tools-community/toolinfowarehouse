@@ -17,6 +17,7 @@
         <resources xsi:schemaLocation="http://biotoolsregistry.org/biotools-beta06.xsd" >
         <resource>
                 <name>
+<!--
                     <xsl:text>Mobyle_</xsl:text>
                     <xsl:if test="head/package/name">
                         <xsl:value-of select="head/package/name/text()" />
@@ -29,6 +30,8 @@
                         <xsl:text>_</xsl:text>
                         <xsl:value-of select="head/version/text()" />
                     </xsl:if>
+-->
+                    <xsl:value-of select="head/name/text()" />
                 </name>
                 <homepage><xsl:value-of select="$mobyle_root" />/#forms::<xsl:value-of select="head/name/text()" /></homepage>
                 <version><xsl:value-of select="head/version/text()" /></version>
