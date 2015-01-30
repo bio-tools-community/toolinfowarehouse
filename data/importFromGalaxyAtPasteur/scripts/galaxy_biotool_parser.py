@@ -15,13 +15,6 @@ import string
 import argparse
 import json
 
-#to parse owl EDAM file
-from rdflib import Graph
-#from rdflib.term import URIRef
-#from rdflib.resource import Resource
-#from rdflib.namespace import RDFS
-
-
 from bioblend.galaxy.client import ConnectionError
 from bioblend.galaxy import GalaxyInstance
 
@@ -31,7 +24,7 @@ def build_tool_name(tool_id):
     @tool_id: tool_id
     builds the tool_name regarding its toolshed id
    """
-    print tool_id
+    #print tool_id
     id_list = string.split(tool_id, '/')
     return string.join(id_list[-2:], '_')
 
@@ -55,39 +48,6 @@ def get_tool_name(tool_id):
     except ValueError:
         print "ValueError:", tool_id
         return ""
-
-
-def get_edam_short_id(long_id):
-        if long_id is None:
-            return None
-        return re.sub('http://edamontology.org/([a-zA-Z][a-zA-Z0-9]*)_([0-9]*)',
-               'EDAM_\g<1>:\g<2>', long_id)
-
-
-def build_edam_dict(edam_file):
-    # from the owl EDAM file, prints a usable parsing txt file
-    # recuperer le label et le EDAM term et construire un dict
-
-    g = Graph().parse(source=edam_file)
-
-    for row in g.query("""
-    SELECT ?class ?name
-    WHERE {
-           ?class rdfs:label ?name
-           }
-    """):
-        namespace = re.sub('http://edamontology.org/([a-zA-Z][a-zA-Z0-9]*)_([0-9]*)', '\g<1>', row[0])
-
-        if namespace in ['data', 'format', 'identifier', 'topic', 'operation']:
-            print '{!s}, "{!s}"'.format(get_edam_short_id(row[0]), row[1])
-        else:
-            continue
-
-    return {}
-
-
-
-
 
 
 def build_metadata_one(tool_meta_data, url):
@@ -169,7 +129,22 @@ def build_case_inputs(case_dict, input):
     case_dict.update({i: j for i, j in dict_cases.items() if len(j) != 0})
 
 
-def build_input_for_json(list_inputs):
+def find_edam_format(format_name, edam_dict):
+    #pprint.pprint(edam_dict)
+    edam = ""
+
+    for k, value in edam_dict.items():
+        #print  "aaa"+value.upper()+"eeeee"+ format_name.upper() + "eee"
+        #print value, format, bool(re.match(value, format_name, re.IGNORECASE))
+        if (re.match(value[0], format_name, re.IGNORECASE)) is not None:
+            return(k, value[1])
+        else:
+            edam = format_name, "no uri"
+    print edam
+    return edam
+
+
+def build_input_for_json(list_inputs, edam_dict):
     liste = []
     inputs = {}
     try:
@@ -186,22 +161,29 @@ def build_input_for_json(list_inputs):
 
                 list_format = []
                 for format in formatList:
-                    dict_format = {u'uri': "", u'term': format}
+                    print format
+                    term, uri = find_edam_format(format, edam_dict)
+                    dict_format = {u'uri': uri, u'term': term}
+                    print "dict_format:", dict_format
                     list_format.append(dict_format)
+
                 inputDict[u'dataFormat'] = list_format
                 inputDict[u'dataHandle'] = input[u'label']
                 liste.append(inputDict)
+                pprint.pprint(inputDict)
 
         except KeyError:
                 inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
                 formatList = input[u'extensions']
                 for format in formatList:
-                    inputDict[u'dataFormat'].append({u'uri': "", u'term': format})
+                    term, uri = find_edam_format(format, edam_dict)
+                    inputDict[u'dataFormat'].append({u'uri': uri, u'term': term})
                 inputDict[u'dataHandle'] = input[u'label']
                 liste.append(inputDict)
 
     except KeyError:
-        inputDict[u'dataType'] = {u'uri': "", u'term': input[u'type']}
+        term, uri = find_edam_format(input[u'type'], edam_dict)
+        inputDict[u'dataType'] = {u'uri': uri, u'term': term}
         inputDict[u'dataFormat'] = []
         inputDict[u'dataHandle'] = input[u'label']
         liste.append(inputDict)
@@ -209,7 +191,7 @@ def build_input_for_json(list_inputs):
     return liste
 
 
-def build_fonction_dict(tool_meta_data):
+def build_fonction_dict(tool_meta_data, edam_dict):
     """
     builds function dict
     2 steps for inputs, get only the data format and
@@ -231,7 +213,7 @@ def build_fonction_dict(tool_meta_data):
         if input[u'type'] == u'repeat':
             for rep in input[u'inputs']:
                 if rep[u'type'] == u'data':
-                    print 'repeeeeeeaaaaaatttt'
+                    #print 'repeeeeeeaaaaaatttt'
                     inputs_fix.append(rep)
                 elif rep[u'type'] == "conditional":
                     build_case_inputs(dict_cases, rep)
@@ -240,17 +222,19 @@ def build_fonction_dict(tool_meta_data):
 
 #__________________INPUT DICT _________________________
     if len(dict_cases) == 0:
-        inputs["input_fix"] = build_input_for_json(inputs_fix)
+        inputs["input_fix"] = build_input_for_json(inputs_fix, edam_dict)
     else:
         for key, case in dict_cases.iteritems():
-            inputs[key] = build_input_for_json(case) + build_input_for_json(inputs_fix)
+            inputs[key] = build_input_for_json(case, edam_dict) + build_input_for_json(inputs_fix, edam_dict)
 
 #_____________OUTPUT DICT_______________________________________
 
     for output in tool_meta_data[u'outputs']:
         outputDict = {}
         outputDict[u'dataType'] = []
-        outputDict[u'dataFormat'] = {u'uri': "", u'term': output[u'format']}
+        term, uri = find_edam_format(output[u'format'], edam_dict)
+        outputDict[u'dataFormat'] = {u'uri': uri, u'term': term}
+        print output[u'format']
         outputDict[u'dataHandle'] = output[u'name']
         outputs.append(outputDict)
 
@@ -298,20 +282,25 @@ if __name__ == "__main__":
     gi = GalaxyInstance(args.galaxy_url, key=args.api_key)
 
     tools = gi.tools.get_tools()
+
     tools_meta_data = []
     new_dict = {}
     json_ext = '.json'
 
     edam_dict = {}
+    with open(args.edam_file, 'r') as f:
+        for line in f:
+            split_line = string.split(line, ',')
+            edam_dict[split_line[0]] = [split_line[1].rstrip('\n'), split_line[2].rstrip('\n')]
+    f.closed
+    #pprint.pprint(edam_dict)
 
-    edam_dict = build_edam_dict(args.edam_file)
-
-    for i in tools[0:1]:
+    for i in tools[0:5]:
         try:
             # improve this part, important to be able to get all tool from any toolshed
             if not i['id'].find("galaxy.web.pasteur.fr") or not i['id'].find("testtoolshed.g2.bx.psu.edu") or not i['id'].find("toolshed.g2.bx.psu.edu"):
                 tool_metadata = gi.tools.show_tool(tool_id=i['id'], io_details=True, link_details=True)
-
+                #pprint.pprint(tool_metadata)
                 tools_meta_data.append(tool_metadata)
           #  else:
            #     print i['id']
@@ -322,13 +311,13 @@ if __name__ == "__main__":
     for tool in tools_meta_data:
         tool_name = build_tool_name(tool[u'id'])
         try:
-
-            function = build_fonction_dict(tool)
+            print tool[u'id']
+            function = build_fonction_dict(tool, edam_dict)
             #print "TYPE FUNCTION:", type(function)
             if len(function) > 1:
-                print "THERE WILL BE  " + str(len(function)) + "json"
+                #print "THERE WILL BE  " + str(len(function)) + "json"
                 for func in function:
-                    pprint.pprint(func)
+                   # pprint.pprint(func)
                     #inputs = func[u"input"]
                     name = re.sub("[\.\,\:;\(\)\./]", "_", func[u'annot'], 0, 0)
                     with open(os.path.join(os.getcwd(), args.tool_dir, tool_name + "_"+ name + json_ext), 'w') as tool_file:
@@ -343,7 +332,6 @@ if __name__ == "__main__":
                     general_dict["function"] = function[0]
                     json.dump(general_dict, tool_file, indent=4)
                     tool_file.close()
-
 
         except SystemExit:
             pass
