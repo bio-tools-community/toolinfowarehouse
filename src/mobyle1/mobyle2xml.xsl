@@ -34,7 +34,7 @@
                     <xsl:value-of select="head/name/text()" />
                 </name>
                 <homepage><xsl:value-of select="$mobyle_root" />/#forms::<xsl:value-of select="head/name/text()" /></homepage>
-                <version><xsl:value-of select="head/version/text()" /></version>
+                <version><xsl:value-of select="head/version/text()" /><xsl:value-of select="head/package/version/text()" /></version>
                 <collection>Mobyle</collection>
                 <xsl:if test="head/package">
                     <collection><xsl:value-of select="head/package/name/text()" />_<xsl:value-of select="head/package/version/text()" /></collection>
