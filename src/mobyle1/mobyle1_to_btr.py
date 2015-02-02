@@ -92,10 +92,8 @@ def doc_to_dict(doc):
         return resource
 
 def auth(login):
-    print login
     password = getpass.getpass()
-    resp = requests.post('http://elixir-registry.cbs.dtu.dk/api/auth/login','{"username": "%s","password": "%s"}' % (login, password), headers={'Accept':'application/json', 'Content-type':'application/json'}).text
-    print resp
+    resp = requests.post('https://elixir-registry.cbs.dtu.dk/api/auth/login','{"username": "%s","password": "%s"}' % (login, password), headers={'Accept':'application/json', 'Content-type':'application/json'}).text
     return json.loads(resp)['token']
 
 if __name__ == '__main__':
@@ -125,10 +123,14 @@ if __name__ == '__main__':
     params = {'mobyle_root':"'http://mobyle.pasteur.fr'",
               'mobyle_contact':"'mobyle@pasteur.fr'"}
     if args.login:
-        print "authenticated"
+        print "authenticating..."
         token = auth(args.login)
+        print "authentication ok"
         ok_cnt = 0
         ko_cnt = 0
+        print "attempting to delete all registered services..."
+        resp = requests.delete('https://elixir-registry.cbs.dtu.dk/api/tool/%s' % args.login, headers={'Accept':'application/json', 'Content-type':'application/json', 'Authorization': 'Token %s' % token})
+        print resp
     for filename in filenames:
         print "processing %s..." % filename
         mobyle_doc = etree.parse(filename)
@@ -145,7 +147,7 @@ if __name__ == '__main__':
             json_path = os.path.join(args.json_dir, resource_name + '.json')
             json.dump(res, open(json_path, 'w'), indent=True)
         if args.login and args:
-            resp = requests.post('http://elixir-registry.cbs.dtu.dk/api/tool', json.dumps(res), headers={'Accept':'application/json', 'Content-type':'application/json', 'Authorization': 'Token %s' % token})
+            resp = requests.post('https://elixir-registry.cbs.dtu.dk/api/tool', json.dumps(res), headers={'Accept':'application/json', 'Content-type':'application/json', 'Authorization': 'Token %s' % token})
             #print resp.status_code
             if resp.status_code==201:
                 print "%s ok" % resource_name
