@@ -16,9 +16,9 @@ def doc_to_dict(doc):
         resource = {}
         resource['name'] = xfirst(resource_el, 'btr:name/text()')
         resource['homepage'] = xfirst(resource_el, 'btr:homepage/text()')
-        resource['version'] = "1" #FIXME remove comments xfirst(resource_el, 'btr:version/text()')
+        resource['version'] = xfirst(resource_el, 'btr:version/text()')
         resource['collection'] = [xfirst(resource_el, 'btr:collection/text()')]
-        resource['interface'] = [{'interfaceType': {'uri': None, 'term': xfirst(resource_el, 'btr:interface/btr:interfaceType/text()')}}]
+        resource['interface'] = [{'interfaceType': {'term': "WEB UI", 'uri': "http://www.cbs.dtu.dk/ontology/interface_type/3"}}]
         resource['description'] = xfirst(resource_el, 'btr:description/text()')
         resource['topic'] = []
         for topic_el in resource_el.xpath('btr:topic', namespaces=ns):
@@ -34,7 +34,8 @@ def doc_to_dict(doc):
                 term['uri'] = xfirst(el, '@uri')
             if el.xpath('text()'):
                 term['term'] = xfirst(el, 'text()')
-            resource['resourceType'] = term
+            # FIXME all tools are not analysis tools...
+            resource['resourceType'] = [{"term": "Tool (analysis)", "uri": "http://www.cbs.dtu.dk/ontology/resource_type/7"}]
         resource['function'] = []
         for function_el in resource_el.xpath('btr:function', namespaces=ns):
             function = {}
