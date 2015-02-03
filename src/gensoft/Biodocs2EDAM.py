@@ -1,4 +1,4 @@
-#! /usr/bin/env python 
+#!/usr/bin/env python 
 
 """
 Created on Feb.2nd , 2015
@@ -10,6 +10,7 @@ Created on Feb.2nd , 2015
 
 a quick and dirty tool to convert BIODOCS (internal gensoft documentation) to
 json suitable for elixir-registry.cbs.dtu.dk
+
 """
 
 
