@@ -212,11 +212,15 @@ def get_biodocs_versions(biodocs):
     return [elem.replace('(default)', '') for elem in biodocs['VERSION']]
 
 def to_document(biodocs):
-    if biodocs['PRIVATE']:
-        return False
+    pack_name = biodocs['NAME']
+    #if biodocs['PRIVATE']:
+    #    error(WARN, pack_name, 'private', 'not documented')
+    #    return False
     if biodocs['LIBRARY']:
+        error(WARN, pack_name, 'library', 'not documented')
         return False
     if not biodocs['HOME']:
+        error(WARN, pack_name, 'no home', 'not documented')
         return False
     return True
 
@@ -226,7 +230,6 @@ def jason_generator(biodocs, outdir):
 
     #---- check if worth the documentation
     if not to_document(biodocs):
-        error(WARN, pack_name, 'not documented')
         return
 
     res = {}
