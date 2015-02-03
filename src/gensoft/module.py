@@ -1,12 +1,10 @@
 """
-"""
 Created on Feb.2nd , 2015
 
 @author: Eric Deveaud, Institut Pasteur, Paris
 @contact: edeveaud@pasteur.fr
 @project: toolinfowarehouse
 @githuborganization: edamontology
-"""
 
 A python wrapper to the Module Environment command.
 see http://modules.sourceforge.net/
