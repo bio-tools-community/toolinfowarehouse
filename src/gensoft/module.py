@@ -1,22 +1,30 @@
 """
+"""
+Created on Feb.2nd , 2015
+
+@author: Eric Deveaud, Institut Pasteur, Paris
+@contact: edeveaud@pasteur.fr
+@project: toolinfowarehouse
+@githuborganization: edamontology
+"""
+
 A python wrapper to the Module Environment command.
 see http://modules.sourceforge.net/
 
-Warning: requires Module Environment  >= 3.3.*
+Warning: requires Module Environment  >= 3.3.* not yet released
 pre 3.3 version may silently fail on some commands dur to exit values
 of modulecmd non consistent. 
-"""
 
-#  initial author: Robert Minsk (egbert@centropolisfx.com)
-# Feb   1, 2001          Robert Minsk (egbert@centropolisfx.com)
-#      * init file for python added
-# Oct  1, 2010          R.K. Owen (rk@owen.sj.ca.us)
-#     * sed dependency removed
-#     * name changing  
-# Sep 15,1014         Eric Deveaud (edeveaud@pastuer.fr)
-#     * some code rewrite
-#     * added python bindings to common calls to module command
-#     * proposed setup.py installation mechanism
+ initial author: Robert Minsk (egbert@centropolisfx.com)
+ Feb   1, 2001          Robert Minsk (egbert@centropolisfx.com)
+      * init file for python added
+ Oct  1, 2010          R.K. Owen (rk@owen.sj.ca.us)
+     * sed dependency removed
+     * name changing  
+ Sep 15,1014         Eric Deveaud (edeveaud@pasteur.fr)
+     * some code rewrite
+     * added python bindings to common calls to module command
+"""
 
 import collections
 import os

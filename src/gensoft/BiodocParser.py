@@ -1,5 +1,17 @@
 #! /usr/bin/env python
-# import re
+
+"""
+Created on Feb.2nd , 2015
+
+@author: Eric Deveaud, Institut Pasteur, Paris
+@contact: edeveaud@pasteur.fr
+@project: toolinfowarehouse
+@githuborganization: edamontology
+"""
+
+
+
+
 
 import sys
 from pprint import pprint 

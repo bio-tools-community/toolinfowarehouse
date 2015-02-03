@@ -1,5 +1,18 @@
 #! /usr/bin/env python 
 
+"""
+Created on Feb.2nd , 2015
+
+@author: Eric Deveaud, Institut Pasteur, Paris
+@contact: edeveaud@pasteur.fr
+@project: toolinfowarehouse
+@githuborganization: edamontology
+
+a quick and dirty tool to convert BIODOCS (internal gensoft documentation) to
+json suitable for elixir-registry.cbs.dtu.dk
+"""
+
+
 import argparse
 import json
 import os
