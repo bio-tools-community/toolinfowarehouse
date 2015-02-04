@@ -76,7 +76,7 @@ def get_biodocs_contact(biodoc_descriptor):
              , "contactURL": ''
              , "contactName": ''
              , "contactTel": ''
-             , "contactRole": "Technical"
+             , "contactRole": ["Technical"]
              }
             ]
 
@@ -101,8 +101,8 @@ def get_biodocs_description(biodoc_descriptor):
 
 def get_biodocs_authors(biodoc_descriptor):
     # as authors are not documented with this granularity in 
-    # biodocs, we set up all the authors to contributors.
-    return {"creditsContributor": biodoc_descriptor['AUTHORS']}
+    # biodocs, we set up all the authors to creditsDeveloper.
+    return {"creditsDeveloper": biodoc_descriptor['AUTHORS']}
 
 
 def get_module_docs(package, version):
@@ -205,8 +205,12 @@ def get_biodocs_publications(biodoc_descriptor):
     return publis
 
 
-def get_biodoc_ressource(biodoc_descriptor):
-    return [ { "term": "Suite" } ]
+def get_biodoc_ressource(biodoc_descriptori, n):
+    if n <=1 :
+        term = 'tool'
+    else:
+        term = 'suite'
+    return [ { "term": term } ]
 
 def get_biodocs_versions(biodocs):
     return [elem.replace('(default)', '') for elem in biodocs['VERSION']]
@@ -223,6 +227,19 @@ def to_document(biodocs):
         error(WARN, pack_name, 'no home', 'not documented')
         return False
     return True
+
+
+def get_package_programs(package, version):
+    module = "%s/%s" %(package, version)
+    helpmod = m.modulehelp(module).split('\n')
+    i = 0
+    for item in helpmod:
+        i+=1
+        if item == 'package provides following commands:':
+            break
+    return [item[1:] for item in helpmod[i:] if item]
+
+
 
 def jason_generator(biodocs, outdir):
 
@@ -241,13 +258,12 @@ def jason_generator(biodocs, outdir):
     #---- mandatory info 
     res['name'] = pack_name
     res['homepage'] = get_biodocs_homepage(biodocs)
-    res['resourceType'] = get_biodoc_ressource(biodocs)
     res['interface'] = get_biodocs_interface(biodocs)
     res['description'] = get_biodocs_description(biodocs)
     res['topic'] = get_biodocs_topics(biodocs, onto)
     res['function'] = get_biodocs_functions(biodocs, onto)
     res['contact'] = get_biodocs_contact(biodocs)
-    
+
     #---- accessory info
     publication = get_biodocs_publications(biodocs)
     if publication:
@@ -258,24 +274,35 @@ def jason_generator(biodocs, outdir):
 
     versions = get_biodocs_versions(biodocs)
     for version in versions:
+
+        #---- get programs provided by the package
+        provided_progs = get_package_programs(pack_name, version)
+        n = len(provided_progs)
+        res['resourceType'] = get_biodoc_ressource(biodocs, n)
         res['version'] = version
         # bidocs docs description is broken, no versionnig.
         # so superseed it with the one grabbed from module
         res['docs'] = get_module_docs(pack_name, version)
         
+        # dump json package description
         outfile = "%s_%s.json" %(pack_name, version)
         outfile = os.path.join(outdir, outfile)
         print "dump to %s" %(outfile) 
-        try:
-            outfh= open(outfile, 'w')
-        except IOError as msg:
-            error(FATAL, outfile, msg)
-        
-        json.dump(res, outfh, indent=INDENT)
-        outfh.close()
-        
-
-
+        with open(outfile, 'w') as outfh:
+            json.dump(res, outfh, indent=INDENT)
+        #---- now deal with programs only if package provide more than one tool
+        if n <= 1:
+            continue
+        res['collection'] = [pack_name]
+        for program in provided_progs:
+            res['name'] = program
+            # program pertains to collection pack_name
+            res['resourceType'] = get_biodoc_ressource(biodocs, 1)
+            progfile = "%s_%s_%s.json" %(pack_name, version, program) 
+            progfile = os.path.join(outdir, progfile)
+            print "dump prog to %s" %(progfile) 
+            with open(progfile, 'w') as outfh:
+                json.dump(res, outfh, indent=INDENT)
 
 if __name__ == '__main__':
 
