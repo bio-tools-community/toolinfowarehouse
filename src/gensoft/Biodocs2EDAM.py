@@ -17,6 +17,7 @@ json suitable for elixir-registry.cbs.dtu.dk
 import argparse
 import json
 import os
+import string
 import sys
 
 from BiodocParser import *
@@ -96,8 +97,25 @@ def get_biodocs_homepage(biodoc_descriptor):
 
 
 def get_biodocs_description(biodoc_descriptor):
-    return ' '.join(biodoc_descriptor['DESCRIPTION'])
+    description = ' '.join(biodoc_descriptor['DESCRIPTION'])
+    description = string.capitalize(description)
+    if not description.endswith('.'):
+        description += '.'
+    return description
 
+
+def get_program_description(prog_name, biodocs_prog):
+    for prg in biodocs_prog:
+        if prg['NAME'] == prog_name:
+            if not prg['DESCRIPTION']:
+                return None
+            description = ' '.join(prg['DESCRIPTION'])
+            description = string.capitalize(description)
+            if not description.endswith('.'):
+                description += '.'
+            return description
+    return None
+            
 
 def get_biodocs_authors(biodoc_descriptor):
     # as authors are not documented with this granularity in 
@@ -241,7 +259,7 @@ def get_package_programs(package, version):
 
 
 
-def jason_generator(biodocs, outdir):
+def jason_generator(biodocs, biodocs_prog, outdir):
 
     pack_name = get_biodocs_name(biodocs)
 
@@ -280,7 +298,7 @@ def jason_generator(biodocs, outdir):
         n = len(provided_progs)
         res['resourceType'] = get_biodoc_ressource(biodocs, n)
         res['version'] = version
-        # bidocs docs description is broken, no versionnig.
+        # bidocs docs description is not versionned.
         # so superseed it with the one grabbed from module
         res['docs'] = get_module_docs(pack_name, version)
         
@@ -298,6 +316,10 @@ def jason_generator(biodocs, outdir):
             res['name'] = program
             # program pertains to collection pack_name
             res['resourceType'] = get_biodoc_ressource(biodocs, 1)
+            # check if program has his own description in biodocs.
+            program_descrition = get_program_description(program, biodocs_prog)
+            if program_descrition is not None:
+                res['description'] = program_descrition
             progfile = "%s_%s_%s.json" %(pack_name, version, program) 
             progfile = os.path.join(outdir, progfile)
             print "dump prog to %s" %(progfile) 
@@ -331,5 +353,5 @@ if __name__ == '__main__':
         onto = ontology_parser(fh)
     for biodoc_file in cmdline.args:
         with open(biodoc_file, 'r') as fh:
-            biodocs = Parser(fh)[0]
-            jason_generator(biodocs, outdir)
+            biodocs, biodocs_prog = Parser(fh)
+            jason_generator(biodocs, biodocs_prog, outdir)
