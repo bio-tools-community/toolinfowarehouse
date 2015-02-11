@@ -204,6 +204,11 @@ def get_program_description(prog_name, biodocs_prog):
     return None
 
 def get_mobyle_interface(prog_name, biodocs_prog):
+    if prog_name is None:
+        if len(biodocs_prog) == 1 and 'WEB' in biodocs_prog[0]:
+            return True
+        else:
+            return False
     for prg in biodocs_prog:
         if prg['NAME'] == prog_name:
             if 'WEB' in prg:
@@ -312,6 +317,9 @@ def jason_generator(biodocs, biodocs_prog, outdir):
         #---- get programs provided by the package
         provided_progs = get_package_programs(pack_name, version)
         n = len(provided_progs)
+        # check for public access if package has only 1 program 
+        if n == 1 and get_mobyle_interface(None, biodocs_prog):
+            res['accessibility'] = 'public'
         res['resourceType'] = get_biodoc_ressource(biodocs, n)
         res['version'] = version
         res['lastInstalledVersion'] = last_installed
