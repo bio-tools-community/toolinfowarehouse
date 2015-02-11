@@ -71,7 +71,8 @@ def gensoft_categories2EDAM(term,ontology):
     if key not in ontology: 
         return None
     return  ontology[key]
- 
+
+
 def get_biodocs_contact(biodoc_descriptor):
     return [ { "contactEmail": GENSOFT_MAINTAINER
              , "contactURL": ''
@@ -81,12 +82,14 @@ def get_biodocs_contact(biodoc_descriptor):
              }
             ]
 
+
 def get_biodocs_interface(biodoc_descriptor):
  return [
          { "interfaceType": { "term": "Command line",
            "uri": "http://www.cbs.dtu.dk/ontology/interface_type/5" }
          }
         ]
+
 
 def get_biodocs_name(biodoc_descriptor):
     return biodoc_descriptor['NAME']
@@ -104,6 +107,90 @@ def get_biodocs_description(biodoc_descriptor):
     return description
 
 
+def get_biodocs_authors(biodoc_descriptor):
+    # as authors are not documented with this granularity in 
+    # biodocs, we set up all the authors to creditsDeveloper.
+    return {"creditsDeveloper": biodoc_descriptor['AUTHORS']}
+
+
+def get_biodocs_topics(biodoc_descriptor, ontology_desc):
+    topics = []
+    for cat in biodoc_descriptor['CATEGORIES']:
+        edam=gensoft_categories2EDAM(cat, ontology_desc)
+        if edam is None:
+            error(WARN, cat, 'unknonw category')
+            continue
+        if edam['kind'] != 'EDAM_topic':
+            continue
+        res={ 'term': edam['id']
+            , 'uri' : edam['uri']
+            }
+        topics.append(res)
+    if not topics:
+        default = ontology_desc[DEFAULT_TOPIC]
+        res={ 'term': default['id']
+            , 'uri' : default['uri']
+            }
+        topics.append(res)
+    return topics
+
+
+def get_biodocs_functions(biodoc_descriptor, ontology_desc):
+    functions = []
+    for cat in biodoc_descriptor['CATEGORIES']:
+        edam=gensoft_categories2EDAM(cat, ontology_desc)
+        if edam is None:
+            error(WARN, cat, 'unknonw category')
+            continue
+        if edam['kind'] != 'EDAM_operation':
+            continue
+        res={ 'functionName': [ {'term': edam['id']
+                                , 'uri' : edam['uri']
+                                }
+                              ]
+            }
+        functions.append(res)
+    if not functions:
+        default = ontology_desc[DEFAULT_OPERATION]
+        res={ 'term': default['id']
+            , 'uri' : default['uri']
+            }
+        functions.append(res)
+    return functions
+
+
+def get_biodocs_publications(biodoc_descriptor):
+    publications=[publi for publi in biodoc_descriptor['REF'] if publi ]
+    refs = []
+    for publi in publications:
+        _, pub_id = get_doi(publi)
+        if pub_id is None: continue
+        fields = pub_id.split(':')
+        qualifier = fields[0]
+        if qualifier.lower() != 'doi':
+            continue
+        pub_id = ":".join(fields[1:])
+        refs.append(pub_id.strip())
+    publis = {}
+    if refs:
+        publis = {'publicationsPrimaryID': refs[0] if refs else []
+                 ,'publicationsOtherID': refs[1:]
+                 }
+    return publis
+
+
+def get_biodoc_ressource(biodoc_descriptori, n):
+    if n <=1 :
+        term = 'tool'
+    else:
+        term = 'suite'
+    return [ { "term": term } ]
+
+
+def get_biodocs_versions(biodocs):
+    return [elem.replace('(default)', '') for elem in biodocs['VERSION']]
+
+
 def get_program_description(prog_name, biodocs_prog):
     for prg in biodocs_prog:
         if prg['NAME'] == prog_name:
@@ -115,13 +202,13 @@ def get_program_description(prog_name, biodocs_prog):
                 description += '.'
             return description
     return None
-            
 
-def get_biodocs_authors(biodoc_descriptor):
-    # as authors are not documented with this granularity in 
-    # biodocs, we set up all the authors to creditsDeveloper.
-    return {"creditsDeveloper": biodoc_descriptor['AUTHORS']}
-
+def get_mobyle_interface(prog_name, biodocs_prog):
+    for prg in biodocs_prog:
+        if prg['NAME'] == prog_name:
+            if 'WEB' in prg:
+                return True
+    return False
 
 def get_module_docs(package, version):
     # return biodoc_descriptor['HTMLDOCS'] + biodoc_descriptor['MANPAGES']
@@ -156,82 +243,7 @@ def get_module_docs(package, version):
         error(FATAL, "module Error", err)
 
     return get_docs(infos)[0]    
-    
 
-
-def get_biodocs_topics(biodoc_descriptor, ontology_desc):
-    topics = []
-    for cat in biodoc_descriptor['CATEGORIES']:
-        edam=gensoft_categories2EDAM(cat, ontology_desc)
-        if edam is None:
-            error(WARN, cat, 'unknonw category')
-            continue
-        if edam['kind'] != 'EDAM_topic':
-            continue
-        res={ 'term': edam['id']
-            , 'uri' : edam['uri']
-            }
-        topics.append(res)
-    if not topics:
-        default = ontology_desc[DEFAULT_TOPIC]
-        res={ 'term': default['id']
-            , 'uri' : default['uri']
-            }
-        topics.append(res)
-    return topics
-
-def get_biodocs_functions(biodoc_descriptor, ontology_desc):
-    functions = []
-    for cat in biodoc_descriptor['CATEGORIES']:
-        edam=gensoft_categories2EDAM(cat, ontology_desc)
-        if edam is None:
-            error(WARN, cat, 'unknonw category')
-            continue
-        if edam['kind'] != 'EDAM_operation':
-            continue
-        res={ 'functionName': [ {'term': edam['id']
-                                , 'uri' : edam['uri']
-                                }
-                              ]
-            }
-        functions.append(res)
-    if not functions:
-        default = ontology_desc[DEFAULT_OPERATION]
-        res={ 'term': default['id']
-            , 'uri' : default['uri']
-            }
-        functions.append(res)
-    return functions
-    
-def get_biodocs_publications(biodoc_descriptor):
-    publications=[publi for publi in biodoc_descriptor['REF'] if publi ]
-    refs = []
-    for publi in publications:
-        _, pub_id = get_doi(publi)
-        if pub_id is None: continue
-        fields = pub_id.split(':')
-        qualifier = fields[0]
-        if qualifier.lower() != 'doi':
-            continue
-        pub_id = ":".join(fields[1:])
-        refs.append(pub_id.strip())
-    publis = {}
-    if refs:
-        publis = {'publicationsPrimaryID': refs[0] if refs else []
-                 ,'publicationsOtherID': refs[1:]
-                 }
-    return publis
-
-
-def get_biodoc_ressource(biodoc_descriptori, n):
-    if n <=1 :
-        term = 'tool'
-    else:
-        term = 'suite'
-    return [ { "term": term } ]
-
-def get_biodocs_versions(biodocs):
-    return [elem.replace('(default)', '') for elem in biodocs['VERSION']]
 
 def to_document(biodocs):
     pack_name = biodocs['NAME']
@@ -270,6 +282,9 @@ def jason_generator(biodocs, biodocs_prog, outdir):
     res = {}
     #---- tag with gensoft origin
     res['affiliation'] = "Gensoft @Institut Pasteur"
+    #---- by default gensoft tools are private
+    #---- only the one with mobyle interface are public
+    res['accessibility'] = 'private'
 
     #---- common information to all packages version available in 
     #---- gensoft BIODOCS
@@ -291,6 +306,7 @@ def jason_generator(biodocs, biodocs_prog, outdir):
         res['credits'] = credits
 
     versions = get_biodocs_versions(biodocs)
+    last_installed = versions[-1]
     for version in versions:
 
         #---- get programs provided by the package
@@ -298,7 +314,8 @@ def jason_generator(biodocs, biodocs_prog, outdir):
         n = len(provided_progs)
         res['resourceType'] = get_biodoc_ressource(biodocs, n)
         res['version'] = version
-        # bidocs docs description is not versionned.
+        res['lastInstalledVersion'] = last_installed
+        # biodocs docs description is not versionned.
         # so superseed it with the one grabbed from module
         res['docs'] = get_module_docs(pack_name, version)
         
@@ -320,6 +337,9 @@ def jason_generator(biodocs, biodocs_prog, outdir):
             program_descrition = get_program_description(program, biodocs_prog)
             if program_descrition is not None:
                 res['description'] = program_descrition
+            # check for public access
+            if get_mobyle_interface(program, biodocs_prog):
+                res['accessibility'] = 'public' 
             progfile = "%s_%s_%s.json" %(pack_name, version, program) 
             progfile = os.path.join(outdir, progfile)
             print "dump prog to %s" %(progfile) 
