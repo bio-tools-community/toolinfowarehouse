@@ -49,7 +49,8 @@ def get_tool_name(tool_id):
 
 def format_description(description):
     """
-    Test the first and last char of a description and replace them with the format adapted to Elixir
+    Test the first and last char of a description and replace them
+    with the format adapted to Elixir
     """
     try:
         size = len(description)
@@ -59,6 +60,7 @@ def format_description(description):
             return description[0].upper() + description[1:size] + '.'
     except IndexError:
         print description
+
 
 def build_metadata_one(tool_meta_data, url):
     """
@@ -166,7 +168,6 @@ def find_edam_term(edam_name, edam_dict, cond):
         #print value[0], edam_name
         if (re.match(value[0], edam_name, re.IGNORECASE)) is not None and (re.match(r""+cond, k)) is None:
             return(k, value[1])
-
         else:
             edam = edam_name, "no uri"
     return edam
@@ -174,7 +175,7 @@ def find_edam_term(edam_name, edam_dict, cond):
 
 def build_input_for_json(list_inputs, edam_dict):
     liste = []
-    inputs = {}
+    #inputs = {}
     try:
         try:
 
@@ -270,20 +271,20 @@ def build_fonction_dict(tool_meta_data, edam_dict):
         for input_case_name, item in inputs.items():
             func_dict = {}
             func_dict[u'description'] = format_description(tool_meta_data[u'description'])
-            func_dict[u'functionName'] = []
+            func_dict[u'functionName'] = [{"uri":"http://edamontology.org/operation_0004"}]
             func_dict[u'output'] = outputs
             func_dict[u'input'] = item
-            func_dict[u'functionHandle'] = 'MainFunction'
-            func_dict[u'annot'] = input_case_name
-            func_list.append([func_dict, input_case_name])
+            func_dict[u'functionHandle'] = input_case_name
+            #func_dict[u'annot'] = input_case_name
+            func_list.append(func_dict)
     else:
         func_dict[u'description'] = format_description(tool_meta_data[u'description'])
         func_dict[u'functionName'] = []
         func_dict[u'output'] = outputs
         func_dict[u'input'] = inputs[u"input_fix"]
         func_dict[u'functionHandle'] = 'MainFunction'
-        func_list.append([func_dict, ""])
-
+        func_list.append(func_dict)
+    #pprint.pprint(func_list)
     return func_list
 
 
@@ -329,8 +330,6 @@ if __name__ == "__main__":
                 else:
                     edam_dict[split_line[0]] = [split_line[1], split_line[2].rstrip('\n')]
     f.closed
-    #pprint.pprint(edam_dict)
-# if (re.match(value[0], edam_name, re.IGNORECASE)) is not None and (re.match(r""+cond, k)) is None:
 
     for i in tools:
         try:
@@ -348,28 +347,14 @@ if __name__ == "__main__":
     for tool in tools_meta_data:
         tool_name = build_tool_name(tool[u'id'])
         try:
-            print tool[u'id']
+
             function = build_fonction_dict(tool, edam_dict)
             #print "TYPE FUNCTION:", type(function)
-            if len(function) > 1:
-                #print "THERE WILL BE  " + str(len(function)) + "json"
-                for func, annot in function:
-                   # pprint.pprint(func)
-                    #inputs = func[u"input"]
-                    name = re.sub("[\.\,\:;\(\)\./]", "_", func[u'annot'], 0, 0)
-                    with open(os.path.join(os.getcwd(), args.tool_dir, tool_name + "_" + name + json_ext), 'w') as tool_file:
-                        general_dict = build_metadata_one(tool, args.galaxy_url)
-                        general_dict["function"] = func
-                        general_dict["name"] = get_tool_name(tool[u'id']) + '_' + annot
-                        json.dump(general_dict, tool_file, indent=4)
-
-            else:
-                with open(os.path.join(os.getcwd(), args.tool_dir, tool_name + json_ext), 'w') as tool_file:
-                    general_dict = build_metadata_one(tool, args.galaxy_url)
-                    general_dict["function"] = function[0]
-                    general_dict["name"] = get_tool_name(tool[u'id'])
-                    json.dump(general_dict, tool_file, indent=4)
-                    tool_file.close()
+            with open(os.path.join(os.getcwd(), args.tool_dir, tool_name + json_ext), 'w') as tool_file:
+                general_dict = build_metadata_one(tool, args.galaxy_url)
+                general_dict[u"function"] = function
+                general_dict[u"name"] = get_tool_name(tool[u'id'])
+                json.dump(general_dict, tool_file, indent=4)
 
         except SystemExit:
             pass
