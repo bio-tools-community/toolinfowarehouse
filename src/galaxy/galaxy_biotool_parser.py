@@ -309,6 +309,10 @@ if __name__ == "__main__":
 
     parser.add_argument('--login', help="registry login")
 
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(1)
+
     args = parser.parse_args()
     gi = GalaxyInstance(args.galaxy_url, key=args.api_key)
 
