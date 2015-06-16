@@ -1,7 +1,8 @@
 """
 Created on Oct. 23, 2014
 
-@author: Olivia Doppelt-Azeroual, Institut Pasteur, Paris
+@author: Olivia Doppelt-Azeroual, CIB-C3BI, Institut Pasteur, Paris
+@author: Fabien Mareuil, CIB-C3BI, Institut Pasteur, Paris
 @contact: olivia.doppelt@pasteur.fr
 @project: toolinfowarehouse
 @githuborganization: edamontology
@@ -14,6 +15,7 @@ import pprint
 import string
 import argparse
 import json
+import yaml
 
 from bioblend.galaxy.client import ConnectionError
 from bioblend.galaxy import GalaxyInstance
@@ -353,12 +355,16 @@ if __name__ == "__main__":
         try:
 
             function = build_fonction_dict(tool, edam_dict)
-            #print "TYPE FUNCTION:", type(function)
             with open(os.path.join(os.getcwd(), args.tool_dir, tool_name + json_ext), 'w') as tool_file:
                 general_dict = build_metadata_one(tool, args.galaxy_url)
                 general_dict[u"function"] = function
                 general_dict[u"name"] = get_tool_name(tool[u'id'])
                 json.dump(general_dict, tool_file, indent=4)
 
-        except SystemExit:
-            pass
+        except IOError:
+            os.mkdir(os.path.join(os.getcwd(),args.tool_dir))
+            with open(os.path.join(os.getcwd(), args.tool_dir, tool_name + json_ext), 'w') as tool_file:
+                general_dict = build_metadata_one(tool, args.galaxy_url)
+                general_dict[u"function"] = function
+                general_dict[u"name"] = get_tool_name(tool[u'id'])
+                json.dump(general_dict, tool_file, indent=4)
