@@ -108,7 +108,7 @@ def build_metadata_one(tool_meta_data, url):
         }
     # these fields need to be filled with MODULE ressource at Pasteur
     gen_dict[u'language'] = []
-    gen_dict[u'topic'] = [{u'term': "EDAM_topic:0003", u'uri':"http://edamontology.org/topic_0003"}]
+    gen_dict[u'topic'] = [{u'term': "", u'uri':"http://edamontology.org/topic_0003"}]
     gen_dict[u'tag'] = []
     gen_dict[u'license'] = []
     gen_dict[u'cost'] = []
@@ -159,7 +159,7 @@ def build_case_inputs(case_dict, input):
     case_dict.update({i: j for i, j in dict_cases.items() if len(j) != 0})
 
 
-def find_edam_term(edam_name, edam_dict, cond):
+def oldfind_edam_term(edam_name, edam_dict, cond):
     """
     edam_name: term to find in the edam_dict
     edam_dict: edam
@@ -174,51 +174,85 @@ def find_edam_term(edam_name, edam_dict, cond):
             edam = edam_name, "no uri"
     return edam
 
+def edam_to_uri(edam):
+    uri = re.split("_|:",edam)
+    uri = "http://edamontology.org/{}_{:0>4d}".format(uri[1], int(uri[2]))
+    return uri
 
+def find_edam_format(format_name, edam_dict):
+    if format_name in edam_dict:
+        uri = edam_to_uri(edam_dict[format_name][0])
+        return uri
+    else:
+        uri = "no uri"
+        return uri
+    
+def find_edam_data(format_name, edam_dict):
+    if format_name in edam_dict:
+        list_uri = []
+        temp_list = edam_dict[format_name][1:]
+        if "EDAM_data:0006" in temp_list and len(temp_list) > 1:
+            temp_list.remove("EDAM_data:0006")
+        for edam_data in temp_list:
+            if len(temp_list) == 1:
+                uri = edam_to_uri(edam_data)
+                list_uri.append(uri)
+        return ", ".join(list_uri)
+    else:
+        uri = "no uri"
+        return uri
+    
 def build_input_for_json(list_inputs, edam_dict):
     liste = []
     #inputs = {}
-    try:
-        try:
+    #try:
+    #    try:
 
-            for input in list_inputs:
+    for input in list_inputs:
                 inputDict = {}
-                uri, term = find_edam_term(input[u'type'], edam_dict, "EDAM_format")
-                inputDict[u'dataType'] = {u'uri': uri, u'term': term}
 
                 try:
-                    formatList = string.split(input[u'format'], ',')
-                except AttributeError:
+                    formatList = input[u'extensions']
+                except KeyError, e:
+                    print e, "error 1"
                     formatList = ["AnyFormat"]
-
+                    
+                inputDict[u'dataType'] = []
                 list_format = []
                 for format in formatList:
-                    term, uri = find_edam_term(format, edam_dict, "EDAM_data")
-                    dict_format = {u'uri': uri, u'term': term}
+                    uri = find_edam_format(format, edam_dict)
+                    dict_format = {u'uri': uri, u'term': ''}
+                    uri = find_edam_data(format, edam_dict)
+                    inputDict[u'dataType'] = {u'uri': uri, u'term': ''}
                     list_format.append(dict_format)
 
                 inputDict[u'dataFormat'] = list_format
-                inputDict[u'dataHandle'] = input[u'label']
+                inputDict[u'dataHandle'] = ", ".join(input[u'extensions'])
                 liste.append(inputDict)
                 #pprint.pprint(inputDict)
 
-        except KeyError:
-                uri, term = find_edam_term(input[u'type'], edam_dict, "EDAM_format")
-                inputDict[u'dataType'] = {u'uri': uri, u'term': term}
+    """
+        except KeyError, e:
+                print e, "error 2"
                 formatList = input[u'extensions']
                 for format in formatList:
-                    term, uri = find_edam_term(format, edam_dict, "EDAM_data")
-                    inputDict[u'dataFormat'].append({u'uri': uri, u'term': term})
-                inputDict[u'dataHandle'] = input[u'label']
+                    uri = find_edam_data(format, edam_dict)
+                    inputDict[u'dataType'].append({u'uri':uri, u'term': ''})
+                    uri = find_edam_format(format, edam_dict)
+                    inputDict[u'dataFormat'].append({u'uri': uri, u'term': ''})
+
+                inputDict[u'dataHandle'] = ", ".join(input[u'extensions'])
                 liste.append(inputDict)
 
-    except KeyError:
-        term, uri = find_edam_term(input[u'type'], edam_dict, "EDAM_format")
-        inputDict[u'dataType'] = {u'uri': uri, u'term': term}
-        inputDict[u'dataFormat'] = []
-        inputDict[u'dataHandle'] = input[u'label']
+    except KeyError, e:
+        print e, "error 3"
+        uri = find_edam_data(input[u'type'], edam_dict)
+        inputDict[u'dataType'] = {u'uri': uri, u'term': ''}
+        uri = find_edam_format(input[u'type'], edam_dict)
+        inputDict[u'dataFormat'] = [{u'uri': uri, u'term': ''}]
+        inputDict[u'dataHandle'] = ", ".join(input[u'extensions'])
         liste.append(inputDict)
-
+    """
     return liste
 
 
@@ -261,12 +295,13 @@ def build_fonction_dict(tool_meta_data, edam_dict):
 
     for output in tool_meta_data[u'outputs']:
         outputDict = {}
-        term, uri = find_edam_term("data", edam_dict, "EDAM_format")
-        outputDict[u'dataType'] = {u'uri': uri, u'term': term}
-        term, uri = find_edam_term(output[u'format'], edam_dict, "EDAM_data")
-        outputDict[u'dataFormat'] = {u'uri': uri, u'term': term}
-        #print output[u'format']
-        outputDict[u'dataHandle'] = output[u'name']
+        print output[u'format']
+        uri = find_edam_data(output[u'format'], edam_dict)
+        print uri
+        outputDict[u'dataType'] = {u'uri': uri, u'term': ''}
+        uri = find_edam_format(output[u'format'], edam_dict)
+        outputDict[u'dataFormat'] = {u'uri': uri, u'term': ''}
+        outputDict[u'dataHandle'] = output[u'format']
         outputs.append(outputDict)
 
     if inputs.get("input_fix") is None:
@@ -289,6 +324,20 @@ def build_fonction_dict(tool_meta_data, edam_dict):
     #pprint.pprint(func_list)
     return func_list
 
+def extract_edam_from_galaxy(mapping_edam = {}):
+    return mapping_edam
+
+def build_edam_dict(edam_file):
+    import yaml
+    edam_dict = extract_edam_from_galaxy()
+    with open(edam_file, "r") as file_edam:
+        temp_edam_dict = yaml.load(file_edam)
+    for key, value in temp_edam_dict.iteritems():
+        if key in edam_dict:
+            edam_dict[key] = edam_dict[key] + temp_edam_dict[key][1:]
+        else:
+            edam_dict[key] = temp_edam_dict[key]
+    return edam_dict
 
 if __name__ == "__main__":
 
@@ -324,20 +373,9 @@ if __name__ == "__main__":
     new_dict = {}
     json_ext = '.json'
 
-    # Building of the EDAM_DICT DATA
-    # Ne mettre que les data et les formats dans le dict pour optimiser
-    edam_dict = {}
-    with open(args.edam_file, 'r') as f:
-        for line in f:
-            split_line = string.split(line, '#@#')
-            if (re.match(r"EDAM_topic", split_line[0])) is None and (re.match(r"EDAM_operation", split_line[0])) is None:
-                if split_line[1].rstrip('\n') == "TSV":
-                    edam_dict[split_line[0]] = ["tabular", split_line[2].rstrip('\n')]
-                else:
-                    edam_dict[split_line[0]] = [split_line[1], split_line[2].rstrip('\n')]
-    f.closed
+    edam_dict = build_edam_dict(args.edam_file)
 
-    for i in tools:
+    for i in tools[0:20]:
         try:
             # improve this part, important to be able to get all tool from any toolshed
             if not i['id'].find("galaxy.web.pasteur.fr") or not i['id'].find("testtoolshed.g2.bx.psu.edu") or not i['id'].find("toolshed.g2.bx.psu.edu"):
